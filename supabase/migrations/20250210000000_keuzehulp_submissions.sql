@@ -70,4 +70,4 @@ CREATE POLICY "Allow update for service role (ERP)"
   USING (true)
   WITH CHECK (true);
 
-COMMENT ON TABLE public.keuzehulp_submissions IS 'Keuzehulp/wizard resultaten van alle dienstenpagina''s voor ERP.';
+COMMENT ON TABLE public.keuzehulp_submissions IS 'Keuzehulp/wizard resultaten van alle dienstenpagina''s voor ERP. Filter op service_slug voor per-type (keuken-wrapping, aanrechtbladen, …). Contact in contact_*; alle wizardvelden in wizard_data.';

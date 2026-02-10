@@ -21,7 +21,9 @@ Elke **dienstenpagina** krijgt een keuzehulp/wizard (zoals bij Keuken Wrapping).
 - **status** – Voor ERP-workflow: `new`, `contacted`, `offer_sent`, `accepted`, `rejected`, `archived`.
 - **notes** – Interne notities (ERP).
 
-Frontend: na afronden van de wizard `INSERT` in `keuzehulp_submissions` (anon mag inserten). ERP leest/update via service role.
+Frontend: na afronden van de wizard `INSERT` in `keuzehulp_submissions` (anon mag inserten). Alle velden: contact_* voor contactgegevens; **wizard_data** voor alle antwoorden van die wizard (elke dienst slaat daar zijn eigen velden in op). ERP leest/update via service role.
+
+**Filteren per type keuzehulp (ERP):** `WHERE service_slug = 'keuken-wrapping'` (of `aanrechtbladen`, `kasten`, …). Indexen op `(service_slug, status)` en `(service_slug, created_at)` voor snelle filters.
 
 ## Lokaal draaien
 
