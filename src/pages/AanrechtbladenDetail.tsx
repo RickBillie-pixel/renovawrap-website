@@ -5,26 +5,37 @@ export default function AanrechtbladenDetail() {
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
-      <header className="relative pt-40 pb-32 overflow-hidden min-h-screen flex items-center">
-        <div className="absolute right-0 top-1/4 transform translate-x-1/3 opacity-[0.03] pointer-events-none select-none z-0">
-          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter">
-            BLAD
+      <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
+        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
+            AANRECHTBLAD
           </h1>
         </div>
         <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-            <div className="lg:col-span-6 space-y-10">
+            <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
                 <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Renovatie & Bescherming</span>
                 <p className="font-display text-lg italic text-gray-500">Luxe uitstraling, krachtige prestaties</p>
               </div>
-              <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.1] text-dark">
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Aanrecht <br />
                 <span className="italic font-normal text-primary">Bladen</span>
               </h1>
-              <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md border-t border-gray-200 pt-8 mt-8">
+              <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
                 Is uw keukenblad beschadigd, vergeeld of gewoon niet meer uw smaak? Vervangen is ingrijpend en kostbaar. Wij wrappen uw bestaande blad met een extreem sterke interieurfolie die bestand is tegen dagelijks gebruik.
               </p>
+              {/* Trust Badges */}
+              <div className="flex items-center gap-6 text-xs text-gray-400">
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  <span className="ml-1">Google Reviews</span>
+                </div>
+                <span className="text-gray-300">|</span>
+                <span className="font-bold text-dark">500+</span>
+                <span>Projecten</span>
+              </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
                   Offerte Aanvragen
@@ -35,13 +46,21 @@ export default function AanrechtbladenDetail() {
                 </a>
               </div>
             </div>
-            <div className="lg:col-span-6 relative">
-              <div className="relative z-10">
-                <img
-                  alt="Countertop wrapped in marble look"
-                  className="w-full aspect-[4/5] object-cover shadow-2xl"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5XJn_yCQ2MdQswfLz5RXt8SKMKQbkydPzTMnpanPXPYiDhZEdVvHdTRu1v8521wGgC8-v7qK3fu08-VpD0KVZZszHUgUvShsK6crsz--K9KqL3G_NF1UWNYr6-zUmFTpNWZHTq1X9eOZQFgkILwG8V64P3wozkDAZ8NeyN3wHxEaMeDolingjig0OeIJyqqRCQRjYzCmlaa5duPA-F8YdZN_W-whcrk3cfOMDOlnEPKo4zUHk9JQJpxJyZk4TWO3LmpWU3K5kzns"
-                />
+            <div className="lg:col-span-6 flex justify-center">
+              <div className="relative w-full max-w-xl">
+                <div className="relative z-10">
+                  <img
+                    alt="Countertop wrapped in marble look"
+                    className="w-full aspect-square object-cover shadow-2xl"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5XJn_yCQ2MdQswfLz5RXt8SKMKQbkydPzTMnpanPXPYiDhZEdVvHdTRu1v8521wGgC8-v7qK3fu08-VpD0KVZZszHUgUvShsK6crsz--K9KqL3G_NF1UWNYr6-zUmFTpNWZHTq1X9eOZQFgkILwG8V64P3wozkDAZ8NeyN3wHxEaMeDolingjig0OeIJyqqRCQRjYzCmlaa5duPA-F8YdZN_W-whcrk3cfOMDOlnEPKo4zUHk9JQJpxJyZk4TWO3LmpWU3K5kzns"
+                  />
+                </div>
+                <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
+                  <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
+                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -111,7 +130,7 @@ export default function AanrechtbladenDetail() {
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
                 Van klassiek marmer tot strak beton en warm hout. Wij hebben de perfecte match voor uw interieur.
               </p>
-              <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="#">
+              <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/catalogus">
                 Bekijk Alle Opties
                 <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
               </a>

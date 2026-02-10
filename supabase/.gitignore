@@ -1,0 +1,6 @@
+# Lokaal gegenereerd door Supabase CLI; niet committen
+.temp/
+
+# Optioneel: lokale env met secrets
+.env
+.env.local

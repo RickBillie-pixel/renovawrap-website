@@ -17,7 +17,10 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <header
@@ -42,7 +45,7 @@ export default function Header() {
         <nav className="hidden md:flex items-center space-x-12">
           {/* Services Dropdown */}
           <div 
-            className="relative group"
+            className="relative group "
             onMouseEnter={() => setIsServicesOpen(true)}
             onMouseLeave={() => setIsServicesOpen(false)}
           >
@@ -63,45 +66,42 @@ export default function Header() {
               />
             </Link>
             
-            {/* Dropdown Menu */}
+            {/* Dropdown Menu - Mega Menu Style */}
             <div className={cn(
-              "absolute top-full left-1/2 -translate-x-1/2 w-64 pt-2 transition-all duration-200",
+              "absolute top-full left-1/2 -translate-x-1/2 w-[600px] pt-4 transition-all duration-200",
               isServicesOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"
             )}>
-              <div className="bg-white border border-gray-100 shadow-lg rounded-sm py-2 max-h-[80vh] overflow-y-auto">
+              <div className="bg-white border border-gray-100 shadow-2xl rounded-xl p-6 grid grid-cols-2 gap-x-4 gap-y-2 relative overflow-hidden">
+                
+                {/* Decorative background element */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+
                 {services.map((service) => (
                   <Link
                     key={service.id}
                     to={service.link}
-                    className="block px-6 py-3 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors"
+                    className="flex flex-col p-3 rounded-lg hover:bg-gray-50 transition-all group/item border border-transparent hover:border-gray-100"
                   >
-                    {service.title}
+                    <span className="font-display text-sm font-bold text-dark group-hover/item:text-primary transition-colors mb-0.5">
+                      {service.title}
+                    </span>
+                    <span className="text-[11px] text-gray-500 leading-tight line-clamp-2">
+                      {service.description.substring(0, 60)}...
+                    </span>
                   </Link>
                 ))}
-                <div className="border-t border-gray-100 mt-2 pt-2">
-                    <Link to="/diensten" className="block px-6 py-3 text-sm font-medium text-dark hover:text-primary hover:bg-gray-50 transition-colors">
-                    Alle Diensten
+                
+                <div className="col-span-2 border-t border-gray-100 mt-2 pt-4 flex justify-between items-center px-3">
+                    <Link to="/diensten" className="text-xs font-bold uppercase tracking-wider text-primary hover:text-dark transition-colors flex items-center gap-2">
+                      Alle Diensten Bekijken
+                      <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </Link>
                 </div>
               </div>
             </div>
           </div>
 
-          <Link
-            to="/materialen"
-            className={cn(
-              "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group",
-              isActive("/materialen") ? "text-primary" : "text-dark"
-            )}
-          >
-            Materialen
-            <span
-              className={cn(
-                "absolute -bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full",
-                isActive("/materialen") && "w-full"
-              )}
-            />
-          </Link>
+
 
           <Link
             to="/over-ons"
@@ -183,13 +183,7 @@ export default function Header() {
             >
               Diensten
             </Link>
-            <Link
-              to="/materialen"
-              className="text-2xl font-display text-dark"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Materialen
-            </Link>
+
             <Link
               to="/over-ons"
               className="text-2xl font-display text-dark"

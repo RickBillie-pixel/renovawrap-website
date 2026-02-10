@@ -5,26 +5,37 @@ export default function SchadeherstelDetail() {
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
-      <header className="relative pt-40 pb-32 overflow-hidden min-h-screen flex items-center">
-        <div className="absolute right-0 top-1/4 transform translate-x-1/3 opacity-[0.03] pointer-events-none select-none z-0">
-          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter">
-            SCHADE
+      <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
+        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
+            SCHADEHERSTEL
           </h1>
         </div>
         <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-            <div className="lg:col-span-6 space-y-10">
+            <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
                 <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Repair & Care</span>
                 <p className="font-display text-lg italic text-gray-500">Onzichtbaar herstel</p>
               </div>
-              <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.1] text-dark">
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Schade <br />
                 <span className="italic font-normal text-primary">Herstel</span>
               </h1>
-              <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md border-t border-gray-200 pt-8 mt-8">
+              <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
                 Heeft u schade aan uw interieurfolie? Een kras, scheur of loslatende hoek? Vaak kunnen wij dit lokaal herstellen zonder dat alles opnieuw hoeft. Snel, duurzaam en kostenbesparend.
               </p>
+              {/* Trust Badges */}
+              <div className="flex items-center gap-6 text-xs text-gray-400">
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  <span className="ml-1">Google Reviews</span>
+                </div>
+                <span className="text-gray-300">|</span>
+                <span className="font-bold text-dark">500+</span>
+                <span>Projecten</span>
+              </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
                   Foto Sturen & Offerte
@@ -35,13 +46,21 @@ export default function SchadeherstelDetail() {
                 </a>
               </div>
             </div>
-            <div className="lg:col-span-6 relative">
-              <div className="relative z-10">
-                <img
-                  alt="Repairing wrapped surface"
-                  className="w-full aspect-[4/5] object-cover shadow-2xl"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYn791KOT13rsJDS46AqrZVUi_QO4_7Rfdo2VkGC38Tc_yBJu8D0YarWfW77JRNDRV87flBxpsO39iQ20kDhvL6OUHT3jqpMNbTSEXsXZjFczMvtWJ3nb-qLB21l0cW9TAqmCUE2sKeRsHlV50AGwRcVOQ2Z8UKQy5PQbxxbTTna07PT4QBdkQVnITxv7rT6F9b12RVxiStk3QGb-A690KbJPqkggCBmYABejtuzmP5YvP9hI_KFzpIDKQho_nz5ez4oZA5Y4vy9w"
-                />
+            <div className="lg:col-span-6 flex justify-center">
+              <div className="relative w-full max-w-xl">
+                <div className="relative z-10">
+                  <img
+                    alt="Repairing wrapped surface"
+                    className="w-full aspect-square object-cover shadow-2xl"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYn791KOT13rsJDS46AqrZVUi_QO4_7Rfdo2VkGC38Tc_yBJu8D0YarWfW77JRNDRV87flBxpsO39iQ20kDhvL6OUHT3jqpMNbTSEXsXZjFczMvtWJ3nb-qLB21l0cW9TAqmCUE2sKeRsHlV50AGwRcVOQ2Z8UKQy5PQbxxbTTna07PT4QBdkQVnITxv7rT6F9b12RVxiStk3QGb-A690KbJPqkggCBmYABejtuzmP5YvP9hI_KFzpIDKQho_nz5ez4oZA5Y4vy9w"
+                  />
+                </div>
+                <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
+                  <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
+                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

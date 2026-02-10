@@ -16,7 +16,7 @@ import KastenDetail from "./pages/KastenDetail";
 import DeurenDetail from "./pages/DeurenDetail";
 import KozijnenDetail from "./pages/KozijnenDetail";
 import SchadeherstelDetail from "./pages/SchadeherstelDetail";
-import Materialen from "./pages/Materialen";
+import Catalogus from "./pages/Catalogus";
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -50,7 +50,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/over-ons" element={<OverOns />} />
           <Route path="/configurator" element={<Configurator />} />
-          <Route path="/materialen" element={<Materialen />} />
+          <Route path="/catalogus" element={<Catalogus />} />
         </Routes>
         <Footer />
       </div>

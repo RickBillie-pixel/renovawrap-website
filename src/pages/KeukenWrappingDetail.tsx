@@ -1,4 +1,7 @@
 import { useState, useRef } from "react";
+import { InfiniteMovingCards } from "../components/InfiniteMovingCards";
+import { supabase } from "@/lib/supabase";
+import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
 
 function KeuzehulpWizard() {
   const [step, setStep] = useState(1);
@@ -13,6 +16,8 @@ function KeuzehulpWizard() {
     opmerking: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const toggleOnderdeel = (item: string) => {
@@ -48,8 +53,38 @@ function KeuzehulpWizard() {
     return true;
   };
 
-  const handleSubmit = () => {
-    setSubmitted(true);
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setSubmitError(null);
+    const serviceSlug: KeuzehulpServiceSlug = "keuken-wrapping";
+    try {
+      const contact_name = formData.naam.trim() || null;
+      const contact_email = formData.email.trim();
+      const contact_phone = formData.telefoon.trim() || null;
+      const opmerking = formData.opmerking.trim() || null;
+      const { error } = await supabase.from("keuzehulp_submissions").insert({
+        service_slug: serviceSlug,
+        contact_name,
+        contact_email,
+        contact_phone,
+        contact_address: null,
+        wizard_data: {
+          onderdelen: formData.onderdelen,
+          aantalDeurtjes: formData.aantalDeurtjes,
+          stijl: formData.stijl,
+          fotos_aantal: formData.fotos.length,
+          fotos_namen: formData.fotos.map((f) => f.name),
+          opmerking,
+        },
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Aanvraag kon niet worden verzonden. Probeer het later opnieuw.";
+      setSubmitError(message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -268,12 +303,20 @@ function KeuzehulpWizard() {
         </div>
       )}
 
+      {/* Foutmelding bij verzenden */}
+      {submitError && (
+        <div className="mt-6 max-w-2xl mx-auto p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+          {submitError}
+        </div>
+      )}
+
       {/* Navigation */}
       <div className="flex justify-between items-center mt-12 max-w-2xl mx-auto">
         <button
           onClick={() => setStep((s) => Math.max(1, s - 1))}
+          disabled={submitting}
           className={`text-xs font-bold tracking-widest uppercase flex items-center gap-2 ${
-            step === 1 ? "invisible" : "text-gray-400 hover:text-dark"
+            step === 1 ? "invisible" : "text-gray-400 hover:text-dark disabled:opacity-50"
           }`}
         >
           <span className="material-symbols-outlined text-sm">arrow_back</span>
@@ -292,14 +335,15 @@ function KeuzehulpWizard() {
           </button>
         ) : (
           <button
-            onClick={() => canNext() && handleSubmit()}
-            className={`px-8 py-4 text-xs font-bold tracking-widest uppercase transition-colors ${
-              canNext()
+            onClick={() => canNext() && !submitting && handleSubmit()}
+            disabled={!canNext() || submitting}
+            className={`px-8 py-4 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+              canNext() && !submitting
                 ? "bg-primary text-white hover:bg-dark"
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
             }`}
           >
-            Verstuur Aanvraag
+            {submitting ? "Bezig met verzenden…" : "Verstuur Aanvraag"}
           </button>
         )}
       </div>
@@ -315,8 +359,8 @@ export default function KeukenWrappingDetail() {
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
       <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
-        <div className="absolute left-0 top-1/4 transform -translate-x-1/6 opacity-[0.06] pointer-events-none select-none z-0">
-          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter">
+        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
             KEUKEN
           </h1>
         </div>
@@ -356,7 +400,7 @@ export default function KeukenWrappingDetail() {
               </div>
             </div>
             <div className="lg:col-span-6 flex justify-center">
-              <div className="relative w-[90%] max-w-lg">
+              <div className="relative w-full max-w-xl">
                 <div className="relative z-10">
                   <img
                     alt="Prachtig gewrapte keuken in matte afwerking"
@@ -439,23 +483,21 @@ export default function KeukenWrappingDetail() {
             <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Voordelen</span>
             <h2 className="font-display text-4xl md:text-5xl leading-tight">Waarom Keuken <span className="italic text-primary">Wrappen?</span></h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: "savings", title: "Tot 70% Goedkoper", desc: "Een nieuwe keuken kost al snel €8.000+. Wrappen kan al vanaf €895." },
-              { icon: "schedule", title: "Klaar In 1 Dag", desc: "Geen wekenlange verbouwing. Wij wrappen uw keuken in slechts één werkdag." },
-              { icon: "palette", title: "300+ Kleuren", desc: "Van realistische houtnerven en marmer tot ultramat en metallic finishes." },
-              { icon: "verified", title: "15-20 Jaar Levensduur", desc: "Onze architecturale folies zijn kras- en stootvast, hittebestendig en antibacterieel." },
-              { icon: "cleaning_services", title: "Geen Rommel", desc: "Geen sloopwerk, geen stof, geen stank. Na afloop is alles schoon." },
-              { icon: "eco", title: "Duurzaam", desc: "Hergebruik uw bestaande keuken. Goed voor het milieu en uw portemonnee." },
-              { icon: "shield", title: "10 Jaar Garantie", desc: "Verkleurt niet, bladdert niet af. Wij staan achter de kwaliteit van ons werk." },
-              { icon: "auto_awesome", title: "Onderhoudsarm", desc: "Een natte doek is alles wat u nodig heeft. De folies zijn geurloos en hygiënisch." },
-            ].map((item, index) => (
-              <div key={index} className="border border-white/10 p-8 hover:border-primary/50 transition-colors group">
-                <span className="material-symbols-outlined text-primary text-3xl mb-6 block group-hover:scale-110 transition-transform">{item.icon}</span>
-                <h3 className="font-display text-xl mb-3">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+          <div className="flex flex-col antialiased bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+            <InfiniteMovingCards
+              items={[
+                { icon: "savings", title: "Tot 70% Goedkoper", desc: "Een nieuwe keuken kost al snel €8.000+. Wrappen kan al vanaf €895." },
+                { icon: "schedule", title: "Klaar In 1 Dag", desc: "Geen wekenlange verbouwing. Wij wrappen uw keuken in slechts één werkdag." },
+                { icon: "palette", title: "300+ Kleuren", desc: "Van realistische houtnerven en marmer tot ultramat en metallic finishes." },
+                { icon: "verified", title: "15-20 Jaar Levensduur", desc: "Onze architecturale folies zijn kras- en stootvast, hittebestendig en antibacterieel." },
+                { icon: "cleaning_services", title: "Geen Rommel", desc: "Geen sloopwerk, geen stof, geen stank. Na afloop is alles schoon." },
+                { icon: "eco", title: "Duurzaam", desc: "Hergebruik uw bestaande keuken. Goed voor het milieu en uw portemonnee." },
+                { icon: "shield", title: "10 Jaar Garantie", desc: "Verkleurt niet, bladdert niet af. Wij staan achter de kwaliteit van ons werk." },
+                { icon: "auto_awesome", title: "Onderhoudsarm", desc: "Een natte doek is alles wat u nodig heeft. De folies zijn geurloos en hygiënisch." },
+              ]}
+              direction="right"
+              speed="slow"
+            />
           </div>
         </div>
       </section>
@@ -557,7 +599,7 @@ export default function KeukenWrappingDetail() {
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
                 Onze collectie omvat meer dan 300 hoogwaardige afwerkingen — van realistische houtnerven en natuursteen tot ultra-matte kleuren en metallic accenten. Elke folie is kras- en stootvast, hittebestendig, antibacterieel en ontworpen voor een levensduur van 15 tot 20 jaar.
               </p>
-              <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="#">
+              <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/catalogus">
                 Bekijk Catalogus
                 <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
               </a>

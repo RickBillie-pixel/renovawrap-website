@@ -5,26 +5,37 @@ export default function KozijnenDetail() {
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
-      <header className="relative pt-40 pb-32 overflow-hidden min-h-screen flex items-center">
-        <div className="absolute right-0 top-1/4 transform translate-x-1/3 opacity-[0.03] pointer-events-none select-none z-0">
-          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter">
-            KOZIJN
+      <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
+        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
+            KOZIJNEN
           </h1>
         </div>
         <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-            <div className="lg:col-span-6 space-y-10">
+            <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
                 <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Binnen & Buiten</span>
                 <p className="font-display text-lg italic text-gray-500">De nieuwe standaard in renovatie</p>
               </div>
-              <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-medium leading-[1.1] text-dark">
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Kozijn <br />
                 <span className="italic font-normal text-primary">Wrapping</span>
               </h1>
-              <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md border-t border-gray-200 pt-8 mt-8">
+              <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
                 Van verouderd wit kunststof naar modern mat-zwart? Wij wrappen uw kozijnen, ramen en schuifpuien zonder sloopwerk. Weerbestendig, kleurvast en niet van gepoedercoat aluminium te onderscheiden.
               </p>
+              {/* Trust Badges */}
+              <div className="flex items-center gap-6 text-xs text-gray-400">
+                <div className="flex items-center gap-1">
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  <span className="ml-1">Google Reviews</span>
+                </div>
+                <span className="text-gray-300">|</span>
+                <span className="font-bold text-dark">500+</span>
+                <span>Projecten</span>
+              </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
                   Vraag Advies Aan
@@ -35,13 +46,21 @@ export default function KozijnenDetail() {
                 </a>
               </div>
             </div>
-            <div className="lg:col-span-6 relative">
-              <div className="relative z-10">
-                <img
-                  alt="Window frames wrapped in black"
-                  className="w-full aspect-[4/5] object-cover shadow-2xl"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLTPz2wOk-BW9C7-E3c_mneEHkQr-vNeI4rG3aITIkKapzO24UIJOdrzKNreViOcLSZgCL94V5IuEHt54ZpCNraj5r2dPjXok-3mGr-zQMSnIDAAXCJvKtO998I866VBBHj2KRHS9tZeFdKXwKwdofQWy6WTvmpMEaAOKOovEsDNMIc1T_3NihnIaIj2UDtjED4s_OR0Lr7nbPf-QRUzeFN-dMwdzmVGjt0__Wam_-1oDlMxA4Dkh381ln15C37fqmHh2rAMPckTA"
-                />
+            <div className="lg:col-span-6 flex justify-center">
+              <div className="relative w-full max-w-xl">
+                <div className="relative z-10">
+                  <img
+                    alt="Window frames wrapped in black"
+                    className="w-full aspect-square object-cover shadow-2xl"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLTPz2wOk-BW9C7-E3c_mneEHkQr-vNeI4rG3aITIkKapzO24UIJOdrzKNreViOcLSZgCL94V5IuEHt54ZpCNraj5r2dPjXok-3mGr-zQMSnIDAAXCJvKtO998I866VBBHj2KRHS9tZeFdKXwKwdofQWy6WTvmpMEaAOKOovEsDNMIc1T_3NihnIaIj2UDtjED4s_OR0Lr7nbPf-QRUzeFN-dMwdzmVGjt0__Wam_-1oDlMxA4Dkh381ln15C37fqmHh2rAMPckTA"
+                  />
+                </div>
+                <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
+                  <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
+                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -111,7 +130,7 @@ export default function KozijnenDetail() {
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
                 Onze collectie bestaat uit meer dan 200 hoogwaardige afwerkingen, zorgvuldig geselecteerd op duurzaamheid en esthetiek.
               </p>
-              <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="#">
+              <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/catalogus">
                 Bekijk Catalogus
                 <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
               </a>

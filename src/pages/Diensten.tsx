@@ -9,10 +9,10 @@ export default function Diensten() {
     <main className="pt-24 min-h-screen bg-background-light text-dark">
       <section className="relative pt-32 pb-20 overflow-hidden">
         {/* Background text watermark */}
-        <div className="absolute inset-0 flex items-start justify-center pointer-events-none select-none opacity-[0.03] overflow-hidden pt-12">
-          <span className="font-display font-bold text-[18vw] leading-none text-dark whitespace-nowrap tracking-tighter">
+        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+          <h1 className="text-[18vw] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
             DIENSTEN
-          </span>
+          </h1>
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
