@@ -1,0 +1,226 @@
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { cn } from "../lib/utils";
+import { services } from "../data/mockData";
+
+export default function Header() {
+  const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isActive = (path: string) => location.pathname === path;
+
+  return (
+    <header
+      className={cn(
+        "fixed w-full top-0 z-50 transition-all duration-300 border-b",
+        isScrolled
+          ? "bg-background-light/95 backdrop-blur-md border-dark/5 py-4"
+          : "bg-transparent border-transparent py-6"
+      )}
+    >
+      <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between">
+        <Link to="/" className="flex flex-col leading-tight group">
+          <span className="font-display font-bold text-2xl tracking-tight group-hover:opacity-80 transition-opacity">
+            <span className="text-dark">RENOVA</span><span className="text-primary">WRAP</span>
+          </span>
+          <span className="text-[10px] tracking-[0.3em] font-medium text-dark uppercase mt-0.5 border-t border-dark/20 pt-0.5 w-full text-center">
+            Keuken & Interieur
+          </span>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-12">
+          {/* Services Dropdown */}
+          <div 
+            className="relative group"
+            onMouseEnter={() => setIsServicesOpen(true)}
+            onMouseLeave={() => setIsServicesOpen(false)}
+          >
+             <Link
+              to="/diensten"
+              className={cn(
+                "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group py-4 flex items-center gap-1",
+                isActive("/diensten") ? "text-primary" : "text-dark"
+              )}
+            >
+              Diensten
+              <span className="material-symbols-outlined text-sm">expand_more</span>
+              <span
+                className={cn(
+                  "absolute bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full",
+                  isActive("/diensten") && "w-full"
+                )}
+              />
+            </Link>
+            
+            {/* Dropdown Menu */}
+            <div className={cn(
+              "absolute top-full left-1/2 -translate-x-1/2 w-64 pt-2 transition-all duration-200",
+              isServicesOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-2"
+            )}>
+              <div className="bg-white border border-gray-100 shadow-lg rounded-sm py-2 max-h-[80vh] overflow-y-auto">
+                {services.map((service) => (
+                  <Link
+                    key={service.id}
+                    to={service.link}
+                    className="block px-6 py-3 text-sm text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors"
+                  >
+                    {service.title}
+                  </Link>
+                ))}
+                <div className="border-t border-gray-100 mt-2 pt-2">
+                    <Link to="/diensten" className="block px-6 py-3 text-sm font-medium text-dark hover:text-primary hover:bg-gray-50 transition-colors">
+                    Alle Diensten
+                    </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Link
+            to="/materialen"
+            className={cn(
+              "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group",
+              isActive("/materialen") ? "text-primary" : "text-dark"
+            )}
+          >
+            Materialen
+            <span
+              className={cn(
+                "absolute -bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full",
+                isActive("/materialen") && "w-full"
+              )}
+            />
+          </Link>
+
+          <Link
+            to="/over-ons"
+            className={cn(
+              "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group",
+              isActive("/over-ons") ? "text-primary" : "text-dark"
+            )}
+          >
+            Over ons
+            <span
+              className={cn(
+                "absolute -bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full",
+                isActive("/over-ons") && "w-full"
+              )}
+            />
+          </Link>
+
+          <Link
+            to="/projecten"
+            className={cn(
+              "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group",
+              isActive("/projecten") ? "text-primary" : "text-dark"
+            )}
+          >
+            Projecten
+            <span
+              className={cn(
+                "absolute -bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full",
+                isActive("/projecten") && "w-full"
+              )}
+            />
+          </Link>
+
+          <Link
+            to="/configurator"
+            className={cn(
+              "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group font-bold text-primary",
+              isActive("/configurator") ? "text-primary" : "text-primary"
+            )}
+          >
+            AI Configurator
+             <span
+              className={cn(
+                "absolute -bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full",
+                isActive("/configurator") && "w-full"
+              )}
+            />
+          </Link>
+        </nav>
+
+        <div className="flex items-center space-x-6">
+          <Link
+            to="/contact"
+            className="hidden md:inline-block bg-dark text-white px-8 py-3 text-xs uppercase tracking-[0.2em] hover:bg-primary transition-colors"
+          >
+            Contact
+          </Link>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-dark"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span className="material-symbols-outlined text-2xl">
+              {isMobileMenuOpen ? "close" : "menu"}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 top-[88px] bg-background-light z-40 md:hidden overflow-y-auto">
+          <div className="flex flex-col p-6 space-y-8">
+            <Link
+              to="/diensten"
+              className="text-2xl font-display text-dark"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Diensten
+            </Link>
+            <Link
+              to="/materialen"
+              className="text-2xl font-display text-dark"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Materialen
+            </Link>
+            <Link
+              to="/over-ons"
+              className="text-2xl font-display text-dark"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Over ons
+            </Link>
+            <Link
+              to="/projecten"
+              className="text-2xl font-display text-dark"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Projecten
+            </Link>
+            <Link
+              to="/configurator"
+              className="text-2xl font-display text-primary"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              AI Configurator
+            </Link>
+            <Link
+              to="/contact"
+              className="text-xl font-display text-dark mt-8"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Contact
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}

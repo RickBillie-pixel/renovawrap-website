@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary: #6A4A34;
+  --color-secondary: #D2C2AD;
+  --color-dark: #1A1A1A;
+  --color-background-light: #FFF9F0;
+  --color-background-dark: #121212;
+  --color-card-light: #FFFFFF;
+  --color-card-dark: #1E1E1E;
+
+  /* Fonts */
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Playfair Display", serif;
+
+  /* Border radius */
+  --radius: 0px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom text outline utilities */
+.text-outline-light {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+  color: transparent;
+}
+
+.text-outline-dark {
+  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.2);
+  color: transparent;
+}
+
+.dark .text-outline-dark {
+  -webkit-text-stroke: 1px rgba(255, 249, 240, 0.2);
+}
