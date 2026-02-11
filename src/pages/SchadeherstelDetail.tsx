@@ -15,15 +15,15 @@ export default function SchadeherstelDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Repair & Care</span>
-                <p className="font-display text-lg italic text-gray-500">Onzichtbaar herstel</p>
+                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Stuur Een Foto, Wij Lossen Het Op</span>
+                <p className="font-display text-lg italic text-gray-500">Niet alles hoeft opnieuw — vaak is reparatie genoeg.</p>
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Schade <br />
                 <span className="italic font-normal text-primary">Herstel</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Heeft u schade aan uw interieurfolie? Een kras, scheur of loslatende hoek? Vaak kunnen wij dit lokaal herstellen zonder dat alles opnieuw hoeft. Snel, duurzaam en kostenbesparend.
+                Een kras in uw blad, een loslatende hoek of een scheur in de folie? Alles opnieuw laten doen is onnodig duur. Wij herstellen schade lokaal en onzichtbaar — met dezelfde kleur, dezelfde structuur. Binnen een dagdeel opgelost, voor een fractie van de kosten.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
@@ -37,11 +37,11 @@ export default function SchadeherstelDetail() {
                 <span>Projecten</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
-                  Foto Sturen & Offerte
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="/contact">
+                  Stuur Foto & Ontvang Offerte
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
-                  Bekijk Voorbeelden
+                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
+                  Bekijk Herstelresultaten
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>

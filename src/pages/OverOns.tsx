@@ -1,3 +1,5 @@
+import CountUp from "../components/CountUp";
+
 export default function OverOns() {
   if (typeof document !== "undefined") {
     document.title = "Renovawrap | Over Ons";
@@ -237,19 +239,19 @@ export default function OverOns() {
             <div className="group cursor-default text-center md:text-left">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">Projecten</p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                126<span className="text-4xl align-top">+</span>
+                <CountUp end={126} />
               </p>
             </div>
             <div className="group cursor-default text-center md:text-left">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">Klanten</p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                926<span className="text-4xl align-top">+</span>
+                <CountUp end={926} />
               </p>
             </div>
             <div className="group cursor-default text-center md:text-left">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">Materialen</p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                364<span className="text-4xl align-top">+</span>
+                <CountUp end={364} />
               </p>
             </div>
           </div>

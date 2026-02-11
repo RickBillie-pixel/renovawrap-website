@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowDown } from "lucide-react";
 import { projects, testimonials, processSteps } from "../data/mockData";
 import FadeIn from "../components/FadeIn";
+import CountUp from "../components/CountUp";
 
 export default function Home() {
   // Update document title
@@ -138,7 +139,7 @@ export default function Home() {
                 Projecten
               </p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                126<span className="text-4xl align-top">+</span>
+                <CountUp end={126} />
               </p>
             </FadeIn>
             <FadeIn delay={100} className="group cursor-default">
@@ -146,7 +147,7 @@ export default function Home() {
                 Klanten
               </p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                926<span className="text-4xl align-top">+</span>
+                <CountUp end={926} />
               </p>
             </FadeIn>
             <FadeIn delay={200} className="group cursor-default">
@@ -154,7 +155,7 @@ export default function Home() {
                 Materialen
               </p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                364<span className="text-4xl align-top">+</span>
+                <CountUp end={364} />
               </p>
             </FadeIn>
           </div>

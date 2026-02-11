@@ -1,7 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import { InfiniteMovingCards } from "../components/InfiniteMovingCards";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
+import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
 
 function KeuzehulpWizard() {
   const [step, setStep] = useState(1);
@@ -18,7 +22,15 @@ function KeuzehulpWizard() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [stijlSearch, setStijlSearch] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const allWrapColors = getWrapColors();
+  const filteredWrapColors = allWrapColors.filter(
+    (c) =>
+      c.name.toLowerCase().includes(stijlSearch.toLowerCase()) ||
+      (c.code?.toLowerCase().includes(stijlSearch.toLowerCase()) ?? false)
+  );
 
   const toggleOnderdeel = (item: string) => {
     setFormData((prev) => ({
@@ -53,6 +65,16 @@ function KeuzehulpWizard() {
     return true;
   };
 
+  const uploadKeuzehulpFoto = async (file: File): Promise<string | null> => {
+    const fileExt = file.name.split(".").pop() || "jpg";
+    const fileName = `keuzehulp-${Date.now()}-${Math.random().toString(36).slice(2, 9)}.${fileExt}`;
+    const filePath = `keuzehulp/${fileName}`;
+    const { error } = await supabase.storage.from("configurator-uploads").upload(filePath, file, { cacheControl: "3600", upsert: false });
+    if (error) return null;
+    const { data } = supabase.storage.from("configurator-uploads").getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
   const handleSubmit = async () => {
     setSubmitting(true);
     setSubmitError(null);
@@ -62,20 +84,33 @@ function KeuzehulpWizard() {
       const contact_email = formData.email.trim();
       const contact_phone = formData.telefoon.trim() || null;
       const opmerking = formData.opmerking.trim() || null;
+
+      const foto_urls: string[] = [];
+      for (const file of formData.fotos) {
+        const url = await uploadKeuzehulpFoto(file);
+        if (url) foto_urls.push(url);
+      }
+
+      const selectedColor = getWrapColorById(formData.stijl);
+      const wizard_data = {
+        onderdelen: formData.onderdelen,
+        aantalDeurtjes: formData.aantalDeurtjes,
+        stijl: formData.stijl,
+        stijl_naam: selectedColor?.name ?? null,
+        stijl_code: selectedColor?.code ?? null,
+        fotos_aantal: formData.fotos.length,
+        fotos_namen: formData.fotos.map((f) => f.name),
+        opmerking,
+      };
+
       const { error } = await supabase.from("keuzehulp_submissions").insert({
         service_slug: serviceSlug,
         contact_name,
         contact_email,
         contact_phone,
         contact_address: null,
-        wizard_data: {
-          onderdelen: formData.onderdelen,
-          aantalDeurtjes: formData.aantalDeurtjes,
-          stijl: formData.stijl,
-          fotos_aantal: formData.fotos.length,
-          fotos_namen: formData.fotos.map((f) => f.name),
-          opmerking,
-        },
+        wizard_data,
+        foto_urls: foto_urls,
       });
       if (error) throw error;
       setSubmitted(true);
@@ -108,15 +143,6 @@ function KeuzehulpWizard() {
     { id: "zijpanelen", label: "Zijpanelen & Plinten", icon: "view_sidebar" },
     { id: "afzuigkap", label: "Afzuigkap", icon: "air" },
     { id: "apparatuur", label: "Inbouwapparatuur", icon: "microwave" },
-  ];
-
-  const stijlen = [
-    { id: "hout", label: "Houtlook", color: "bg-amber-700" },
-    { id: "mat-zwart", label: "Mat Zwart", color: "bg-gray-900" },
-    { id: "marmer", label: "Marmer", color: "bg-gradient-to-br from-gray-100 to-gray-300" },
-    { id: "beton", label: "Betonlook", color: "bg-gray-400" },
-    { id: "effen", label: "Effen Kleur", color: "bg-primary" },
-    { id: "tweekleur", label: "Twee Kleuren", color: "bg-gradient-to-r from-gray-900 to-amber-700" },
   ];
 
   return (
@@ -198,24 +224,40 @@ function KeuzehulpWizard() {
         </div>
       )}
 
-      {/* Step 3 */}
+      {/* Step 3 – Stijl:zelfde kleuren als configurator (Kleurenwrap) */}
       {step === 3 && (
         <div>
-          <h3 className="font-display text-2xl text-dark mb-2 text-center">Welke stijl spreekt u aan?</h3>
-          <p className="text-gray-400 text-sm text-center mb-8">U kunt later altijd nog wisselen</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            {stijlen.map((item) => (
+          <h3 className="font-display text-2xl text-dark mb-2 text-center">Welke stijl / kleur spreekt u aan?</h3>
+          <p className="text-gray-400 text-sm text-center mb-6">Kies uit ons folie-assortiment, zoals in de configurator</p>
+          <div className="max-w-2xl mx-auto mb-6">
+            <div className="relative">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <span className="material-symbols-outlined text-lg">search</span>
+              </span>
+              <input
+                type="text"
+                placeholder="Zoek op naam of code..."
+                value={stijlSearch}
+                onChange={(e) => setStijlSearch(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border border-gray-200 text-sm focus:outline-none focus:border-primary"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-w-3xl mx-auto max-h-[380px] overflow-y-auto pr-2">
+            {filteredWrapColors.map((color) => (
               <button
-                key={item.id}
-                onClick={() => setFormData((p) => ({ ...p, stijl: item.id }))}
-                className={`p-6 border-2 transition-all text-center ${
-                  formData.stijl === item.id
-                    ? "border-primary bg-primary/5"
-                    : "border-gray-200 bg-white hover:border-primary"
+                key={color.id}
+                type="button"
+                onClick={() => setFormData((p) => ({ ...p, stijl: color.id }))}
+                className={`group relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                  formData.stijl === color.id ? "border-primary ring-2 ring-primary ring-offset-2" : "border-gray-200 hover:border-primary/50"
                 }`}
               >
-                <div className={`w-12 h-12 rounded-full ${item.color} mx-auto mb-3`} />
-                <span className="text-sm font-bold text-dark block">{item.label}</span>
+                <img src={color.image} alt={color.name} className="w-full h-full object-cover" loading="lazy" />
+                <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-sm p-1.5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <p className="text-[10px] text-white font-medium truncate text-center">{color.name}</p>
+                  {color.code && <p className="text-[9px] text-white/80 text-center">{color.code}</p>}
+                </div>
               </button>
             ))}
           </div>
@@ -355,6 +397,38 @@ export default function KeukenWrappingDetail() {
   if (typeof document !== "undefined") {
     document.title = "Renovawrap | Keuken Wrapping — Uw Keuken Als Nieuw";
   }
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const heroImages = [
+    {
+      before: "/project-fotos/before11.webp",
+      after: "/project-fotos/after11.webp",
+    },
+    {
+      before: "/project-fotos/before7.webp",
+      after: "/project-fotos/after7.webp",
+    },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Preload images
+  useEffect(() => {
+    heroImages.forEach((image) => {
+      const img1 = new Image();
+      img1.src = image.before;
+      const img2 = new Image();
+      img2.src = image.after;
+    });
+  }, []);
+
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
@@ -401,12 +475,23 @@ export default function KeukenWrappingDetail() {
             </div>
             <div className="lg:col-span-6 flex justify-center">
               <div className="relative w-full max-w-xl">
-                <div className="relative z-10">
-                  <img
-                    alt="Prachtig gewrapte keuken in matte afwerking"
-                    className="w-full aspect-square object-cover shadow-2xl"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO9GB7u8K4ImHJeH0RWhs8n0oz1v7ljelri3M8x60AjpxAKt1NEnfdEIZXEp9yGXuz1_i-2bWzO41A6RJ8EF0RYer6O0WHKI5pNQjFQX189IQqHPo9rLlppvIZvibS9e6mFThg6qWy_K0w29eZQhfcBCxHQCZ-j28oKn0XjNNAZSO0TF34ytyC2bbpLNuu1LP9yYe0XuiMNQdpv-qrO3e_n-puJcaZ2rgsJXlNaTl9RJKqUnlJSR30wU5lQo6CJF6Zppds-fbNIy4"
-                  />
+                <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={currentImageIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <BeforeAfterSlider
+                        afterImage={heroImages[currentImageIndex].after}
+                        beforeImage={heroImages[currentImageIndex].before}
+                        className="w-full h-full"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
@@ -439,21 +524,24 @@ export default function KeukenWrappingDetail() {
               {
                 title: "Keukenfrontjes & Lades",
                 desc: "Alle zichtbare delen worden gewrapt inclusief hoeken en randen. Kies uit hout, mat, hoogglans of een unieke twee-kleuren combinatie.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDCoeZeJo1eRqfjL0ezP8hPgoggGYmqwYG8qFrYW7rTiwYL8K0g7yL6nul0Ftevcm8dQnMuIfUWRMituneqqgSFHO2IGAne4oTTvOIVP9esFTa_Qs1f65ixmWdkCMCJcJeE9Cu11ncaI58LRjdOcVb6InflViTnrnoxZasSBcHOp-TqNvqcHpHYMNRklcJvCdercYswkeC9yvxHVbMgsLAwjiIMbOQm6ebCAzH5uPntIm89jPNVtLxr_4ljM2lsVo-IADOCGvcIfJM"
+                image: "/project-fotos/after14.webp",
+                link: "/diensten/keuken-frontjes"
               },
               {
                 title: "Werkbladen",
                 desc: "Hittebestendig tot 180°C, waterdicht en niet van echt marmer of beton te onderscheiden. Ideaal als u het aanrechtblad wilt vernieuwen zonder te breken.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA5XJn_yCQ2MdQswfLz5RXt8SKMKQbkydPzTMnpanPXPYiDhZEdVvHdTRu1v8521wGgC8-v7qK3fu08-VpD0KVZZszHUgUvShsK6crsz--K9KqL3G_NF1UWNYr6-zUmFTpNWZHTq1X9eOZQFgkILwG8V64P3wozkDAZ8NeyN3wHxEaMeDolingjig0OeIJyqqRCQRjYzCmlaa5duPA-F8YdZN_W-whcrk3cfOMDOlnEPKo4zUHk9JQJpxJyZk4TWO3LmpWU3K5kzns",
-                className: "md:mt-24"
+                image: "/project-fotos/after6.webp",
+                className: "md:mt-24",
+                link: "/diensten/aanrechtbladen"
               },
               {
                 title: "Achterwanden & Zijpanelen",
                 desc: "De achterwand maakt of breekt de uitstraling. Wij wrappen deze met dezelfde nauwkeurigheid als de frontjes, inclusief stopcontacten.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBOJtE4LlvC30KTInfLpxNYRqljYSVp2uqpm9_W-x08xGq9XbDx5DLpdndFbf67jVyttwu7WE7Ezt6b-ixUyrashosg4RT7v8dd7jYCv_gbKw1_uQRdU8C3rR_LgxzA-ZQZa8cmWTGosTPtvcM_NsoWNOk3LFPfBsj5xHoqtodOSRwZNI0QRcmfRPuT3ANc7iVGxH5xFgp_3jA1nh5nQl8GrDtqTj5AZ4jd6BTAFQdp7pzJ1phsBazFnolmXGdlFs-vMaRSZ_VLbg0"
+                image: "/project-fotos/after5.webp",
+                link: "/diensten/achterwanden"
               }
             ].map((item, index) => (
-              <div key={index} className={`group cursor-pointer ${item.className || ''}`}>
+              <Link key={index} to={item.link} className={`group cursor-pointer block ${item.className || ''}`}>
                 <div className="relative overflow-hidden mb-8 aspect-[3/4]">
                   <img
                     alt={item.title}
@@ -470,7 +558,7 @@ export default function KeukenWrappingDetail() {
                   </div>
                   <span className="material-symbols-outlined text-gray-300 group-hover:text-dark transition-colors">arrow_outward</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -530,59 +618,45 @@ export default function KeukenWrappingDetail() {
       </section>
 
       {/* AI Visualizer Promo */}
-      <section className="py-32 bg-dark relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 mix-blend-overlay">
-          <img
-            alt="Texture background"
-            className="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoAQ68FiJS0UvrW7i0-jVWbe9iGr4OxQEh5JEoG42ghNQ-XchhvgZAS6FvZtTxd1kEXc49Y4JmPC3u4H1zYWXUNlBPx-pesphoZiaO6N0YP-2E7-LnFkMZCQGWgSjKQRwyQVsAq0SwiSLRAGtM4KVYMp9mnwrWkjTScTeD8NU2G0r6EGl0f4JFUcAI_qWivnT4x8P65FZtgwSSxQQN9Vgu3vJEXYJF3_CcwpPj5BBxCmCiV9utMZfbEIbLpGyg9lJjBrfKans9rbY"
-          />
-        </div>
+      <section className="py-32 bg-[#1a1a1a] relative overflow-hidden">
+        {/* Subtle background accent */}
+        <div className="absolute top-0 right-0 -mr-64 -mt-64 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -ml-64 -mb-64 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none"></div>
+
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center space-x-2 border border-white/20 px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                <span className="text-[10px] text-white tracking-widest uppercase font-medium">Nieuw: AI Visualizer</span>
+              <div className="inline-flex items-center space-x-2 border border-white/10 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-sm shadow-lg">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(217,119,6,0.5)]"></span>
+                <span className="text-[10px] text-white tracking-[0.2em] uppercase font-bold">Nieuw: AI Visualizer</span>
               </div>
-              <h2 className="font-display text-5xl md:text-6xl text-white leading-tight">
+              <h2 className="font-display text-5xl md:text-7xl text-white leading-[1.1]">
                 Visualiseer Uw <br />
-                <span className="text-primary italic">Droomkeuken</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomkeuken</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
                 Upload een foto van uw huidige keuken en zie binnen seconden hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
               </p>
-              <a href="/configurator" className="group bg-white text-dark px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-gray-100 transition-all inline-flex items-center space-x-3 mt-4">
-                <span>Start Configurator</span>
-                <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">auto_fix_high</span>
-              </a>
+              
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <a href="/configurator" className="group bg-primary text-white px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-all shadow-[0_10px_30px_-10px_rgba(217,119,6,0.3)] hover:shadow-[0_20px_40px_-10px_rgba(217,119,6,0.5)] flex items-center justify-center">
+                  <span>Start Configurator</span>
+                  <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
+                </a>
+                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Hoe het werkt
+                </a>
+              </div>
             </div>
-            <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary to-[#6D482E] rounded-xl opacity-20 blur transition duration-500 group-hover:opacity-40"></div>
-              <div className="relative bg-[#262626] rounded-xl overflow-hidden border border-white/10 shadow-2xl">
-                <div className="bg-black/40 border-b border-white/5 px-4 py-3 flex items-center gap-4">
-                  <div className="flex space-x-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                  </div>
-                  <div className="flex-1 text-center">
-                    <span className="text-[10px] text-white/40 tracking-widest uppercase">renovawrap.ai</span>
-                  </div>
-                </div>
-                <div className="relative aspect-video">
-                  <img alt="Kitchen before wrapping" className="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkGVvKItR0l7kAJLFS7KEIt8lmJK2-BpnJQ-BO_jeasEtfDayH0BomYezFZWmd5uSqTyF1K0TORN2h511epab0S06AAI3n5pix5cuPDbKREWH1jNsyPiZMnnBbaKgWaRQqSl6xjCLLYrF1hFngOT-IjmLbOcwLIjgDsWdwSSxrg81vB1TglpBn6rqNlQr89kZky-K8Oh0BGgtFaTdZj3qZTt484sbj_spUAzYknjuAFVxAJYbLz4Q88GgxSrNUGYtdgtrGh2duJxg" />
-                  <div className="absolute inset-y-0 left-0 w-1/2 overflow-hidden border-r border-white shadow-2xl z-10">
-                    <img alt="Kitchen after wrapping" className="absolute inset-0 w-[200%] max-w-none h-full object-cover object-left" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATLJwpRxfTCHkk6_9WDKTRGcCKeJCCoOFeDLZPgcnnP8W0FZa62qK0AbAHCNy0zfQHJqFd5QJ3GtAu0m37-BEXAh-6VvC3rZHj4cWU_KznSKwlp6foSFv3T5fsggpgqHpZih22KPXT5zzcfRuI5TbnUa9ImKzFgXJPjyhqZKg_GvNiJRpCNAGvOih09IeE7Ggs0hkI4JIHU5CA_LY6aO8yaGpYmGGVz2e0bELlD1dE5o7w3PB2e2qDZov0iHU8rjic1En6GUbPktw" />
-                  </div>
-                  <div className="absolute top-4 left-4 bg-primary text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider shadow-lg z-20">Na</div>
-                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider z-0">Voor</div>
-                  <div className="absolute inset-y-0 left-1/2 -ml-[1px] w-0.5 bg-white z-20 flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center cursor-ew-resize">
-                      <span className="material-symbols-outlined text-dark text-sm">code</span>
-                    </div>
-                  </div>
-                </div>
+
+            <div className="relative group perspective-1000">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700"></div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black/50">
+                  <BeforeAfterSlider
+                    beforeImage="/project-fotos/before15.webp"
+                    afterImage="/project-fotos/after14.webp"
+                    className="w-full h-full"
+                  />
               </div>
             </div>
           </div>
@@ -607,12 +681,12 @@ export default function KeukenWrappingDetail() {
             <div className="lg:col-span-8">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {[
-                  { title: "Hout", count: "50+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAqUtBVZB4jfDKg40sM8nu8elmT9aC71nACxdbMGxI8RvNDGV_X7djngTbvar8z45btnMmc4Oq4t5yguRYvbTUzxDNKjCK6iNWSmlzDEkwPr66di0YivmeUe9O3oKDjGDE5xuXeDUP7mAiBSGtHl85Xt1sdTpU7jpi94JnrQfu1BTPQ0CindwQ2qdRA2KcLc12RBPBPkd5hcXFgsveEOW_q_rCd0KMn7XnSJEH2i64BsClk-dHIT58vFA40Fm_HxK5ks_ittzJN9Jo" },
-                  { title: "Ultra Mat", count: "60+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAsvqwxsUEdDIcqrvI8AA5r9MWQbn24oripIYtHCqFgtwJsqwQKXhfdO40A4vJZ1FCHMKr-d3_o6z_YwiSFcaOYGoXoyLFutTLv16mojhZAkY7K5sdUVTsDKjL6tyjDLIB7k4Ab2vltriKnICg8gbouC5Ml9x4NPjZTJBRhL21YVt-l9wj8oR6roB61uKmUCKd87ZsnVtZAxEsIa6x_jKnbjPeOSHrOFXitrV91wivNE_RmlJbpgBofTlOOtBAMYmjIPrWVaDhprZM" },
-                  { title: "Natuursteen", count: "25+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCeAl7EgmXSRq_9kwP0fgkb1f9lgoWzOSgPOLKS2TA8LqwdAMieqI_gUV1nNcKf8XU6fxqe9Wihvo69V0Z00vRnv_Q8DP4Db37_TZabKKxZ9WuP2SketmgjvoyPqTjqL40IptSEfGtD0qKnc7Z0rO00-3l1vGAnVLD7LpuhWRXZ2l5V0DqKxUmGwWSHPnaCT2hclf_MF_n8j_ZF92JmxEBewcmvXKAdTDhS8W-eVUsNjTNZ93REZ-fpogn91grqCUQjp_DFW9wP3yc" },
-                  { title: "Metallic", count: "15+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA2ikwTkRZPr3ERP5NrmRMOHehJai4aLEDwVFxBsYqNxZ3XuGalDfO6iBhHgFkAQGk4_CeHmHCSWl0jTnr7MNULmck1Mz5aj5W1zORqO5kJa4Yg_bUduJIU_dpC5JHNNzhs5uryM5QbiUvrgjnZ96gCqiqR3l-rVmY2H9506zUHp576tylDtFZTuk3_SZsO4vR5zMXjoTI6Q3wJUbSiM-RpOB9Xgs7pls9vxbtLWcXRjzatW0CadkSFOdCH5m82JPelkDFCA-R7HKI" },
+                  { title: "Hout", count: "50+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAqUtBVZB4jfDKg40sM8nu8elmT9aC71nACxdbMGxI8RvNDGV_X7djngTbvar8z45btnMmc4Oq4t5yguRYvbTUzxDNKjCK6iNWSmlzDEkwPr66di0YivmeUe9O3oKDjGDE5xuXeDUP7mAiBSGtHl85Xt1sdTpU7jpi94JnrQfu1BTPQ0CindwQ2qdRA2KcLc12RBPBPkd5hcXFgsveEOW_q_rCd0KMn7XnSJEH2i64BsClk-dHIT58vFA40Fm_HxK5ks_ittzJN9Jo", link: "/catalogus?category=Hout" },
+                  { title: "Ultra Mat", count: "60+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAsvqwxsUEdDIcqrvI8AA5r9MWQbn24oripIYtHCqFgtwJsqwQKXhfdO40A4vJZ1FCHMKr-d3_o6z_YwiSFcaOYGoXoyLFutTLv16mojhZAkY7K5sdUVTsDKjL6tyjDLIB7k4Ab2vltriKnICg8gbouC5Ml9x4NPjZTJBRhL21YVt-l9wj8oR6roB61uKmUCKd87ZsnVtZAxEsIa6x_jKnbjPeOSHrOFXitrV91wivNE_RmlJbpgBofTlOOtBAMYmjIPrWVaDhprZM", link: "/catalogus?category=Uni%20Kleuren" },
+                  { title: "Natuursteen", count: "25+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCeAl7EgmXSRq_9kwP0fgkb1f9lgoWzOSgPOLKS2TA8LqwdAMieqI_gUV1nNcKf8XU6fxqe9Wihvo69V0Z00vRnv_Q8DP4Db37_TZabKKxZ9WuP2SketmgjvoyPqTjqL40IptSEfGtD0qKnc7Z0rO00-3l1vGAnVLD7LpuhWRXZ2l5V0DqKxUmGwWSHPnaCT2hclf_MF_n8j_ZF92JmxEBewcmvXKAdTDhS8W-eVUsNjTNZ93REZ-fpogn91grqCUQjp_DFW9wP3yc", link: "/catalogus?category=Natuursteen" },
+                  { title: "Metallic", count: "15+ Variaties", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA2ikwTkRZPr3ERP5NrmRMOHehJai4aLEDwVFxBsYqNxZ3XuGalDfO6iBhHgFkAQGk4_CeHmHCSWl0jTnr7MNULmck1Mz5aj5W1zORqO5kJa4Yg_bUduJIU_dpC5JHNNzhs5uryM5QbiUvrgjnZ96gCqiqR3l-rVmY2H9506zUHp576tylDtFZTuk3_SZsO4vR5zMXjoTI6Q3wJUbSiM-RpOB9Xgs7pls9vxbtLWcXRjzatW0CadkSFOdCH5m82JPelkDFCA-R7HKI", link: "/catalogus?category=Metaal" },
                 ].map((item, index) => (
-                  <div key={index} className="group cursor-pointer">
+                  <Link key={index} to={item.link} className="group cursor-pointer block">
                     <div className="aspect-square overflow-hidden mb-4 bg-gray-100">
                       <img
                         alt={item.title}
@@ -622,7 +696,7 @@ export default function KeukenWrappingDetail() {
                     </div>
                     <h3 className="font-display text-xl text-dark">{item.title}</h3>
                     <p className="text-xs text-gray-400 font-mono mt-1">{item.count}</p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>

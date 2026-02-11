@@ -15,15 +15,15 @@ export default function AchterwandenDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Design & Hygiëne</span>
-                <p className="font-display text-lg italic text-gray-500">De eyecatcher van uw keuken</p>
+                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Geen Tegels Breken, Wél Een Nieuwe Look</span>
+                <p className="font-display text-lg italic text-gray-500">Transformeer uw keuken in één dag.</p>
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Achter <br />
                 <span className="italic font-normal text-primary">wanden</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Geen tegels breken, maar direct een strak resultaat. Onze achterwanden zijn hittebestendig, spatwaterdicht en perfect te reinigen.
+                Verouderde tegels of een saaie achterwand? Vergeet weken tegelwerk en rommel. Wij plaatsen een naadloze, hittebestendige achterwand rechtstreeks óver uw bestaande wand. Spatwaterdicht, hygiënisch en in elke denkbare stijl — van marmer tot strak beton.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
@@ -37,11 +37,11 @@ export default function AchterwandenDetail() {
                 <span>Projecten</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
-                  Offerte Aanvragen
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="/contact">
+                  Gratis Offerte Binnen 24 Uur
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
-                  Bekijk Portfolio
+                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
+                  Bekijk Voor & Na Foto's
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>

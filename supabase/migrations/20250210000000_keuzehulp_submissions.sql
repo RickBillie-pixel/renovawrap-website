@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS public.keuzehulp_submissions (
   -- Alle wizard-stappen/antwoorden (flexibel per dienst)
   wizard_data jsonb NOT NULL DEFAULT '{}',
 
+  -- Foto-URLs na upload naar storage (apart voor ERP-weergave)
+  foto_urls text[] DEFAULT '{}',
+
   -- ERP workflow
   status text NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'contacted', 'offer_sent', 'accepted', 'rejected', 'archived')),
   notes text,
@@ -54,16 +57,19 @@ CREATE TRIGGER keuzehulp_submissions_updated_at
 -- RLS: anon/authenticated mogen inserten (formulier); select/update alleen voor service role of later eigen policies
 ALTER TABLE public.keuzehulp_submissions ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Allow insert for submissions" ON public.keuzehulp_submissions;
 CREATE POLICY "Allow insert for submissions"
   ON public.keuzehulp_submissions FOR INSERT
   TO anon, authenticated
   WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Allow select for service role (ERP)" ON public.keuzehulp_submissions;
 CREATE POLICY "Allow select for service role (ERP)"
   ON public.keuzehulp_submissions FOR SELECT
   TO service_role
   USING (true);
 
+DROP POLICY IF EXISTS "Allow update for service role (ERP)" ON public.keuzehulp_submissions;
 CREATE POLICY "Allow update for service role (ERP)"
   ON public.keuzehulp_submissions FOR UPDATE
   TO service_role

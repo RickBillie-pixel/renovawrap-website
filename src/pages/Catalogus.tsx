@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import FadeIn from "../components/FadeIn";
 import { materials, materialsByCategory, categories } from "../data/materials";
 
 export default function Catalogus() {
+  const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState<string>("Alle");
   const [filteredMaterials, setFilteredMaterials] = useState(materials);
 
@@ -10,7 +12,13 @@ export default function Catalogus() {
     // Update document title
     document.title = "Renovawrap | Catalogus";
     window.scrollTo(0, 0); // Scroll to top on load
-  }, []);
+
+    // Sync active category from URL
+    const categoryParam = searchParams.get("category");
+    if (categoryParam && (categories.includes(categoryParam) || categoryParam === "Alle")) {
+      setActiveCategory(categoryParam);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (activeCategory === "Alle") {

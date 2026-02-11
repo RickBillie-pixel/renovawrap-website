@@ -15,15 +15,15 @@ export default function KeukenFrontjesDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Renovatie & Styling</span>
-                <p className="font-display text-lg italic text-gray-500">Uw droom keuken, zonder de verbouwing.</p>
+                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Bespaar Duizenden Euro's Op Een Nieuwe Keuken</span>
+                <p className="font-display text-lg italic text-gray-500">Uw droomkeuken, zonder de verbouwing.</p>
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Keuken <br />
                 <span className="italic font-normal text-primary">Frontjes</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Zijn uw keukenkastjes verouderd of bent u uitgekeken op de kleur? Vervangen is duur en onnodig. Met onze hoogwaardige interieurfolies geven we uw bestaande frontjes een compleet nieuwe, luxe uitstraling.
+                Uitgekeken op uw keukenfrontjes? Een nieuwe keuken kost al snel €10.000+. Wij wrappen uw bestaande frontjes met premium interieurfolie in de kleur en structuur van uw keuze — van mat-zwart tot warm eiken. Niet van echt te onderscheiden, klaar binnen twee dagen en een fractie van de kosten.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
@@ -37,11 +37,11 @@ export default function KeukenFrontjesDetail() {
                 <span>Projecten</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
-                  Direct Offerte
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="/contact">
+                  Gratis Offerte Binnen 24 Uur
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
-                  Onze Projecten
+                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
+                  Bekijk Voor & Na Foto's
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>

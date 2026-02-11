@@ -15,15 +15,15 @@ export default function KastenDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Interieur & Maatwerk</span>
-                <p className="font-display text-lg italic text-gray-500">Uw meubels, als nieuw.</p>
+                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Goedkoper Dan Nieuw Kopen</span>
+                <p className="font-display text-lg italic text-gray-500">Van IKEA-kast naar designmeubel.</p>
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Kasten <br />
                 <span className="italic font-normal text-primary">Wrapping</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Past die grote kledingkast niet meer bij uw nieuwe slaapkamer? Of wilt u een standaard IKEA-meubel omtoveren tot een luxe designstuk? Wij wrappen kasten, dressoirs en tv-meubels voor een naadloze integratie in uw interieur.
+                Die grote kast past niet meer bij uw nieuwe interieur, maar weggooien is zonde. Wij wrappen kasten, dressoirs en tv-meubels naar élke gewenste stijl — van warm eiken tot strak mat-zwart. IKEA-meubels worden onherkenbaar, inbouwkasten krijgen een designlook. Snel, betaalbaar én duurzaam.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
@@ -37,11 +37,11 @@ export default function KastenDetail() {
                 <span>Projecten</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
-                  Vraag Offerte Aan
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="/contact">
+                  Gratis Offerte Binnen 24 Uur
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
-                  Bekijk Voorbeelden
+                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
+                  Bekijk Transformaties
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>

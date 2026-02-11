@@ -15,15 +15,15 @@ export default function DeurenDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Renovatie & Stijl</span>
-                <p className="font-display text-lg italic text-gray-500">Een grootse entree, elke dag.</p>
+                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Van Standaard Naar Showroom</span>
+                <p className="font-display text-lg italic text-gray-500">Uw deuren verdienen beter dan standaard wit.</p>
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Deuren <br />
                 <span className="italic font-normal text-primary">Wrapping</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Standaard witte opdekdeuren of verouderde deuren met schade? Wij transformeren ze naar chique mat-zwart, warm hout of een strakke betonlook. Een kleine ingreep met een gigantisch effect op de sfeer in huis.
+                Saaie witte deuren of verouderde deuren met krassen? Nieuwe deuren kosten een fortuin. Wij wrappen uw bestaande deuren naar stijlvol mat-zwart, warm eikenhout of strak beton — inclusief kozijnen. Binnen een halve dag per deur een compleet ander huis.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
@@ -37,11 +37,11 @@ export default function DeurenDetail() {
                 <span>Projecten</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#contact">
-                  Offerte Aanvragen
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="/contact">
+                  Gratis Offerte Binnen 24 Uur
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
-                  Bekijk Portfolio
+                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
+                  Bekijk Transformaties
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>
