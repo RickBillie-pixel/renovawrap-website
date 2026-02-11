@@ -44,7 +44,10 @@ export default function BeforeAfterSlider({
     (e: TouchEvent) => {
       if (!isDragging.current) return;
       e.preventDefault();
-      handleMove(e.touches[0].clientX);
+      // Handle touch move logic
+      if (e.touches && e.touches[0]) {
+        handleMove(e.touches[0].clientX);
+      }
     },
     [handleMove]
   );
@@ -71,7 +74,7 @@ export default function BeforeAfterSlider({
       onTouchStart={handleMouseDown}
       onClick={(e) => handleMove(e.clientX)}
     >
-      {/* After image (full background) */}
+      {/* After image (background) */}
       <img
         src={afterImage}
         alt="Na"
@@ -79,48 +82,40 @@ export default function BeforeAfterSlider({
         draggable={false}
       />
 
-      {/* Before image (clipped) */}
-      <div
-        className="absolute inset-0 overflow-hidden"
-        style={{ width: `${sliderPosition}%` }}
-      >
-        <img
-          src={beforeImage}
-          alt="Voor"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            width: containerRef.current
-              ? `${containerRef.current.offsetWidth}px`
-              : "100vw",
-            maxWidth: "none",
-          }}
-          draggable={false}
-        />
-      </div>
-
-      {/* Labels */}
-      <div className="absolute top-4 left-4 bg-dark/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 uppercase tracking-wider z-20 pointer-events-none">
-        Voor
-      </div>
-      <div className="absolute top-4 right-4 bg-primary text-white text-[10px] font-bold px-3 py-1.5 uppercase tracking-wider z-20 pointer-events-none">
-        Na
-      </div>
+      {/* Before image (foreground with clip-path) */}
+      <img
+        src={beforeImage}
+        alt="Voor"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{
+          clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
+        }}
+        draggable={false}
+      />
 
       {/* Slider line + handle */}
       <div
-        className="absolute inset-y-0 z-30 flex items-center"
-        style={{ left: `${sliderPosition}%`, transform: "translateX(-50%)" }}
+        className="absolute inset-y-0 z-30 flex items-center pointer-events-none"
+        style={{ left: `${sliderPosition}%` }}
       >
-        <div className="w-0.5 h-full bg-white/90 shadow-lg" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-xl flex items-center justify-center cursor-ew-resize border border-gray-200">
-          <span className="material-symbols-outlined text-dark text-lg">
-            code
-          </span>
+        <div className="absolute inset-y-0 -left-px w-0.5 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)]"></div>
+        <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-xl flex items-center justify-center border border-gray-100/50 backdrop-blur-sm">
+           <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="16" 
+            height="16" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2.5" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className="text-dark/70"
+          >
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
         </div>
       </div>
-
-      {/* Invisible spacer to maintain aspect ratio */}
-      <div className="w-full" style={{ paddingBottom: "66.66%" }} />
     </div>
   );
 }

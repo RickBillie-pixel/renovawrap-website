@@ -182,32 +182,31 @@ export default function Projecten() {
           </div>
 
           {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-16">
+          <div className="flex flex-nowrap overflow-x-auto gap-4 mb-16 px-6 pb-4 no-scrollbar justify-start snap-x">
             {CATEGORIES.map((cat) => {
               const count =
                 cat === "Alle"
                   ? projects.length
                   : projects.filter((p) => p.category === cat).length;
+              const isActive = activeCategory === cat;
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 text-xs font-bold uppercase tracking-widest transition-all duration-300 border ${
-                    activeCategory === cat
-                      ? "bg-dark text-white border-dark"
-                      : "bg-transparent text-dark border-dark/15 hover:border-dark hover:bg-dark/5"
+                  className={`flex-shrink-0 inline-flex items-center lg:gap-3 gap-2 px-6 py-3 text-xs font-bold uppercase tracking-widest transition-all duration-300 rounded-full snap-start border whitespace-nowrap ${
+                    isActive
+                      ? "bg-dark text-white border-dark shadow-md scale-105"
+                      : "bg-transparent text-dark/70 border-dark/10 hover:border-dark/30 hover:bg-dark/5"
                   }`}
                 >
-                  {cat}
+                  <span className="leading-none mt-[1px]">{cat}</span>
                   {count > 0 && (
                     <span
-                      className={`ml-2 text-[10px] ${
-                        activeCategory === cat
-                          ? "text-white/60"
-                          : "text-gray-400"
+                      className={`text-[10px] leading-none ${
+                        isActive ? "text-white/60" : "text-dark/40"
                       }`}
                     >
-                      ({count})
+                      {count}
                     </span>
                   )}
                 </button>
