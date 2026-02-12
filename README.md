@@ -2,6 +2,12 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Build & Prerender (SEO)
+
+- **`npm run build`** — Bouwt de app (één `index.html`, SPA).
+- **`npm run prerender`** — Genereert na een build per route een aparte HTML-pagina in `dist/`, zodat elke URL apart door zoekmachines geïndexeerd kan worden (geen SPA voor crawlers).
+- **`npm run build:static`** — Build + prerender in één stap. Op Vercel wordt dit gebruikt zodat de site met aparte pagina’s wordt uitgerold.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
