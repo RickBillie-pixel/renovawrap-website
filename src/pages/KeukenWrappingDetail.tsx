@@ -271,7 +271,7 @@ function KeuzehulpWizard() {
             {/* Step 1: Onderdelen */}
             {step === 1 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {onderdelen.map((item, index) => (
+                {onderdelen.map((item) => (
                   <label 
                     key={item.id} 
                     className="group relative cursor-pointer"

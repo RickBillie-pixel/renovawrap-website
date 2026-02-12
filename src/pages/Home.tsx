@@ -22,7 +22,7 @@ export default function Home() {
     description: "Transformeer uw keuken en interieur met premium wrapping. Zonder sloopwerk, binnen 1 dag klaar. Vraag gratis offerte aan bij Renovawrap.",
     canonical: "https://renovawrap.nl/",
     jsonLd: [
-      buildBreadcrumbs([{ name: "Home", url: "https://renovawrap.nl/" }]),
+      ...buildBreadcrumbs([{ name: "Home", url: "https://renovawrap.nl/" }]),
       {
         "@context": "https://schema.org",
         "@type": "Organization",
