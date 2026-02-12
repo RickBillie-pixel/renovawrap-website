@@ -9,7 +9,7 @@ export default function Contact() {
           <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-6">[01 — Connectie]</span>
           <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight">
             Neem Contact <br />
-            <span className="italic font-serif text-primary ml-16 md:ml-32">Met Ons Op.</span>
+            <span className="italic text-primary ml-16 md:ml-32">Met Ons Op.</span>
           </h1>
         </div>
 

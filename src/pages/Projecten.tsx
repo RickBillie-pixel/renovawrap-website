@@ -1,20 +1,9 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
 import FadeIn from "../components/FadeIn";
 import ProjectModal from "../components/ProjectModal";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
-
-interface Project {
-  id: string;
-  name: string;
-  category: string;
-  before_image_url: string | null;
-  after_image_url: string | null;
-  Uitdaging: string | null;
-  Oplossing: string | null;
-  is_featured: boolean;
-  date: string | null;
-}
+import { projectService } from "@/lib/projectService";
+import type { Project } from "@/lib/projectService";
 
 const CATEGORIES = [
   "Alle",
@@ -29,8 +18,10 @@ const CATEGORIES = [
 ];
 
 export default function Projecten() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Initialize with cached data if available (Sync render!)
+  const [projects, setProjects] = useState<Project[]>(() => projectService.getCachedProjects() || []);
+  // Loading is only true if we don't have projects yet
+  const [loading, setLoading] = useState(() => !projectService.getCachedProjects());
   const [activeCategory, setActiveCategory] = useState("Alle");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -41,17 +32,10 @@ export default function Projecten() {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const { data, error } = await supabase
-          .from("projects")
-          .select("*")
-          .order("is_featured", { ascending: false })
-          .order("created_at", { ascending: false });
-
-        if (error) {
-          console.error("Error fetching projects:", error);
-          return;
-        }
-        setProjects(data || []);
+        // If we already have data (from cache init), we technically don't need to re-fetch 
+        // unless we want to ensure freshness. The service handles deduplication of promises.
+        const data = await projectService.getProjects();
+        setProjects(data);
       } catch (err) {
         console.error("Error fetching projects:", err);
       } finally {
@@ -62,192 +46,177 @@ export default function Projecten() {
     fetchProjects();
   }, []);
 
-  const featuredProject = projects.find((p) => p.is_featured);
-  const filteredProjects =
+  // Top 3 featured projects (or just first 3 if none explicit)
+  const featuredProjects = projects.slice(0, 3);
+  
+  // The rest of the projects for the grid
+  const gridProjects = projects.slice(3);
+
+  const filteredGridProjects =
     activeCategory === "Alle"
-      ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      ? gridProjects
+      : gridProjects.filter((p) => p.category === activeCategory);
 
   return (
     <main className="pt-24 bg-background-light text-dark min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-[70vh] flex flex-col justify-center overflow-hidden border-b border-dark/5">
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.04] overflow-hidden">
-          <span className="font-display font-bold text-[22vw] leading-none text-dark whitespace-nowrap tracking-tighter transform rotate-1">
-            PORTFOLIO
+      
+      {/* 
+        --------------------------------------------------
+        HERO & ASYMMETRICAL FEATURED SECTION 
+        Matching Stitch Design "Uitgelichte Projecten"
+        --------------------------------------------------
+      */}
+      <section className="relative flex flex-col justify-center overflow-hidden pb-24">
+        {/* Background Text */}
+        <div className="absolute inset-0 flex items-start justify-center pointer-events-none select-none opacity-[0.03] overflow-hidden pt-32">
+          <span className="font-display font-bold text-[20vw] leading-none text-dark whitespace-nowrap tracking-tighter">
+            PROJECTEN
           </span>
         </div>
-        <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 mt-12">
-          <div className="lg:col-span-12 flex justify-between text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-8 pb-6 border-b border-dark/10">
-            <span>[Portfolio]</span>
-            <span className="hidden md:inline">[Transformaties]</span>
-            <span>[2024]</span>
-          </div>
-          <div className="lg:col-span-9">
-            <h1 className="font-display text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight mb-8">
-              Onze <br />{" "}
-              <span className="italic font-serif text-primary pl-24">
+
+        <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10 pt-16">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-dark/10 pb-8">
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
+              Uitgelichte <br />
+              <span className="italic text-primary ml-4">
                 Projecten
               </span>
             </h1>
-          </div>
-          <div className="lg:col-span-3 flex flex-col justify-end pb-4">
-            <p className="text-sm md:text-base text-gray-600 leading-relaxed font-light mb-8">
-              Van complete keukentransformaties tot verfijnde details. Ontdek hoe
-              wij ruimtes nieuw leven inblazen.
+            <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mt-8 md:mt-0 max-w-xs text-right">
+              Een selectie van onze meest recente transformaties in keukens en interieurs.
             </p>
-            <div className="flex items-center gap-4">
-              <div className="h-px w-8 bg-dark"></div>
-              <span className="text-xs uppercase tracking-widest">
-                Scroll verder
-              </span>
-            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Featured Project */}
-      {featuredProject && (
-        <section className="py-32 bg-background-light">
-          <div className="max-w-[1400px] mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-primary mb-4 block">
-                  [Uitgelicht Project]
-                </span>
-                <h2 className="font-display text-5xl md:text-6xl mb-6 leading-tight">
-                  {featuredProject.name}
-                </h2>
-                <span className="inline-block text-xs uppercase tracking-widest text-gray-400 bg-gray-100 px-4 py-2 mb-6">
-                  {featuredProject.category}
-                </span>
-                {featuredProject.Uitdaging && (
-                  <p className="text-gray-600 leading-relaxed mb-6">
-                    {featuredProject.Uitdaging}
-                  </p>
-                )}
-                <button
-                  onClick={() => setSelectedProject(featuredProject)}
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-medium hover:gap-4 transition-all duration-300 hover:text-primary"
+          {/* Asymmetrical Grid */}
+          {!loading && featuredProjects.length > 0 && (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[600px]">
+              
+              {/* Left Column (Primary Feature) - Span 7 */}
+              {featuredProjects[0] && (
+                <div 
+                  className="lg:col-span-7 relative group cursor-pointer"
+                  onClick={() => setSelectedProject(featuredProjects[0])}
                 >
-                  Bekijk Details{" "}
-                  <span className="material-symbols-outlined text-sm">
-                    arrow_forward
-                  </span>
-                </button>
-              </div>
-              <div
-                className="relative cursor-pointer group"
-                onClick={() => setSelectedProject(featuredProject)}
-              >
-                {featuredProject.before_image_url &&
-                featuredProject.after_image_url ? (
-                  <BeforeAfterSlider
-                    beforeImage={featuredProject.before_image_url}
-                    afterImage={featuredProject.after_image_url}
-                    className="w-full aspect-[4/3]"
-                  />
-                ) : (
-                  <div className="relative aspect-[4/5]">
+                  <div className="w-full h-[500px] lg:h-[700px] overflow-hidden relative">
                     <img
-                      alt={featuredProject.name}
-                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                      src={
-                        featuredProject.after_image_url ||
-                        featuredProject.before_image_url ||
-                        ""
-                      }
+                      alt={featuredProjects[0].name}
+                      src={featuredProjects[0].after_image_url || featuredProjects[0].before_image_url || ""}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
                     />
-                    <div className="absolute top-4 right-4 bg-white/90 px-4 py-2 text-xs uppercase tracking-widest backdrop-blur-sm">
-                      Voor/Na
+                    <div className="absolute inset-0 bg-dark/10 group-hover:bg-transparent transition-colors"></div>
+                    <div className="absolute bottom-8 left-8 z-20">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-white bg-dark/30 backdrop-blur-sm px-3 py-1 mb-2 inline-block">
+                        {featuredProjects[0].category}
+                      </span>
+                      <h3 className="text-white text-4xl md:text-5xl font-display italic leading-none">
+                        {featuredProjects[0].name}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Right Column (Secondary Features) - Span 5 */}
+              <div className="lg:col-span-5 flex flex-col gap-8 lg:gap-12">
+                
+                {/* Top Right */}
+                {featuredProjects[1] && (
+                  <div 
+                    className="relative group cursor-pointer flex-1"
+                    onClick={() => setSelectedProject(featuredProjects[1])}
+                  >
+                    <div className="w-full h-[300px] lg:h-[320px] overflow-hidden relative">
+                      <img
+                        alt={featuredProjects[1].name}
+                        src={featuredProjects[1].after_image_url || featuredProjects[1].before_image_url || ""}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+                      />
+                      <div className="absolute top-4 right-4 z-20">
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-dark bg-white/80 backdrop-blur-sm px-3 py-1">
+                          {featuredProjects[1].category}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-6 left-6 z-20">
+                        <h3 className="text-white text-2xl md:text-3xl font-display">
+                          {featuredProjects[1].name}
+                        </h3>
+                      </div>
                     </div>
                   </div>
                 )}
+
+                {/* Bottom Right */}
+                {featuredProjects[2] && (
+                  <div 
+                    className="relative group cursor-pointer flex-1"
+                    onClick={() => setSelectedProject(featuredProjects[2])}
+                  >
+                    <div className="w-full h-[300px] lg:h-[340px] overflow-hidden relative">
+                      <img
+                        alt={featuredProjects[2].name}
+                        src={featuredProjects[2].after_image_url || featuredProjects[2].before_image_url || ""}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-primary/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                        <span className="text-white border border-white px-6 py-2 uppercase text-xs tracking-[0.2em]">
+                          Bekijk Project
+                        </span>
+                      </div>
+                      <div className="absolute bottom-6 left-6 z-20">
+                        <h3 className="text-white text-2xl md:text-3xl font-display italic">
+                          {featuredProjects[2].name}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
               </div>
             </div>
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+      </section>
 
-      {/* Category Tabs + Portfolio Grid */}
-      <section className="py-32 bg-white border-t border-dark/5">
+      {/* 
+        --------------------------------------------------
+        PORTFOLIO GRID & TABS
+        --------------------------------------------------
+      */}
+      <section className="py-24 bg-white" id="portfolio">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500 block mb-4">
-              Meer Projecten
-            </span>
-            <h2 className="font-display text-5xl md:text-6xl">
-              Ons <span className="italic text-primary">Portfolio</span>
-            </h2>
-          </div>
-
-          {/* Category Tabs */}
-          <div className="flex flex-nowrap overflow-x-auto gap-4 mb-16 px-6 pb-4 no-scrollbar justify-start snap-x">
+          
+          {/* Tabs */}
+          <div className="flex flex-nowrap overflow-x-auto justify-start md:justify-center items-center gap-8 md:gap-12 mb-20 border-b border-gray-200 pb-1 scrollbar-hide snap-x">
             {CATEGORIES.map((cat) => {
-              const count =
-                cat === "Alle"
-                  ? projects.length
-                  : projects.filter((p) => p.category === cat).length;
               const isActive = activeCategory === cat;
               return (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`flex-shrink-0 inline-flex items-center lg:gap-3 gap-2 px-6 py-3 text-xs font-bold uppercase tracking-widest transition-all duration-300 rounded-full snap-start border whitespace-nowrap ${
+                  className={`text-sm md:text-xs uppercase tracking-[0.2em] pb-4 border-b-2 font-medium transition-colors whitespace-nowrap snap-start flex-shrink-0 ${
                     isActive
-                      ? "bg-dark text-white border-dark shadow-md scale-105"
-                      : "bg-transparent text-dark/70 border-dark/10 hover:border-dark/30 hover:bg-dark/5"
+                      ? "border-primary text-dark"
+                      : "border-transparent text-gray-400 hover:text-primary"
                   }`}
                 >
-                  <span className="leading-none mt-[1px]">{cat}</span>
-                  {count > 0 && (
-                    <span
-                      className={`text-[10px] leading-none ${
-                        isActive ? "text-white/60" : "text-dark/40"
-                      }`}
-                    >
-                      {count}
-                    </span>
-                  )}
+                  {cat}
                 </button>
               );
             })}
           </div>
 
-          {/* Loading state */}
-          {loading && (
-            <div className="flex justify-center py-20">
-              <div className="w-8 h-8 border-2 border-dark/20 border-t-primary rounded-full animate-spin" />
-            </div>
-          )}
-
-          {/* Empty state */}
-          {!loading && filteredProjects.length === 0 && (
-            <div className="text-center py-20">
-              <span className="material-symbols-outlined text-5xl text-gray-300 mb-4 block">
-                photo_library
-              </span>
-              <p className="text-gray-400 text-sm uppercase tracking-widest">
-                {activeCategory === "Alle"
-                  ? "Nog geen projecten toegevoegd"
-                  : `Nog geen projecten in "${activeCategory}"`}
-              </p>
-            </div>
-          )}
-
-          {/* Project Grid */}
-          {!loading && filteredProjects.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project, index) => (
+          {/* Grid Projects */}
+          {!loading && filteredGridProjects.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
+               {filteredGridProjects.map((project, index) => (
                 <FadeIn
                   key={project.id}
                   delay={index * 80}
                   className="group cursor-pointer"
                 >
-                  <div
-                    onClick={() => setSelectedProject(project)}
-                    className="group"
-                  >
+                  <div onClick={() => setSelectedProject(project)}>
                     <div className="relative overflow-hidden aspect-[4/5] mb-6 bg-gray-100">
                       <img
                         alt={project.name}
@@ -258,32 +227,97 @@ export default function Projecten() {
                           "https://placehold.co/600x750/f5f5f5/cccccc?text=Geen+foto"
                         }
                       />
-                      <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/20 transition-colors duration-500" />
-                      {project.before_image_url &&
-                        project.after_image_url && (
-                          <div className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 text-[10px] uppercase tracking-widest backdrop-blur-sm font-bold">
-                            Voor / Na
-                          </div>
-                        )}
+                      <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/10 transition-colors duration-500" />
+                      {project.before_image_url && project.after_image_url && (
+                        <div className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 text-[10px] uppercase tracking-widest backdrop-blur-sm font-bold">
+                          Voor / Na
+                        </div>
+                      )}
                     </div>
-                    <div className="flex justify-between items-start border-t border-dark/10 pt-4">
-                      <div>
-                        <h3 className="font-display text-2xl mb-1 group-hover:text-primary transition-colors">
-                          {project.name}
-                        </h3>
-                        <p className="text-xs uppercase tracking-widest text-gray-400">
-                          {project.category}
-                        </p>
-                      </div>
-                      <span className="material-symbols-outlined text-gray-300 group-hover:text-dark transition-colors">
-                        arrow_outward
+                    <div>
+                      <span className="text-primary text-[10px] font-bold uppercase tracking-widest mb-2 block">
+                        {project.category}
                       </span>
+                      <h3 className="font-display text-2xl mb-1 group-hover:text-primary transition-colors">
+                        {project.name}
+                      </h3>
                     </div>
                   </div>
                 </FadeIn>
               ))}
             </div>
+          ) : (
+            <div className="text-center py-20 mb-32">
+               <p className="text-gray-400 text-sm uppercase tracking-widest">
+                {activeCategory === "Alle"
+                  ? "Geen overige projecten gevonden"
+                  : `Geen projecten in "${activeCategory}"`}
+              </p>
+            </div>
           )}
+
+        </div>
+      </section>
+
+
+      {/* 
+        --------------------------------------------------
+        STATIC BEFORE & AFTER SECTION ("Voor & Na")
+        Hardcoded as per request
+        --------------------------------------------------
+      */}
+      <section className="py-32 bg-background-light overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/5 -skew-x-12 z-0 pointer-events-none"></div>
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+          <div className="text-center mb-24">
+            <h2 className="font-display text-5xl md:text-7xl mb-6">
+              Voor & <span className="italic text-primary">Na</span>
+            </h2>
+            <p className="text-xs uppercase tracking-[0.2em] text-gray-500 max-w-lg mx-auto leading-loose">
+              Het bewijs van transformatie. Versleep de slider om het verschil te zien dat Renovawrap maakt in sfeer en uitstraling.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Project Amstelveen */}
+            <div className="group">
+              <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-2xl">
+                 <BeforeAfterSlider 
+                    beforeImage="https://lh3.googleusercontent.com/aida-public/AB6AXuCLTPz2wOk-BW9C7-E3c_mneEHkQr-vNeI4rG3aITIkKapzO24UIJOdrzKNreViOcLSZgCL94V5IuEHt54ZpCNraj5r2dPjXok-3mGr-zQMSnIDAAXCJvKtO998I866VBBHj2KRHS9tZeFdKXwKwdofQWy6WTvmpMEaAOKOovEsDNMIc1T_3NihnIaIj2UDtjED4s_OR0Lr7nbPf-QRUzeFN-dMwdzmVGjt0__Wam_-1oDlMxA4Dkh381ln15C37fqmHh2rAMPckTA"
+                    afterImage="https://lh3.googleusercontent.com/aida-public/AB6AXuC_bNep-OjxTMyszSbRUzRxrVDgcb2NZ8M2BbN_gI98vD8jqlfLapPkMJRvcoiBwhO5SNe8UJ6XG1nH_FrEevAp_nV2qBQKKezi4_K3mCLg7dBWwfmUr4f6OAc9iDkJSS6h3kQDOeUk0E_fLuCWj2ylr97lET0PacC_tQtjTZGmbwHOATbO3yPV7WE30u2jEZKPXy5DVwKcbhg6vT_jLkDGs23559bTwKiEyywXq_HUlnezVfDYt_ovGBIwiVTXwXa3r3vgRmItcuc"
+ className="h-full"
+                 />
+              </div>
+              <div className="flex justify-between items-baseline px-2">
+                <h3 className="font-display text-2xl">Project Amstelveen</h3>
+                <span className="text-xs text-gray-400 uppercase tracking-widest">Keuken Renovatie</span>
+              </div>
+            </div>
+
+             {/* Project Den Haag */}
+            <div className="group mt-12 lg:mt-0">
+               <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-2xl">
+                 <BeforeAfterSlider 
+                    beforeImage="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQ7CZma-nwhJXHzmQ0OFtElMNDapKx-kKUaGd6kErk-h4r9FRMhkoxkxuhIWOynOp0L3JjCFlF1FOOloizTflsrqmXGLFF2Hp34OusR76JqsT6CTXZnXuXfGCkf6usIw0nA8louiyUXbYJyDiIFJgI9D58QqZEMkqA88QRvN-gtr8v3oMNhjeR3mTHSvnIWDEVI7FfKZpICpW-ybem4EZysHMOg5Y-mN5FK7lacvZonQUgns77wQe8Dj58hlO8DegZQbFc-c99Tw"
+                    afterImage="https://lh3.googleusercontent.com/aida-public/AB6AXuCYn791KOT13rsJDS46AqrZVUi_QO4_7Rfdo2VkGC38Tc_yBJu8D0YarWfW77JRNDRV87flBxpsO39iQ20kDhvL6OUHT3jqpMNbTSEXsXZjFczMvtWJ3nb-qLB21l0cW9TAqmCUE2sKeRsHlV50AGwRcVOQ2Z8UKQy5PQbxxbTTna07PT4QBdkQVnITxv7rT6F9b12RVxiStk3QGb-A690KbJPqkggCBmYABejtuzmP5YvP9hI_KFzpIDKQho_nz5ez4oZA5Y4vy9w"
+                    className="h-full"
+                 />
+              </div>
+              <div className="flex justify-between items-baseline px-2">
+                <h3 className="font-display text-2xl">Appartement Den Haag</h3>
+                <span className="text-xs text-gray-400 uppercase tracking-widest">Interieur Wrap</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-24 text-center">
+            <a
+              href="#contact"
+              className="inline-block border border-dark px-12 py-4 text-xs uppercase tracking-[0.2em] hover:bg-dark hover:text-white transition-all duration-300"
+            >
+              Start Uw Transformatie
+            </a>
+          </div>
         </div>
       </section>
 

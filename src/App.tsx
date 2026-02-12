@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+// Auto-start project preloading at app boot (import triggers module-level preload)
+import "@/lib/projectService";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -31,9 +33,12 @@ function ScrollToTop() {
   return null;
 }
 
+import SmoothScroll from "./components/SmoothScroll";
+
 function App() {
   return (
     <Router>
+      <SmoothScroll />
       <ScrollToTop />
       <div className="bg-background-light text-dark min-h-screen selection:bg-secondary selection:text-white transition-colors duration-300">
         <Header />

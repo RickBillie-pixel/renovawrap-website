@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { InfiniteMovingCards } from "../components/InfiniteMovingCards";
+import KitchenBenefits from "../components/KitchenBenefits";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
@@ -9,6 +9,24 @@ import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
 
 function KeuzehulpWizard() {
   const [step, setStep] = useState(1);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToSection = () => {
+    setTimeout(() => {
+      const lenis = (window as any).__lenis;
+      if (lenis) {
+        // Use Lenis native scrollTo — the ONLY reliable way to scroll when Lenis is active
+        lenis.scrollTo('#keuzehulp', { offset: -72, immediate: true });
+      } else {
+        // Fallback if Lenis isn't available
+        const section = document.getElementById('keuzehulp');
+        if (section) {
+          const top = section.getBoundingClientRect().top + window.scrollY - 72;
+          window.scrollTo({ top, behavior: 'auto' });
+        }
+      }
+    }, 50);
+  };
   const [formData, setFormData] = useState({
     onderdelen: [] as string[],
     aantalDeurtjes: "",
@@ -124,270 +142,393 @@ function KeuzehulpWizard() {
 
   if (submitted) {
     return (
-      <div className="text-center py-20">
-        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8">
-          <span className="material-symbols-outlined text-primary text-4xl">check_circle</span>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center p-12 bg-surface text-dark">
+          <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8">
+            <span className="material-symbols-outlined text-primary text-5xl">check_circle</span>
+          </div>
+          <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
+          <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
+            Wij nemen binnen 24 uur contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat.
+          </p>
         </div>
-        <h3 className="font-display text-3xl text-dark mb-4">Bedankt voor uw aanvraag!</h3>
-        <p className="text-gray-500 max-w-md mx-auto">
-          Wij nemen binnen 24 uur contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat.
-        </p>
       </div>
     );
   }
 
   const onderdelen = [
-    { id: "frontjes", label: "Keukenfrontjes & Lades", icon: "kitchen" },
-    { id: "werkblad", label: "Werkblad", icon: "countertops" },
-    { id: "achterwand", label: "Achterwand", icon: "grid_view" },
-    { id: "zijpanelen", label: "Zijpanelen & Plinten", icon: "view_sidebar" },
-    { id: "afzuigkap", label: "Afzuigkap", icon: "air" },
-    { id: "apparatuur", label: "Inbouwapparatuur", icon: "microwave" },
+    { 
+      id: "keukenfrontjes", 
+      label: "Keukenfrontjes & Lades", 
+      sub: "Oppervlakte Renovatie",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBKhIWAwOIuMsTga_L53C5Mrs5legO69zx6OfvSm7FfspFeloadDJnQfI_f_eJEWz2_bcCPloyk-2pwM42OgHHsnLXOOl90qbPTBVDf7cEUJMRBl3lnuSekfuYKGlU4MXLZg1BO6cnxL64PnBU33cqqgNV0DTvOQQAkSUn6fx3ckR3h6L7CWPIsfR-wBf33HPApzaSXSAyid5JaPm4o3vC2-4532HjTot6W3bb6iyzwjjHP7n_f_QXW0_f4YccWa-nKm4GGVGqpxQc" 
+    },
+    { 
+      id: "werkblad", 
+      label: "Werkblad", 
+      sub: "Hittebestendig",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC2WGLFQDDxeZSYLHmb0V41cvTnh383Noev742OXf_dUWR_G4dqth48XUEUq5m5Im7Q-WhO1I0O2MZvm219CuM3woZ-uwkQU2BXuTKKySVlKIiJCuSIHxu939zsumzhe9EAYxxZCTRl-b4QetaCrObhz4pPQL7ikSwDon-sbaDdDJYde01jU7_N6KDbwdFml4r1YmUJauOVXoGQ4-JrT_Wel-fBGstFnwp_Sf9ClyfRw8VEiSCtdmLZwR7JDeKYWKtkAB3ypFY-Wyg" 
+    },
+    { 
+      id: "achterwand", 
+      label: "Achterwand", 
+      sub: "Spatwaterdicht",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjXqOkH-g8FNcJVR6ESmW4SXWV6xTaAXP77-nNX6yISiuQ0_PeHQzlTOPNkUXSXhr7E4Q4lsZVK8vdZqhSqTC3RKuAcgaYxfnBWxdTrlVDMK7Nzr8yQ-G7euqCR3rL1RUXJBPyChM4ib-BfrFGNXkQ5-3IwpFLtaYskYhyd2GDl90WgRIxSBO2enSdaDUru1ZqRGBhWsQg0c1wTDrq83YGiwlOj9MkG_pLyYRrtb2_J8NkBq3RaVtV_XlZo4bDNXeLjlQpcACXmgE" 
+    },
+    { 
+      id: "apparatuur", 
+      label: "Inbouwapparatuur", 
+      sub: "Uniformiteit",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAqhd3pmRyGIsjQdK1UZ7uy9oeCE-CFATl8Wm0RKRw7ftYKmFJO7suCUuNgpjrWQPwr3ebkZSKgnpTy657zFQOJC97yut2cx74NNZ-Rt3Z2dqsUo4eP6xXJSHq7chLNtG3EqHhS2d-oh8jCFwFCLnRFkqS12LJ6bNMJ6Ba94P2CJ8GAxgIXtDOzD7Wd9OP1RXWNKGtClULuUEVRfRJd9DXRTjrRTs8_2tzWnYphSNlaaKodF-xgmIxMeuY0M2j0SzfvzzdNpWJlFBo" 
+    },
+    { 
+      id: "zijpanelen", 
+      label: "Zijpanelen & Plinten", 
+      sub: "Afwerking",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDRMD3xzmVlR-TnKqCm6JutgZ8VxA_QtuUUlZ3yZbdGg-9sKlMy5RnAM-zERtSPGkDWvOJP6TL5xA3i7ZVHFKCKRRlYJWcelEEO1Fe9HRcV4PJNor_skQKROAGIvPZKNTjyRdhFD2CBFd4OfMT6aOORjiDHUJ6BduyJp4Slxb4u22wvGNaqi7L4bYhmNs1Iy1X1LfUfActLO_1n5SCeNPl_yeTKCx-l_PqYPf3NY-_7F6JMUDqK3xwAwjhZ4YMlS6Huzv0eJ_lbRCc" 
+    },
+    { 
+      id: "afzuigkap", 
+      label: "Afzuigkap", 
+      sub: "Detailwerk",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBw2ewNIyQviUwxWSySIUjB0DcoGVG2PBRG1OhTNldqRkX6KPWH8FPOvbB2WDCKY7OR9VktvLajyu1i2CxDrHwWEku4RgKAgQ7DJzmvMfy3NE8j5Z7FXxJ2iSA9zHQeXQuC7NbNjL1loheupiLObYhmJ-J5F_cLw1VFal0i4Qe41kpSz_qEPOKMumDutWVqAuevVmlupFpohz3sevcSFp2w2aIZaeXgiP3a2YOf5D_weCDZ6CPnzlEobz7snM1zM2BG72NPUVS0CRI" 
+    },
+  ];
+
+  const steps = [
+    { id: 1, title: "Selectie", label: "Onderdelen"},
+    { id: 2, title: "Aantal", label: "Details"},
+    { id: 3, title: "Stijl", label: "Maten"}, // Stitch uses "Maten" but functionally it's "Style/Color". Keeping label "Maten" to match Stitch text if that's preferred, but "Kleuren" might be better. Stick to Stitch text "Details", "Maten", "Contact".
+    { id: 4, title: "Foto's", label: "Situatie"},
+    { id: 5, title: "Contact", label: "Contact"},
   ];
 
   return (
-    <div>
-      {/* Progress */}
-      <div className="flex items-center justify-between mb-12 max-w-lg mx-auto">
-        {[1, 2, 3, 4, 5].map((s) => (
-          <div key={s} className="flex items-center">
-            <div
-              className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                s <= step ? "bg-primary text-white" : "bg-gray-200 text-gray-400"
-              }`}
-            >
-              {s < step ? (
-                <span className="material-symbols-outlined text-sm">check</span>
-              ) : (
-                s
-              )}
-            </div>
-            {s < 5 && (
-              <div className={`w-8 sm:w-16 h-0.5 ${s < step ? "bg-primary" : "bg-gray-200"}`} />
-            )}
+    <div ref={sectionRef} className="flex flex-col lg:flex-row w-full max-w-7xl mx-auto min-h-[60vh] bg-background-light text-dark font-montserrat relative scroll-mt-8">
+      {/* Left Sidebar (Sticky) */}
+      <div className="lg:w-1/3 flex flex-col justify-start lg:sticky lg:top-24 h-auto lg:h-[60vh] mb-12 lg:mb-0 pr-8 lg:border-r border-gray-200 border-opacity-50">
+        <div className="mb-6 flex items-center space-x-4">
+          <span className="font-display text-4xl text-primary italic">0{step}</span>
+          <span className="h-[1px] w-12 bg-gray-300"></span>
+          <span className="uppercase tracking-widest text-xs font-semibold text-gray-500">
+            {step === 1 && "Onderdelen"}
+            {step === 2 && "Details"}
+            {step === 3 && "Stijl & Kleur"}
+            {step === 4 && "Foto's"}
+            {step === 5 && "Contact"}
+          </span>
+        </div>
+
+        <h1 className="font-display text-3xl lg:text-4xl lg:text-5xl text-dark leading-tight mb-4">
+          {step === 1 && <>Wat wilt u <br/> <span className="italic text-primary">laten wrappen?</span></>}
+          {step === 2 && <>Hoeveel <br/> <span className="italic text-primary">deurtjes & lades?</span></>}
+          {step === 3 && <>Welke <br/> <span className="italic text-primary">stijl zoekt u?</span></>}
+          {step === 4 && <>Huidige <br/> <span className="italic text-primary">situatie</span></>}
+          {step === 5 && <>Uw <br/> <span className="italic text-primary">gegevens</span></>}
+        </h1>
+
+        <p className="text-gray-500 leading-relaxed mb-8 max-w-sm">
+          {step === 1 && "Selecteer de elementen van uw interieur die toe zijn aan vernieuwing. Wij zorgen voor een naadloze transformatie."}
+          {step === 2 && "Geef een schatting van het aantal frontjes en lades. Dit helpt ons bij de prijsindicatie."}
+          {step === 3 && "Kies een stijl die bij u past. U heeft keuze uit meer dan 300 premium afwerkingen."}
+          {step === 4 && "Upload enkele foto's van uw huidige keuken voor een nauwkeurigere offerte."}
+          {step === 5 && "Vul uw gegevens in zodat wij contact met u kunnen opnemen met een vrijblijvend voorstel."}
+        </p>
+
+        {/* Progress Timeline (Desktop) */}
+        <div className="relative flex-grow hidden lg:block ml-2">
+          <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gray-200"></div>
+          <div 
+            className="absolute left-0 top-0 w-[1px] bg-primary transition-all duration-1000 ease-in-out" 
+            style={{ height: `${(step / 5) * 100}%` }}
+          ></div>
+          <div className="relative flex flex-col space-y-8 py-2">
+            {steps.map((s, i) => (
+              <div 
+                key={s.id}
+                className={`flex items-center group cursor-pointer transition-opacity ${step === s.id ? 'opacity-100' : 'opacity-40 hover:opacity-70'}`}
+                onClick={() => { if (i + 1 < step) { setStep(i + 1); scrollToSection(); } }}
+              >
+                <div className={`w-2 h-2 rounded-full -ml-[3.5px] transition-colors ${step >= s.id ? 'bg-primary ring-4 ring-background-light' : 'bg-gray-400'}`}></div>
+                <span className={`ml-6 text-sm font-semibold transition-colors ${step >= s.id ? 'text-primary' : 'text-gray-500'}`}>{s.label}</span>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
 
-      {/* Step 1 */}
-      {step === 1 && (
-        <div>
-          <h3 className="font-display text-2xl text-dark mb-2 text-center">Wat wilt u laten wrappen?</h3>
-          <p className="text-gray-400 text-sm text-center mb-8">Selecteer alle onderdelen die u wilt vernieuwen</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            {onderdelen.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => toggleOnderdeel(item.id)}
-                className={`p-6 border-2 transition-all text-left group hover:border-primary ${
-                  formData.onderdelen.includes(item.id)
-                    ? "border-primary bg-primary/5"
-                    : "border-gray-200 bg-white"
-                }`}
-              >
-                <span className={`material-symbols-outlined text-2xl mb-3 block ${
-                  formData.onderdelen.includes(item.id) ? "text-primary" : "text-gray-300 group-hover:text-primary"
-                }`}>{item.icon}</span>
-                <span className="text-sm font-bold text-dark block">{item.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Step 2 */}
-      {step === 2 && (
-        <div>
-          <h3 className="font-display text-2xl text-dark mb-2 text-center">Hoeveel deurtjes en lades?</h3>
-          <p className="text-gray-400 text-sm text-center mb-8">Een schatting is voldoende</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-            {[
-              { id: "klein", label: "Klein", sub: "6–10 stuks" },
-              { id: "middel", label: "Gemiddeld", sub: "11–16 stuks" },
-              { id: "groot", label: "Groot", sub: "17–22 stuks" },
-              { id: "xl", label: "Extra Groot", sub: "23+ stuks" },
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setFormData((p) => ({ ...p, aantalDeurtjes: item.id }))}
-                className={`p-6 border-2 transition-all text-center ${
-                  formData.aantalDeurtjes === item.id
-                    ? "border-primary bg-primary/5"
-                    : "border-gray-200 bg-white hover:border-primary"
-                }`}
-              >
-                <span className="text-sm font-bold text-dark block">{item.label}</span>
-                <span className="text-xs text-gray-400 mt-1 block">{item.sub}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Step 3 – Stijl:zelfde kleuren als configurator (Kleurenwrap) */}
-      {step === 3 && (
-        <div>
-          <h3 className="font-display text-2xl text-dark mb-2 text-center">Welke stijl / kleur spreekt u aan?</h3>
-          <p className="text-gray-400 text-sm text-center mb-6">Kies uit ons folie-assortiment, zoals in de configurator</p>
-          <div className="max-w-2xl mx-auto mb-6">
-            <div className="relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                <span className="material-symbols-outlined text-lg">search</span>
-              </span>
-              <input
-                type="text"
-                placeholder="Zoek op naam of code..."
-                value={stijlSearch}
-                onChange={(e) => setStijlSearch(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-200 text-sm focus:outline-none focus:border-primary"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 max-w-3xl mx-auto max-h-[380px] overflow-y-auto pr-2">
-            {filteredWrapColors.map((color) => (
-              <button
-                key={color.id}
-                type="button"
-                onClick={() => setFormData((p) => ({ ...p, stijl: color.id }))}
-                className={`group relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
-                  formData.stijl === color.id ? "border-primary ring-2 ring-primary ring-offset-2" : "border-gray-200 hover:border-primary/50"
-                }`}
-              >
-                <img src={color.image} alt={color.name} className="w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-x-0 bottom-0 bg-black/60 backdrop-blur-sm p-1.5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                  <p className="text-[10px] text-white font-medium truncate text-center">{color.name}</p>
-                  {color.code && <p className="text-[9px] text-white/80 text-center">{color.code}</p>}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Step 4 */}
-      {step === 4 && (
-        <div>
-          <h3 className="font-display text-2xl text-dark mb-2 text-center">Foto's van uw keuken</h3>
-          <p className="text-gray-400 text-sm text-center mb-8">Upload foto's zodat wij een nauwkeurige offerte kunnen maken (optioneel, max 5)</p>
-          <div className="max-w-xl mx-auto">
-            <div
-              onClick={() => fileInputRef.current?.click()}
-              onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
-              onDrop={(e) => { e.preventDefault(); e.stopPropagation(); handleFiles(e.dataTransfer.files); }}
-              className="border-2 border-dashed border-gray-300 hover:border-primary p-12 text-center cursor-pointer transition-colors bg-white"
-            >
-              <span className="material-symbols-outlined text-4xl text-gray-300 mb-4 block">cloud_upload</span>
-              <p className="text-sm text-gray-500 mb-1">Sleep foto's hierheen of klik om te uploaden</p>
-              <p className="text-xs text-gray-400">JPG, PNG — max 5 foto's</p>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                multiple
-                className="hidden"
-                onChange={(e) => handleFiles(e.target.files)}
-              />
-            </div>
-            {formData.fotos.length > 0 && (
-              <div className="grid grid-cols-5 gap-3 mt-6">
-                {formData.fotos.map((file, i) => (
-                  <div key={i} className="relative aspect-square bg-gray-100 overflow-hidden group">
-                    <img src={URL.createObjectURL(file)} alt="" className="w-full h-full object-cover" />
-                    <button
-                      onClick={() => removeFile(i)}
-                      className="absolute top-1 right-1 w-6 h-6 bg-dark/70 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <span className="material-symbols-outlined text-xs">close</span>
-                    </button>
-                  </div>
+      {/* Right Content */}
+      <div className="lg:w-2/3 lg:pl-16 relative pb-24">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={step}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            {/* Step 1: Onderdelen */}
+            {step === 1 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {onderdelen.map((item, index) => (
+                  <label 
+                    key={item.id} 
+                    className="group relative cursor-pointer"
+                  >
+                    <input 
+                      type="checkbox" 
+                      className="peer sr-only"
+                      checked={formData.onderdelen.includes(item.id)}
+                      onChange={() => toggleOnderdeel(item.id)}
+                    />
+                    <div className="bg-white p-2 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 peer-checked:ring-1 peer-checked:ring-primary peer-checked:shadow-none hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] h-full flex flex-col">
+                      <div className="relative h-40 overflow-hidden mb-3">
+                        <img 
+                          src={item.image} 
+                          alt={item.label} 
+                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 grayscale-[20%] group-hover:grayscale-0"
+                        />
+                        <div className="absolute inset-0 bg-primary/0 peer-checked:bg-primary/10 transition-colors"></div>
+                      </div>
+                      <div className="px-4 pb-4 flex justify-between items-end">
+                        <div>
+                          <h3 className="font-display text-xl italic text-dark mb-1">{item.label}</h3>
+                          <p className="text-xs text-gray-500 uppercase tracking-wider">{item.sub}</p>
+                        </div>
+                        <span className={`material-symbols-outlined text-2xl transition-colors ${formData.onderdelen.includes(item.id) ? 'text-primary' : 'text-gray-300'}`}>
+                          check_circle
+                        </span>
+                      </div>
+                    </div>
+                  </label>
                 ))}
               </div>
             )}
-          </div>
-        </div>
-      )}
 
-      {/* Step 5 */}
-      {step === 5 && (
-        <div>
-          <h3 className="font-display text-2xl text-dark mb-2 text-center">Uw gegevens</h3>
-          <p className="text-gray-400 text-sm text-center mb-8">Wij nemen binnen 24 uur contact met u op</p>
-          <div className="max-w-md mx-auto space-y-4">
-            <input
-              type="text"
-              placeholder="Naam *"
-              value={formData.naam}
-              onChange={(e) => setFormData((p) => ({ ...p, naam: e.target.value }))}
-              className="w-full border border-gray-200 px-6 py-4 text-sm focus:outline-none focus:border-primary"
-            />
-            <input
-              type="email"
-              placeholder="E-mailadres *"
-              value={formData.email}
-              onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
-              className="w-full border border-gray-200 px-6 py-4 text-sm focus:outline-none focus:border-primary"
-            />
-            <input
-              type="tel"
-              placeholder="Telefoonnummer *"
-              value={formData.telefoon}
-              onChange={(e) => setFormData((p) => ({ ...p, telefoon: e.target.value }))}
-              className="w-full border border-gray-200 px-6 py-4 text-sm focus:outline-none focus:border-primary"
-            />
-            <textarea
-              placeholder="Heeft u nog opmerkingen of wensen?"
-              value={formData.opmerking}
-              onChange={(e) => setFormData((p) => ({ ...p, opmerking: e.target.value }))}
-              rows={3}
-              className="w-full border border-gray-200 px-6 py-4 text-sm focus:outline-none focus:border-primary resize-none"
-            />
-          </div>
-        </div>
-      )}
+            {/* Step 2: Aantal */}
+            {step === 2 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 {[
+                  { id: "klein", label: "Klein", sub: "6–10 stuks", desc: "Geschikt voor compacte rechte keukens." },
+                  { id: "middel", label: "Gemiddeld", sub: "11–16 stuks", desc: "Standaard hoekkeuken formaat." },
+                  { id: "groot", label: "Groot", sub: "17–22 stuks", desc: "Ruime keuken met eiland of kastenwand." },
+                  { id: "xl", label: "Extra Groot", sub: "23+ stuks", desc: "Uitgebreide woonkeuken." },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setFormData((p) => ({ ...p, aantalDeurtjes: item.id }))}
+                    className={`bg-white p-6 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group ${
+                      formData.aantalDeurtjes === item.id ? "ring-1 ring-primary shadow-none" : ""
+                    }`}
+                  >
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="font-display text-2xl italic text-dark">{item.label}</h3>
+                      <div className={`w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center transition-colors ${formData.aantalDeurtjes === item.id ? 'border-primary bg-primary text-white' : 'group-hover:border-primary'}`}>
+                        {formData.aantalDeurtjes === item.id && <span className="material-symbols-outlined text-[14px]">check</span>}
+                      </div>
+                    </div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{item.sub}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                  </button>
+                ))}
+              </div>
+            )}
 
-      {/* Foutmelding bij verzenden */}
-      {submitError && (
-        <div className="mt-6 max-w-2xl mx-auto p-4 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-          {submitError}
-        </div>
-      )}
+            {/* Step 3: Stijl */}
+            {step === 3 && (
+              <div>
+                <div className="relative mb-8">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                    <span className="material-symbols-outlined text-lg">search</span>
+                  </span>
+                  <input
+                    type="text"
+                    placeholder="Zoek op kleur, code of materiaal..."
+                    value={stijlSearch}
+                    onChange={(e) => setStijlSearch(e.target.value)}
+                    className="w-full pl-12 pr-4 py-4 border-b border-gray-200 bg-transparent text-lg focus:outline-none focus:border-primary transition-colors placeholder:text-gray-300 font-display italic"
+                  />
+                </div>
+                <div 
+                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar"
+                  style={{ overscrollBehavior: 'contain' }}
+                  onWheel={(e) => {
+                    const el = e.currentTarget;
+                    const isAtTop = el.scrollTop === 0 && e.deltaY < 0;
+                    const isAtBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1 && e.deltaY > 0;
+                    if (!isAtTop && !isAtBottom) {
+                      e.stopPropagation();
+                    }
+                  }}
+                >
+                  {filteredWrapColors.map((color) => (
+                    <button
+                      key={color.id}
+                      type="button"
+                      onClick={() => setFormData((p) => ({ ...p, stijl: color.id }))}
+                      className={`group relative aspect-square overflow-hidden bg-gray-100 transition-all ${
+                        formData.stijl === color.id ? "ring-2 ring-primary ring-offset-2" : "hover:opacity-90"
+                      }`}
+                    >
+                      <img src={color.image} alt={color.name} className="w-full h-full object-cover" loading="lazy" />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end h-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <p className="text-xs text-white font-bold truncate">{color.name}</p>
+                        {color.code && <p className="text-[10px] text-white/70">{color.code}</p>}
+                      </div>
+                      {formData.stijl === color.id && (
+                        <div className="absolute top-2 right-2 bg-primary text-white p-1 rounded-full shadow-lg">
+                          <span className="material-symbols-outlined text-sm block">check</span>
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
-      {/* Navigation */}
-      <div className="flex justify-between items-center mt-12 max-w-2xl mx-auto">
-        <button
-          onClick={() => setStep((s) => Math.max(1, s - 1))}
-          disabled={submitting}
-          className={`text-xs font-bold tracking-widest uppercase flex items-center gap-2 ${
-            step === 1 ? "invisible" : "text-gray-400 hover:text-dark disabled:opacity-50"
-          }`}
-        >
-          <span className="material-symbols-outlined text-sm">arrow_back</span>
-          Vorige
-        </button>
-        {step < 5 ? (
-          <button
-            onClick={() => canNext() && setStep((s) => s + 1)}
-            className={`px-8 py-4 text-xs font-bold tracking-widest uppercase transition-colors ${
-              canNext()
-                ? "bg-dark text-white hover:bg-primary"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-          >
-            Volgende
-          </button>
-        ) : (
-          <button
-            onClick={() => canNext() && !submitting && handleSubmit()}
-            disabled={!canNext() || submitting}
-            className={`px-8 py-4 text-xs font-bold tracking-widest uppercase transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
-              canNext() && !submitting
-                ? "bg-primary text-white hover:bg-dark"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-          >
-            {submitting ? "Bezig met verzenden…" : "Verstuur Aanvraag"}
-          </button>
-        )}
+            {/* Step 4: Foto's */}
+            {step === 4 && (
+              <div>
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                  onDrop={(e) => { e.preventDefault(); e.stopPropagation(); handleFiles(e.dataTransfer.files); }}
+                  className="border border-dashed border-gray-300 hover:border-primary bg-white hover:bg-primary/5 p-8 text-center cursor-pointer transition-all duration-300 group"
+                >
+                  <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/10 transition-colors">
+                    <span className="material-symbols-outlined text-3xl text-gray-300 group-hover:text-primary transition-colors">add_a_photo</span>
+                  </div>
+                  <h4 className="font-display text-xl text-dark mb-2">Sleep foto's hierheen</h4>
+                  <p className="text-sm text-gray-500 mb-6">of klik om te uploaden vanaf uw apparaat</p>
+                  <span className="px-6 py-2 bg-dark text-white text-xs font-bold tracking-widest uppercase group-hover:bg-primary transition-colors">
+                    Kies Bestanden
+                  </span>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => handleFiles(e.target.files)}
+                  />
+                </div>
+
+                {formData.fotos.length > 0 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+                    {formData.fotos.map((file, i) => (
+                      <div key={i} className="relative aspect-square bg-gray-100 overflow-hidden group shadow-md">
+                        <img src={URL.createObjectURL(file)} alt="" className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <button
+                            onClick={() => removeFile(i)}
+                            className="w-8 h-8 bg-white text-dark rounded-full flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors"
+                          >
+                            <span className="material-symbols-outlined text-sm">close</span>
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 5: Contact */}
+            {step === 5 && (
+              <div className="space-y-6 max-w-xl">
+                 <div className="grid grid-cols-1 gap-6">
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Naam</label>
+                      <input
+                        type="text"
+                        value={formData.naam}
+                        onChange={(e) => setFormData((p) => ({ ...p, naam: e.target.value }))}
+                        className="w-full border-b border-gray-300 py-3 bg-transparent focus:outline-none focus:border-primary transition-colors placeholder:text-gray-300 font-display text-lg"
+                        placeholder="Uw volledige naam"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold uppercase tracking-widest text-gray-500">E-mailadres</label>
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData((p) => ({ ...p, email: e.target.value }))}
+                        className="w-full border-b border-gray-300 py-3 bg-transparent focus:outline-none focus:border-primary transition-colors placeholder:text-gray-300 font-display text-lg"
+                        placeholder="bijv. naam@email.com"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Telefoonnummer</label>
+                      <input
+                        type="tel"
+                        value={formData.telefoon}
+                        onChange={(e) => setFormData((p) => ({ ...p, telefoon: e.target.value }))}
+                        className="w-full border-b border-gray-300 py-3 bg-transparent focus:outline-none focus:border-primary transition-colors placeholder:text-gray-300 font-display text-lg"
+                        placeholder="06 12345678"
+                      />
+                    </div>
+                    <div className="space-y-1 pt-4">
+                      <label className="text-xs font-bold uppercase tracking-widest text-gray-500">Opmerkingen (Optioneel)</label>
+                      <textarea
+                        value={formData.opmerking}
+                        onChange={(e) => setFormData((p) => ({ ...p, opmerking: e.target.value }))}
+                        rows={3}
+                        className="w-full border border-gray-200 bg-white p-4 focus:outline-none focus:border-primary transition-colors placeholder:text-gray-300 resize-none text-sm"
+                        placeholder="Heeft u specifieke wensen?"
+                      />
+                    </div>
+                 </div>
+                 {submitError && (
+                    <div className="p-4 bg-red-50 text-red-600 text-sm border border-red-100 flex items-center gap-2">
+                       <span className="material-symbols-outlined text-lg">error</span>
+                       {submitError}
+                    </div>
+                 )}
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Floating Navigation Bar (Matches Stitch footer) */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md p-6 border-t border-gray-100 lg:absolute lg:bg-transparent lg:border-none lg:p-0 lg:bottom-12 lg:right-0 flex justify-between items-center z-40 w-full lg:w-auto lg:justify-end gap-8">
+            <span className="text-sm text-gray-400 hidden lg:block font-mono">Stap {step} van 5</span>
+            
+            <div className="flex gap-4 w-full lg:w-auto">
+              {step > 1 && (
+                <button
+                onClick={() => { setStep((s) => s - 1); scrollToSection(); }}
+                disabled={submitting}
+                className="flex-1 lg:flex-none py-3 px-6 text-xs font-bold tracking-widest uppercase border border-gray-200 hover:border-primary hover:text-primary transition-all disabled:opacity-50"
+              >
+                Vorige
+              </button>
+              )}
+              
+              {step < 5 ? (
+                <button 
+                  onClick={() => { if (canNext()) { setStep((s) => s + 1); scrollToSection(); } }}
+                  disabled={!canNext()}
+                  className="group flex-1 lg:flex-none flex items-center justify-center space-x-4 pl-8 py-3 pr-2 text-dark hover:text-primary transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="text-xs font-bold uppercase tracking-widest">Volgende</span>
+                  <span className="flex items-center justify-center w-12 h-12 border border-gray-300 rounded-full group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <span className="material-symbols-outlined text-xl">arrow_forward</span>
+                  </span>
+                </button>
+              ) : (
+                <button 
+                  onClick={() => canNext() && !submitting && handleSubmit()}
+                  disabled={!canNext() || submitting}
+                  className="group flex-1 lg:flex-none flex items-center justify-center space-x-4 pl-8 py-3 pr-2 text-dark hover:text-primary transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="text-xs font-bold uppercase tracking-widest">{submitting ? "Verzenden..." : "Aanvragen"}</span>
+                  <span className="flex items-center justify-center w-12 h-12 border border-gray-300 rounded-full group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <span className="material-symbols-outlined text-xl">send</span>
+                  </span>
+                </button>
+              )}
+            </div>
+        </div>
       </div>
     </div>
   );
@@ -511,11 +652,11 @@ export default function KeukenWrappingDetail() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-gray-100 pb-12">
             <div className="max-w-xl">
               <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Wat We Wrappen</span>
-              <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight">Elk Onderdeel, <span className="italic text-gray-400">Tot In Perfectie</span></h2>
+              <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight">Keuken Renovatie <span className="italic text-gray-400">Zonder Sloopwerk</span></h2>
             </div>
             <div className="mt-8 md:mt-0">
               <p className="text-gray-500 max-w-xs text-sm leading-relaxed">
-                Van frontjes en werkbladen tot de afzuigkap — wij wrappen alles voor een naadloos eindresultaat.
+                Waarom duizenden euro’s investeren in iets nieuws? Wij wrappen uw bestaande keuken naar showroom-staat. Binnen 2 dagen geregeld!
               </p>
             </div>
           </div>
@@ -523,20 +664,20 @@ export default function KeukenWrappingDetail() {
             {[
               {
                 title: "Keukenfrontjes & Lades",
-                desc: "Alle zichtbare delen worden gewrapt inclusief hoeken en randen. Kies uit hout, mat, hoogglans of een unieke twee-kleuren combinatie.",
+                desc: "Geef uw keuken direct een nieuwe look. Wij wrappen elk paneel naadloos over de randen, zodat de folie nooit loslaat. Beschikbaar in 300+ kleuren.",
                 image: "/project-fotos/after14.webp",
                 link: "/diensten/keuken-frontjes"
               },
               {
                 title: "Werkbladen",
-                desc: "Hittebestendig tot 180°C, waterdicht en niet van echt marmer of beton te onderscheiden. Ideaal als u het aanrechtblad wilt vernieuwen zonder te breken.",
+                desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en hittebestendig tot 180°C. Een luxe look voor een fractie van de prijs.",
                 image: "/project-fotos/after6.webp",
                 className: "md:mt-24",
                 link: "/diensten/aanrechtbladen"
               },
               {
                 title: "Achterwanden & Zijpanelen",
-                desc: "De achterwand maakt of breekt de uitstraling. Wij wrappen deze met dezelfde nauwkeurigheid als de frontjes, inclusief stopcontacten.",
+                desc: "Maak het plaatje compleet. Wij wrappen uw spatwand en zijpanelen strak mee. Onderhoudsvriendelijk en perfect afgewerkt rondom stopcontacten.",
                 image: "/project-fotos/after5.webp",
                 link: "/diensten/achterwanden"
               }
@@ -565,30 +706,8 @@ export default function KeukenWrappingDetail() {
       </section>
 
       {/* Waarom Keuken Wrappen */}
-      <section className="py-32 bg-dark text-white">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="text-center mb-20">
-            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Voordelen</span>
-            <h2 className="font-display text-4xl md:text-5xl leading-tight">Waarom Keuken <span className="italic text-primary">Wrappen?</span></h2>
-          </div>
-          <div className="flex flex-col antialiased bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-            <InfiniteMovingCards
-              items={[
-                { icon: "savings", title: "Tot 70% Goedkoper", desc: "Een nieuwe keuken kost al snel €8.000+. Wrappen kan al vanaf €895." },
-                { icon: "schedule", title: "Klaar In 1 Dag", desc: "Geen wekenlange verbouwing. Wij wrappen uw keuken in slechts één werkdag." },
-                { icon: "palette", title: "300+ Kleuren", desc: "Van realistische houtnerven en marmer tot ultramat en metallic finishes." },
-                { icon: "verified", title: "15-20 Jaar Levensduur", desc: "Onze architecturale folies zijn kras- en stootvast, hittebestendig en antibacterieel." },
-                { icon: "cleaning_services", title: "Geen Rommel", desc: "Geen sloopwerk, geen stof, geen stank. Na afloop is alles schoon." },
-                { icon: "eco", title: "Duurzaam", desc: "Hergebruik uw bestaande keuken. Goed voor het milieu en uw portemonnee." },
-                { icon: "shield", title: "10 Jaar Garantie", desc: "Verkleurt niet, bladdert niet af. Wij staan achter de kwaliteit van ons werk." },
-                { icon: "auto_awesome", title: "Onderhoudsarm", desc: "Een natte doek is alles wat u nodig heeft. De folies zijn geurloos en hygiënisch." },
-              ]}
-              direction="right"
-              speed="slow"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Waarom Keuken Wrappen */}
+      <KitchenBenefits />
 
       {/* Werkwijze */}
       <section className="py-32 bg-white">
@@ -738,9 +857,9 @@ export default function KeukenWrappingDetail() {
       </section>
 
       {/* Keuzehulp Wizard */}
-      <section className="py-32 bg-background-light border-t border-gray-200" id="keuzehulp">
+      <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Keuzehulp</span>
             <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight mb-4">
               Ontvang Uw <span className="italic text-primary">Offerte Op Maat</span>
@@ -749,7 +868,7 @@ export default function KeukenWrappingDetail() {
               Beantwoord 5 korte vragen en wij sturen u binnen 24 uur een vrijblijvende offerte. U kunt ook foto's van uw keuken toevoegen voor een nauwkeurigere prijsindicatie.
             </p>
           </div>
-          <div className="bg-white border border-gray-200 p-8 md:p-12 shadow-sm max-w-4xl mx-auto">
+          <div className="w-full">
             <KeuzehulpWizard />
           </div>
         </div>

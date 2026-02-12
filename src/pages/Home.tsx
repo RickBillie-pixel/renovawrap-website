@@ -1,67 +1,156 @@
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowDown } from "lucide-react";
-import { projects, testimonials, processSteps } from "../data/mockData";
+import { testimonials, processSteps } from "../data/mockData";
 import FadeIn from "../components/FadeIn";
 import CountUp from "../components/CountUp";
+import ProjectModal from "../components/ProjectModal";
+import { projectService } from "@/lib/projectService";
+import type { Project } from "@/lib/projectService";
 
 export default function Home() {
+  const [projects, setProjects] = useState<Project[]>(() => projectService.getCachedProjects() || []);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  // Carousel cycling indices
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [smallTopIndex, setSmallTopIndex] = useState(0);
+  const [smallBottomIndex, setSmallBottomIndex] = useState(1);
+
   // Update document title
   if (typeof document !== "undefined") {
     document.title = "Renovawrap | Home";
   }
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const data = await projectService.getProjects();
+        setProjects(data);
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+      }
+    }
+    fetchProjects();
+  }, []);
+
+  // Split projects into featured and non-featured
+  const featuredProjects = useMemo(() => projects.filter(p => p.is_featured), [projects]);
+  const nonFeaturedProjects = useMemo(() => projects.filter(p => !p.is_featured), [projects]);
+
+  // Cycling: large box (featured) every 10s
+  useEffect(() => {
+    if (featuredProjects.length <= 1) return;
+    const timer = setInterval(() => {
+      setFeaturedIndex(prev => (prev + 1) % featuredProjects.length);
+    }, 10000);
+    return () => clearInterval(timer);
+  }, [featuredProjects.length]);
+
+  // Cycling: top-right box (non-featured) every 12s, starts after 3s delay
+  useEffect(() => {
+    if (nonFeaturedProjects.length <= 1) return;
+    const delay = setTimeout(() => {
+      const timer = setInterval(() => {
+        setSmallTopIndex(prev => (prev + 1) % nonFeaturedProjects.length);
+      }, 12000);
+      return () => clearInterval(timer);
+    }, 3000);
+    return () => clearTimeout(delay);
+  }, [nonFeaturedProjects.length]);
+
+  // Cycling: bottom-right box (non-featured) every 14s, starts after 6s delay
+  useEffect(() => {
+    if (nonFeaturedProjects.length <= 2) return;
+    const delay = setTimeout(() => {
+      const timer = setInterval(() => {
+        setSmallBottomIndex(prev => {
+          let next = (prev + 1) % nonFeaturedProjects.length;
+          // Avoid showing same project as top-right at the moment of transition
+          return next;
+        });
+      }, 14000);
+      return () => clearInterval(timer);
+    }, 6000);
+    return () => clearTimeout(delay);
+  }, [nonFeaturedProjects.length]);
+
+  // Get the current project for each slot
+  const currentFeatured = featuredProjects[featuredIndex % Math.max(featuredProjects.length, 1)] || null;
+  const currentSmallTop = nonFeaturedProjects[smallTopIndex % Math.max(nonFeaturedProjects.length, 1)] || null;
+  const currentSmallBottom = nonFeaturedProjects[smallBottomIndex % Math.max(nonFeaturedProjects.length, 1)] || null;
+
   return (
-    <main className="pt-24 bg-background-light text-dark font-sans antialiased transition-colors duration-300">
+    <main className="bg-background-light text-dark font-sans antialiased transition-colors duration-300">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] lg:min-h-[85vh] flex flex-col justify-center overflow-hidden">
+      <header className="relative min-h-screen flex items-start pt-24 lg:pt-36 overflow-hidden">
         {/* Background watermark */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.03] overflow-hidden">
-          <span className="font-display font-bold text-[22vw] leading-none text-dark whitespace-nowrap tracking-tighter">
+        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
             INTERIEUR
-          </span>
+          </h1>
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-8 lg:mt-0">
-          {/* Top labels */}
-          <div className="lg:col-span-12 flex justify-between text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-8 lg:mb-10 border-b border-dark/10 pb-4 lg:pb-5">
-            <span>[01 — Esthetiek]</span>
-            <span>[02 — Renovatie]</span>
-            <span>[03 — Perfectie]</span>
-          </div>
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+            {/* Left Content: Text & CTA */}
+            <div className="lg:col-span-6 space-y-8">
+              <FadeIn>
+                <div className="inline-block border-l-2 border-primary pl-4 mb-8">
+                  <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Renovatie & Interieur Specialist</span>
+                  <p className="font-display text-lg italic text-gray-500">Zonder sloopwerk. Binnen één dag.</p>
+                </div>
 
-          {/* Main content */}
-          <div className="lg:col-span-8">
-            <FadeIn>
-              <h1 className="font-display text-6xl md:text-8xl lg:text-[7rem] xl:text-9xl leading-[0.9] mb-8 lg:mb-10 tracking-tight">
-                Prachtig Geregelde <br />
-                <span className="italic font-serif text-primary pl-16">Slimme</span> Ruimtes.
-              </h1>
-              <div className="flex items-center gap-6 group cursor-pointer">
-                <Link
-                  to="/projecten"
-                  className="inline-flex items-center justify-center w-16 h-16 rounded-full border border-dark/20 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all duration-500"
-                >
-                  <ArrowDown className="rotate-45 group-hover:rotate-90 transition-transform duration-500" />
-                </Link>
-                <span className="text-xs uppercase tracking-[0.2em] group-hover:translate-x-2 transition-transform duration-300">
-                  Ontdek Onze Stijl
-                </span>
-              </div>
-            </FadeIn>
-          </div>
+                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
+                  Geef Uw Keuken <br /> & Interieur
+                  <span className="italic font-normal text-primary block mt-2">Een Tweede Leven.</span>
+                </h1>
+                
+                <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
+                  Transformeer uw woning in 1 dag met high-end interieurfolie. Geen sloopwerk, direct resultaat en tot 80% goedkoper dan nieuw.
+                </p>
 
-          <div className="lg:col-span-4 flex flex-col justify-end pb-4 pl-0 lg:pl-12">
-            <p className="text-base lg:text-lg text-gray-600 mb-8 lg:mb-10 max-w-sm leading-relaxed font-light">
-              De perfecte combinatie van esthetiek en innovatie. Wij ontwerpen interieurs die zowel mooi als briljant functioneel zijn—ideaal voor modern wonen.
-            </p>
-            <Link
-              to="/diensten"
-              className="inline-block border-b border-dark pb-1 text-xs uppercase tracking-[0.2em] hover:text-primary hover:border-primary transition-all w-fit"
-            >
-              Bekijk Diensten
-            </Link>
+                <div className="flex flex-col sm:flex-row gap-6 pt-4">
+                  <Link
+                    to="/contact"
+                    className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center inline-block"
+                  >
+                    Bereken Uw Prijs
+                  </Link>
+                  <Link
+                    to="/projecten"
+                    className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit"
+                  >
+                    Bekijk Voorbeelden
+                    <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+                  </Link>
+                </div>
+              </FadeIn>
+            </div>
+
+            {/* Right Content: Visual & Interaction */}
+            <div className="lg:col-span-6 flex justify-center">
+              <FadeIn delay={200}>
+                <div className="relative w-full max-w-xl">
+                    <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
+                       <img 
+                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                        alt="Modern Kitchen Renovation" 
+                        className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                       />
+                    </div>
+
+                    {/* Floating Badge (Price) - matching style */}
+                    <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 bg-white p-6 md:p-8 shadow-xl border border-dark/5 z-20 hidden md:block">
+                      <span className="block text-[10px] uppercase tracking-widest font-bold text-gray-500 mb-2">Vanaf</span>
+                      <span className="block font-display text-4xl text-primary">€1250,-</span>
+                    </div>
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* About Section */}
       <section className="py-32 bg-background-light overflow-hidden">
@@ -73,14 +162,14 @@ export default function Home() {
                   className="text-[10px] uppercase tracking-[0.2em] text-gray-400 rotate-180"
                   style={{ writingMode: "vertical-rl" }}
                 >
-                  Over ons — 2024
+                  Slimme Renovatie — 2026
                 </span>
               </div>
             </div>
             <div className="lg:col-span-10">
               <FadeIn delay={200}>
                 <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.1] max-w-5xl indent-24">
-                  Onze moderne interieurs weerspiegelen uw levensstijl—we creëren prachtige ruimtes die uniek van u zijn. Wij ontwerpen met hart en precisie.
+                  Waarom kiezen voor wrapping? Bespaar kosten, geen sloopwerk en geniet van een high-end resultaat dat niet van echt te onderscheiden is.
                 </h2>
               </FadeIn>
             </div>
@@ -89,7 +178,7 @@ export default function Home() {
           {/* Image Collage */}
           <div className="relative w-full max-w-[1200px] mx-auto h-auto min-h-[800px] md:min-h-[700px] mb-24">
             <div className="absolute top-[15%] left-[5%] z-20 max-w-[300px] mix-blend-difference text-white pointer-events-none">
-              <h3 className="font-display text-5xl md:text-7xl italic leading-none opacity-90">Eenvoud</h3>
+              <h3 className="font-display text-5xl md:text-7xl italic leading-none opacity-90">Snel & Schoon</h3>
             </div>
             <div className="absolute top-0 left-[20%] w-[40%] md:w-[28%] aspect-[3/4] z-10 shadow-2xl">
               <div className="w-full h-full overflow-hidden relative">
@@ -100,12 +189,12 @@ export default function Home() {
                 />
               </div>
               <span className="absolute -left-8 top-1/2 -translate-y-1/2 -rotate-90 text-[10px] uppercase tracking-[0.3em] text-gray-400 origin-center whitespace-nowrap">
-                Minimalisme
+                Kwaliteit
               </span>
             </div>
             <div className="absolute top-[35%] left-[40%] z-30 pointer-events-none">
               <h3 className="font-display text-5xl md:text-7xl leading-none text-dark bg-background-light/50 backdrop-blur-sm px-4 py-2">
-                Ontwerpen
+                Duurzaam
               </h3>
             </div>
             <div className="absolute top-[25%] left-[45%] w-[25%] md:w-[18%] aspect-square z-20 shadow-xl border-4 border-background-light">
@@ -127,8 +216,8 @@ export default function Home() {
               </div>
             </div>
             <div className="absolute bottom-[10%] right-[10%] z-30 text-right">
-              <h3 className="font-display text-5xl md:text-7xl italic text-primary leading-none">Met Een Ziel</h3>
-              <p className="text-xs uppercase tracking-[0.2em] mt-4 mr-2 text-gray-500">Exclusief Design</p>
+              <h3 className="font-display text-5xl md:text-7xl italic text-primary leading-none">High-End Design</h3>
+              <p className="text-xs uppercase tracking-[0.2em] mt-4 mr-2 text-gray-500">Premium Folies</p>
             </div>
           </div>
 
@@ -162,43 +251,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Renovawrap Section - Converted to Light Theme */}
+      {/* Why Renovawrap Section */}
       <section className="py-32 bg-background-light text-dark relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-multiply"></div>
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-dark/10 pb-12">
-            <h2 className="font-display text-6xl md:text-8xl text-dark">
+            <h2 className="font-display text-6xl md:text-8xl text-dark leading-none tracking-tight">
               Waarom <br />
-              <span className="italic font-serif text-primary ml-12">Renovawrap?</span>
+              <span className="italic text-primary ml-4">Renovawrap?</span>
             </h2>
             <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-4 md:mb-2">
-              Kwaliteit zonder compromis
+              Het Alternatief Voor Nieuw
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-24 gap-y-24">
+            {/* Item 01 */}
             <FadeIn className="group">
               <div className="flex items-baseline justify-between mb-8 border-b border-dark/10 pb-4 group-hover:border-primary transition-colors duration-500">
-                <h3 className="font-display text-3xl text-dark">Lifestyle Design</h3>
+                <h3 className="font-display text-3xl text-dark">Industriële Kwaliteit</h3>
                 <span className="font-mono text-sm text-primary">[01]</span>
               </div>
-              <p className="text-gray-600 leading-relaxed text-sm mb-8">
-                Wij ontwerpen op basis van u—uw gewoonten, routines en dromen—zodat uw ruimte moeiteloos functioneel en prachtig persoonlijk aanvoelt. Renovatie zonder sloop, maar met karakter.
+              <p className="text-gray-600 leading-relaxed text-sm">
+                Vergeet dunne stickers. Wij werken met industriële interieurfolie die voelt als echt hout, steen of staal. Niet van nieuw te onderscheiden en een blijvende upgrade voor uw woning.
               </p>
             </FadeIn>
-            <FadeIn delay={200} className="group lg:mt-32">
+
+            {/* Item 02 - Staggered Down */}
+            <FadeIn delay={100} className="group lg:mt-32">
               <div className="flex items-baseline justify-between mb-8 border-b border-dark/10 pb-4 group-hover:border-primary transition-colors duration-500">
-                <h3 className="font-display text-3xl text-dark">Tijdloze Esthetiek</h3>
+                <h3 className="font-display text-3xl text-dark">Slimme Investering</h3>
                 <span className="font-mono text-sm text-primary">[02]</span>
               </div>
               <p className="text-gray-600 leading-relaxed text-sm">
-                Onze stijl is strak, verfijnd en raakt nooit uit de mode. Wij richten ons op tijdloze elementen die sierlijk ouder worden met uw huis. Kwaliteitsfolies die jarenlang meegaan.
+                Waarom €15.000 investeren als u voor €2.500 hetzelfde resultaat haalt? Wij behouden de basis en upgraden de esthetiek. Geen stof, geen puin, wel de waarde-vermeerdering.
+              </p>
+            </FadeIn>
+
+            {/* Item 03 */}
+            <FadeIn delay={200} className="group">
+              <div className="flex items-baseline justify-between mb-8 border-b border-dark/10 pb-4 group-hover:border-primary transition-colors duration-500">
+                <h3 className="font-display text-3xl text-dark">Kras- & Stootvast</h3>
+                <span className="font-mono text-sm text-primary">[03]</span>
+              </div>
+              <p className="text-gray-600 leading-relaxed text-sm">
+                Gemaakt om in te leven. Onze architecturale folies zijn kras-, stoot- en hittebestendig. Vocht en dagelijks gebruik zijn geen enkel probleem. Een keuken om in te koken, niet alleen om naar te kijken.
+              </p>
+            </FadeIn>
+
+            {/* Item 04 - Staggered Down */}
+            <FadeIn delay={300} className="group lg:mt-32">
+              <div className="flex items-baseline justify-between mb-8 border-b border-dark/10 pb-4 group-hover:border-primary transition-colors duration-500">
+                <h3 className="font-display text-3xl text-dark">Vakmanschap</h3>
+                <span className="font-mono text-sm text-primary">[04]</span>
+              </div>
+              <p className="text-gray-600 leading-relaxed text-sm">
+                Geen handige harries, maar getrainde specialisten. Wij wrappen naadloos over randen en hoeken. Wij zijn pas tevreden als u moet voelen om te geloven dat het wrap is.
               </p>
             </FadeIn>
           </div>
         </div>
       </section>
 
-      {/* Featured Projects Section */}
+      {/* Featured Projects Section (Asymmetrical Layout with Auto-Rotate) */}
       <section className="py-32 bg-background-light overflow-hidden" id="projecten">
         <div className="max-w-[1400px] mx-auto px-6 mb-16 flex flex-col md:flex-row items-end justify-between">
           <h2 className="font-display text-6xl md:text-8xl text-dark leading-none">
@@ -211,33 +325,139 @@ export default function Home() {
             Bekijk alle projecten <span className="material-symbols-outlined text-sm">→</span>
           </Link>
         </div>
+        
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.slice(0, 4).map((project, index) => (
-              <FadeIn
-                key={project.id}
-                delay={index * 100}
-                className="relative group overflow-hidden bg-gray-100 aspect-[4/3]"
+          {projects.length > 0 && (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[600px]">
+              
+              {/* Left Column (Primary Feature — cycles through featured projects) - Span 7 */}
+              <div 
+                className="lg:col-span-7 relative group cursor-pointer"
+                onClick={() => currentFeatured && setSelectedProject(currentFeatured)}
               >
-                <img
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  src={project.image}
-                />
-                <div className="absolute inset-0 bg-dark/20 group-hover:bg-dark/40 transition-colors duration-500"></div>
-                <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">
-                  <div className="border-t border-white/30 pt-4 flex justify-between items-end transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                    <div>
-                      <h3 className="text-white text-3xl font-display italic">{project.title}</h3>
-                      <p className="text-white/80 text-xs uppercase tracking-widest mt-2">
-                        {project.location}
-                      </p>
+                <div className="w-full h-[500px] lg:h-[700px] overflow-hidden relative">
+                  {/* Stack all featured images; only the active one is fully visible */}
+                  {featuredProjects.map((project, i) => (
+                    <div
+                      key={project.id}
+                      className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                      style={{ opacity: i === featuredIndex % featuredProjects.length ? 1 : 0, zIndex: i === featuredIndex % featuredProjects.length ? 1 : 0 }}
+                    >
+                      <img
+                        alt={project.name}
+                        src={project.after_image_url || project.before_image_url || ""}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+                      />
                     </div>
+                  ))}
+                  <div className="absolute inset-0 bg-dark/10 group-hover:bg-transparent transition-colors z-10"></div>
+                  {/* Text overlay for current featured */}
+                  {currentFeatured && (
+                    <div className="absolute bottom-8 left-8 z-20">
+                      <span
+                        key={`cat-${currentFeatured.id}`}
+                        className="text-[10px] uppercase tracking-[0.2em] text-white bg-dark/30 backdrop-blur-sm px-3 py-1 mb-2 inline-block animate-fade-up"
+                      >
+                        {currentFeatured.category}
+                      </span>
+                      <h3
+                        key={`name-${currentFeatured.id}`}
+                        className="text-white text-4xl md:text-5xl font-display italic leading-none animate-fade-up"
+                      >
+                        {currentFeatured.name}
+                      </h3>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Right Column (Secondary — cycles through non-featured projects) - Span 5 */}
+              <div className="lg:col-span-5 flex flex-col gap-8 lg:gap-12">
+                
+                {/* Top Right */}
+                <div 
+                  className="relative group cursor-pointer flex-1"
+                  onClick={() => currentSmallTop && setSelectedProject(currentSmallTop)}
+                >
+                  <div className="w-full h-[300px] lg:h-[320px] overflow-hidden relative">
+                    {nonFeaturedProjects.map((project, i) => (
+                      <div
+                        key={project.id}
+                        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                        style={{ opacity: i === smallTopIndex % nonFeaturedProjects.length ? 1 : 0, zIndex: i === smallTopIndex % nonFeaturedProjects.length ? 1 : 0 }}
+                      >
+                        <img
+                          alt={project.name}
+                          src={project.after_image_url || project.before_image_url || ""}
+                          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+                        />
+                      </div>
+                    ))}
+                    {/* Category badge */}
+                    {currentSmallTop && (
+                      <div className="absolute top-4 right-4 z-20">
+                        <span
+                          key={`cat-top-${currentSmallTop.id}`}
+                          className="text-[10px] uppercase tracking-[0.2em] text-dark bg-white/80 backdrop-blur-sm px-3 py-1 animate-fade-up"
+                        >
+                          {currentSmallTop.category}
+                        </span>
+                      </div>
+                    )}
+                    {currentSmallTop && (
+                      <div className="absolute bottom-6 left-6 z-20">
+                        <h3
+                          key={`name-top-${currentSmallTop.id}`}
+                          className="text-white text-2xl md:text-3xl font-display animate-fade-up"
+                        >
+                          {currentSmallTop.name}
+                        </h3>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </FadeIn>
-            ))}
-          </div>
+
+                {/* Bottom Right */}
+                <div 
+                  className="relative group cursor-pointer flex-1"
+                  onClick={() => currentSmallBottom && setSelectedProject(currentSmallBottom)}
+                >
+                  <div className="w-full h-[300px] lg:h-[340px] overflow-hidden relative">
+                    {nonFeaturedProjects.map((project, i) => (
+                      <div
+                        key={project.id}
+                        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                        style={{ opacity: i === smallBottomIndex % nonFeaturedProjects.length ? 1 : 0, zIndex: i === smallBottomIndex % nonFeaturedProjects.length ? 1 : 0 }}
+                      >
+                        <img
+                          alt={project.name}
+                          src={project.after_image_url || project.before_image_url || ""}
+                          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+                        />
+                      </div>
+                    ))}
+                    <div className="absolute inset-0 bg-primary/20 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                      <span className="text-white border border-white px-6 py-2 uppercase text-xs tracking-[0.2em]">
+                        Bekijk Project
+                      </span>
+                    </div>
+                    {currentSmallBottom && (
+                      <div className="absolute bottom-6 left-6 z-20">
+                        <h3
+                          key={`name-bot-${currentSmallBottom.id}`}
+                          className="text-white text-2xl md:text-3xl font-display italic animate-fade-up"
+                        >
+                          {currentSmallBottom.name}
+                        </h3>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -324,6 +544,14 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Project Modal */}
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </main>
   );
 }

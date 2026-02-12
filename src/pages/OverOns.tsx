@@ -21,7 +21,7 @@ export default function OverOns() {
           </div>
           <div className="lg:col-span-9">
             <h1 className="font-display text-7xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight mb-8">
-              Ons <br /> <span className="italic font-serif text-primary pl-24">Verhaal</span>
+              Ons <br /> <span className="italic text-primary pl-24">Verhaal</span>
             </h1>
           </div>
           <div className="lg:col-span-3 flex flex-col justify-end pb-4">
@@ -43,12 +43,12 @@ export default function OverOns() {
             <div className="lg:col-span-3 hidden lg:block sticky top-32">
               <div className="flex flex-col gap-4">
                 <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400">Hoofdstuk 01</span>
-                <h3 className="font-display text-2xl italic text-primary">Vakmanschap <br />Met Een Ziel</h3>
+                <h3 className="font-display text-2xl italic text-primary">Slimme <br />Renovatie</h3>
               </div>
             </div>
             <div className="lg:col-span-9">
               <p className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.3] text-dark indent-16 md:indent-32">
-                In een wereld van snelle consumptie kiezen wij voor <span className="italic text-primary">duurzaamheid</span> en verfijning. Wij geloven dat uw huidige interieur potentieel heeft dat wacht om ontdekt te worden. Met geavanceerde architecturale folies transformeren we gedateerde keukens en meubels naar moderne meesterwerken, zonder de chaos van een verbouwing.
+                Nieuwe keuken in <span className="italic text-primary">1 dag</span>. Zonder hak- of breekwerk, voor een fractie van de nieuwprijs. Wij transformeren uw interieur met hoogwaardige architecturale folie. Niet van echt te onderscheiden, stoot- en krasvast, en binnen 24 uur gerealiseerd.
               </p>
             </div>
           </div>
@@ -63,12 +63,12 @@ export default function OverOns() {
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx5WR-hMnWMtZbqI_cg2HAjl9r0Cwt3U9UhDBROjPH5wx7Nj-uKMNQTsFkB15cSgFfAaQ2aXzJNtJx8hdTleOIoJeqW62mYtqOxCZCIwjdWnJnQJJ3JbNG7Zekf2tqaajugaIvzUmQmWOJvwwGs3eZ20QSVXHlR47HrijbKSf5EyUI5BRFX9Rx9jFEBUJBtYlBmIYiY7VHoF2dPP_Wkp4ngKHAMPzVJ9uk4BAXh4edaXlbHDcY6by9hdDcSZGfkHBIBFwTVvZyOp0"
                 />
               </div>
-              <span className="absolute -right-12 top-12 rotate-90 text-[10px] uppercase tracking-[0.3em] text-gray-400 origin-top-left whitespace-nowrap">Textuur & Vorm</span>
+              <span className="absolute -right-12 top-12 rotate-90 text-[10px] uppercase tracking-[0.3em] text-gray-400 origin-top-left whitespace-nowrap">Klaar in 1 dag</span>
             </div>
             
             <div className="absolute top-[15%] left-[5%] z-20 max-w-[280px] bg-white p-8 shadow-lg border-l-2 border-primary">
-              <h4 className="font-display text-xl mb-3">Precisie</h4>
-              <p className="text-xs text-gray-500 leading-relaxed">Elke hoek, elke naad wordt met chirurgische precisie afgewerkt. Ons team bestaat niet uit klussers, maar uit artiesten.</p>
+              <h4 className="font-display text-xl mb-3">Duurzame Luxe</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">Geen luchtbellen, geen loslatende randen. Onze gecertificeerde wrappers leveren een finish die oogt en voelt als nieuw. Inclusief garantie.</p>
             </div>
 
             <div className="absolute top-[35%] left-[15%] w-[45%] md:w-[35%] aspect-square z-0 shadow-lg border-8 border-background-light">
@@ -82,7 +82,7 @@ export default function OverOns() {
             </div>
 
             <div className="absolute top-[45%] right-[25%] z-30 pointer-events-none mix-blend-difference text-white">
-              <h3 className="font-display text-6xl md:text-8xl italic leading-none opacity-90">Creatie</h3>
+              <h3 className="font-display text-6xl md:text-8xl italic leading-none opacity-90">Premium Finish</h3>
             </div>
 
             <div className="absolute bottom-[5%] right-[5%] w-[60%] md:w-[45%] aspect-[16/9] z-10 shadow-2xl">
@@ -99,7 +99,7 @@ export default function OverOns() {
             <div className="absolute bottom-[25%] left-[10%] z-20 max-w-[240px]">
               <span className="font-mono text-xs text-primary mb-2 block">02.</span>
               <p className="text-sm font-medium leading-relaxed bg-background-light/90 backdrop-blur-sm p-4">
-                Geen sloop, geen stof. Alleen pure transformatie binnen 48 uur.
+                Kostenbesparend. Tot 70% goedkoper dan een nieuwe keuken. Behoud het goede, upgrade de uitstraling.
               </p>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function OverOns() {
             <div>
               <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 block mb-4">Onze Filosofie</span>
               <h2 className="font-display text-5xl md:text-7xl text-white">
-                Bewuste <span className="italic font-serif text-secondary">Transformatie</span>
+                Bewuste <span className="italic text-secondary">Transformatie</span>
               </h2>
             </div>
             <div className="mt-8 md:mt-0 max-w-sm">

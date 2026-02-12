@@ -39,7 +39,7 @@ export default function Catalogus() {
             </span>
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-8">
               Onze <br />
-              <span className="italic font-serif text-primary">Catalogus</span>
+              <span className="italic text-primary">Catalogus</span>
             </h1>
             <p className="text-gray-600 max-w-2xl text-lg font-light leading-relaxed">
               Onze collectie omvat meer dan 300 hoogwaardige afwerkingen — van realistische houtnerven 
