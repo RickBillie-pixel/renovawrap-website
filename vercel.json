@@ -13,8 +13,8 @@
     ],
     "rewrites": [
         {
-            "source": "/((?!favicon\\.ico|favicon-.*\\.png|apple-touch-icon\\.png|site\\.webmanifest|robots\\.txt|sitemap\\.xml|og-image\\.png|assets/.*).*)",
-            "destination": "/index.html"
+            "source": "/((?!favicon\\.ico|favicon-.*\\.png|apple-touch-icon\\.png|site\\.webmanifest|robots\\.txt|sitemap\\.xml|og-image\\.png|assets/|project-fotos/).*)",
+            "destination": "/index"
         }
     ],
     "headers": [
