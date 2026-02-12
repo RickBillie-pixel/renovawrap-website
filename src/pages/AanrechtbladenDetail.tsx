@@ -1,7 +1,19 @@
+import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+
 export default function AanrechtbladenDetail() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Aanrechtbladen";
-  }
+  useSEO({
+    title: "Aanrechtbladen Wrappen — Hittebestendig & Krasvast | Renovawrap",
+    description: "Laat uw aanrechtbladen professioneel wrappen. Hittebestendige, krasvaste folies in 300+ kleuren. Bespaar tot 70% vs. nieuw.",
+    canonical: "https://renovawrap.nl/diensten/aanrechtbladen",
+    jsonLd: [
+      ...buildBreadcrumbs([
+        { name: "Home", url: "https://renovawrap.nl/" },
+        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+        { name: "Aanrechtbladen", url: "https://renovawrap.nl/diensten/aanrechtbladen" },
+      ]),
+      ...buildService("Aanrechtbladen Wrappen", "Professioneel aanrechtbladen wrappen met hittebestendige, krasvaste folie. Niet van echt steen te onderscheiden."),
+    ],
+  });
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}

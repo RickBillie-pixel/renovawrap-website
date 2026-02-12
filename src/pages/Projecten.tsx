@@ -4,6 +4,7 @@ import ProjectModal from "../components/ProjectModal";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
+import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
 
 const CATEGORIES = [
   "Alle",
@@ -25,9 +26,15 @@ export default function Projecten() {
   const [activeCategory, setActiveCategory] = useState("Alle");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Projecten";
-  }
+  useSEO({
+    title: "Projecten — Voor & Na Foto's | Renovawrap",
+    description: "Bekijk onze voltooide wrapping projecten met voor en na foto's. Keuken, kasten, deuren en meer transformaties.",
+    canonical: "https://renovawrap.nl/projecten",
+    jsonLd: buildBreadcrumbs([
+      { name: "Home", url: "https://renovawrap.nl/" },
+      { name: "Projecten", url: "https://renovawrap.nl/projecten" },
+    ]),
+  });
 
   useEffect(() => {
     async function fetchProjects() {

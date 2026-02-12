@@ -1,7 +1,19 @@
+import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+
 export default function AchterwandenDetail() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Achterwanden";
-  }
+  useSEO({
+    title: "Achterwanden Wrappen — Spatwaterdicht & Hittebestendig | Renovawrap",
+    description: "Achterwand wrappen over bestaande tegels. Spatwaterdicht, hittebestendig en in elke stijl. Binnen één dag geplaatst.",
+    canonical: "https://renovawrap.nl/diensten/achterwanden",
+    jsonLd: [
+      ...buildBreadcrumbs([
+        { name: "Home", url: "https://renovawrap.nl/" },
+        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+        { name: "Achterwanden", url: "https://renovawrap.nl/diensten/achterwanden" },
+      ]),
+      ...buildService("Achterwanden Wrappen", "Keuken achterwand wrappen over bestaande tegels. Spatwaterdicht, hittebestendig en in elke denkbare stijl."),
+    ],
+  });
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}

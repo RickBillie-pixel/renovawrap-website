@@ -68,8 +68,8 @@ export const services = [
 
 // Stats Data
 export const stats = [
-    { label: "Projecten", value: "126" },
-    { label: "Klanten", value: "926" },
+    { label: "Projecten", value: "47" },
+    { label: "Reviews", value: "19" },
     { label: "Materialen", value: "364" },
 ];
 

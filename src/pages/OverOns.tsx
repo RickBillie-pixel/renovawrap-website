@@ -1,9 +1,16 @@
 import CountUp from "../components/CountUp";
+import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
 
 export default function OverOns() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Over Ons";
-  }
+  useSEO({
+    title: "Over Ons — Vakmanschap & Visie | Renovawrap",
+    description: "Leer het Renovawrap team kennen. Vakmanschap en passie voor duurzame interieur wrapping in Nederland sinds 2024.",
+    canonical: "https://renovawrap.nl/over-ons",
+    jsonLd: buildBreadcrumbs([
+      { name: "Home", url: "https://renovawrap.nl/" },
+      { name: "Over Ons", url: "https://renovawrap.nl/over-ons" },
+    ]),
+  });
   return (
     <main className="pt-24 bg-background-light text-dark min-h-screen">
       {/* Hero Section */}
@@ -239,13 +246,13 @@ export default function OverOns() {
             <div className="group cursor-default text-center md:text-left">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">Projecten</p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                <CountUp end={126} />
+                <CountUp end={47} />
               </p>
             </div>
             <div className="group cursor-default text-center md:text-left">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">Klanten</p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">Reviews</p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                <CountUp end={926} />
+                <CountUp end={19} />
               </p>
             </div>
             <div className="group cursor-default text-center md:text-left">

@@ -20,6 +20,9 @@ import KozijnenDetail from "./pages/KozijnenDetail";
 import SchadeherstelDetail from "./pages/SchadeherstelDetail";
 import Catalogus from "./pages/Catalogus";
 
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import AlgemeneVoorwaarden from "./pages/AlgemeneVoorwaarden";
+
 // Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -58,6 +61,8 @@ function App() {
           <Route path="/over-ons" element={<OverOns />} />
           <Route path="/configurator" element={<Configurator />} />
           <Route path="/catalogus" element={<Catalogus />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
         </Routes>
         <Footer />
       </div>

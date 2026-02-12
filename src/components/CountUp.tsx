@@ -12,7 +12,6 @@ export default function CountUp({
   end,
   duration = 2000,
   suffix = "+",
-  className = "",
   suffixClassName = "text-4xl align-top",
 }: CountUpProps) {
   const [count, setCount] = useState(0);

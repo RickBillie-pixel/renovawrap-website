@@ -1,7 +1,19 @@
+import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+
 export default function KastenDetail() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Kasten";
-  }
+  useSEO({
+    title: "Kasten Wrappen — IKEA Hack & Inbouwkasten | Renovawrap",
+    description: "Kasten, dressoirs en inbouwkasten wrappen naar elke gewenste stijl. Van IKEA hack tot designlook. Snel en betaalbaar.",
+    canonical: "https://renovawrap.nl/diensten/kasten",
+    jsonLd: [
+      ...buildBreadcrumbs([
+        { name: "Home", url: "https://renovawrap.nl/" },
+        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+        { name: "Kasten", url: "https://renovawrap.nl/diensten/kasten" },
+      ]),
+      ...buildService("Kasten Wrappen", "Kasten, dressoirs en inbouwkasten wrappen naar elke gewenste stijl. IKEA meubels worden onherkenbaar."),
+    ],
+  });
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}

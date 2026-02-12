@@ -1,39 +1,63 @@
 <!doctype html>
 <html lang="nl">
+
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicons (bulletproof: absolute + relative, multiple sizes) -->
+  <link rel="icon" href="https://renovawrap.nl/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://renovawrap.nl/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://renovawrap.nl/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://renovawrap.nl/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Fallback favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
 
   <!-- Preconnect to Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Primary Meta Tags -->
-  <title>Renovawrap | Architecturale Keuken & Interieur Wrapping</title>
-  <meta name="title" content="Renovawrap | Architecturale Keuken & Interieur Wrapping" />
+  <title>Keuken & Interieur Wrapping Specialist — Renovawrap</title>
+  <meta name="title" content="Keuken & Interieur Wrapping Specialist — Renovawrap" />
   <meta name="description"
-    content="Transformeer uw keuken en interieur met Renovawrap. Premium architecturale folies voor een hoogwaardige renovatie zonder sloop. Vraag vrijblijvend een offerte aan." />
+    content="Renovawrap wraps keukens, kasten, deuren en kozijnen met premium folie. Bespaar tot 70% vs. nieuw. 300+ kleuren, 10 jaar garantie. Vrijblijvende offerte." />
   <meta name="keywords"
-    content="keuken wrappen, interieur wrap, keuken renovatie, folie keuken, interieurfolie, renovawrap, keukenrenovatie zonder sloop, architecturale folie" />
+    content="keuken wrappen, interieur wrap, keuken renovatie, folie keuken, interieurfolie, renovawrap, keukenrenovatie zonder sloop, architecturale folie, keuken frontjes wrappen, kozijnen wrappen" />
   <meta name="author" content="Renovawrap" />
   <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://renovawrap.nl/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.renovawrap.nl/" />
-  <meta property="og:title" content="Renovawrap | Architecturale Keuken & Interieur Wrapping" />
+  <meta property="og:url" content="https://renovawrap.nl/" />
+  <meta property="og:title" content="Keuken & Interieur Wrapping Specialist — Renovawrap" />
   <meta property="og:description"
-    content="Transformeer uw keuken en interieur met Renovawrap. Premium architecturale folies voor een hoogwaardige renovatie zonder sloop. Vraag vrijblijvend een offerte aan." />
-  <meta property="og:image" content="https://www.renovawrap.nl/favicon.png" />
+    content="Renovawrap wraps keukens, kasten, deuren en kozijnen met premium folie. Bespaar tot 70% vs. nieuw. 300+ kleuren, 10 jaar garantie." />
+  <meta property="og:image" content="https://renovawrap.nl/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="nl_NL" />
+  <meta property="og:site_name" content="Renovawrap" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://www.renovawrap.nl/" />
-  <meta property="twitter:title" content="Renovawrap | Architecturale Keuken & Interieur Wrapping" />
+  <meta property="twitter:url" content="https://renovawrap.nl/" />
+  <meta property="twitter:title" content="Keuken & Interieur Wrapping Specialist — Renovawrap" />
   <meta property="twitter:description"
-    content="Transformeer uw keuken en interieur met Renovawrap. Premium architecturale folies voor een hoogwaardige renovatie zonder sloop. Vraag vrijblijvend een offerte aan." />
-  <meta property="twitter:image" content="https://www.renovawrap.nl/favicon.png" />
+    content="Renovawrap wraps keukens, kasten, deuren en kozijnen met premium folie. Bespaar tot 70% vs. nieuw. 300+ kleuren, 10 jaar garantie." />
+  <meta property="twitter:image" content="https://renovawrap.nl/og-image.png" />
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -41,21 +65,15 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "Renovawrap",
-      "image": "https://www.renovawrap.nl/favicon.png",
-      "@id": "https://www.renovawrap.nl",
-      "url": "https://www.renovawrap.nl",
-      "telephone": "",
+      "description": "Specialist in keuken en interieur wrapping met premium architecturale folie. Keukens, kasten, deuren en kozijnen.",
+      "image": "https://renovawrap.nl/og-image.png",
+      "@id": "https://renovawrap.nl",
+      "url": "https://renovawrap.nl",
+      "telephone": "+31-6-12345678",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Keizersgracht 123",
-        "addressLocality": "Amsterdam",
-        "postalCode": "1015 CJ",
+        "addressLocality": "Nederland",
         "addressCountry": "NL"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 52.3752,
-        "longitude": 4.8876
       },
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
@@ -69,7 +87,12 @@
         "opens": "09:00",
         "closes": "17:00"
       },
-      "priceRange": "$$"
+      "priceRange": "$$",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Netherlands"
+      },
+      "sameAs": []
     }
   </script>
 </head>

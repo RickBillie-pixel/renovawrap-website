@@ -2,15 +2,24 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import FadeIn from "../components/FadeIn";
 import { materials, materialsByCategory, categories } from "../data/materials";
+import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
 
 export default function Catalogus() {
   const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState<string>("Alle");
   const [filteredMaterials, setFilteredMaterials] = useState(materials);
 
+  useSEO({
+    title: "Materialen Catalogus — Folies & Kleuren | Renovawrap",
+    description: "Bekijk ons complete assortiment wrapping materialen, kleuren en prints. Meer dan 300 hoogwaardige afwerkingen voor uw interieur.",
+    canonical: "https://renovawrap.nl/catalogus",
+    jsonLd: buildBreadcrumbs([
+      { name: "Home", url: "https://renovawrap.nl/" },
+      { name: "Catalogus", url: "https://renovawrap.nl/catalogus" },
+    ]),
+  });
+
   useEffect(() => {
-    // Update document title
-    document.title = "Renovawrap | Catalogus";
     window.scrollTo(0, 0); // Scroll to top on load
 
     // Sync active category from URL

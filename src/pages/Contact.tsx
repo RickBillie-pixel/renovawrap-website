@@ -1,7 +1,15 @@
+import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+
 export default function Contact() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Contact";
-  }
+  useSEO({
+    title: "Contact — Gratis Offerte | Renovawrap",
+    description: "Neem contact op met Renovawrap voor een vrijblijvende offerte. Reactie binnen 24 uur. Bel, mail of vul het formulier in.",
+    canonical: "https://renovawrap.nl/contact",
+    jsonLd: buildBreadcrumbs([
+      { name: "Home", url: "https://renovawrap.nl/" },
+      { name: "Contact", url: "https://renovawrap.nl/contact" },
+    ]),
+  });
   return (
     <main className="pt-32 flex-grow bg-background-light text-dark min-h-screen">
       <section className="max-w-[1400px] mx-auto px-6 pb-24 relative z-10">

@@ -1,12 +1,12 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown } from "lucide-react";
 import { testimonials, processSteps } from "../data/mockData";
 import FadeIn from "../components/FadeIn";
 import CountUp from "../components/CountUp";
 import ProjectModal from "../components/ProjectModal";
 import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
+import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>(() => projectService.getCachedProjects() || []);
@@ -17,10 +17,23 @@ export default function Home() {
   const [smallTopIndex, setSmallTopIndex] = useState(0);
   const [smallBottomIndex, setSmallBottomIndex] = useState(1);
 
-  // Update document title
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Home";
-  }
+  useSEO({
+    title: "Keuken Wrapping & Interieur Folie | Renovawrap",
+    description: "Transformeer uw keuken en interieur met premium wrapping. Zonder sloopwerk, binnen 1 dag klaar. Vraag gratis offerte aan bij Renovawrap.",
+    canonical: "https://renovawrap.nl/",
+    jsonLd: [
+      buildBreadcrumbs([{ name: "Home", url: "https://renovawrap.nl/" }]),
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Renovawrap",
+        url: "https://renovawrap.nl",
+        logo: "https://renovawrap.nl/favicon.png",
+        description: "Renovawrap is specialist in architecturale keuken- en interieurwrapping in Nederland.",
+        areaServed: { "@type": "Country", name: "NL" },
+      },
+    ],
+  });
 
   useEffect(() => {
     async function fetchProjects() {
@@ -228,15 +241,15 @@ export default function Home() {
                 Projecten
               </p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                <CountUp end={126} />
+                <CountUp end={47} />
               </p>
             </FadeIn>
             <FadeIn delay={100} className="group cursor-default">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">
-                Klanten
+                Reviews
               </p>
               <p className="font-display text-7xl md:text-8xl text-dark group-hover:translate-x-2 transition-transform duration-500">
-                <CountUp end={926} />
+                <CountUp end={19} />
               </p>
             </FadeIn>
             <FadeIn delay={200} className="group cursor-default">

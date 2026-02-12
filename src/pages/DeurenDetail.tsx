@@ -1,7 +1,19 @@
+import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+
 export default function DeurenDetail() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Deuren";
-  }
+  useSEO({
+    title: "Deuren Wrappen — Van Standaard Naar Showroom | Renovawrap",
+    description: "Deuren en kozijnen wrappen in mat-zwart, eikenhout of beton. Inclusief kozijnen, binnen een halve dag per deur.",
+    canonical: "https://renovawrap.nl/diensten/deuren",
+    jsonLd: [
+      ...buildBreadcrumbs([
+        { name: "Home", url: "https://renovawrap.nl/" },
+        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+        { name: "Deuren", url: "https://renovawrap.nl/diensten/deuren" },
+      ]),
+      ...buildService("Deuren Wrappen", "Deuren en kozijnen wrappen naar mat-zwart, eikenhout of beton. Compleet ander huis binnen een halve dag."),
+    ],
+  });
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}

@@ -1,7 +1,19 @@
+import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+
 export default function KeukenFrontjesDetail() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Keuken Frontjes";
-  }
+  useSEO({
+    title: "Keuken Frontjes Wrappen — Nieuwe Look, Geen Sloopwerk | Renovawrap",
+    description: "Keuken frontjes wrappen met premium interieurfolie. Van mat-zwart tot warm eiken. Bespaar duizenden euro's vs. een nieuwe keuken.",
+    canonical: "https://renovawrap.nl/diensten/keuken-frontjes",
+    jsonLd: [
+      ...buildBreadcrumbs([
+        { name: "Home", url: "https://renovawrap.nl/" },
+        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+        { name: "Keuken Frontjes", url: "https://renovawrap.nl/diensten/keuken-frontjes" },
+      ]),
+      ...buildService("Keuken Frontjes Wrappen", "Keuken frontjes wrappen met premium interieurfolie in 300+ kleuren. Klaar binnen twee dagen."),
+    ],
+  });
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}

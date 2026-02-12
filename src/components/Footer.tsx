@@ -1,82 +1,153 @@
 import { Link } from "react-router-dom";
-import { footerData } from "../data/mockData";
+import { Instagram, Facebook, Linkedin } from "lucide-react";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-gray-100 text-dark pt-24 pb-12" id="contact">
+    <footer className="bg-[#121212] text-white pt-20 pb-10" id="contact">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-24 border-b border-dark/10 pb-24">
-          <div className="lg:col-span-6">
-            <h2 className="font-display text-4xl md:text-5xl mb-8">
-              Klaar om uw <br /> Leven te{" "}
-              <span className="text-primary italic">Herontwerpen?</span>
-            </h2>
-            <p className="text-gray-500 mb-8 max-w-md">
-              Vraag een vrijblijvende offerte aan of plan een bezoek aan onze showroom.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-0 max-w-md mt-8 border border-dark/20 p-1">
-              <input
-                className="flex-grow bg-transparent border-none px-6 py-4 text-sm focus:ring-0 placeholder-gray-400 text-dark"
-                placeholder="Voer uw e-mail in"
-                type="email"
-              />
-              <button
-                className="bg-dark text-white px-8 py-4 text-xs uppercase tracking-widest whitespace-nowrap hover:bg-primary transition-colors font-bold"
-                type="button"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+          
+          {/* Column 1: Onze Diensten */}
+          <div>
+            <h3 className="font-display text-2xl italic mb-8 relative inline-block">
+              Onze Diensten
+              <span className="absolute left-0 bottom-0 w-12 h-[1px] bg-[#C4A47C]"></span>
+            </h3>
+            <ul className="space-y-4 text-gray-400 text-sm">
+              <li><Link to="/diensten/keuken-wrapping" className="hover:text-white transition-colors">Keuken Wrapping</Link></li>
+              <li><Link to="/diensten/aanrechtbladen" className="hover:text-white transition-colors">Aanrechtbladen</Link></li>
+              <li><Link to="/diensten/kasten" className="hover:text-white transition-colors">Inbouwkasten</Link></li>
+              <li><Link to="/diensten/kozijnen" className="hover:text-white transition-colors">Kozijnen</Link></li>
+              <li><Link to="/diensten/deuren" className="hover:text-white transition-colors">Deuren</Link></li>
+              <li><Link to="/diensten/keuken-frontjes" className="hover:text-white transition-colors">Keuken Frontjes</Link></li>
+              <li><Link to="/diensten/achterwanden" className="hover:text-white transition-colors">Achterwanden</Link></li>
+              <li><Link to="/diensten/schadeherstel" className="hover:text-white transition-colors">Schadeherstel</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 2: Menu */}
+          <div>
+            <h3 className="font-display text-2xl italic mb-8 relative inline-block">
+              Menu
+              <span className="absolute left-0 bottom-0 w-12 h-[1px] bg-[#C4A47C]"></span>
+            </h3>
+            <ul className="space-y-4 text-gray-400 text-sm">
+              <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+              <li><Link to="/over-ons" className="hover:text-white transition-colors">Over Ons</Link></li>
+              <li><Link to="/projecten" className="hover:text-white transition-colors">Projecten</Link></li>
+              <li><Link to="/configurator" className="hover:text-white transition-colors">Configurator</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Contact */}
+          <div>
+            <h3 className="font-display text-2xl italic mb-8 relative inline-block">
+              Contact
+              <span className="absolute left-0 bottom-0 w-12 h-[1px] bg-[#C4A47C]"></span>
+            </h3>
+            <div className="space-y-8 text-sm text-gray-400">
+              <div>
+                <h4 className="text-white font-bold mb-2">Adres</h4>
+                <p>Interieurweg 12</p>
+                <p>1010 AB Amsterdam</p>
+              </div>
+              
+              <div>
+                <h4 className="text-white font-bold mb-2">Contactgegevens</h4>
+                <p><a href="mailto:info@renovawrap.nl" className="hover:text-primary transition-colors">info@renovawrap.nl</a></p>
+                <p><a href="tel:+310201234567" className="hover:text-primary transition-colors">+31 (0)20 123 4567</a></p>
+              </div>
+
+              <div>
+                <h4 className="text-white font-bold mb-2">Openingstijden</h4>
+                <div className="grid grid-cols-[60px_1fr]">
+                  <span>Ma - Vr:</span>
+                  <span>09:00 - 17:30</span>
+                </div>
+                <div className="grid grid-cols-[60px_1fr]">
+                  <span>Za - Zo:</span>
+                  <span>Gesloten</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 4: Snel Contact */}
+          <div>
+            <h3 className="font-display text-2xl italic mb-8 relative inline-block">
+              Snel Contact
+              <span className="absolute left-0 bottom-0 w-12 h-[1px] bg-[#C4A47C]"></span>
+            </h3>
+            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <div>
+                <input 
+                  type="text" 
+                  placeholder="Naam" 
+                  className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+                />
+              </div>
+              <div>
+                <input 
+                  type="email" 
+                  placeholder="Email Adres" 
+                  className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+                />
+              </div>
+              <div>
+                <input 
+                  type="tel" 
+                  placeholder="Telefoonnummer" 
+                  className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+                />
+              </div>
+              <button 
+                type="submit" 
+                className="w-full bg-white text-black font-bold text-xs tracking-widest uppercase py-4 hover:bg-gray-200 transition-colors"
               >
-                Verstuur
+                VERSTUREN
               </button>
             </form>
           </div>
 
-          <div className="lg:col-span-2 space-y-8">
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-gray-400">Menu</h4>
-            <ul className="space-y-4 text-sm text-gray-500">
-              {footerData.menu.map((link) => (
-                <li key={link.label}>
-                  <Link to={link.href} className="hover:text-primary transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        </div>
 
-          <div className="lg:col-span-2 space-y-8">
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-gray-400">Locatie</h4>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              {footerData.location.address}
-              <br />
-              {footerData.location.city}
-              <br />
-              {footerData.location.country}
-            </p>
+        {/* Bottom Section */}
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 mb-8">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center mb-4 md:mb-0">
+            <span>© {currentYear} Renovawrap.</span>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/algemene-voorwaarden" className="hover:text-white transition-colors">Algemene Voorwaarden</Link>
           </div>
-
-          <div className="lg:col-span-2 space-y-8">
-            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-gray-400">Socials</h4>
-            <ul className="space-y-4 text-sm text-gray-500">
-              {footerData.socials.map((social) => (
-                <li key={social.label}>
-                  <a href={social.href} className="hover:text-primary transition-colors">
-                    {social.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-white transition-colors" aria-label="Instagram">
+              <Instagram size={18} />
+            </a>
+            <a href="#" className="hover:text-white transition-colors" aria-label="Facebook">
+              <Facebook size={18} />
+            </a>
+            <a href="#" className="hover:text-white transition-colors" aria-label="LinkedIn">
+              <Linkedin size={18} />
+            </a>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-[0.2em] text-gray-400">
-          <div>© 2024 Renovawrap. Alle rechten voorbehouden.</div>
-          <div className="flex gap-8 mt-4 md:mt-0">
-            <a href="#" className="hover:text-dark transition-colors">
-              Privacy
-            </a>
-            <a href="#" className="hover:text-dark transition-colors">
-              Algemene Voorwaarden
-            </a>
-          </div>
+        {/* Root & Logic Branding */}
+        <div className="flex justify-center border-t border-white/5 pt-8">
+          <a 
+            href="https://rootandlogic.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center gap-2 text-[10px] tracking-widest group transition-colors font-sans"
+          >
+            <span className="text-gray-600 uppercase group-hover:text-gray-400">Website Powered By</span>
+            <span className="font-bold text-white group-hover:text-primary transition-colors flex items-center">
+              <span className="text-white mr-1 font-bold">./</span>
+              Root & Logic
+            </span>
+          </a>
         </div>
       </div>
     </footer>

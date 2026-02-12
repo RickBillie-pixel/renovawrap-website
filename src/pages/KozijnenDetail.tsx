@@ -1,7 +1,19 @@
+import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+
 export default function KozijnenDetail() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Kozijnen";
-  }
+  useSEO({
+    title: "Kozijnen Wrappen — Zwarte Kozijnen Zonder Schilderwerk | Renovawrap",
+    description: "Kozijnen, ramen en schuifpuien wrappen met UV-bestendige buitenfolie. Niet van gepoedercoat aluminium te onderscheiden.",
+    canonical: "https://renovawrap.nl/diensten/kozijnen",
+    jsonLd: [
+      ...buildBreadcrumbs([
+        { name: "Home", url: "https://renovawrap.nl/" },
+        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+        { name: "Kozijnen", url: "https://renovawrap.nl/diensten/kozijnen" },
+      ]),
+      ...buildService("Kozijnen Wrappen", "Kozijnen, ramen en schuifpuien wrappen met UV-bestendige buitenfolie. Zonder steigers, zonder sloopwerk."),
+    ],
+  });
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}

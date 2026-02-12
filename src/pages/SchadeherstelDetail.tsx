@@ -1,7 +1,19 @@
+import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+
 export default function SchadeherstelDetail() {
-  if (typeof document !== "undefined") {
-    document.title = "Renovawrap | Schadeherstel";
-  }
+  useSEO({
+    title: "Schadeherstel — Lokale Reparatie, Onzichtbaar Resultaat | Renovawrap",
+    description: "Beschadigde wrapping of kras in uw blad? Wij herstellen schade lokaal en onzichtbaar. Binnen een dagdeel opgelost.",
+    canonical: "https://renovawrap.nl/diensten/schadeherstel",
+    jsonLd: [
+      ...buildBreadcrumbs([
+        { name: "Home", url: "https://renovawrap.nl/" },
+        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+        { name: "Schadeherstel", url: "https://renovawrap.nl/diensten/schadeherstel" },
+      ]),
+      ...buildService("Schadeherstel", "Beschadigde wrapping lokaal en onzichtbaar herstellen. Dezelfde kleur, dezelfde structuur."),
+    ],
+  });
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
