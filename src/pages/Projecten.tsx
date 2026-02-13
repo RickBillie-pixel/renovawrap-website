@@ -24,7 +24,13 @@ export default function Projecten() {
   // Loading is only true if we don't have projects yet
   const [loading, setLoading] = useState(() => !projectService.getCachedProjects());
   const [activeCategory, setActiveCategory] = useState("Alle");
+  const [activeStyle, setActiveStyle] = useState("Alle");
+  const [activeColor, setActiveColor] = useState("Alle");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  // Derive unique styles and colors from projects
+  const styles = ["Alle", ...new Set(projects.map((p) => p.style).filter(Boolean) as string[])].sort();
+  const colors = ["Alle", ...new Set(projects.map((p) => p.color).filter(Boolean) as string[])].sort();
 
   useSEO({
     title: "Projecten — Voor & Na Foto's | Renovawrap",
@@ -59,10 +65,12 @@ export default function Projecten() {
   // The rest of the projects for the grid
   const gridProjects = projects.slice(3);
 
-  const filteredGridProjects =
-    activeCategory === "Alle"
-      ? gridProjects
-      : gridProjects.filter((p) => p.category === activeCategory);
+  const filteredGridProjects = gridProjects.filter((p) => {
+    const categoryMatch = activeCategory === "Alle" || p.category === activeCategory;
+    const styleMatch = activeStyle === "Alle" || p.style === activeStyle;
+    const colorMatch = activeColor === "Alle" || p.color === activeColor;
+    return categoryMatch && styleMatch && colorMatch;
+  });
 
   return (
     <main className="pt-24 bg-background-light text-dark min-h-screen">
@@ -214,6 +222,39 @@ export default function Projecten() {
             })}
           </div>
 
+          {/* Filters: Style & Color */}
+          <div className="flex flex-wrap justify-center gap-8 mb-16">
+            
+            {/* Style Filter */}
+            {styles.length > 2 && (
+              <div className="flex items-center gap-3">
+                <span className="text-xs uppercase tracking-widest text-gray-400">Stijl:</span>
+                <select 
+                  value={activeStyle}
+                  onChange={(e) => setActiveStyle(e.target.value)}
+                  className="bg-transparent border-b border-gray-300 py-1 pr-8 text-sm focus:outline-none focus:border-primary uppercase tracking-wider cursor-pointer"
+                >
+                  {styles.map(s => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
+            )}
+
+            {/* Color Filter */}
+            {colors.length > 2 && (
+              <div className="flex items-center gap-3">
+                <span className="text-xs uppercase tracking-widest text-gray-400">Kleur:</span>
+                <select 
+                  value={activeColor}
+                  onChange={(e) => setActiveColor(e.target.value)}
+                  className="bg-transparent border-b border-gray-300 py-1 pr-8 text-sm focus:outline-none focus:border-primary uppercase tracking-wider cursor-pointer"
+                >
+                  {colors.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+            )}
+
+          </div>
+
           {/* Grid Projects */}
           {!loading && filteredGridProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
@@ -256,10 +297,14 @@ export default function Projecten() {
           ) : (
             <div className="text-center py-20 mb-32">
                <p className="text-gray-400 text-sm uppercase tracking-widest">
-                {activeCategory === "Alle"
-                  ? "Geen overige projecten gevonden"
-                  : `Geen projecten in "${activeCategory}"`}
+                Geen projecten gevonden met deze filters.
               </p>
+              <button 
+                onClick={() => { setActiveCategory("Alle"); setActiveStyle("Alle"); setActiveColor("Alle"); }}
+                className="mt-4 text-primary underline text-xs uppercase tracking-widest"
+              >
+                Reset filters
+              </button>
             </div>
           )}
 

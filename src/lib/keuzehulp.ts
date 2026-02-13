@@ -9,7 +9,7 @@ export const KEUZEHULP_SERVICE_SLUGS = [
   "kasten",
   "kozijnen",
   "deuren",
-  "keuken-frontjes",
+  "frontjes", // Changed from "keuken-frontjes" to "frontjes"
   "achterwanden",
   "schadeherstel",
 ] as const;

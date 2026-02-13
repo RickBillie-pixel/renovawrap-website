@@ -17,7 +17,8 @@ export default function SmoothScroll() {
       smoothWheel: true,
       wheelMultiplier: 1.0,
       touchMultiplier: 2,
-      lerp: 0.07, 
+      // Increased lerp slightly for better responsiveness (default is usually 0.1)
+      lerp: 0.1, 
     });
 
     lenisRef.current = lenis;
@@ -30,7 +31,8 @@ export default function SmoothScroll() {
     };
     
     gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
+    // Allow some lag smoothing to prevent stuttering on heavy frames
+    gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
       gsap.ticker.remove(update);
@@ -42,12 +44,12 @@ export default function SmoothScroll() {
   // Scroll to top on every route change
   useEffect(() => {
     if (lenisRef.current) {
+      // Use Lenis for scrolling to top to maintain state consistency
       lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      // Fallback only if Lenis isn't ready (which shouldn't happen due to initialization order, but safety check)
+      window.scrollTo(0, 0);
     }
-    // Fallback for native scroll as well
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
   }, [pathname]);
 
   return null;

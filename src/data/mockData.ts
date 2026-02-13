@@ -109,20 +109,20 @@ export const projects = [
 export const processSteps = [
     {
         number: "01",
-        title: "Consultatie & Visie",
-        description: "We beginnen met een persoonlijke sessie om uw ruimte te bekijken, uw wensen te bespreken en de mogelijkheden van onze hoogwaardige interieurfolies te demonstreren.",
+        title: "Persoonlijke Opname",
+        description: "We bekijken uw ruimte en nemen de stalen mee. U ziet direct wat folie doet met de uitstraling van uw woning. Geen verrassingen achteraf.",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCU2iiILOa3izw10-8paZkT1k4hMiXVyC4qOIXYY65zj1GYrMdjMy7wfNV0cOpKzJqOTC7t-a8UVhQcYk6LzHpEbGPT9Nd_6TjJzk5VnrnPWH-WKK9b3D6PgMkre0g1KMZANBkg09dnRQGn3b7xfGE2z8v5B2mR32St0Yqsun8__7dBuLh3x7aIjYUO9-UNoFtfokRjUcIrhva5rjiDpgJXyRhAaXj1U1T45kKqUwBT0JmUY-6OzrKAYKd4AlUvaXXknMIgevc26vs",
     },
     {
         number: "02",
-        title: "Design & Voorbereiding",
-        description: "Wij maken een gedetailleerd plan en bereiden de oppervlakken voor. Minimalistisch design vraagt om perfecte ondergronden voor een strak resultaat.",
+        title: "Planning & Productie",
+        description: "Na akkoord plannen we een datum. Wij bereiden alles voor in onze werkplaats, zodat we bij u thuis zo min mogelijk tijd nodig hebben.",
         image: "",
     },
     {
         number: "03",
-        title: "Transformatie & Oplevering",
-        description: "Onze experts brengen de wrap aan met chirurgische precisie. Binnen enkele dagen is uw interieur getransformeerd, zonder stof of sloopwerk.",
+        title: "Montage & Oplevering",
+        description: "Onze monteurs werken schoon en snel. We gaan pas weg als alles strak is afgewerkt en u 100% tevreden bent. Vaak al binnen 1 dag klaar.",
         image: "",
     },
 ];
@@ -135,6 +135,48 @@ export const testimonials = [
         location: "Amsterdam, Loft Renovatie",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDluw3O0aajDHbHuNsQFp0l4_bOw7hiUhD7g9bVSbfBF1WAHJwE3d7Al5oEBx8TYbGKpsAg0_EkqjjMaL7XtiWBtJ6QV3ztvGAWTz8H29qmTQ5FwhBsAhstwT-CAcXNsIMRxQvbVc2wdn0N8kc-YHQbdm5Z9IRBz92VfKKsceJg3ezdXan9sSTTZJ3I0-dcfP3i_QT2FnGIni-TYhcwAWRKaaEPiVpbTGA25PcX0MIYJoNg2Bu6RngNYs4AC4G4iLHrmtcjZmR1P38",
         decorativeImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBPcLm88EZIii81NbJDEpM5shG9_P48Prv65flTEbxmmrePpA_8iFA6jB9FLg0DywZnTt0K4TJdonZ-x1uQ-tAmzhgOg-EdlemjLmwitpY9yIRkk6nKYjQxdvGkxuEcdhKclU4VM9fPW46OZhXL6JvG2T0-oZFjy2sbYh8jMcID8LMuR0JJtDCUbw_1GI3Odv9EPIEfW1VvWUwPWtlSmxN67G6Q7Qj9OE4Q8S1LWdqb166zg1nHNovsf4i0NFTr8ux7lH4wQGZqYLc",
+    },
+    {
+        quote: "Van een gedateerde keuken naar een moderne eyecatcher in één dag. Het resultaat overtrof onze verwachtingen volledig. Professioneel team en perfecte afwerking.",
+        author: "Sarah L.",
+        location: "Utrecht, Keuken Renovatie",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        decorativeImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuC_bNep-OjxTMyszSbRUzRxrVDgcb2NZ8M2BbN_gI98vD8jqlfLapPkMJRvcoiBwhO5SNe8UJ6XG1nH_FrEevAp_nV2qBQKKezi4_K3mCLg7dBWwfmUr4f6OAc9iDkJSS6h3kQDOeUk0E_fLuCWj2ylr97lET0PacC_tQtjTZGmbwHOATbO3yPV7WE30u2jEZKPXy5DVwKcbhg6vT_jLkDGs23559bTwKiEyywXq_HUlnezVfDYt_ovGBIwiVTXwXa3r3vgRmItcuc",
+    },
+    {
+        quote: "De kwaliteit van de folie is ongelofelijk. Iedereen denkt dat we een compleet nieuwe keuken hebben gekocht. Een absolute aanrader voor wie slim wil renoveren.",
+        author: "Mark T.",
+        location: "Rotterdam, Appartement",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        decorativeImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuA5XJn_yCQ2MdQswfLz5RXt8SKMKQbkydPzTMnpanPXPYiDhZEdVvHdTRu1v8521wGgC8-v7qK3fu08-VpD0KVZZszHUgUvShsK6crsz--K9KqL3G_NF1UWNYr6-zUmFTpNWZHTq1X9eOZQFgkILwG8V64P3wozkDAZ8NeyN3wHxEaMeDolingjig0OeIJyqqRCQRjYzCmlaa5duPA-F8YdZN_W-whcrk3cfOMDOlnEPKo4zUHk9JQJpxJyZk4TWO3LmpWU3K5kzns",
+    },
+    {
+        quote: "Snel, netjes en vriendelijk. Geen rommel in huis en direct resultaat. De marmerlook op ons aanrechtblad is niet van echt te onderscheiden.",
+        author: "Eva K.",
+        location: "Haarlem, Woonhuis",
+        image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        decorativeImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDaokLjJtt3THzJ0a_CuQmJrHcqhUnvD3wGFy_7xqQPM8NH4hIClvQmOX3O0rPh0jnCESr7zoZlf3c_6hFbfw9su7237uZMjmcC3cz85fTBSTPWA9GODigkJe22qVNNvpXkpw9zyaiGoeEyder6XyQEAJZk58zI_gHy9PrAfGhNEqK_v9fFZHgMU5er6CQ2LKoWeeqkl_3SeZaA45wYV9v0NA2OPyPOCAGp3WVuZ0QhtLyhK__BwsD8kpX3QLXW2VFMF-1GavW3gQs",
+    },
+    {
+        quote: "Wij twijfelden lang tussen wrappen en nieuw, maar zijn zo blij met deze keuze. Het scheelde enorm in de kosten en het resultaat is prachtig strak.",
+        author: "David B.",
+        location: "Leiden, Jaren 30 Woning",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        decorativeImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfL7qINi37VjLDcOpZKMO-VBKh51fQ7lAfH4cPd2OBOI3zjpg-McDwGyUd_uH5hZ3ctdbAgrxtD456rTV_KbtJ2PCbqCoKFWBtiSQU48ySaxoLR2mjLCy5Zt0VdQwBMRLFcArnt1bld6cnG1E3fc2pThWjtrYqhutTSJbUjCS9TQDIDbelwgmTLN2kzIF-CV_tJQhp0c7pAiKpK1vttq8sS3jNXmCWaonxm9fFRWnMXZSGx2FEEiS5R_0slmR7xKojP1gFSkb1PJQ",
+    },
+    {
+        quote: "Fantastische service vanaf het eerste contact tot de oplevering. De monteurs werkten zeer nauwkeurig en lieten alles keurig achter.",
+        author: "Sophie M.",
+        location: "Amstelveen, Nieuwbouw",
+        image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        decorativeImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJLQfVa9fZjZPK_NK_bQzLKVSR0S0ZdJfPXanUgVC0GRKBmJcU34Ea1chqPiy9K1LJkMRghQShPyim5Nk5QKl4y4AsKFXK-K-b10GprhTkVPc-j_jOnV2cDMmYmX0R7hAVzyu6CV00XU9ycD1WyGob0yHqXNsD18vqz26epnmDfBUuil4oK8YQ2FZfpUl75081-0Pa51Wb_oQf-JIrIhBqQxGfRGTUeHKcuVFG_ylhhahXPX8eH6pr6aLsHvhm6EmSgMTZHPsSGhI",
+    },
+    {
+        quote: "Onze zwarte keuken is nu prachtig mat en vingerafdrukbestendig. De renovatie heeft de hele sfeer van de woonkamer veranderd.",
+        author: "Thomas H.",
+        location: "Den Haag, Penthouse",
+        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        decorativeImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDCoeZeJo1eRqfjL0ezP8hPgoggGYmqwYG8qFrYW7rTiwYL8K0g7yL6nul0Ftevcm8dQnMuIfUWRMituneqqgSFHO2IGAne4oTTvOIVP9esFTa_Qs1f65ixmWdkCMCJcJeE9Cu11ncaI58LRjdOcVb6InflViTnrnoxZasSBcHOp-TqNvqcHpHYMNRklcJvCdercYswkeC9yvxHVbMgsLAwjiIMbOQm6ebCAzH5uPntIm89jPNVtLxr_4ljM2lsVo-IADOCGvcIfJM",
     },
 ];
 

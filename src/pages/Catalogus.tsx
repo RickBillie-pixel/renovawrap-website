@@ -20,8 +20,6 @@ export default function Catalogus() {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on load
-
     // Sync active category from URL
     const categoryParam = searchParams.get("category");
     if (categoryParam && (categories.includes(categoryParam) || categoryParam === "Alle")) {

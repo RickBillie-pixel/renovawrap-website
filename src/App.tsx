@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Auto-start project preloading at app boot (import triggers module-level preload)
 import "@/lib/projectService";
 import Header from "./components/Header";
@@ -26,17 +25,7 @@ import AlgemeneVoorwaarden from "./pages/AlgemeneVoorwaarden";
 import SmoothScroll from "./components/SmoothScroll";
 
 // Scroll to top on route change
-function ScrollToTop() {
-  const { pathname } = useLocation();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  }, [pathname]);
-
-  return null;
-}
 
 /**
  * AppContent — the router-agnostic inner shell.
@@ -47,7 +36,6 @@ export function AppContent() {
   return (
     <>
       {typeof window !== 'undefined' && <SmoothScroll />}
-      <ScrollToTop />
       <div className="bg-background-light text-dark min-h-screen selection:bg-secondary selection:text-white transition-colors duration-300">
         <Header />
         <Routes>

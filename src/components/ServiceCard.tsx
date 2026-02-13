@@ -35,7 +35,7 @@ export default function ServiceCard({
         <h3 className="font-display text-3xl md:text-4xl mb-4 group-hover:text-primary transition-colors duration-300">
           {title}
         </h3>
-        <p className="text-gray-500 text-sm leading-relaxed mb-6 h-20 line-clamp-3">
+        <p className="text-gray-500 text-sm leading-relaxed mb-6">
           {description}
         </p>
         <Link

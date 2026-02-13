@@ -1,4 +1,5 @@
 import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+import KeuzehulpSchade from "../components/KeuzehulpSchade";
 
 export default function SchadeherstelDetail() {
   useSEO({
@@ -130,6 +131,19 @@ export default function SchadeherstelDetail() {
             ))}
           </div>
         </div>
+      </section>
+      </section>
+
+      {/* 5. Keuzehulp */}
+      <section id="keuzehulp" className="py-24 bg-white">
+        <div className="max-w-[1400px] mx-auto px-6 mb-16 text-center">
+            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Foto Insturen = Offerte Ontvangen</span>
+            <h2 className="font-display text-4xl md:text-5xl text-dark mb-6">Gratis <br/> <span className="italic text-gray-400">Schadebeoordeling</span></h2>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
+              Upload een foto van de schade en ontvang binnen 24 uur een vrijblijvend herstelvoorstel.
+            </p>
+        </div>
+        <KeuzehulpSchade />
       </section>
     </main>
   );

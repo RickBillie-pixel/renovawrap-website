@@ -113,8 +113,8 @@ export default function Contact() {
                   Bezoek onze showroom om de materialen te voelen en de mogelijkheden te bespreken. Op afspraak geopend.
                 </p>
                 <address className="not-italic text-sm uppercase tracking-widest text-dark border-l-2 border-primary pl-4">
-                  Keizersgracht 123<br />
-                  1015 CJ, Amsterdam<br />
+                  Braakweg 22b<br />
+                  5708 JK, Helmond<br />
                   Nederland
                 </address>
               </div>

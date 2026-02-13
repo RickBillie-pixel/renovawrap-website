@@ -1,4 +1,5 @@
 import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
 
 export default function KeukenFrontjesDetail() {
   useSEO({
@@ -174,6 +175,19 @@ export default function KeukenFrontjesDetail() {
             </div>
           </div>
         </div>
+      </section>
+      </section>
+
+      {/* 5. Keuzehulp */}
+      <section id="keuzehulp" className="py-24 bg-white">
+        <div className="max-w-[1400px] mx-auto px-6 mb-16 text-center">
+            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Direct Een Prijsindicatie</span>
+            <h2 className="font-display text-4xl md:text-5xl text-dark mb-6">Stel Uw Nieuwe <br/> <span className="italic text-gray-400">Look Samen</span></h2>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
+              Gebruik onze slimme configurator om direct een beeld te krijgen van de mogelijkheden en kosten voor uw frontjes.
+            </p>
+        </div>
+        <KeuzehulpFrontjes />
       </section>
     </main>
   );

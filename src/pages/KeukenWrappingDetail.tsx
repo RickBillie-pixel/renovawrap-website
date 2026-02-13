@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import KitchenBenefits from "../components/KitchenBenefits";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import FAQ from "../components/FAQ";
 import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
 import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
@@ -199,7 +200,7 @@ function KeuzehulpWizard() {
   const steps = [
     { id: 1, title: "Selectie", label: "Onderdelen"},
     { id: 2, title: "Aantal", label: "Details"},
-    { id: 3, title: "Stijl", label: "Maten"}, // Stitch uses "Maten" but functionally it's "Style/Color". Keeping label "Maten" to match Stitch text if that's preferred, but "Kleuren" might be better. Stick to Stitch text "Details", "Maten", "Contact".
+    { id: 3, title: "Stijl", label: "Stijl"}, // Stitch uses "Maten" but functionally it's "Style/Color". Keeping label "Maten" to match Stitch text if that's preferred, but "Kleuren" might be better. Stick to Stitch text "Details", "Maten", "Contact".
     { id: 4, title: "Foto's", label: "Situatie"},
     { id: 5, title: "Contact", label: "Contact"},
   ];
@@ -538,7 +539,7 @@ function KeuzehulpWizard() {
 export default function KeukenWrappingDetail() {
   useSEO({
     title: "Keuken Wrapping — Uw Keuken Als Nieuw | Renovawrap",
-    description: "Keuken wrapping specialist. Transformeer uw keuken tot 70% goedkoper zonder sloopwerk. 300+ premium afwerkingen, 10 jaar garantie.",
+    description: "Keuken wrapping specialist. Transformeer uw keuken tot 70% goedkoper zonder sloopwerk. 300+ premium afwerkingen, 5 jaar garantie.",
     canonical: "https://renovawrap.nl/diensten/keuken-wrapping",
     jsonLd: [
       ...buildBreadcrumbs([
@@ -647,7 +648,7 @@ export default function KeukenWrappingDetail() {
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
-                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="font-display text-2xl md:text-4xl text-primary">5</span>
                     <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
                   </div>
                 </div>
@@ -834,59 +835,62 @@ export default function KeukenWrappingDetail() {
         </div>
       </section>
 
-      {/* Reviews */}
-      <section className="py-32 bg-white border-t border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="material-symbols-outlined text-4xl text-primary mb-4">format_quote</span>
-            <h2 className="font-display text-4xl text-dark">Wat Onze Klanten <span className="italic text-gray-400">Zeggen</span></h2>
-          </div>
-          <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <div 
-              className="flex animate-scroll gap-12 w-max items-start py-12 hover:[animation-play-state:paused]"
-              style={{ "--animation-duration": "80s" } as React.CSSProperties}
-            >
-              {[
-                { quote: "Voor een fractie van de prijs heb ik nu precies de look die ik wilde. De kwaliteit van de folie is echt verbluffend — het voelt als echt hout!", author: "Sophie van der Berg", detail: "Matte Black Finish — Hoekwoning Haarlem", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw" },
-                { quote: "De monteur was super professioneel. Om 9 uur begonnen, om 16 uur klaar. Geen rommel, geen stank en een compleet andere keuken. Ongelofelijk!", author: "Thomas Dekker", detail: "Betonlook — Appartement Amsterdam", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY", className: "md:-mt-8" },
-                { quote: "We wilden een warme houtlook voor ons kookeiland. De nerfstructuur voelt heel natuurlijk aan, en na 2 jaar ziet het er nog steeds perfect uit.", author: "Elise & Mark", detail: "Rustiek Eiken — Twee-onder-een-kap Breda", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940" },
-                { quote: "Onze keuken was nog goed, maar de kleur stond ons niet meer aan. Wrappen was de perfecte oplossing. Het resultaat is niet van echt natuursteen te onderscheiden.", author: "Fam. Visser", detail: "Marmerlook — Vrijstaande Woning Utrecht", rating: 5, image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
-                { quote: "Super blij met de nieuwe kleur! De monteur dacht goed mee over de kleine details en de afwerking is echt top. Een aanrader.", author: "Lisa & Tom", detail: "Soft Touch Moss Green — Nieuwbouw Leidsche Rijn", rating: 5, image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80" },
-                { quote: "Strak, modern en snel geregeld. Binnen 2 dagen een compleet nieuwe look in ons appartement. Scheelt enorm veel geld vergeleken met een nieuwe keuken.", author: "Jeroen", detail: "Industrial Concrete — Loft Rotterdam", rating: 5, image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
-                { quote: "We waren bang dat het nep zou lijken, maar de structuur voelt echt aan. Geeft onze woonboot precies die frisse uitstraling die we zochten.", author: "Karin de Jong", detail: "Houtstructuur Licht Eiken — Woonboot Groningen", rating: 5, image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=256&q=80" },
-                { quote: "Zeer professioneel bedrijf. Goede communicatie vooraf en de montage verliep vlekkeloos. Het resultaat straalt luxe uit.", author: "Dhr. S. Bakker", detail: "Ultra Mat Antraciet — Penthouse Den Haag", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
-                // Duplicate for smooth loop
-                { quote: "Voor een fractie van de prijs heb ik nu precies de look die ik wilde. De kwaliteit van de folie is echt verbluffend — het voelt als echt hout!", author: "Sophie van der Berg", detail: "Matte Black Finish — Hoekwoning Haarlem", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw" },
-                { quote: "De monteur was super professioneel. Om 9 uur begonnen, om 16 uur klaar. Geen rommel, geen stank en een compleet andere keuken. Ongelofelijk!", author: "Thomas Dekker", detail: "Betonlook — Appartement Amsterdam", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY", className: "md:-mt-8" },
-                { quote: "We wilden een warme houtlook voor ons kookeiland. De nerfstructuur voelt heel natuurlijk aan, en na 2 jaar ziet het er nog steeds perfect uit.", author: "Elise & Mark", detail: "Rustiek Eiken — Twee-onder-een-kap Breda", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940" },
-                { quote: "Onze keuken was nog goed, maar de kleur stond ons niet meer aan. Wrappen was de perfecte oplossing. Het resultaat is niet van echt natuursteen te onderscheiden.", author: "Fam. Visser", detail: "Marmerlook — Vrijstaande Woning Utrecht", rating: 5, image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
-                { quote: "Super blij met de nieuwe kleur! De monteur dacht goed mee over de kleine details en de afwerking is echt top. Een aanrader.", author: "Lisa & Tom", detail: "Soft Touch Moss Green — Nieuwbouw Leidsche Rijn", rating: 5, image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80" },
-                { quote: "Strak, modern en snel geregeld. Binnen 2 dagen een compleet nieuwe look in ons appartement. Scheelt enorm veel geld vergeleken met een nieuwe keuken.", author: "Jeroen", detail: "Industrial Concrete — Loft Rotterdam", rating: 5, image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
-                { quote: "We waren bang dat het nep zou lijken, maar de structuur voelt echt aan. Geeft onze woonboot precies die frisse uitstraling die we zochten.", author: "Karin de Jong", detail: "Houtstructuur Licht Eiken — Woonboot Groningen", rating: 5, image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=256&q=80" },
-                { quote: "Zeer professioneel bedrijf. Goede communicatie vooraf en de montage verliep vlekkeloos. Het resultaat straalt luxe uit.", author: "Dhr. S. Bakker", detail: "Ultra Mat Antraciet — Penthouse Den Haag", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
-              ].map((item, index) => (
-                <div key={index} className={`text-center group w-[400px] shrink-0 ${item.className || ''}`}>
-                  <div className="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                    <img alt="Customer" className="w-full h-full object-cover" src={item.image} />
-                  </div>
-                  <div className="flex justify-center gap-0.5 mb-4">
-                    {Array.from({length: item.rating}).map((_, i) => (
-                      <span key={i} className="material-symbols-outlined text-primary text-sm">star</span>
-                    ))}
-                  </div>
-                  <p className="font-display text-lg italic text-gray-600 mb-6 leading-relaxed">"{item.quote}"</p>
-                  <div className="border-t border-gray-100 pt-4 inline-block w-full">
-                    <h4 className="font-bold text-xs uppercase tracking-widest text-dark">{item.author}</h4>
-                    <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">{item.detail}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+       {/* Reviews */}
+       <section className="py-32 bg-white border-t border-gray-100">
+         <div className="max-w-[1400px] mx-auto px-6">
+           <div className="text-center mb-16">
+             <span className="material-symbols-outlined text-4xl text-primary mb-4">format_quote</span>
+             <h2 className="font-display text-4xl text-dark">Wat Onze Klanten <span className="italic text-gray-400">Zeggen</span></h2>
+           </div>
+           <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+             <div 
+               className="flex animate-scroll gap-12 w-max items-start py-12 hover:[animation-play-state:paused]"
+               style={{ "--animation-duration": "80s" } as React.CSSProperties}
+             >
+               {[
+                 { quote: "Voor een fractie van de prijs heb ik nu precies de look die ik wilde. De kwaliteit van de folie is echt verbluffend — het voelt als echt hout!", author: "Sophie van der Berg", detail: "Matte Black Finish — Hoekwoning Haarlem", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw" },
+                 { quote: "De monteur was super professioneel. Om 9 uur begonnen, om 16 uur klaar. Geen rommel, geen stank en een compleet andere keuken. Ongelofelijk!", author: "Thomas Dekker", detail: "Betonlook — Appartement Amsterdam", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY", className: "md:-mt-8" },
+                 { quote: "We wilden een warme houtlook voor ons kookeiland. De nerfstructuur voelt heel natuurlijk aan, en na 2 jaar ziet het er nog steeds perfect uit.", author: "Elise & Mark", detail: "Rustiek Eiken — Twee-onder-een-kap Breda", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940" },
+                 { quote: "Onze keuken was nog goed, maar de kleur stond ons niet meer aan. Wrappen was de perfecte oplossing. Het resultaat is niet van echt natuursteen te onderscheiden.", author: "Fam. Visser", detail: "Marmerlook — Vrijstaande Woning Utrecht", rating: 5, image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                 { quote: "Super blij met de nieuwe kleur! De monteur dacht goed mee over de kleine details en de afwerking is echt top. Een aanrader.", author: "Lisa & Tom", detail: "Soft Touch Moss Green — Nieuwbouw Leidsche Rijn", rating: 5, image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80" },
+                 { quote: "Strak, modern en snel geregeld. Binnen 2 dagen een compleet nieuwe look in ons appartement. Scheelt enorm veel geld vergeleken met een nieuwe keuken.", author: "Jeroen", detail: "Industrial Concrete — Loft Rotterdam", rating: 5, image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                 { quote: "We waren bang dat het nep zou lijken, maar de structuur voelt echt aan. Geeft onze woonboot precies die frisse uitstraling die we zochten.", author: "Karin de Jong", detail: "Houtstructuur Licht Eiken — Woonboot Groningen", rating: 5, image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=256&q=80" },
+                 { quote: "Zeer professioneel bedrijf. Goede communicatie vooraf en de montage verliep vlekkeloos. Het resultaat straalt luxe uit.", author: "Dhr. S. Bakker", detail: "Ultra Mat Antraciet — Penthouse Den Haag", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                 // Duplicate for smooth loop
+                 { quote: "Voor een fractie van de prijs heb ik nu precies de look die ik wilde. De kwaliteit van de folie is echt verbluffend — het voelt als echt hout!", author: "Sophie van der Berg", detail: "Matte Black Finish — Hoekwoning Haarlem", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw" },
+                 { quote: "De monteur was super professioneel. Om 9 uur begonnen, om 16 uur klaar. Geen rommel, geen stank en een compleet andere keuken. Ongelofelijk!", author: "Thomas Dekker", detail: "Betonlook — Appartement Amsterdam", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY", className: "md:-mt-8" },
+                 { quote: "We wilden een warme houtlook voor ons kookeiland. De nerfstructuur voelt heel natuurlijk aan, en na 2 jaar ziet het er nog steeds perfect uit.", author: "Elise & Mark", detail: "Rustiek Eiken — Twee-onder-een-kap Breda", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940" },
+                 { quote: "Onze keuken was nog goed, maar de kleur stond ons niet meer aan. Wrappen was de perfecte oplossing. Het resultaat is niet van echt natuursteen te onderscheiden.", author: "Fam. Visser", detail: "Marmerlook — Vrijstaande Woning Utrecht", rating: 5, image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                 { quote: "Super blij met de nieuwe kleur! De monteur dacht goed mee over de kleine details en de afwerking is echt top. Een aanrader.", author: "Lisa & Tom", detail: "Soft Touch Moss Green — Nieuwbouw Leidsche Rijn", rating: 5, image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80" },
+                 { quote: "Strak, modern en snel geregeld. Binnen 2 dagen een compleet nieuwe look in ons appartement. Scheelt enorm veel geld vergeleken met een nieuwe keuken.", author: "Jeroen", detail: "Industrial Concrete — Loft Rotterdam", rating: 5, image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                 { quote: "We waren bang dat het nep zou lijken, maar de structuur voelt echt aan. Geeft onze woonboot precies die frisse uitstraling die we zochten.", author: "Karin de Jong", detail: "Houtstructuur Licht Eiken — Woonboot Groningen", rating: 5, image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=256&q=80" },
+                 { quote: "Zeer professioneel bedrijf. Goede communicatie vooraf en de montage verliep vlekkeloos. Het resultaat straalt luxe uit.", author: "Dhr. S. Bakker", detail: "Ultra Mat Antraciet — Penthouse Den Haag", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+               ].map((item, index) => (
+                 <div key={index} className={`text-center group w-[400px] shrink-0 ${item.className || ''}`}>
+                   <div className="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                     <img alt="Customer" className="w-full h-full object-cover" src={item.image} />
+                   </div>
+                   <div className="flex justify-center gap-0.5 mb-4">
+                     {Array.from({length: item.rating}).map((_, i) => (
+                       <span key={i} className="material-symbols-outlined text-primary text-sm">star</span>
+                     ))}
+                   </div>
+                   <p className="font-display text-lg italic text-gray-600 mb-6 leading-relaxed">"{item.quote}"</p>
+                   <div className="border-t border-gray-100 pt-4 inline-block w-full">
+                     <h4 className="font-bold text-xs uppercase tracking-widest text-dark">{item.author}</h4>
+                     <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">{item.detail}</p>
+                   </div>
+                 </div>
+               ))}
+             </div>
+           </div>
+         </div>
+       </section>
 
-      {/* Keuzehulp Wizard */}
+       {/* FAQ */}
+       <FAQ />
+
+       {/* Keuzehulp Wizard */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="text-center mb-8">

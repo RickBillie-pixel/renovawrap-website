@@ -1,4 +1,5 @@
 import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+import KeuzehulpAchterwanden from "../components/KeuzehulpAchterwanden";
 
 export default function AchterwandenDetail() {
   useSEO({
@@ -171,6 +172,19 @@ export default function AchterwandenDetail() {
             </div>
           </div>
         </div>
+      </section>
+      </section>
+
+      {/* 5. Keuzehulp */}
+      <section id="keuzehulp" className="py-24 bg-white">
+        <div className="max-w-[1400px] mx-auto px-6 mb-16 text-center">
+            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Direct Een Prijsindicatie</span>
+            <h2 className="font-display text-4xl md:text-5xl text-dark mb-6">Wat Kost Een <br/> <span className="italic text-gray-400">Achterwand?</span></h2>
+            <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
+              Beantwoord een paar korte vragen en ontvang binnen 24 uur een vrijblijvende prijsopgave voor uw situatie.
+            </p>
+        </div>
+        <KeuzehulpAchterwanden />
       </section>
     </main>
   );

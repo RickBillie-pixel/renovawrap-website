@@ -11,6 +11,8 @@ export interface Project {
     is_featured: boolean;
     date: string | null;
     created_at?: string;
+    style?: string | null;
+    color?: string | null;
 }
 
 // Global cache outside of React lifecycle

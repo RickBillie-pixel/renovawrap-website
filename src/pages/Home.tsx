@@ -4,6 +4,7 @@ import { testimonials, processSteps } from "../data/mockData";
 import FadeIn from "../components/FadeIn";
 import CountUp from "../components/CountUp";
 import ProjectModal from "../components/ProjectModal";
+import HorizontalServices from "../components/HorizontalServices";
 import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
 import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
@@ -11,6 +12,7 @@ import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>(() => projectService.getCachedProjects() || []);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
 
   // Carousel cycling indices
   const [featuredIndex, setFeaturedIndex] = useState(0);
@@ -264,6 +266,8 @@ export default function Home() {
         </div>
       </section>
 
+      <HorizontalServices />
+
       {/* Why Renovawrap Section */}
       <section className="py-32 bg-background-light text-dark relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-multiply"></div>
@@ -324,6 +328,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
       {/* Featured Projects Section (Asymmetrical Layout with Auto-Rotate) */}
       <section className="py-32 bg-background-light overflow-hidden" id="projecten">
@@ -480,16 +485,16 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
             <div className="lg:col-span-4 sticky top-32 h-fit">
               <h2 className="font-display text-5xl md:text-6xl mb-8 leading-none">
-                Hoe het <br /> <span className="italic text-primary">werkt</span>
+                Hoe wij <br /> <span className="italic text-primary">werken</span>
               </h2>
               <p className="text-gray-500 max-w-xs mb-12 text-sm leading-relaxed">
-                Het ontwerpen van uw droomruimte hoeft niet ingewikkeld te zijn. Wij maken het simpel, transparant en volledig op maat.
+                Uw interieur vernieuwen was nog nooit zo simpel. Transparant in kosten, meesterlijk in uitvoering.
               </p>
               <Link
                 to="/contact"
                 className="inline-block border border-dark px-8 py-3 text-xs uppercase tracking-widest hover:bg-dark hover:text-white transition-all"
               >
-                Start uw project
+                Vraag offerte aan
               </Link>
             </div>
             <div className="lg:col-span-8 flex flex-col gap-0">
@@ -528,33 +533,84 @@ export default function Home() {
               Luister Naar Wat <span className="italic text-primary border-b border-primary/20">Zij Zeggen.</span>
             </h2>
           </div>
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.author}
-              className="relative bg-white p-8 md:p-16 shadow-sm border border-dark/5 max-w-5xl mx-auto"
+
+          <div className="relative max-w-6xl mx-auto">
+            {/* Navigation Buttons - Absolute positioned outside/on edge */}
+            <button 
+              onClick={() => setTestimonialIndex(prev => (prev === 0 ? testimonials.length - 1 : prev - 1))}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:text-primary transition-colors focus:outline-none hidden md:flex"
+              aria-label="Previous testimonial"
             >
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
-                <div className="md:col-span-7 order-1 md:order-2">
-                  <p className="text-xl md:text-2xl text-dark font-display italic mb-10 leading-relaxed">
-                    "{testimonial.quote}"
-                  </p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
-                      <img
-                        alt="Portret"
-                        className="w-full h-full object-cover"
-                        src={testimonial.image}
-                      />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm uppercase tracking-widest">{testimonial.author}</h4>
-                      <p className="text-xs text-gray-400">{testimonial.location}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <span className="material-symbols-outlined">arrow_back</span>
+            </button>
+            
+            <button 
+              onClick={() => setTestimonialIndex(prev => (prev + 1) % testimonials.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:text-primary transition-colors focus:outline-none hidden md:flex"
+              aria-label="Next testimonial"
+            >
+              <span className="material-symbols-outlined">arrow_forward</span>
+            </button>
+
+            <div className="bg-white shadow-xl border border-dark/5 overflow-hidden">
+               {testimonials.map((testimonial, index) => (
+                 <div 
+                   key={testimonial.author}
+                   className={`${index === testimonialIndex ? 'block' : 'hidden'} transition-opacity duration-500`}
+                 >
+                   <div className="grid grid-cols-1 lg:grid-cols-2">
+                     {/* Text Column (Left) */}
+                     <div className="p-8 md:p-16 flex flex-col justify-center relative order-2 lg:order-1">
+                       {/* Large Quote Mark */}
+                       <div className="absolute top-8 left-8 md:top-12 md:left-12 text-9xl leading-none text-gray-100 font-serif select-none pointer-events-none">
+                         "
+                       </div>
+                       
+                       <div className="relative z-10">
+                         <p className="text-xl md:text-2xl text-dark font-display italic mb-10 leading-relaxed">
+                           "{testimonial.quote}"
+                         </p>
+                         <div className="flex items-center gap-4">
+                           <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 shrink-0">
+                             <img
+                               alt={testimonial.author}
+                               className="w-full h-full object-cover"
+                               src={testimonial.image}
+                             />
+                           </div>
+                           <div>
+                             <h4 className="font-bold text-sm uppercase tracking-widest text-dark">{testimonial.author}</h4>
+                             <p className="text-xs text-primary">{testimonial.location}</p>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                     
+                     {/* Image Column (Right) */}
+                     <div className="relative h-[300px] lg:h-auto lg:min-h-[500px] order-1 lg:order-2">
+                       <img
+                         src={testimonial.decorativeImage}
+                         alt="Project Resultaat"
+                         className="absolute inset-0 w-full h-full object-cover"
+                       />
+                     </div>
+                   </div>
+                 </div>
+               ))}
             </div>
-          ))}
+
+            {/* Mobile Navigation Dots */}
+            <div className="flex justify-center gap-2 mt-8 md:hidden">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setTestimonialIndex(i)}
+                  className={`w-2 h-2 rounded-full transition-colors ${i === testimonialIndex ? 'bg-primary' : 'bg-gray-300'}`}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

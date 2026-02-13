@@ -9,7 +9,6 @@ export default function Materialen() {
   useEffect(() => {
     // Update document title
     document.title = "Renovawrap | Materialen Catalogus";
-    window.scrollTo(0, 0); // Scroll to top on load
   }, []);
 
   useEffect(() => {

@@ -50,8 +50,8 @@ export default function Footer() {
             <div className="space-y-8 text-sm text-gray-400">
               <div>
                 <h4 className="text-white font-bold mb-2">Adres</h4>
-                <p>Interieurweg 12</p>
-                <p>1010 AB Amsterdam</p>
+                <p>Braakweg 22b</p>
+                <p>5708 JK Helmond</p>
               </div>
               
               <div>
