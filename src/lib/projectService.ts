@@ -21,6 +21,8 @@ let fetchPromise: Promise<Project[]> | null = null;
 const preloadedImages: HTMLImageElement[] = [];
 
 function preloadImageUrls(projects: Project[]) {
+    // Guard: Image() is only available in the browser
+    if (typeof window === 'undefined') return;
     projects.forEach((project) => {
         if (project.after_image_url) {
             const img = new window.Image();
@@ -96,4 +98,7 @@ export const projectService = {
 
 // AUTO-START: begin preloading immediately when this module is imported
 // This runs once at app startup, before any component mounts
-projectService.preload();
+// Guard: only preload in browser (skip during SSR prerender)
+if (typeof window !== 'undefined') {
+    projectService.preload();
+}

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-interface SEOProps {
+export interface SEOProps {
     title: string;
     description: string;
     canonical: string;
@@ -12,6 +12,22 @@ interface SEOProps {
 
 const BASE_URL = "https://renovawrap.nl";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
+
+// ── SSR data collection ────────────────────────────────────────
+// During renderToString, useEffect doesn't fire.
+// Instead we capture SEO data synchronously during render.
+let _ssrCollector: SEOProps | null = null;
+
+/** Call before each renderToString to reset the collector */
+export function startSSRCollection() {
+    _ssrCollector = null;
+}
+
+/** Call after renderToString to retrieve collected SEO data */
+export function getSSRSeoData(): SEOProps | null {
+    return _ssrCollector;
+}
+// ───────────────────────────────────────────────────────────────
 
 function setMetaTag(attr: string, key: string, content: string) {
     let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
@@ -55,6 +71,11 @@ export function useSEO({
     robots = "index, follow",
     jsonLd,
 }: SEOProps) {
+    // SSR path: collect data synchronously during render
+    if (typeof window === 'undefined') {
+        _ssrCollector = { title, description, canonical, ogImage, ogType, robots, jsonLd };
+    }
+
     useEffect(() => {
         // Title
         document.title = title;

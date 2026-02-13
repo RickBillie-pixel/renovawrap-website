@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "prerender": "node scripts/prerender.cjs",
-    "build:static": "npm run build && npm run prerender",
+    "build:ssr": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "prerender": "node scripts/prerender.js",
+    "build:static": "npm run build && npm run build:ssr && npm run prerender",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -25,9 +26,6 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
-    "puppeteer": "^23.0.0",
-    "puppeteer-core": "^23.0.0",
-    "@sparticuz/chromium": "^131.0.0",
     "@eslint/js": "^9.39.1",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^24.10.1",

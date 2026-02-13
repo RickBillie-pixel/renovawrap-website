@@ -23,6 +23,8 @@ import Catalogus from "./pages/Catalogus";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import AlgemeneVoorwaarden from "./pages/AlgemeneVoorwaarden";
 
+import SmoothScroll from "./components/SmoothScroll";
+
 // Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,12 +38,15 @@ function ScrollToTop() {
   return null;
 }
 
-import SmoothScroll from "./components/SmoothScroll";
-
-function App() {
+/**
+ * AppContent — the router-agnostic inner shell.
+ * Exported so entry-server.tsx can wrap it with StaticRouter for SSG,
+ * while the default export wraps it with BrowserRouter for the client.
+ */
+export function AppContent() {
   return (
-    <Router>
-      <SmoothScroll />
+    <>
+      {typeof window !== 'undefined' && <SmoothScroll />}
       <ScrollToTop />
       <div className="bg-background-light text-dark min-h-screen selection:bg-secondary selection:text-white transition-colors duration-300">
         <Header />
@@ -66,6 +71,14 @@ function App() {
         </Routes>
         <Footer />
       </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
