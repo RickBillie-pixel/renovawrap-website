@@ -176,7 +176,6 @@ export default function KeukenFrontjesDetail() {
           </div>
         </div>
       </section>
-      </section>
 
       {/* 5. Keuzehulp */}
       <section id="keuzehulp" className="py-24 bg-white">
