@@ -2,6 +2,29 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { cn } from "../lib/utils";
 import { services } from "../data/mockData";
+import { MAIN_NAV, BASE_URL } from "../config/nav";
+
+/** SiteNavigationElement JSON-LD — matches visible nav; no UI change. */
+function NavSchema() {
+  const itemListElement = MAIN_NAV.map((item, i) => ({
+    "@type": "SiteNavigationElement" as const,
+    position: i + 1,
+    name: item.label,
+    url: `${BASE_URL}${item.href === "/" ? "" : item.href}`,
+  }));
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          itemListElement,
+        }),
+      }}
+    />
+  );
+}
 
 export default function Header() {
   const location = useLocation();
@@ -31,6 +54,7 @@ export default function Header() {
           : "bg-transparent border-transparent py-6"
       )}
     >
+      <NavSchema />
       <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="flex flex-col leading-tight group">
           <span className="font-display font-bold text-2xl tracking-tight group-hover:opacity-80 transition-opacity">

@@ -1,14 +1,14 @@
 import CountUp from "../components/CountUp";
-import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 
 export default function OverOns() {
   useSEO({
     title: "Over Ons — Het Verhaal Achter Renovawrap",
     description: "Maak kennis met Bram Vos en de filosofie achter Renovawrap. Waarom slopen als je kunt renoveren? Duurzaam, slim en high-end.",
-    canonical: "https://renovawrap.nl/over-ons",
+    canonical: canonicalFor("/over-ons"),
     jsonLd: buildBreadcrumbs([
-      { name: "Home", url: "https://renovawrap.nl/" },
-      { name: "Over Ons", url: "https://renovawrap.nl/over-ons" },
+      { name: "Home", url: canonicalFor("/") },
+      { name: "Over ons", url: canonicalFor("/over-ons") },
     ]),
   });
 

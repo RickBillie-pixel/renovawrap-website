@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Linkedin } from "lucide-react";
+import { MAIN_NAV, SERVICES_NAV } from "../config/nav";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,36 +9,36 @@ export default function Footer() {
     <footer className="bg-[#121212] text-white pt-20 pb-10" id="contact">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
-          
-          {/* Column 1: Onze Diensten */}
+
+          {/* Column 1: Onze Diensten — from config (same order/labels as before) */}
           <div>
             <h3 className="font-display text-2xl italic mb-8 relative inline-block">
               Onze Diensten
               <span className="absolute left-0 bottom-0 w-12 h-[1px] bg-[#C4A47C]"></span>
             </h3>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li><Link to="/diensten/keuken-wrapping" className="hover:text-white transition-colors">Keuken Wrapping</Link></li>
-              <li><Link to="/diensten/aanrechtbladen" className="hover:text-white transition-colors">Aanrechtbladen</Link></li>
-              <li><Link to="/diensten/kasten" className="hover:text-white transition-colors">Inbouwkasten</Link></li>
-              <li><Link to="/diensten/kozijnen" className="hover:text-white transition-colors">Kozijnen</Link></li>
-              <li><Link to="/diensten/deuren" className="hover:text-white transition-colors">Deuren</Link></li>
-              <li><Link to="/diensten/keuken-frontjes" className="hover:text-white transition-colors">Keuken Frontjes</Link></li>
-              <li><Link to="/diensten/achterwanden" className="hover:text-white transition-colors">Achterwanden</Link></li>
-              <li><Link to="/diensten/schadeherstel" className="hover:text-white transition-colors">Schadeherstel</Link></li>
+              {SERVICES_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link to={item.href} className="hover:text-white transition-colors">{item.label}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column 2: Menu */}
+          {/* Column 2: Menu — same links and order as header (single source of truth) */}
           <div>
             <h3 className="font-display text-2xl italic mb-8 relative inline-block">
               Menu
               <span className="absolute left-0 bottom-0 w-12 h-[1px] bg-[#C4A47C]"></span>
             </h3>
             <ul className="space-y-4 text-gray-400 text-sm">
-              <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li><Link to="/over-ons" className="hover:text-white transition-colors">Over Ons</Link></li>
-              <li><Link to="/projecten" className="hover:text-white transition-colors">Projecten</Link></li>
-              <li><Link to="/configurator" className="hover:text-white transition-colors">Configurator</Link></li>
+              {MAIN_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link to={item.href} className="hover:text-white transition-colors">
+                    {"footerLabel" in item && item.footerLabel ? item.footerLabel : item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

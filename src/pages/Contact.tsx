@@ -1,13 +1,13 @@
-import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 
 export default function Contact() {
   useSEO({
     title: "Contact — Gratis Offerte | Renovawrap",
     description: "Neem contact op met Renovawrap voor een vrijblijvende offerte. Reactie binnen 24 uur. Bel, mail of vul het formulier in.",
-    canonical: "https://renovawrap.nl/contact",
+    canonical: canonicalFor("/contact"),
     jsonLd: buildBreadcrumbs([
-      { name: "Home", url: "https://renovawrap.nl/" },
-      { name: "Contact", url: "https://renovawrap.nl/contact" },
+      { name: "Home", url: canonicalFor("/") },
+      { name: "Contact", url: canonicalFor("/contact") },
     ]),
   });
   return (

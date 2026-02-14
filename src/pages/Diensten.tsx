@@ -1,15 +1,15 @@
 import ServiceCard from "../components/ServiceCard";
 import { services } from "../data/mockData";
-import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 
 export default function Diensten() {
   useSEO({
     title: "Onze Diensten — Wrapping & Renovatie | Renovawrap",
     description: "Alle wrapping diensten: keukens, kasten, deuren, kozijnen en meer. Bekijk het volledige aanbod van Renovawrap.",
-    canonical: "https://renovawrap.nl/diensten",
+    canonical: canonicalFor("/diensten"),
     jsonLd: buildBreadcrumbs([
-      { name: "Home", url: "https://renovawrap.nl/" },
-      { name: "Diensten", url: "https://renovawrap.nl/diensten" },
+      { name: "Home", url: canonicalFor("/") },
+      { name: "Diensten", url: canonicalFor("/diensten") },
     ]),
   });
   return (

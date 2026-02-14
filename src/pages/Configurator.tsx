@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Sparkles, Loader2, Download, X, Check, Search, ChefHat, Square, DoorOpen, Wrench, Box, Camera, Upload, CheckCircle2 } from "lucide-react";
 import { getWrapColors } from "@/lib/wrapColors";
 import { supabase } from "@/lib/supabase";
-import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 
 const applicationTypes = [
   { 
@@ -48,10 +48,10 @@ export default function Configurator() {
   useSEO({
     title: "AI Configurator — Ontwerp Uw Keuken | Renovawrap",
     description: "Gebruik onze AI configurator om uw droomkeuken te ontwerpen. Upload een foto en zie direct het resultaat met premium wrapping.",
-    canonical: "https://renovawrap.nl/configurator",
+    canonical: canonicalFor("/configurator"),
     jsonLd: buildBreadcrumbs([
-      { name: "Home", url: "https://renovawrap.nl/" },
-      { name: "AI Configurator", url: "https://renovawrap.nl/configurator" },
+      { name: "Home", url: canonicalFor("/") },
+      { name: "Configurator", url: canonicalFor("/configurator") },
     ]),
   });
 

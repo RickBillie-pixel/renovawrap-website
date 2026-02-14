@@ -7,7 +7,8 @@ import ProjectModal from "../components/ProjectModal";
 import HorizontalServices from "../components/HorizontalServices";
 import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
-import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
+import { BASE_URL } from "@/config/nav";
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>(() => projectService.getCachedProjects() || []);
@@ -22,15 +23,15 @@ export default function Home() {
   useSEO({
     title: "Keuken Wrapping & Interieur Folie | Renovawrap",
     description: "Transformeer uw keuken en interieur met premium wrapping. Zonder sloopwerk, binnen 1 dag klaar. Vraag gratis offerte aan bij Renovawrap.",
-    canonical: "https://renovawrap.nl/",
+    canonical: canonicalFor("/"),
     jsonLd: [
-      ...buildBreadcrumbs([{ name: "Home", url: "https://renovawrap.nl/" }]),
+      ...buildBreadcrumbs([{ name: "Home", url: canonicalFor("/") }]),
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         name: "Renovawrap",
-        url: "https://renovawrap.nl",
-        logo: "https://renovawrap.nl/favicon.png",
+        url: BASE_URL,
+        logo: `${BASE_URL}/favicon.png`,
         description: "Renovawrap is specialist in architecturale keuken- en interieurwrapping in Nederland.",
         areaServed: { "@type": "Country", name: "NL" },
       },

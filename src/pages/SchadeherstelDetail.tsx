@@ -1,16 +1,16 @@
-import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "@/hooks/useSEO";
 import KeuzehulpSchade from "../components/KeuzehulpSchade";
 
 export default function SchadeherstelDetail() {
   useSEO({
     title: "Schadeherstel — Lokale Reparatie, Onzichtbaar Resultaat | Renovawrap",
     description: "Beschadigde wrapping of kras in uw blad? Wij herstellen schade lokaal en onzichtbaar. Binnen een dagdeel opgelost.",
-    canonical: "https://renovawrap.nl/diensten/schadeherstel",
+    canonical: canonicalFor("/diensten/schadeherstel"),
     jsonLd: [
       ...buildBreadcrumbs([
-        { name: "Home", url: "https://renovawrap.nl/" },
-        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
-        { name: "Schadeherstel", url: "https://renovawrap.nl/diensten/schadeherstel" },
+        { name: "Home", url: canonicalFor("/") },
+        { name: "Diensten", url: canonicalFor("/diensten") },
+        { name: "Schadeherstel", url: canonicalFor("/diensten/schadeherstel") },
       ]),
       ...buildService("Schadeherstel", "Beschadigde wrapping lokaal en onzichtbaar herstellen. Dezelfde kleur, dezelfde structuur."),
     ],

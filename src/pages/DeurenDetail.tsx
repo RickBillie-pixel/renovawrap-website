@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
 import KeuzehulpDeuren from "../components/KeuzehulpDeuren";
-import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "@/hooks/useSEO";
 import { getWrapColors, type WrapColor } from "@/lib/wrapColors";
 
 // Helper component for individual color circle with independent timing
@@ -95,12 +94,12 @@ export default function DeurenDetail() {
   useSEO({
     title: "Deuren Wrappen — Van Standaard Naar Showroom | Renovawrap",
     description: "Deuren en kozijnen wrappen in mat-zwart, eikenhout of beton. Inclusief kozijnen, binnen een halve dag per deur.",
-    canonical: "https://renovawrap.nl/diensten/deuren",
+    canonical: canonicalFor("/diensten/deuren"),
     jsonLd: [
       ...buildBreadcrumbs([
-        { name: "Home", url: "https://renovawrap.nl/" },
-        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
-        { name: "Deuren", url: "https://renovawrap.nl/diensten/deuren" },
+        { name: "Home", url: canonicalFor("/") },
+        { name: "Diensten", url: canonicalFor("/diensten") },
+        { name: "Deuren", url: canonicalFor("/diensten/deuren") },
       ]),
       ...buildService("Deuren Wrappen", "Deuren en kozijnen wrappen naar mat-zwart, eikenhout of beton. Compleet ander huis binnen een halve dag."),
     ],

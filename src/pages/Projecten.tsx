@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import FadeIn from "../components/FadeIn";
 import ProjectModal from "../components/ProjectModal";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
-import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 
 const CATEGORIES = [
   "Alle",
@@ -35,10 +36,10 @@ export default function Projecten() {
   useSEO({
     title: "Projecten — Voor & Na Foto's | Renovawrap",
     description: "Bekijk onze voltooide wrapping projecten met voor en na foto's. Keuken, kasten, deuren en meer transformaties.",
-    canonical: "https://renovawrap.nl/projecten",
+    canonical: canonicalFor("/projecten"),
     jsonLd: buildBreadcrumbs([
-      { name: "Home", url: "https://renovawrap.nl/" },
-      { name: "Projecten", url: "https://renovawrap.nl/projecten" },
+      { name: "Home", url: canonicalFor("/") },
+      { name: "Projecten", url: canonicalFor("/projecten") },
     ]),
   });
 
@@ -233,6 +234,7 @@ export default function Projecten() {
                   value={activeStyle}
                   onChange={(e) => setActiveStyle(e.target.value)}
                   className="bg-transparent border-b border-gray-300 py-1 pr-8 text-sm focus:outline-none focus:border-primary uppercase tracking-wider cursor-pointer"
+                  aria-label="Filter op stijl"
                 >
                   {styles.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
@@ -247,6 +249,7 @@ export default function Projecten() {
                   value={activeColor}
                   onChange={(e) => setActiveColor(e.target.value)}
                   className="bg-transparent border-b border-gray-300 py-1 pr-8 text-sm focus:outline-none focus:border-primary uppercase tracking-wider cursor-pointer"
+                  aria-label="Filter op kleur"
                 >
                   {colors.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
@@ -363,12 +366,12 @@ export default function Projecten() {
           </div>
 
           <div className="mt-24 text-center">
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="inline-block border border-dark px-12 py-4 text-xs uppercase tracking-[0.2em] hover:bg-dark hover:text-white transition-all duration-300"
             >
               Start Uw Transformatie
-            </a>
+            </Link>
           </div>
         </div>
       </section>

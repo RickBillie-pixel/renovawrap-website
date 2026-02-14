@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { BASE_URL } from "@/config/nav";
 
 export interface SEOProps {
     title: string;
@@ -10,8 +11,13 @@ export interface SEOProps {
     jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const BASE_URL = "https://renovawrap.nl";
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.png`;
+
+/** Canonical URL for a path (no UI change; used for meta/schema). */
+export function canonicalFor(path: string): string {
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    return normalized === "/" ? `${BASE_URL}/` : `${BASE_URL}${normalized}`;
+}
 
 // ── SSR data collection ────────────────────────────────────────
 // During renderToString, useEffect doesn't fire.
@@ -158,7 +164,7 @@ export function buildServiceSchema(service: {
         provider: {
             "@type": "LocalBusiness",
             name: "Renovawrap",
-            url: "https://renovawrap.nl",
+            url: BASE_URL,
         },
         areaServed: {
             "@type": "Country",
@@ -173,7 +179,7 @@ export function buildService(name: string, description: string): Record<string, 
     return buildServiceSchema({
         name,
         description,
-        url: `https://renovawrap.nl/diensten/${slug}`,
+        url: `${BASE_URL}/diensten/${slug}`,
     });
 }
 

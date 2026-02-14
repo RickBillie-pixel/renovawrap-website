@@ -1,16 +1,16 @@
-import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "@/hooks/useSEO";
 import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
 
 export default function KeukenFrontjesDetail() {
   useSEO({
     title: "Keuken Frontjes Wrappen — Nieuwe Look, Geen Sloopwerk | Renovawrap",
     description: "Keuken frontjes wrappen met premium interieurfolie. Van mat-zwart tot warm eiken. Bespaar duizenden euro's vs. een nieuwe keuken.",
-    canonical: "https://renovawrap.nl/diensten/keuken-frontjes",
+    canonical: canonicalFor("/diensten/keuken-frontjes"),
     jsonLd: [
       ...buildBreadcrumbs([
-        { name: "Home", url: "https://renovawrap.nl/" },
-        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
-        { name: "Keuken Frontjes", url: "https://renovawrap.nl/diensten/keuken-frontjes" },
+        { name: "Home", url: canonicalFor("/") },
+        { name: "Diensten", url: canonicalFor("/diensten") },
+        { name: "Keuken Frontjes", url: canonicalFor("/diensten/keuken-frontjes") },
       ]),
       ...buildService("Keuken Frontjes Wrappen", "Keuken frontjes wrappen met premium interieurfolie in 300+ kleuren. Klaar binnen twee dagen."),
     ],

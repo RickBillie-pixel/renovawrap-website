@@ -1,22 +1,21 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
 import { getWrapColors } from "../lib/wrapColors";
 import KeuzehulpAanrechtbladen from "../components/KeuzehulpAanrechtbladen";
-import { useSEO, buildBreadcrumbs, buildService } from "../hooks/useSEO";
+import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "../hooks/useSEO";
 
 export default function AanrechtbladenDetail() {
   useSEO({
     title: "Aanrechtblad Wrappen — Hittebestendig & Krasvast | Renovawrap",
     description: "Geef uw aanrechtblad een tweede leven. Hittebestendige, krasvaste renovatie in Marmer, Hout of Betonlook. Binnen 1 dag klaar.",
-    canonical: "https://renovawrap.nl/diensten/aanrechtbladen",
+    canonical: canonicalFor("/diensten/aanrechtbladen"),
     jsonLd: [
       ...buildBreadcrumbs([
-        { name: "Home", url: "https://renovawrap.nl/" },
-        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
-        { name: "Aanrechtbladen", url: "https://renovawrap.nl/diensten/aanrechtbladen" },
+        { name: "Home", url: canonicalFor("/") },
+        { name: "Diensten", url: canonicalFor("/diensten") },
+        { name: "Aanrechtbladen", url: canonicalFor("/diensten/aanrechtbladen") },
       ]),
       ...buildService("Aanrechtbladen Wrappen", "Professioneel aanrechtbladen wrappen met hittebestendige, krasvaste folie. Niet van echt steen te onderscheiden."),
     ],
@@ -44,7 +43,7 @@ export default function AanrechtbladenDetail() {
   }, []);
 
   const allWrapColors = getWrapColors();
-  const [colorIndices, setColorIndices] = useState([0, 1, 2]);
+  const [, setColorIndices] = useState([0, 1, 2]);
 
   useEffect(() => {
     // interval for circle 1 (3s)

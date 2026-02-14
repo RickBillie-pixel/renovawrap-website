@@ -7,7 +7,7 @@ import FAQ from "../components/FAQ";
 import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
 import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
-import { useSEO, buildBreadcrumbs, buildService } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "@/hooks/useSEO";
 
 function KeuzehulpWizard() {
   const [step, setStep] = useState(1);
@@ -412,6 +412,7 @@ function KeuzehulpWizard() {
                     multiple
                     className="hidden"
                     onChange={(e) => handleFiles(e.target.files)}
+                    aria-label="Foto's van uw keuken uploaden"
                   />
                 </div>
 
@@ -540,12 +541,12 @@ export default function KeukenWrappingDetail() {
   useSEO({
     title: "Keuken Wrapping — Uw Keuken Als Nieuw | Renovawrap",
     description: "Keuken wrapping specialist. Transformeer uw keuken tot 70% goedkoper zonder sloopwerk. 300+ premium afwerkingen, 5 jaar garantie.",
-    canonical: "https://renovawrap.nl/diensten/keuken-wrapping",
+    canonical: canonicalFor("/diensten/keuken-wrapping"),
     jsonLd: [
       ...buildBreadcrumbs([
-        { name: "Home", url: "https://renovawrap.nl/" },
-        { name: "Diensten", url: "https://renovawrap.nl/diensten" },
-        { name: "Keuken Wrapping", url: "https://renovawrap.nl/diensten/keuken-wrapping" },
+        { name: "Home", url: canonicalFor("/") },
+        { name: "Diensten", url: canonicalFor("/diensten") },
+        { name: "Keuken Wrapping", url: canonicalFor("/diensten/keuken-wrapping") },
       ]),
       ...buildService("Keuken Wrapping", "Transformeer uw keuken tot 70% goedkoper zonder sloopwerk. Kies uit 300+ premium afwerkingen."),
     ],

@@ -174,7 +174,7 @@ async function prerender() {
 
   for (const route of routes) {
     try {
-      const { html: appHtml, seoData } = render(route);
+      const { html: appHtml, seoData } = await render(route);
 
       // Quick sanity check: does the rendered HTML contain real content?
       const hasContent = appHtml.length > 200 && /<(h[1-6]|main|section|p|nav)[\s>]/.test(appHtml);

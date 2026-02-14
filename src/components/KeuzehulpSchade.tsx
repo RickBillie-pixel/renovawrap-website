@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
-import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
 
 export default function KeuzehulpSchade() {
   const [step, setStep] = useState(1);
@@ -324,6 +323,7 @@ export default function KeuzehulpSchade() {
                     multiple
                     className="hidden"
                     onChange={(e) => handleFiles(e.target.files)}
+                    aria-label="Foto's van de schade uploaden"
                   />
                 </div>
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import FadeIn from "../components/FadeIn";
 import { materials, materialsByCategory, categories } from "../data/materials";
-import { useSEO, buildBreadcrumbs } from "@/hooks/useSEO";
+import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 
 export default function Catalogus() {
   const [searchParams] = useSearchParams();
@@ -12,10 +12,10 @@ export default function Catalogus() {
   useSEO({
     title: "Materialen Catalogus — Folies & Kleuren | Renovawrap",
     description: "Bekijk ons complete assortiment wrapping materialen, kleuren en prints. Meer dan 300 hoogwaardige afwerkingen voor uw interieur.",
-    canonical: "https://renovawrap.nl/catalogus",
+    canonical: canonicalFor("/catalogus"),
     jsonLd: buildBreadcrumbs([
-      { name: "Home", url: "https://renovawrap.nl/" },
-      { name: "Catalogus", url: "https://renovawrap.nl/catalogus" },
+      { name: "Home", url: canonicalFor("/") },
+      { name: "Catalogus", url: canonicalFor("/catalogus") },
     ]),
   });
 
