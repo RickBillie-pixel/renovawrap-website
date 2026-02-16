@@ -431,7 +431,7 @@ export default function KeuzehulpAchterwanden() {
         </AnimatePresence>
 
         {/* Floating Navigation Bar */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md p-6 border-t border-gray-100 lg:absolute lg:bg-transparent lg:border-none lg:p-0 lg:bottom-12 lg:right-0 flex justify-between items-center z-40 w-full lg:w-auto lg:justify-end gap-8">
+        <div className="mt-8 w-full bg-white p-6 border-t border-gray-100 lg:absolute lg:bg-transparent lg:border-none lg:p-0 lg:bottom-12 lg:right-0 lg:mt-0 flex justify-between items-center z-40 lg:w-auto lg:justify-end gap-8">
             <span className="text-sm text-gray-400 hidden lg:block font-mono">Stap {step} van 5</span>
             
             <div className="flex gap-4 w-full lg:w-auto">

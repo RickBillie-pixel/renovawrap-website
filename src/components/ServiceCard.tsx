@@ -19,10 +19,10 @@ export default function ServiceCard({
 }: ServiceCardProps) {
   return (
     <div className={`group flex flex-col ${offset ? "lg:mt-24" : ""}`}>
-      <div className="relative overflow-hidden aspect-[4/5] mb-8 bg-gray-100">
+      <Link to={link} className="block relative overflow-hidden aspect-[4/5] mb-8 bg-gray-100 cursor-pointer">
         <img
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0"
+          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale group-hover:grayscale-0 group-focus:grayscale-0"
           src={image}
         />
         <div className="absolute top-4 left-4">
@@ -30,7 +30,7 @@ export default function ServiceCard({
             {String(id).padStart(2, "0")}
           </span>
         </div>
-      </div>
+      </Link>
       <div className="pr-4">
         <h3 className="font-display text-3xl md:text-4xl mb-4 group-hover:text-primary transition-colors duration-300">
           {title}

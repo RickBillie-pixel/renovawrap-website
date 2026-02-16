@@ -1,6 +1,10 @@
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 import { supabase } from "@/lib/supabase";
+import { testimonials, processSteps } from "../data/mockData";
+import FAQ from "../components/FAQ";
+import FadeIn from "../components/FadeIn";
 
 async function uploadContactPhoto(file: File): Promise<string | null> {
   const ext = file.name.split(".").pop() || "jpg";
@@ -96,8 +100,12 @@ export default function Contact() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-12">
-                <h2 className="font-display text-3xl mb-8">Neem Contact Op</h2>
+              <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 shadow-2xl rounded-sm border border-gray-100 space-y-8">
+                <div>
+                  <h2 className="font-display text-3xl mb-2">Neem Contact Op</h2>
+                  <p className="text-gray-500 text-sm">Vul het formulier in en wij reageren binnen 24 uur.</p>
+                </div>
+
                 {submitError && (
                   <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm flex items-center gap-3">
                     <span className="material-symbols-outlined">error</span>
@@ -105,87 +113,66 @@ export default function Contact() {
                   </div>
                 )}
 
-                <div className="group relative">
-                  <input
-                    className="peer w-full bg-transparent border-b border-dark/20 py-4 text-dark placeholder-transparent focus:border-primary focus:ring-0 focus:outline-none transition-colors"
-                    id="name"
-                    placeholder="Naam"
-                    type="text"
-                    required
-                    value={formData.naam}
-                    onChange={(e) => setFormData(p => ({ ...p, naam: e.target.value }))}
-                  />
-                  <label
-                    className="absolute left-0 -top-3.5 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-primary peer-focus:text-xs uppercase tracking-widest"
-                    htmlFor="name"
-                  >
-                    Naam *
-                  </label>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  <div className="group relative">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="group">
+                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Naam *</label>
                     <input
-                      className="peer w-full bg-transparent border-b border-dark/20 py-4 text-dark placeholder-transparent focus:border-primary focus:ring-0 focus:outline-none transition-colors"
+                      className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                      id="name"
+                      placeholder="Uw naam"
+                      type="text"
+                      required
+                      value={formData.naam}
+                      onChange={(e) => setFormData(p => ({ ...p, naam: e.target.value }))}
+                    />
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Email *</label>
+                    <input
+                      className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
                       id="email"
-                      placeholder="Email"
+                      placeholder="uw@email.nl"
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
                     />
-                    <label
-                      className="absolute left-0 -top-3.5 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-primary peer-focus:text-xs uppercase tracking-widest"
-                      htmlFor="email"
-                    >
-                      Email *
-                    </label>
-                  </div>
-                  <div className="group relative">
-                    <input
-                      className="peer w-full bg-transparent border-b border-dark/20 py-4 text-dark placeholder-transparent focus:border-primary focus:ring-0 focus:outline-none transition-colors"
-                      id="phone"
-                      placeholder="Telefoonnummer"
-                      type="tel"
-                      required
-                      value={formData.telefoon}
-                      onChange={(e) => setFormData(p => ({ ...p, telefoon: e.target.value }))}
-                    />
-                    <label
-                      className="absolute left-0 -top-3.5 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-primary peer-focus:text-xs uppercase tracking-widest"
-                      htmlFor="phone"
-                    >
-                      Telefoonnummer *
-                    </label>
                   </div>
                 </div>
 
-                <div className="group relative">
+                <div className="group">
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Telefoonnummer *</label>
+                  <input
+                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                    id="phone"
+                    placeholder="06 12345678"
+                    type="tel"
+                    required
+                    value={formData.telefoon}
+                    onChange={(e) => setFormData(p => ({ ...p, telefoon: e.target.value }))}
+                  />
+                </div>
+
+                <div className="group">
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Bericht (Optioneel)</label>
                   <textarea
-                    className="peer w-full bg-transparent border-b border-dark/20 py-4 text-dark placeholder-transparent focus:border-primary focus:ring-0 focus:outline-none transition-colors min-h-[120px] resize-none"
+                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors min-h-[120px] resize-none"
                     id="message"
-                    placeholder="Uw Bericht (Optioneel)"
+                    placeholder="Vertel ons kort over uw wensen"
                     value={formData.bericht}
                     onChange={(e) => setFormData(p => ({ ...p, bericht: e.target.value }))}
                   ></textarea>
-                  <label
-                    className="absolute left-0 -top-3.5 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-4 peer-focus:-top-3.5 peer-focus:text-primary peer-focus:text-xs uppercase tracking-widest"
-                    htmlFor="message"
-                  >
-                    Uw Bericht (Optioneel)
-                  </label>
                 </div>
 
                 {/* Photo Upload Section */}
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-gray-500 font-bold block mb-4">
-                    Foto's toevoegen (Optioneel)
-                  </label>
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Foto's toevoegen (Optioneel)</label>
                   <div
-                    className={`border border-dashed rounded-sm p-8 text-center cursor-pointer transition-all duration-300 ${
+                    className={`border-2 border-dashed rounded-sm p-6 text-center cursor-pointer transition-all duration-300 ${
                       dragOver 
                         ? "border-primary bg-primary/5" 
-                        : "border-dark/20 hover:border-primary hover:bg-white"
+                        : "border-gray-200 hover:border-primary/50 hover:bg-white"
                     }`}
                     onClick={() => fileInputRef.current?.click()}
                     onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
@@ -233,21 +220,27 @@ export default function Contact() {
                   )}
                 </div>
 
-                <div className="pt-6">
+                <div className="pt-2">
                   <button
-                    className="group inline-flex items-center gap-4 text-xs uppercase tracking-[0.2em] font-medium hover:text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                     type="submit"
                     disabled={submitting}
                   >
-                    {submitting ? "Verzenden..." : "Verstuur Aanvraag"}
-                    <span className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-dark/20 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all duration-300">
-                      {submitting ? (
-                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                      ) : (
-                        <span className="material-symbols-outlined text-base">arrow_forward</span>
-                      )}
-                    </span>
+                    {submitting ? (
+                       <>
+                         <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                         <span>Verzenden...</span>
+                       </>
+                    ) : (
+                       <>
+                         <span>Verstuur Aanvraag</span>
+                         <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                       </>
+                    )}
                   </button>
+                  <p className="text-[10px] text-gray-400 text-center mt-3">
+                      Wij respecteren uw privacy. Uw gegevens worden veilig verwerkt conform ons <Link to="/privacy-policy" className="underline">privacybeleid</Link>.
+                  </p>
                 </div>
               </form>
             )}
@@ -318,6 +311,85 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      {/* Process Steps - Wat te verwachten */}
+      <section className="py-24 bg-white border-y border-dark/5">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="text-center mb-16">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-2 block animate-fade-in">Transparant</span>
+            <h2 className="font-display text-4xl md:text-5xl text-dark">
+              Wat kunt u <span className="italic text-primary">verwachten?</span>
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {processSteps.map((step, index) => (
+              <FadeIn key={step.number} delay={index * 100} className="relative group p-8 border border-gray-100 hover:border-primary/20 transition-all duration-300 bg-gray-50/50 hover:bg-white hover:shadow-lg rounded-sm">
+                <span className="absolute top-4 right-4 text-4xl font-display text-gray-100 group-hover:text-primary/10 transition-colors">
+                  {step.number}
+                </span>
+                <h3 className="font-display text-2xl mb-4 text-dark">{step.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed font-light">
+                  {step.description}
+                </p>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials - Social Proof */}
+      <section className="py-24 bg-background-light overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="relative">
+               {/* Decorative dots grid */}
+               <div className="absolute -top-12 -left-12 w-24 h-24 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+               
+               <h2 className="font-display text-4xl md:text-5xl mb-8 leading-tight">
+                 Onze klanten aan <br />
+                 <span className="italic text-primary">het woord.</span>
+               </h2>
+               <p className="text-gray-600 mb-8 max-w-md leading-relaxed">
+                 Wij zijn pas tevreden als u dat bent. Lees de ervaringen van mensen die u voorgingen bij Renovawrap.
+               </p>
+               <Link 
+                 to="/projecten" 
+                 className="inline-flex items-center text-xs uppercase tracking-widest font-bold border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors"
+               >
+                 Bekijk onze projecten
+               </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {testimonials.slice(0, 2).map((t, i) => (
+                <div key={i} className="bg-white p-8 shadow-sm border border-gray-100 rounded-sm">
+                   <div className="flex gap-1 mb-4">
+                     {[...Array(5)].map((_, starI) => (
+                       <span key={starI} className="material-symbols-outlined text-[16px] text-[#C4A47C]">star</span>
+                     ))}
+                   </div>
+                   <p className="text-dark font-light italic text-sm mb-6 leading-relaxed">
+                     "{t.quote}"
+                   </p>
+                   <div className="flex items-center gap-3">
+                     <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                       <img src={t.image} alt={t.author} className="w-full h-full object-cover" />
+                     </div>
+                     <div>
+                       <p className="text-xs font-bold uppercase tracking-widest">{t.author}</p>
+                       <p className="text-[10px] text-gray-400">{t.location}</p>
+                     </div>
+                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <FAQ />
 
       {/* Image gallery */}
       <section className="grid grid-cols-2 md:grid-cols-4 h-64 md:h-80 w-full overflow-hidden">

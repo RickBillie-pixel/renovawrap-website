@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import FadeIn from "../components/FadeIn";
+import { cn } from "@/lib/utils";
 import ProjectModal from "../components/ProjectModal";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import { projectService } from "@/lib/projectService";
@@ -92,16 +93,19 @@ export default function Projecten() {
 
         <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10 pt-16">
           {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-dark/10 pb-8">
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-dark/10 pb-4 md:pb-12 mb-6 md:mb-20">
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight">
               Uitgelichte <br />
-              <span className="italic text-primary ml-4">
+              <span className="italic text-primary md:ml-12">
                 Projecten
               </span>
             </h1>
-            <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mt-8 md:mt-0 max-w-xs text-right">
-              Een selectie van onze meest recente transformaties in keukens en interieurs.
-            </p>
+            <div className="w-full md:w-auto md:max-w-xs text-left md:text-right mt-6 md:mt-0">
+              <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                Een selectie van onze meest recente transformaties in keukens en interieurs.
+              </p>
+            </div>
           </div>
 
           {/* Asymmetrical Grid */}
@@ -114,7 +118,7 @@ export default function Projecten() {
                   className="lg:col-span-7 relative group cursor-pointer"
                   onClick={() => setSelectedProject(featuredProjects[0])}
                 >
-                  <div className="w-full h-[500px] lg:h-[700px] overflow-hidden relative">
+                  <div className="w-full aspect-[4/5] h-auto lg:h-[700px] lg:aspect-auto overflow-hidden relative">
                     <img
                       alt={featuredProjects[0].name}
                       src={featuredProjects[0].after_image_url || featuredProjects[0].before_image_url || ""}
@@ -261,41 +265,66 @@ export default function Projecten() {
           {/* Grid Projects */}
           {!loading && filteredGridProjects.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32">
-               {filteredGridProjects.map((project, index) => (
-                <FadeIn
-                  key={project.id}
-                  delay={index * 80}
-                  className="group cursor-pointer"
-                >
-                  <div onClick={() => setSelectedProject(project)}>
-                    <div className="relative overflow-hidden aspect-[4/5] mb-6 bg-gray-100">
-                      <img
-                        alt={project.name}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-                        src={
-                          project.after_image_url ||
-                          project.before_image_url ||
-                          "https://placehold.co/600x750/f5f5f5/cccccc?text=Geen+foto"
-                        }
-                      />
-                      <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/10 transition-colors duration-500" />
-                      {project.before_image_url && project.after_image_url && (
-                        <div className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 text-[10px] uppercase tracking-widest backdrop-blur-sm font-bold">
-                          Voor / Na
-                        </div>
-                      )}
+               {filteredGridProjects.map((project, index) => {
+                  // Mobile Asymmetric Logic
+                  const pattern = index % 4;
+                  let mobileContainerClass = "w-full";
+                  let mobileAspectClass = "aspect-[4/5]";
+
+                  if (pattern === 1) {
+                    mobileContainerClass = "w-[85%] ml-auto";
+                    mobileAspectClass = "aspect-square";
+                  } else if (pattern === 2) {
+                    mobileContainerClass = "w-[85%] mr-auto"; // Left aligned
+                    mobileAspectClass = "aspect-[3/4]";
+                  } else if (pattern === 3) {
+                     mobileAspectClass = "aspect-video";
+                  }
+
+                 return (
+                  <FadeIn
+                    key={project.id}
+                    delay={index * 80} // Stagger effect
+                    className={cn(
+                      "group cursor-pointer",
+                      mobileContainerClass,
+                      "md:w-full md:m-0" // Reset on desktop
+                    )}
+                  >
+                    <div onClick={() => setSelectedProject(project)}>
+                      <div className={cn(
+                        "relative overflow-hidden mb-6 bg-gray-100",
+                        mobileAspectClass,
+                        "md:aspect-[4/5]" // Reset aspect on desktop
+                      )}>
+                        <img
+                          alt={project.name}
+                          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                          src={
+                            project.after_image_url ||
+                            project.before_image_url ||
+                            "https://placehold.co/600x750/f5f5f5/cccccc?text=Geen+foto"
+                          }
+                        />
+                        <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/10 transition-colors duration-500" />
+                        {project.before_image_url && project.after_image_url && (
+                          <div className="absolute top-4 right-4 bg-white/90 px-3 py-1.5 text-[10px] uppercase tracking-widest backdrop-blur-sm font-bold">
+                            Voor / Na
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <span className="text-primary text-[10px] font-bold uppercase tracking-widest mb-2 block">
+                          {project.category}
+                        </span>
+                        <h3 className="font-display text-2xl mb-1 group-hover:text-primary transition-colors">
+                          {project.name}
+                        </h3>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-primary text-[10px] font-bold uppercase tracking-widest mb-2 block">
-                        {project.category}
-                      </span>
-                      <h3 className="font-display text-2xl mb-1 group-hover:text-primary transition-colors">
-                        {project.name}
-                      </h3>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
+                  </FadeIn>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-20 mb-32">
@@ -333,34 +362,34 @@ export default function Projecten() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="flex flex-col gap-16 lg:grid lg:grid-cols-2 lg:gap-12">
             {/* Project Amstelveen */}
-            <div className="group">
-              <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-2xl">
+            <div className="group w-[90%] mr-auto relative z-0 lg:w-full lg:mr-0">
+              <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-xl">
                  <BeforeAfterSlider 
                     beforeImage="https://lh3.googleusercontent.com/aida-public/AB6AXuCLTPz2wOk-BW9C7-E3c_mneEHkQr-vNeI4rG3aITIkKapzO24UIJOdrzKNreViOcLSZgCL94V5IuEHt54ZpCNraj5r2dPjXok-3mGr-zQMSnIDAAXCJvKtO998I866VBBHj2KRHS9tZeFdKXwKwdofQWy6WTvmpMEaAOKOovEsDNMIc1T_3NihnIaIj2UDtjED4s_OR0Lr7nbPf-QRUzeFN-dMwdzmVGjt0__Wam_-1oDlMxA4Dkh381ln15C37fqmHh2rAMPckTA"
                     afterImage="https://lh3.googleusercontent.com/aida-public/AB6AXuC_bNep-OjxTMyszSbRUzRxrVDgcb2NZ8M2BbN_gI98vD8jqlfLapPkMJRvcoiBwhO5SNe8UJ6XG1nH_FrEevAp_nV2qBQKKezi4_K3mCLg7dBWwfmUr4f6OAc9iDkJSS6h3kQDOeUk0E_fLuCWj2ylr97lET0PacC_tQtjTZGmbwHOATbO3yPV7WE30u2jEZKPXy5DVwKcbhg6vT_jLkDGs23559bTwKiEyywXq_HUlnezVfDYt_ovGBIwiVTXwXa3r3vgRmItcuc"
- className="h-full"
+                    className="h-full"
                  />
               </div>
-              <div className="flex justify-between items-baseline px-2">
-                <h3 className="font-display text-2xl">Project Amstelveen</h3>
-                <span className="text-xs text-gray-400 uppercase tracking-widest">Keuken Renovatie</span>
+              <div className="flex flex-col items-start px-1">
+                <span className="text-[10px] text-primary font-bold uppercase tracking-widest mb-1">Keuken Renovatie</span>
+                <h3 className="font-display text-3xl">Project Amstelveen</h3>
               </div>
             </div>
 
              {/* Project Den Haag */}
-            <div className="group mt-12 lg:mt-0">
-               <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-2xl">
+            <div className="group w-[90%] ml-auto relative z-10 lg:w-full lg:ml-0">
+               <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-xl">
                  <BeforeAfterSlider 
                     beforeImage="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQ7CZma-nwhJXHzmQ0OFtElMNDapKx-kKUaGd6kErk-h4r9FRMhkoxkxuhIWOynOp0L3JjCFlF1FOOloizTflsrqmXGLFF2Hp34OusR76JqsT6CTXZnXuXfGCkf6usIw0nA8louiyUXbYJyDiIFJgI9D58QqZEMkqA88QRvN-gtr8v3oMNhjeR3mTHSvnIWDEVI7FfKZpICpW-ybem4EZysHMOg5Y-mN5FK7lacvZonQUgns77wQe8Dj58hlO8DegZQbFc-c99Tw"
                     afterImage="https://lh3.googleusercontent.com/aida-public/AB6AXuCYn791KOT13rsJDS46AqrZVUi_QO4_7Rfdo2VkGC38Tc_yBJu8D0YarWfW77JRNDRV87flBxpsO39iQ20kDhvL6OUHT3jqpMNbTSEXsXZjFczMvtWJ3nb-qLB21l0cW9TAqmCUE2sKeRsHlV50AGwRcVOQ2Z8UKQy5PQbxxbTTna07PT4QBdkQVnITxv7rT6F9b12RVxiStk3QGb-A690KbJPqkggCBmYABejtuzmP5YvP9hI_KFzpIDKQho_nz5ez4oZA5Y4vy9w"
                     className="h-full"
                  />
               </div>
-              <div className="flex justify-between items-baseline px-2">
-                <h3 className="font-display text-2xl">Appartement Den Haag</h3>
-                <span className="text-xs text-gray-400 uppercase tracking-widest">Interieur Wrap</span>
+              <div className="flex flex-col items-end px-1 text-right">
+                <span className="text-[10px] text-primary font-bold uppercase tracking-widest mb-1">Interieur Wrap</span>
+                <h3 className="font-display text-3xl">Appartement Den Haag</h3>
               </div>
             </div>
           </div>

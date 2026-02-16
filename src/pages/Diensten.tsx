@@ -1,6 +1,8 @@
 import ServiceCard from "../components/ServiceCard";
 import { services } from "../data/mockData";
 import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
+import { Link } from "react-router-dom";
+import FadeIn from "../components/FadeIn";
 
 export default function Diensten() {
   useSEO({
@@ -14,9 +16,9 @@ export default function Diensten() {
   });
   return (
     <main className="pt-24 min-h-screen bg-background-light text-dark">
-      <section className="relative pt-32 pb-20 overflow-hidden">
+      <section className="relative pt-8 md:pt-32 pb-20 overflow-hidden">
         {/* Background text watermark */}
-        <div className="absolute inset-0 flex items-start justify-center pointer-events-none select-none opacity-[0.03] overflow-hidden pt-32">
+        <div className="absolute inset-0 flex items-start justify-center pointer-events-none select-none opacity-[0.03] overflow-hidden pt-8 md:pt-32">
           <span className="font-display font-bold text-[20vw] leading-none text-dark whitespace-nowrap tracking-tighter">
             DIENSTEN
           </span>
@@ -24,26 +26,45 @@ export default function Diensten() {
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10">
           {/* Page header */}
-          <div className="flex flex-col md:flex-row items-end justify-between border-b border-dark/10 pb-12 mb-20">
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-dark/10 pb-4 md:pb-12 mb-6 md:mb-20">
             <h1 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tight">
               Onze <br />
-              <span className="italic text-primary ml-12">Diensten.</span>
+              <span className="italic text-primary md:ml-12">Diensten.</span>
             </h1>
-            <div className="md:max-w-xs text-right mt-8 md:mt-0">
+            <div className="w-full md:w-auto md:max-w-xs text-left md:text-right mt-6 md:mt-0">
               <p className="text-sm text-gray-500 leading-relaxed mb-6">
                 Van complete transformaties tot verfijnde details. Wij bieden hoogwaardige interieur wrapping oplossingen op maat.
               </p>
+              {/* Mobile CTA */}
+              <Link
+                to="/contact"
+                className="inline-block md:hidden bg-dark text-white px-8 py-3 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300"
+              >
+                Start Uw Transformatie
+              </Link>
             </div>
           </div>
 
           {/* Services grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
             {services.map((service, index) => (
-              <ServiceCard
-                key={service.id}
-                {...service}
-                offset={index % 2 === 1} 
-              />
+              // Mobile: Animate alternatingly.
+              // Service 1 (index 0): Even -> Right? 
+              // User request: "2 (index 1) from Left, 3 (index 2) from Right".
+              // Start: Index 1 (Odd) = Left. Index 2 (Even) = Right.
+              // Logic: index % 2 !== 0 ? "left" : "right".
+              // Desktop: Reset to no animation.
+              <FadeIn 
+                key={service.id} 
+                direction={index % 2 !== 0 ? "left" : "right"}
+                delay={index * 100}
+                className="md:transform-none md:opacity-100 md:transition-none"
+              >
+                <ServiceCard
+                  {...service}
+                  offset={index % 2 === 1} 
+                />
+              </FadeIn>
             ))}
           </div>
         </div>

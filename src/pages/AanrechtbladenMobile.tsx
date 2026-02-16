@@ -67,18 +67,80 @@ export default function AanrechtbladenMobile() {
       
       {/* 1. Hero Section (Replica of KeukenWrapping) */}
       <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
-        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+        <div className="hidden lg:block absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
           <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
             BLADEN
           </h1>
         </div>
         <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-            <div className="lg:col-span-6 space-y-8">
-              <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Specialist in Werkbladen</span>
-                <p className="font-display text-lg italic text-gray-500">Hittebestendig, Krasvast & Waterdicht.</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-24 items-center h-full relative">
+            {/* Background text watermark (Mobile) */}
+            <div className="lg:hidden absolute inset-0 flex items-start justify-center pointer-events-none select-none opacity-[0.03] overflow-hidden pt-8">
+              <span className="font-display font-bold text-[20vw] leading-none text-dark whitespace-nowrap tracking-tighter">
+                BLADEN
+              </span>
+            </div>
+
+            {/* Mobile Layout (Visible only on < lg) */}
+            <div className="lg:hidden flex flex-col h-[calc(100vh-140px)] justify-between pb-6 pt-5 relative z-10">
+               <div className="border-b border-dark/10 pb-4 mb-6">
+                 <h1 className="font-display text-6xl leading-[0.9] tracking-tight text-dark">
+                  Aanrechtblad <br />
+                  <span className="italic text-primary">Als Nieuw</span>
+                </h1>
+                
+                <div className="mt-6">
+                  <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+                    Is uw werkblad beschadigd of gedateerd? Wij vernieuwen het met krasvaste folie. Niet van echt natuursteen te onderscheiden.
+                  </p>
+
+                   {/* Trust Badges - Single Line */}
+                  <div className="flex items-center gap-2 pt-4 text-xs text-gray-400 whitespace-nowrap overflow-hidden">
+                    <div className="flex items-center gap-1">
+                      {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                      <span className="ml-1 font-bold text-dark">4.9/5</span>
+                      <span className="ml-1">Google Reviews</span>
+                    </div>
+                    <span className="text-gray-300">|</span>
+                    <span className="font-bold text-dark">10+</span>
+                    <span>Bladen</span>
+                  </div>
+                </div>
+               </div>
+
+              {/* Slider (Fills remaining space) */}
+              <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={currentImageIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <BeforeAfterSlider
+                        afterImage={heroImages[currentImageIndex].after}
+                        beforeImage={heroImages[currentImageIndex].before}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
               </div>
+
+               <div className="flex flex-col gap-3">
+                <a className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg" href="#keuzehulp">
+                  Gratis Offerte
+                </a>
+                <a className="flex items-center justify-center text-xs font-bold tracking-widest uppercase border border-dark px-6 py-4 hover:bg-dark hover:text-white transition-all w-full" href="#portfolio">
+                  Bekijk Voor & Na Foto's
+                </a>
+              </div>
+            </div>
+
+            <div className="hidden lg:block lg:col-span-6 space-y-8">
+              {/* Removed "Specialist in Werkbladen" block as requested ("tab weg") */}
+              
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Aanrechtblad <br />
                 <span className="italic font-normal text-primary">Als Nieuw</span>
@@ -86,6 +148,34 @@ export default function AanrechtbladenMobile() {
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
                 Is uw werkblad beschadigd, verkleurd of gedateerd? Wij toveren het om met industriële interieurfolie. Niet van echt natuursteen of hout te onderscheiden en bestand tegen intensief gebruik.
               </p>
+
+              {/* Mobile Image Placement (Between Text and Buttons) */}
+              <div className="block lg:hidden relative w-full max-w-xl my-8">
+                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
+                   <AnimatePresence mode="popLayout">
+                     <motion.div
+                       key={currentImageIndex}
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       exit={{ opacity: 0 }}
+                       transition={{ duration: 1 }}
+                       className="absolute inset-0 w-full h-full"
+                     >
+                       <BeforeAfterSlider
+                         afterImage={heroImages[currentImageIndex].after}
+                         beforeImage={heroImages[currentImageIndex].before}
+                         className="w-full h-full"
+                       />
+                     </motion.div>
+                   </AnimatePresence>
+                 </div>
+                 {/* Floating badge for mobile if needed, or hide it */}
+                 <div className="absolute -bottom-4 -left-4 bg-white p-4 shadow-xl border border-primary/20 flex flex-col justify-center items-center text-center z-20">
+                    <span className="font-display text-2xl text-primary">5</span>
+                    <span className="text-[8px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
+                 </div>
+              </div>
+
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
@@ -97,17 +187,17 @@ export default function AanrechtbladenMobile() {
                 <span className="font-bold text-dark">10+</span>
                 <span>Bladen Vernieuwd</span>
               </div>
+
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full sm:w-auto" href="#keuzehulp">
                   Gratis Offerte Zo Snel Mogelijk
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
-                  Bekijk Voor & Na Foto's
-                  <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
-                </a>
+                {/* Removed secondary "Bekijk Voor & Na Foto's" button as requested ("volgende knop weg") */}
               </div>
             </div>
-            <div className="lg:col-span-6 flex justify-center">
+
+            {/* Desktop Image Placement (Right Column) - Hidden on Mobile */}
+            <div className="hidden lg:flex lg:col-span-6 justify-center">
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
                   <AnimatePresence mode="popLayout">
@@ -127,10 +217,10 @@ export default function AanrechtbladenMobile() {
                     </motion.div>
                   </AnimatePresence>
                 </div>
-                <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
+                <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-white p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
-                    <span className="font-display text-2xl md:text-4xl text-primary">5</span>
-                    <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
+                    <span className="font-display text-4xl text-primary">5</span>
+                    <span className="text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
                   </div>
                 </div>
               </div>

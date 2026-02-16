@@ -112,221 +112,304 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
     }
   };
 
-  return (
-    <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
 
-      {/* Breadcrumbs – hidden in UI, present for SEO structure */}
-      <nav className="hidden">
-        <ol itemScope itemType="https://schema.org/BreadcrumbList">
-          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-            <Link to="/" itemProp="item"><span itemProp="name">Home</span></Link>
-            <meta itemProp="position" content="1" />
-          </li>
-          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-            <Link to="/diensten" itemProp="item"><span itemProp="name">Diensten</span></Link>
-            <meta itemProp="position" content="2" />
-          </li>
-          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-            <Link to="/diensten/keuken-wrapping" itemProp="item"><span itemProp="name">Keuken Wrapping</span></Link>
-            <meta itemProp="position" content="3" />
-          </li>
-          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-            <span itemProp="name">{city.name}</span>
-            <meta itemProp="position" content="4" />
-          </li>
-        </ol>
-      </nav>
+  /* ─── CONTACT FORM (Reusable) ────────────────────────────────── */
 
-      {/* ╔══════════════════════════════════════════════════════════╗
-          ║  HERO — Text + Large Contact Form                       ║
-          ╚══════════════════════════════════════════════════════════╝ */}
-      <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
-        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
-          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
-            {city.name.toUpperCase()}
-          </h1>
-        </div>
-        <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-
-            {/* Left: Text */}
-            <div className="lg:col-span-5 space-y-8 pt-8">
-              <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Keuken Wrapping {city.name}</span>
-                <p className="font-display text-lg italic text-gray-500">Zonder sloopwerk. Binnen één dag.</p>
-              </div>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
-                {content.heroLine1} <br />
-                <span className="italic font-normal text-primary">{content.heroLine2}</span>
-              </h1>
-              <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                {content.introParagraph}
-              </p>
-              <div className="flex items-center gap-6 text-xs text-gray-400">
-                <div className="flex items-center gap-1">
-                  <span className="material-symbols-outlined text-yellow-500 text-sm">star</span>
-                  <span className="font-bold text-dark">4.9/5</span>
-                  <span>Google Reviews</span>
-                </div>
-                <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">Projecten</span>
-                <span>in {city.name} e.o.</span>
-              </div>
+      const renderContactForm = () => (
+        submitted ? (
+          <div className="bg-white p-10 md:p-14 shadow-2xl rounded-sm w-full max-w-2xl relative z-20 text-center">
+            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="material-symbols-outlined text-primary text-4xl">check_circle</span>
             </div>
-
-            {/* Right: Large Contact Form */}
-            <div className="lg:col-span-7 flex justify-center lg:justify-end">
-              {submitted ? (
-                <div className="bg-white p-10 md:p-14 shadow-2xl rounded-sm w-full max-w-2xl relative z-20 text-center">
-                  <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="material-symbols-outlined text-primary text-4xl">check_circle</span>
-                  </div>
-                  <h3 className="font-display text-3xl mb-3">Aanvraag Ontvangen!</h3>
-                  <p className="text-gray-500 text-sm mb-6">
-                    Bedankt voor uw aanvraag. Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek.
-                  </p>
-                  <Link to="/diensten/keuken-wrapping" className="text-primary text-sm font-bold uppercase tracking-widest hover:underline">
-                    Bekijk Onze Diensten →
-                  </Link>
-                </div>
-              ) : (
-                <div className="bg-white p-8 md:p-12 shadow-2xl rounded-sm w-full max-w-2xl relative z-20">
-                  <h3 className="font-display text-2xl md:text-3xl mb-2">{formTitle}</h3>
-                  <p className="text-gray-500 text-sm mb-8">
-                    Wij komen gratis bij u langs in {city.name} voor advies en een scherpe offerte.
-                  </p>
-
-                  {submitError && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-4 mb-6 rounded">
-                      {submitError}
-                    </div>
-                  )}
-
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div className="group">
-                        <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Naam *</label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.naam}
-                          onChange={(e) => setFormData(p => ({ ...p, naam: e.target.value }))}
-                          className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
-                          placeholder="Uw naam"
-                        />
-                      </div>
-                      <div className="group">
-                        <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Telefoon *</label>
-                        <input
-                          type="tel"
-                          required
-                          value={formData.telefoon}
-                          onChange={(e) => setFormData(p => ({ ...p, telefoon: e.target.value }))}
-                          className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
-                          placeholder="06 12345678"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="group">
-                      <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Email *</label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
-                        className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
-                        placeholder="uw@email.nl"
-                      />
-                    </div>
-
-                    <div className="group">
-                      <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Bericht</label>
-                      <textarea
-                        value={formData.bericht}
-                        onChange={(e) => setFormData(p => ({ ...p, bericht: e.target.value }))}
-                        rows={3}
-                        className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors resize-none"
-                        placeholder="Vertel ons kort over uw wensen (optioneel)"
-                      />
-                    </div>
-
-                    {/* Photo Upload */}
-                    <div>
-                      <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Foto's van uw keuken</label>
-                      <div
-                        className={`border-2 border-dashed rounded-sm p-6 text-center cursor-pointer transition-colors ${
-                          dragOver ? "border-primary bg-primary/5" : "border-gray-200 hover:border-primary/50"
-                        }`}
-                        onClick={() => fileInputRef.current?.click()}
-                        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-                        onDragLeave={() => setDragOver(false)}
-                        onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFiles(e.dataTransfer.files); }}
-                      >
-                        <span className="material-symbols-outlined text-3xl text-gray-300 mb-2 block">add_photo_alternate</span>
-                        <p className="text-sm text-gray-400">
-                          Sleep foto's hierheen of <span className="text-primary font-medium">klik om te uploaden</span>
-                        </p>
-                        <p className="text-[10px] text-gray-300 mt-1">Max. 5 foto's (JPG, PNG, WEBP)</p>
-                      </div>
-                      <input
-                        ref={fileInputRef}
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        className="hidden"
-                        onChange={(e) => handleFiles(e.target.files)}
-                      />
-                      {fotos.length > 0 && (
-                        <div className="flex flex-wrap gap-3 mt-4">
-                          {fotos.map((f, i) => (
-                            <div key={i} className="relative group">
-                              <img
-                                src={URL.createObjectURL(f)}
-                                alt={`Preview ${i + 1}`}
-                                className="w-16 h-16 object-cover rounded border border-gray-200"
-                              />
-                              <button
-                                type="button"
-                                onClick={() => removeFile(i)}
-                                className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                              >
-                                ×
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="w-full bg-primary text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors mt-2 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {submitting ? (
-                        <>
-                          <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          <span>Versturen...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Verstuur Aanvraag</span>
-                          <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                        </>
-                      )}
-                    </button>
-                    <p className="text-[10px] text-gray-400 text-center mt-3">
-                      Wij respecteren uw privacy. Uw gegevens worden veilig verwerkt conform ons <Link to="/privacy-policy" className="underline">privacybeleid</Link>.
-                    </p>
-                  </form>
-                </div>
-              )}
-            </div>
-
+            <h3 className="font-display text-3xl mb-3">Aanvraag Ontvangen!</h3>
+            <p className="text-gray-500 text-sm mb-6">
+              Bedankt voor uw aanvraag. Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek.
+            </p>
+            <Link to="/diensten/keuken-wrapping" className="text-primary text-sm font-bold uppercase tracking-widest hover:underline">
+              Bekijk Onze Diensten →
+            </Link>
           </div>
-        </div>
-      </header>
+        ) : (
+          <div className="bg-white p-8 md:p-12 shadow-2xl rounded-sm w-full max-w-2xl relative z-20">
+            <h3 className="font-display text-2xl md:text-3xl mb-2">{formTitle}</h3>
+            <p className="text-gray-500 text-sm mb-8">
+              Wij komen gratis bij u langs in {city.name} voor advies en een scherpe offerte.
+            </p>
+
+            {submitError && (
+              <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-4 mb-6 rounded">
+                {submitError}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="group">
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Naam *</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.naam}
+                    onChange={(e) => setFormData(p => ({ ...p, naam: e.target.value }))}
+                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                    placeholder="Uw naam"
+                  />
+                </div>
+                <div className="group">
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Telefoon *</label>
+                  <input
+                    type="tel"
+                    required
+                    value={formData.telefoon}
+                    onChange={(e) => setFormData(p => ({ ...p, telefoon: e.target.value }))}
+                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                    placeholder="06 12345678"
+                  />
+                </div>
+              </div>
+
+              <div className="group">
+                <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Email *</label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
+                  className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                  placeholder="uw@email.nl"
+                />
+              </div>
+
+              <div className="group">
+                <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Bericht</label>
+                <textarea
+                  value={formData.bericht}
+                  onChange={(e) => setFormData(p => ({ ...p, bericht: e.target.value }))}
+                  rows={3}
+                  className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors resize-none"
+                  placeholder="Vertel ons kort over uw wensen (optioneel)"
+                />
+              </div>
+
+              {/* Photo Upload */}
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Foto's van uw keuken</label>
+                <div
+                  className={`border-2 border-dashed rounded-sm p-6 text-center cursor-pointer transition-colors ${
+                    dragOver ? "border-primary bg-primary/5" : "border-gray-200 hover:border-primary/50"
+                  }`}
+                  onClick={() => fileInputRef.current?.click()}
+                  onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFiles(e.dataTransfer.files); }}
+                >
+                  <span className="material-symbols-outlined text-3xl text-gray-300 mb-2 block">add_photo_alternate</span>
+                  <p className="text-sm text-gray-400">
+                    Sleep foto's hierheen of <span className="text-primary font-medium">klik om te uploaden</span>
+                  </p>
+                  <p className="text-[10px] text-gray-300 mt-1">Max. 5 foto's (JPG, PNG, WEBP)</p>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={(e) => handleFiles(e.target.files)}
+                />
+                {fotos.length > 0 && (
+                  <div className="flex flex-wrap gap-3 mt-4">
+                    {fotos.map((f, i) => (
+                      <div key={i} className="relative group">
+                        <img
+                          src={URL.createObjectURL(f)}
+                          alt={`Preview ${i + 1}`}
+                          className="w-16 h-16 object-cover rounded border border-gray-200"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeFile(i)}
+                          className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="w-full bg-primary text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors mt-2 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {submitting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Versturen...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Verstuur Aanvraag</span>
+                    <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  </>
+                )}
+              </button>
+              <p className="text-[10px] text-gray-400 text-center mt-3">
+                Wij respecteren uw privacy. Uw gegevens worden veilig verwerkt conform ons <Link to="/privacy-policy" className="underline">privacybeleid</Link>.
+              </p>
+            </form>
+          </div>
+        )
+      );
+
+      return (
+        <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
+    
+          {/* Breadcrumbs – hidden in UI, present for SEO structure */}
+          <nav className="hidden">
+            <ol itemScope itemType="https://schema.org/BreadcrumbList">
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <Link to="/" itemProp="item"><span itemProp="name">Home</span></Link>
+                <meta itemProp="position" content="1" />
+              </li>
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <Link to="/diensten" itemProp="item"><span itemProp="name">Diensten</span></Link>
+                <meta itemProp="position" content="2" />
+              </li>
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <Link to="/diensten/keuken-wrapping" itemProp="item"><span itemProp="name">Keuken Wrapping</span></Link>
+                <meta itemProp="position" content="3" />
+              </li>
+              <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                <span itemProp="name">{city.name}</span>
+                <meta itemProp="position" content="4" />
+              </li>
+            </ol>
+          </nav>
+    
+          {/* 
+              ╔══════════════════════════════════════════════════════════╗
+              ║  MOBILE HERO (New Standard)                              ║
+              ║  Matches KeukenWrappingMobile Layout                     ║
+              ╚══════════════════════════════════════════════════════════╝ 
+          */}
+          {/* 
+              ╔══════════════════════════════════════════════════════════╗
+              ║  MOBILE HERO (New Standard)                              ║
+              ║  Matches KeukenWrappingMobile Layout                     ║
+              ╚══════════════════════════════════════════════════════════╝ 
+          */}
+          <header className="lg:hidden relative min-h-[100dvh] flex flex-col justify-between overflow-hidden pt-32 pb-8">
+             
+             {/* Background Watermark - Matches KeukenWrappingMobile position */}
+             <div className="absolute inset-0 flex items-start justify-center pointer-events-none select-none opacity-[0.03] overflow-hidden pt-32">
+               <span className="font-display font-bold text-[18vw] leading-none text-dark whitespace-nowrap tracking-tighter">
+                 {city.name.toUpperCase()}
+               </span>
+             </div>
+    
+             <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full flex-1 flex flex-col justify-between">
+                 <div>
+                   <div className="border-b border-dark/10 pb-4 mb-6">
+                       <h1 className="font-display text-5xl leading-[0.9] tracking-tight text-dark">
+                        {content.heroLine1} <br />
+                        <span className="italic text-primary">{content.heroLine2}</span>
+                      </h1>
+                      
+                      <div className="mt-6">
+                        <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+                          {content.introParagraph}
+                        </p>
+      
+                         {/* Trust Badges - Single Line */}
+                        <div className="flex items-center gap-2 pt-4 text-xs text-gray-400 whitespace-nowrap overflow-hidden">
+                          <div className="flex items-center gap-1">
+                            {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                            <span className="ml-1 font-bold text-dark">4.9/5</span>
+                            <span className="ml-1">Google Reviews</span>
+                          </div>
+                          <span className="text-gray-300">|</span>
+                          <span className="font-bold text-dark">10+</span>
+                          <span>Projecten</span>
+                        </div>
+                      </div>
+                  </div>
+      
+                  {/* Visuals - Slider */}
+                  <div className="relative w-full aspect-[4/3] shadow-lg overflow-hidden bg-gray-100 mt-2 mb-4 rounded-lg">
+                      <BeforeAfterSlider
+                          beforeImage="/project-fotos/before15.webp"
+                          afterImage="/project-fotos/after14.webp"
+                          className="w-full h-full"
+                      />
+                  </div>
+                 </div>
+    
+                {/* CTA - Scrolls to Form */}
+                <div className="flex flex-col gap-3 mt-auto">
+                    <a href="#contact-form" className="w-full bg-primary text-white py-4 text-center text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors shadow-lg">
+                        Gratis Offerte
+                    </a>
+                </div>
+             </div>
+          </header>
+    
+          {/* Mobile Contact Form Container - Just below the fold */}
+          <div id="contact-form" className="lg:hidden px-6 py-24 bg-white relative z-20 border-t border-gray-100">
+             {renderContactForm()}
+          </div>
+    
+    
+          {/* 
+              ╔══════════════════════════════════════════════════════════╗
+              ║  DESKTOP HERO (Original)                                 ║
+              ║  Visible only on lg+                                     ║
+              ╚══════════════════════════════════════════════════════════╝ 
+          */}
+          <header className="hidden lg:flex relative min-h-screen items-center py-24 overflow-hidden">
+            <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+              <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
+                {city.name.toUpperCase()}
+              </h1>
+            </div>
+            <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+    
+                {/* Left: Text */}
+                <div className="lg:col-span-5 space-y-8 pt-8">
+                  <div className="inline-block border-l-2 border-primary pl-4">
+                    <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Keuken Wrapping {city.name}</span>
+                    <p className="font-display text-lg italic text-gray-500">Zonder sloopwerk. Binnen één dag.</p>
+                  </div>
+                  <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
+                    {content.heroLine1} <br />
+                    <span className="italic font-normal text-primary">{content.heroLine2}</span>
+                  </h1>
+                  <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
+                    {content.introParagraph}
+                  </p>
+                  <div className="flex items-center gap-6 text-xs text-gray-400">
+                    <div className="flex items-center gap-1">
+                      <span className="material-symbols-outlined text-yellow-500 text-sm">star</span>
+                      <span className="font-bold text-dark">4.9/5</span>
+                      <span>Google Reviews</span>
+                    </div>
+                    <span className="text-gray-300">|</span>
+                    <span className="font-bold text-dark">Projecten</span>
+                    <span>in {city.name} e.o.</span>
+                  </div>
+                </div>
+    
+                {/* Right: Large Contact Form */}
+                <div className="lg:col-span-7 flex justify-center lg:justify-end">
+                   {renderContactForm()}
+                </div>
+    
+              </div>
+            </div>
+          </header>
 
       {/* ╔══════════════════════════════════════════════════════════╗
           ║  CONTENT SECTIONS — Layout Variants                     ║
