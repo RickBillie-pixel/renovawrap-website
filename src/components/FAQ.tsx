@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const faqs = [
   {
     question: "Kan ik hete pannen op het gewrapte keukenblad zetten?",
-    answer: "Onze folies zijn hittebestendig tot 110 graden Celsius. Dit betekent dat een kop koffie geen probleem is, maar voor hete pannen adviseren wij altijd een onderzetter te gebruiken, net zoals bij de meeste standaard keukenbladen."
+    answer: "Onze folies zijn hittebestendig tot 90 graden. Dit betekent dat een kop koffie geen probleem is, maar voor hete pannen adviseren wij altijd een onderzetter te gebruiken, net zoals bij de meeste standaard keukenbladen."
   },
   {
     question: "Hoe lang blijft de folie mooi?",

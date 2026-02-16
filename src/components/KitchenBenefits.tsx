@@ -33,7 +33,7 @@ export default function KitchenBenefits() {
                   Tot 70% Goedkoper
                 </h3>
                 <p className="text-gray-600 dark:text-[rgba(255,249,240,0.7)] leading-relaxed text-lg max-w-md">
-                  Een nieuwe keuken kost al snel €8.000+. Wrappen kan al vanaf €895. Bespaar aanzienlijk op uw
+                  Een nieuwe keuken kost al snel €8.000+. Wrappen kan al vanaf €750. Bespaar aanzienlijk op uw
                   renovatiebudget zonder in te leveren op kwaliteit en uitstraling.
                 </p>
               </div>
@@ -72,7 +72,7 @@ export default function KitchenBenefits() {
                   <h3 className="text-2xl font-display text-gray-900 dark:text-[#FFF9F0] mb-3">Onderhoudsarm</h3>
                   <p className="text-gray-600 dark:text-[rgba(255,249,240,0.7)] leading-relaxed">
                     Een natte doek is alles wat u nodig heeft. De hoogwaardige folies zijn krasbestendig,
-                    hittebestendig, geurloos en bijzonder hygiënisch in gebruik.
+                    hittebestendig tot 90 graden, geurloos en bijzonder hygiënisch in gebruik.
                   </p>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function KitchenBenefits() {
                   <span className="material-symbols-outlined text-xl">verified</span>
                 </div>
                 <h3 className="text-xl font-display text-white mb-2">5 Jaar Garantie</h3>
-                <p className="text-gray-400 text-sm">Wij staan 100% achter ons vakwerk en materialen.</p>
+                <p className="text-gray-400 text-sm">Op het loslaten van de folie (niet door eigen beschadigingen).</p>
               </div>
             </div>
           </div>

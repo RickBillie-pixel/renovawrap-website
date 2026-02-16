@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "build:ssr": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "prerender": "node scripts/prerender.js",
-    "build:static": "npm run build && npm run build:ssr && npm run prerender && npm run validate:sitelinks",
+    "build:static": "npm run build && npm run build:ssr && npm run prerender && npm run validate:sitelinks && npm run validate:local-seo",
+    "validate:local-seo": "node scripts/validate-local-seo.js",
     "validate:sitelinks": "node scripts/check-sitelinks-readiness.js",
     "lint": "eslint .",
     "preview": "vite preview"

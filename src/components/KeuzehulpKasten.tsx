@@ -137,7 +137,7 @@ export default function KeuzehulpKasten() {
           </div>
           <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
           <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Wij nemen binnen 24 uur contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw kastrenovatie.
+            Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw kastrenovatie.
           </p>
         </div>
       </div>
@@ -181,7 +181,7 @@ export default function KeuzehulpKasten() {
           {step === 2 && "Geef een indicatie van de breedte van de kast."}
           {step === 3 && "Kies uit onze unieke collectie. Van houtstructuur tot ultra-mat."}
           {step === 4 && "Foto's van de kast helpen ons de prijs nauwkeurig te berekenen."}
-          {step === 5 && "Ontvang binnen 24 uur een vrijblijvende prijsopgave."}
+          {step === 5 && "Ontvang zo snel mogelijk een vrijblijvende prijsopgave."}
         </p>
 
         {/* Progress Timeline (Desktop) */}

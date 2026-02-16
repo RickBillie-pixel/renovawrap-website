@@ -146,7 +146,7 @@ export default function KeuzehulpDeuren() {
           </div>
           <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
           <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Wij nemen binnen 24 uur contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw deuren.
+            Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw deuren.
           </p>
         </div>
       </div>
@@ -217,7 +217,7 @@ export default function KeuzehulpDeuren() {
           {step === 2 && "Geef een indicatie van het aantal deuren en/of kozijnen."}
           {step === 3 && "Kies een kleur of structuur. Van houtnerf tot solid color."}
           {step === 4 && "Upload fotos van uw huidige deuren voor een nauwkeurige offerte."}
-          {step === 5 && "Ontvang binnen 24 uur een vrijblijvend voorstel."}
+          {step === 5 && "Ontvang zo snel mogelijk een vrijblijvend voorstel."}
         </p>
 
         {/* Progress Timeline (Desktop) */}

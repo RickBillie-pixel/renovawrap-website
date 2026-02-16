@@ -1,9 +1,42 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, Linkedin } from "lucide-react";
 import { MAIN_NAV, SERVICES_NAV } from "../config/nav";
+import { supabase } from "../lib/supabase";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim()) return;
+    
+    setSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const { error } = await supabase.from("contact_requests").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim() || null,
+        type: 'footer-quick-contact',
+        status: 'new'
+      });
+
+      if (error) throw error;
+      setSubmitted(true);
+      setFormData({ name: "", email: "", phone: "" });
+    } catch (err: unknown) {
+      console.error("Error submitting contact form:", err);
+      setSubmitError("Er ging iets mis. Probeer het later opnieuw.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <footer className="bg-[#121212] text-white pt-20 pb-10" id="contact">
@@ -81,37 +114,73 @@ export default function Footer() {
               Snel Contact
               <span className="absolute left-0 bottom-0 w-12 h-[1px] bg-[#C4A47C]"></span>
             </h3>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <input 
-                  type="text" 
-                  placeholder="Naam" 
-                  className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
-                />
+            {submitted ? (
+              <div className="bg-[#1E1E1E] p-6 rounded border border-[#C4A47C]/20 text-center">
+                <div className="w-12 h-12 bg-[#C4A47C]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="material-symbols-outlined text-[#C4A47C] text-2xl">check</span>
+                </div>
+                <h4 className="text-white font-bold mb-2 font-display italic">Bedankt!</h4>
+                <p className="text-gray-400 text-sm">We hebben je bericht ontvangen. We nemen zo snel mogelijk contact op.</p>
+                <button 
+                  onClick={() => setSubmitted(false)}
+                  className="mt-6 text-xs text-[#C4A47C] font-bold tracking-widest uppercase hover:text-white transition-colors"
+                >
+                  Nieuw bericht
+                </button>
               </div>
-              <div>
-                <input 
-                  type="email" 
-                  placeholder="Email Adres" 
-                  className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
-                />
-              </div>
-              <div>
-                <input 
-                  type="tel" 
-                  placeholder="Telefoonnummer" 
-                  className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
-                />
-              </div>
-              <button 
-                type="submit" 
-                className="w-full bg-white text-black font-bold text-xs tracking-widest uppercase py-4 hover:bg-gray-200 transition-colors"
-              >
-                VERSTUREN
-              </button>
-            </form>
+            ) : (
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                {submitError && (
+                  <div className="text-red-400 text-xs bg-red-900/20 p-3 rounded border border-red-900/50">
+                    {submitError}
+                  </div>
+                )}
+                <div>
+                  <input 
+                    type="text" 
+                    placeholder="Naam"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                    className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <input 
+                    type="email" 
+                    placeholder="Email Adres" 
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <input 
+                    type="tel" 
+                    placeholder="Telefoonnummer" 
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    className="w-full bg-[#1E1E1E] border border-[#333] rounded px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-gray-500 transition-colors"
+                  />
+                </div>
+                <button 
+                  type="submit" 
+                  disabled={submitting}
+                  className="w-full bg-white text-black font-bold text-xs tracking-widest uppercase py-4 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {submitting ? (
+                    <>
+                      <span className="w-3 h-3 border-2 border-black/30 border-t-black rounded-full animate-spin"></span>
+                      <span>VERSTUREN...</span>
+                    </>
+                  ) : (
+                    <span>VERSTUREN</span>
+                  )}
+                </button>
+              </form>
+            )}
           </div>
-
         </div>
 
         {/* Bottom Section */}

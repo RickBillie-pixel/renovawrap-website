@@ -5,6 +5,7 @@ import FAQ from "../components/FAQ";
 import { getWrapColors } from "../lib/wrapColors";
 import KeuzehulpAanrechtbladen from "../components/KeuzehulpAanrechtbladen";
 import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "../hooks/useSEO";
+import { materials } from "../data/materials";
 
 export default function AanrechtbladenDetail() {
   useSEO({
@@ -64,6 +65,16 @@ export default function AanrechtbladenDetail() {
     return () => { clearInterval(i1); clearInterval(i2); clearInterval(i3); };
   }, [allWrapColors.length]);
 
+  const woodMaterials = materials.filter(m => m.category === "Hout");
+  const [woodImageIndex, setWoodImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWoodImageIndex((prev) => (prev + 1) % woodMaterials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [woodMaterials.length]);
+
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       
@@ -91,20 +102,20 @@ export default function AanrechtbladenDetail() {
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
-                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                  <span className="font-bold text-dark">4.9/5</span>
                   <span className="ml-1">Google Reviews</span>
                 </div>
                 <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">150+</span>
+                <span className="font-bold text-dark">10+</span>
                 <span>Bladen Vernieuwd</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
-                  Gratis Offerte
+                  Gratis Offerte Zo Snel Mogelijk
                 </a>
                 <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
-                  Bekijk Voorbeelden
+                  Bekijk Voor & Na Foto's
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>
@@ -230,7 +241,7 @@ export default function AanrechtbladenDetail() {
                     Hittebestendig
                   </h3>
                   <p className="text-gray-600 dark:text-[rgba(255,249,240,0.7)] leading-relaxed text-lg max-w-md">
-                    Onze speciale aanrechtblad-folies zijn bestand tegen temperaturen tot 110°C, en kortstondig zelfs nog hoger. Een hete pan of kokend water is geen probleem.
+                    Onze speciale aanrechtblad-folies zijn bestand tegen temperaturen tot 90 graden. Een hete pan of kokend water is geen probleem, maar we raden een onderzetter aan voor extreme hitte.
                   </p>
                 </div>
               </div>
@@ -328,7 +339,7 @@ export default function AanrechtbladenDetail() {
                     <span className="material-symbols-outlined text-xl">verified</span>
                   </div>
                   <h3 className="text-xl font-display text-white mb-2">5 Jaar Garantie</h3>
-                  <p className="text-gray-400 text-sm">Op montage én materiaal. Wij leveren alleen topkwaliteit.</p>
+                  <p className="text-gray-400 text-sm">Op het loslaten van de folie (niet door eigen beschadigingen).</p>
                 </div>
               </div>
             </div>
@@ -373,7 +384,7 @@ export default function AanrechtbladenDetail() {
 
              {/* Card 2: Hittebestendig - Spans 1 col */}
              <div className="md:col-span-1 bg-[#FFF9F0] rounded-[2rem] p-10 flex flex-col justify-center min-h-[400px]">
-                <h3 className="font-display text-5xl text-[#C4A47C] mb-4 font-serif">180°C</h3>
+                <h3 className="font-display text-5xl text-[#C4A47C] mb-4 font-serif">90 graden</h3>
                 <h4 className="font-bold text-dark mb-3 text-lg">Hittebestendig</h4>
                 <p className="text-gray-500 text-sm leading-relaxed">Bestand tegen hete pannen en kokend water. Geen kringen of vervorming.</p>
              </div>
@@ -427,7 +438,7 @@ export default function AanrechtbladenDetail() {
           <div className="text-center mb-20">
             <span className="text-[#C4A47C] text-[10px] font-bold tracking-[0.2em] uppercase mb-4 block">Werkwijze</span>
             <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight">
-              In 4 Stappen <span className="italic text-gray-400 font-serif">Naar Uw Droomkeuken</span>
+              In 4 Stappen <span className="italic text-gray-400 font-serif">Naar Uw Nieuwe Keuken</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -503,12 +514,19 @@ export default function AanrechtbladenDetail() {
                   </a>
                </div>
                <div className="relative">
-                  <div className="aspect-[4/3] rounded-sm overflow-hidden shadow-2xl">
-                     <img 
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqUtBVZB4jfDKg40sM8nu8elmT9aC71nACxdbMGxI8RvNDGV_X7djngTbvar8z45btnMmc4Oq4t5yguRYvbTUzxDNKjCK6iNWSmlzDEkwPr66di0YivmeUe9O3oKDjGDE5xuXeDUP7mAiBSGtHl85Xt1sdTpU7jpi94JnrQfu1BTPQ0CindwQ2qdRA2KcLc12RBPBPkd5hcXFgsveEOW_q_rCd0KMn7XnSJEH2i64BsClk-dHIT58vFA40Fm_HxK5ks_ittzJN9Jo" 
-                        alt="Houtstructuur detail" 
-                        className="w-full h-full object-cover"
-                     />
+                  <div className="aspect-[4/3] rounded-sm overflow-hidden shadow-2xl bg-gray-100 relative">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={woodMaterials[woodImageIndex]?.image}
+                        src={woodMaterials[woodImageIndex]?.image}
+                        alt={woodMaterials[woodImageIndex]?.name}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    </AnimatePresence>
                   </div>
                   {/* Floating detail box */}
                   <div className="absolute -bottom-6 -left-6 bg-white p-6 shadow-xl max-w-xs hidden md:block">
@@ -532,7 +550,7 @@ export default function AanrechtbladenDetail() {
               Ontvang Uw <span className="italic text-primary">Offerte Op Maat</span>
             </h2>
             <p className="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
-              Beantwoord 5 korte vragen over uw werkblad en wij sturen u binnen 24 uur een vrijblijvende offerte.
+              Beantwoord 5 korte vragen over uw werkblad en wij sturen u zo snel mogelijk een vrijblijvende offerte.
             </p>
           </div>
           <div className="w-full">

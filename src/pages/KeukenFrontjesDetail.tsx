@@ -1,5 +1,10 @@
+import { useState, useEffect } from "react";
 import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "@/hooks/useSEO";
+import { AnimatePresence, motion } from "framer-motion";
 import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
+import KitchenBenefits from "../components/KitchenBenefits";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import FAQ from "../components/FAQ";
 
 export default function KeukenFrontjesDetail() {
   useSEO({
@@ -15,6 +20,38 @@ export default function KeukenFrontjesDetail() {
       ...buildService("Keuken Frontjes Wrappen", "Keuken frontjes wrappen met premium interieurfolie in 300+ kleuren. Klaar binnen twee dagen."),
     ],
   });
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const heroImages = [
+    {
+      before: "/project-fotos/before14.webp",
+      after: "/project-fotos/after14.webp",
+    },
+    {
+      before: "/project-fotos/before12.webp",
+      after: "/project-fotos/after12.webp",
+    },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Preload images
+  useEffect(() => {
+    heroImages.forEach((image) => {
+      const img1 = new Image();
+      img1.src = image.before;
+      const img2 = new Image();
+      img2.src = image.after;
+    });
+  }, []);
+
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
@@ -36,24 +73,24 @@ export default function KeukenFrontjesDetail() {
                 <span className="italic font-normal text-primary">Frontjes</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Uitgekeken op uw keukenfrontjes? Een nieuwe keuken kost al snel €10.000+. Wij wrappen uw bestaande frontjes met premium interieurfolie in de kleur en structuur van uw keuze — van mat-zwart tot warm eiken. Niet van echt te onderscheiden, klaar binnen twee dagen en een fractie van de kosten.
+                Uitgekeken op uw keukenfrontjes? Een nieuwe keuken kost al snel €8.000+. Wij wrappen uw bestaande frontjes met premium interieurfolie in elke gewenste kleur en structuur. Niet van echt te onderscheiden, klaar binnen twee dagen en een fractie van de kosten.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
-                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9/5</span>
                   <span className="ml-1">Google Reviews</span>
                 </div>
                 <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">500+</span>
-                <span>Projecten</span>
+                <span className="font-bold text-dark">10+</span>
+                <span>Frontjes</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="/contact">
-                  Gratis Offerte Binnen 24 Uur
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
+                  Gratis Offerte Zo Snel Mogelijk
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
+                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
                   Bekijk Voor & Na Foto's
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
@@ -61,16 +98,27 @@ export default function KeukenFrontjesDetail() {
             </div>
             <div className="lg:col-span-6 flex justify-center">
               <div className="relative w-full max-w-xl">
-                <div className="relative z-10">
-                  <img
-                    alt="Modern kitchen fronts transformation"
-                    className="w-full aspect-square object-cover shadow-2xl"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCoeZeJo1eRqfjL0ezP8hPgoggGYmqwYG8qFrYW7rTiwYL8K0g7yL6nul0Ftevcm8dQnMuIfUWRMituneqqgSFHO2IGAne4oTTvOIVP9esFTa_Qs1f65ixmWdkCMCJcJeE9Cu11ncaI58LRjdOcVb6InflViTnrnoxZasSBcHOp-TqNvqcHpHYMNRklcJvCdercYswkeC9yvxHVbMgsLAwjiIMbOQm6ebCAzH5uPntIm89jPNVtLxr_4ljM2lsVo-IADOCGvcIfJM"
-                  />
+                <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={currentImageIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <BeforeAfterSlider
+                        afterImage={heroImages[currentImageIndex].after}
+                        beforeImage={heroImages[currentImageIndex].before}
+                        className="w-full h-full"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
-                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="font-display text-2xl md:text-4xl text-primary">5</span>
                     <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
                   </div>
                 </div>
@@ -81,7 +129,7 @@ export default function KeukenFrontjesDetail() {
       </header>
 
       {/* Applications Section */}
-      <section className="py-32 bg-white">
+      <section className="py-32 bg-white" id="portfolio">
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-gray-100 pb-12">
             <div className="max-w-xl">
@@ -97,18 +145,18 @@ export default function KeukenFrontjesDetail() {
               {
                 title: "Vlakke Fronten",
                 desc: "Ideaal voor een moderne, minimalistische 'Soft Touch' of hoogglans afwerking. Strak en tijdloos.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw"
+                image: "/project-fotos/after11.webp"
               },
               {
                 title: "Kader & Profiel",
                 desc: "Heeft u klassieke frontjes met reliëf? Geen probleem. Onze folies vormen zich perfect naar de contouren.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY",
+                image: "/project-fotos/after12.webp",
                 className: "md:mt-24"
               },
               {
                 title: "Herstel & Correctie",
                 desc: "Loslatende folie van de fabriek? Wij verwijderen de oude laag en brengen een duurzamere nieuwe laag aan.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940"
+                image: "/project-fotos/after13.webp"
               }
             ].map((item, index) => (
               <div key={index} className={`group cursor-pointer ${item.className || ''}`}>
@@ -132,6 +180,82 @@ export default function KeukenFrontjesDetail() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Waarom Keuken Wrappen */}
+      <KitchenBenefits />
+
+      {/* Werkwijze */}
+      <section className="py-32 bg-white" id="werkwijze">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="text-center mb-20">
+            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Werkwijze</span>
+            <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight">In 4 Stappen <span className="italic text-gray-400">Naar Uw Nieuwe Keuken</span></h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            {[
+              { step: "01", title: "Gratis Adviesgesprek", desc: "Wij komen langs voor een vrijblijvende opmeting en bespreken uw wensen en mogelijkheden.", icon: "chat" },
+              { step: "02", title: "Kleurkeuze", desc: "Kies uit ons uitgebreide stalenboek met 300+ kleuren. Wij adviseren u over de beste match.", icon: "color_lens" },
+              { step: "03", title: "Professionele Montage", desc: "Onze gecertificeerde monteurs wrappen uw frontjes in slechts één werkdag.", icon: "construction" },
+              { step: "04", title: "Oplevering & Nazorg", desc: "Na oplevering ontvangt u een garantiecertificaat en onderhoudsinstructies.", icon: "handshake" },
+            ].map((item, index) => (
+              <div key={index} className="text-center group">
+                <div className="w-20 h-20 mx-auto mb-6 border-2 border-gray-200 group-hover:border-primary transition-colors flex items-center justify-center">
+                  <span className="material-symbols-outlined text-3xl text-gray-300 group-hover:text-primary transition-colors">{item.icon}</span>
+                </div>
+                <span className="text-primary font-mono text-xs font-bold block mb-3">{item.step}</span>
+                <h3 className="font-display text-xl text-dark mb-3">{item.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* AI Visualizer Promo */}
+      <section className="py-32 bg-[#1a1a1a] relative overflow-hidden">
+        {/* Subtle background accent */}
+        <div className="absolute top-0 right-0 -mr-64 -mt-64 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -ml-64 -mb-64 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="space-y-8">
+              <div className="inline-flex items-center space-x-2 border border-white/10 px-4 py-1.5 rounded-full bg-white/5 backdrop-blur-sm shadow-lg">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(217,119,6,0.5)]"></span>
+                <span className="text-[10px] text-white tracking-[0.2em] uppercase font-bold">Nieuw: AI Visualizer</span>
+              </div>
+              <h2 className="font-display text-5xl md:text-7xl text-white leading-[1.1]">
+                Visualiseer Uw <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomkeuken</span>
+              </h2>
+              <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
+                Upload een foto van uw huidige keuken en zie binnen seconden hoe onze folies de ruimte transformeren.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <a href="/configurator" className="group bg-primary text-white px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-all shadow-[0_10px_30px_-10px_rgba(217,119,6,0.3)] hover:shadow-[0_20px_40px_-10px_rgba(217,119,6,0.5)] flex items-center justify-center">
+                  <span>Start Configurator</span>
+                  <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
+                </a>
+                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Hoe het werkt
+                </a>
+              </div>
+            </div>
+
+            <div className="relative group perspective-1000">
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700"></div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black/50">
+                  <BeforeAfterSlider
+                    beforeImage="/project-fotos/before15.webp"
+                    afterImage="/project-fotos/after14.webp"
+                    className="w-full h-full"
+                  />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -178,7 +302,7 @@ export default function KeukenFrontjesDetail() {
       </section>
 
       {/* 5. Keuzehulp */}
-      <section id="keuzehulp" className="py-24 bg-white">
+      <section id="keuzehulp" className="py-24 bg-background-light">
         <div className="max-w-[1400px] mx-auto px-6 mb-16 text-center">
             <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Direct Een Prijsindicatie</span>
             <h2 className="font-display text-4xl md:text-5xl text-dark mb-6">Stel Uw Nieuwe <br/> <span className="italic text-gray-400">Look Samen</span></h2>
@@ -188,6 +312,9 @@ export default function KeukenFrontjesDetail() {
         </div>
         <KeuzehulpFrontjes />
       </section>
+
+      {/* 6. FAQ */}
+      <FAQ />
     </main>
   );
 }

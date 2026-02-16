@@ -5,6 +5,7 @@ import FadeIn from "../components/FadeIn";
 import CountUp from "../components/CountUp";
 import ProjectModal from "../components/ProjectModal";
 import HorizontalServices from "../components/HorizontalServices";
+import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
 import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
@@ -17,6 +18,7 @@ export default function Home() {
 
   // Carousel cycling indices
   const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [heroIndex, setHeroIndex] = useState(0);
   const [smallTopIndex, setSmallTopIndex] = useState(0);
   const [smallBottomIndex, setSmallBottomIndex] = useState(1);
 
@@ -51,7 +53,14 @@ export default function Home() {
   }, []);
 
   // Split projects into featured and non-featured
-  const featuredProjects = useMemo(() => projects.filter(p => p.is_featured), [projects]);
+  const featuredProjects = useMemo(() => {
+    // Filter for projects that actually have an image
+    const validProjects = projects.filter(p => p.after_image_url || p.before_image_url);
+    
+    const featured = validProjects.filter(p => p.is_featured);
+    // Fallback: if no projects are marked as featured, use the first 5 valid projects
+    return featured.length > 0 ? featured : validProjects.slice(0, 5);
+  }, [projects]);
   const nonFeaturedProjects = useMemo(() => projects.filter(p => !p.is_featured), [projects]);
 
   // Cycling: large box (featured) every 10s
@@ -60,6 +69,15 @@ export default function Home() {
     const timer = setInterval(() => {
       setFeaturedIndex(prev => (prev + 1) % featuredProjects.length);
     }, 10000);
+    return () => clearInterval(timer);
+  }, [featuredProjects.length]);
+
+  // Cycling: hero image every 6s
+  useEffect(() => {
+    if (featuredProjects.length <= 1) return;
+    const timer = setInterval(() => {
+      setHeroIndex(prev => (prev + 1) % featuredProjects.length);
+    }, 6000);
     return () => clearInterval(timer);
   }, [featuredProjects.length]);
 
@@ -148,12 +166,46 @@ export default function Home() {
             <div className="lg:col-span-6 flex justify-center">
               <FadeIn delay={200}>
                 <div className="relative w-full max-w-xl">
-                    <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
-                       <img 
-                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                        alt="Modern Kitchen Renovation" 
-                        className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                       />
+                    <div className="relative z-10 w-full aspect-square min-h-[500px] shadow-2xl overflow-hidden bg-gray-100">
+                       {featuredProjects.length > 0 ? (
+                         featuredProjects.map((project, i) => {
+                           const hasBeforeAfter = project.before_image_url && project.after_image_url;
+                           const isActive = i === heroIndex % featuredProjects.length;
+                           
+                           return (
+                             <div
+                               key={`hero-${project.id}`}
+                               className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                               style={{ opacity: isActive ? 1 : 0, zIndex: isActive ? 1 : 0 }}
+                             >
+                               {hasBeforeAfter ? (
+                                  <div 
+                                    className="w-full h-full"
+                                    onClick={(e) => e.stopPropagation()} 
+                                  >
+                                    <BeforeAfterSlider
+                                      beforeImage={project.before_image_url!}
+                                      afterImage={project.after_image_url!}
+                                      className="w-full h-full grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                                    />
+                                  </div>
+                               ) : (
+                                 <img 
+                                  src={project.after_image_url || project.before_image_url || ""} 
+                                  alt={project.name} 
+                                  className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                                 />
+                               )}
+                             </div>
+                           );
+                         })
+                       ) : (
+                         <img 
+                          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                          alt="Modern Kitchen Renovation" 
+                          className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                         />
+                       )}
                     </div>
 
                     {/* Floating Badge (Price) - matching style */}
@@ -356,19 +408,37 @@ export default function Home() {
               >
                 <div className="w-full h-[500px] lg:h-[700px] overflow-hidden relative">
                   {/* Stack all featured images; only the active one is fully visible */}
-                  {featuredProjects.map((project, i) => (
-                    <div
-                      key={project.id}
-                      className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                      style={{ opacity: i === featuredIndex % featuredProjects.length ? 1 : 0, zIndex: i === featuredIndex % featuredProjects.length ? 1 : 0 }}
-                    >
-                      <img
-                        alt={project.name}
-                        src={project.after_image_url || project.before_image_url || ""}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
-                      />
-                    </div>
-                  ))}
+                  {featuredProjects.map((project, i) => {
+                    const hasBeforeAfter = project.before_image_url && project.after_image_url;
+                    const isActive = i === featuredIndex % featuredProjects.length;
+
+                    return (
+                      <div
+                        key={project.id}
+                        className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                        style={{ opacity: isActive ? 1 : 0, zIndex: isActive ? 1 : 0 }}
+                      >
+                        {hasBeforeAfter ? (
+                          <div 
+                            className="w-full h-full"
+                            onClick={(e) => e.stopPropagation()} 
+                          >
+                            <BeforeAfterSlider
+                              beforeImage={project.before_image_url!}
+                              afterImage={project.after_image_url!}
+                              className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                            />
+                          </div>
+                        ) : (
+                          <img
+                            alt={project.name}
+                            src={project.after_image_url || project.before_image_url || ""}
+                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
                   <div className="absolute inset-0 bg-dark/10 group-hover:bg-transparent transition-colors z-10"></div>
                   {/* Text overlay for current featured */}
                   {currentFeatured && (
@@ -563,9 +633,9 @@ export default function Home() {
                      {/* Text Column (Left) */}
                      <div className="p-8 md:p-16 flex flex-col justify-center relative order-2 lg:order-1">
                        {/* Large Quote Mark */}
-                       <div className="absolute top-8 left-8 md:top-12 md:left-12 text-9xl leading-none text-gray-100 font-serif select-none pointer-events-none">
-                         "
-                       </div>
+                        <div className="absolute top-8 left-8 md:top-12 md:left-12 text-9xl leading-none text-gray-100 font-serif select-none pointer-events-none">
+                          "
+                        </div>
                        
                        <div className="relative z-10">
                          <p className="text-xl md:text-2xl text-dark font-display italic mb-10 leading-relaxed">

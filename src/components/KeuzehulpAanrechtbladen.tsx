@@ -137,7 +137,7 @@ export default function KeuzehulpAanrechtbladen() {
           </div>
           <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
           <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Wij nemen binnen 24 uur contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw aanrechtblad.
+            Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw aanrechtblad.
           </p>
         </div>
       </div>
@@ -181,7 +181,7 @@ export default function KeuzehulpAanrechtbladen() {
           {step === 2 && "Geef een ruwe schatting van de totale lengte van het aanrechtblad."}
           {step === 3 && "Kies uit onze populairste stijlen voor werkbladen, zoals Marmer, Betonlook of Hout."}
           {step === 4 && "Foto's helpen ons om de staat van de ondergrond te beoordelen."}
-          {step === 5 && "Ontvang binnen 24 uur een vrijblijvende prijsopgave."}
+          {step === 5 && "Ontvang zo snel mogelijk een vrijblijvende prijsopgave."}
         </p>
 
         {/* Progress Timeline (Desktop) */}
@@ -220,23 +220,37 @@ export default function KeuzehulpAanrechtbladen() {
             {step === 1 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { id: "recht", label: "Recht", sub: "Enkele zijde", icon: "remove" },
-                  { id: "l-vorm", label: "L-Vorm", sub: "Hoekkeuken", icon: "turn_left" },
-                  { id: "u-vorm", label: "U-Vorm", sub: "Drie zijden", icon: "u_turn_left" },
-                  { id: "eiland", label: "Kookeiland", sub: "Vrijstaand", icon: "featured_video" },
+                  { id: "recht", label: "Recht", sub: "Enkele zijde", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "l-vorm", label: "L-Vorm", sub: "Hoekkeuken", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "u-vorm", label: "U-Vorm", sub: "Drie zijden", image: "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "eiland", label: "Kookeiland", sub: "Vrijstaand", image: "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?q=80&w=1000&auto=format&fit=crop" },
                 ].map((item) => (
                   <button
                     key={item.id}
                     onClick={() => setFormData((p) => ({ ...p, vorm: item.id }))}
-                    className={`bg-white p-8 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group flex flex-col items-start ${
-                      formData.vorm === item.id ? "ring-1 ring-primary shadow-none" : ""
+                    className={`group relative overflow-hidden bg-white text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] flex flex-col ${
+                      formData.vorm === item.id ? "ring-2 ring-primary ring-offset-2" : ""
                     }`}
                   >
-                     <div className={`w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-4 transition-colors ${formData.vorm === item.id ? 'bg-primary/10 text-primary' : 'group-hover:bg-primary/10 group-hover:text-primary text-gray-400'}`}>
-                        <span className="material-symbols-outlined text-2xl">{item.icon}</span>
+                     <div className="relative h-48 w-full overflow-hidden">
+                        <img 
+                           src={item.image} 
+                           alt={item.label} 
+                           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
+                        />
+                        {/* Overlay when selected */}
+                        {formData.vorm === item.id && (
+                           <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
+                              <div className="bg-white rounded-full p-2 shadow-lg">
+                                 <span className="material-symbols-outlined text-primary">check</span>
+                              </div>
+                           </div>
+                        )}
                      </div>
-                    <h3 className="font-display text-xl italic text-dark mb-1">{item.label}</h3>
-                    <p className="text-xs text-gray-500 uppercase tracking-widest">{item.sub}</p>
+                     <div className="p-6">
+                        <h3 className="font-display text-xl italic text-dark mb-1">{item.label}</h3>
+                        <p className="text-xs text-gray-500 uppercase tracking-widest">{item.sub}</p>
+                     </div>
                   </button>
                 ))}
               </div>

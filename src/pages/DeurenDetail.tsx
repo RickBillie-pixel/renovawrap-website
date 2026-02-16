@@ -155,21 +155,21 @@ export default function DeurenDetail() {
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
-                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9/5</span>
                   <span className="ml-1">Google Reviews</span>
                 </div>
                 <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">500+</span>
+                <span className="font-bold text-dark">10+</span>
                 <span>Deuren Gewrapt</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
-                  Gratis Offerte
+                  Gratis Offerte Zo Snel Mogelijk
                 </a>
-                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#anatomie">
-                  Hoe Werkt Het?
-                  <span className="material-symbols-outlined text-sm ml-2">arrow_downward</span>
+                <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
+                  Bekijk Voor & Na Foto's
+                  <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function DeurenDetail() {
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
-                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="font-display text-2xl md:text-4xl text-primary">5</span>
                     <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
                   </div>
                 </div>
@@ -361,21 +361,11 @@ export default function DeurenDetail() {
 
             <div className="relative">
               <div className="relative rounded-lg overflow-hidden shadow-2xl aspect-video bg-gray-100 max-h-[500px]">
-                  {/* Split image effect for visualizer demo */}
-                  <div className="absolute inset-0 flex">
-                     <div className="w-1/2 h-full overflow-hidden relative">
-                        <img src="/project-fotos/before7.webp" alt="Before" className="absolute inset-0 w-[200%] h-full object-cover object-left" />
-                     </div>
-                     <div className="w-1/2 h-full overflow-hidden relative">
-                        <img src="/project-fotos/after7.webp" alt="After" className="absolute inset-0 w-[200%] h-full object-cover object-right" />
-                     </div>
-                  </div>
-                  {/* Slider Handle Simulation */}
-                  <div className="absolute inset-y-0 left-1/2 w-1 bg-white shadow-lg cursor-ew-resize flex items-center justify-center">
-                     <div className="w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center">
-                        <span className="material-symbols-outlined text-xs text-dark">code</span>
-                     </div>
-                  </div>
+                  <BeforeAfterSlider
+                    beforeImage="/project-fotos/before7.webp"
+                    afterImage="/project-fotos/after7.webp"
+                    className="w-full h-full"
+                  />
               </div>
             </div>
           </div>

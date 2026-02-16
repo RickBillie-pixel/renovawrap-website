@@ -45,6 +45,18 @@ const Catalogus = lazy(routePreloads["/catalogus"]);
 const PrivacyPolicy = lazy(routePreloads["/privacy-policy"]);
 const AlgemeneVoorwaarden = lazy(routePreloads["/algemene-voorwaarden"]);
 
+// Lokale SEO pagina's (Static imports for SSG reliability)
+import KWEindhoven from "./pages/lokaal/KeukenWrappingEindhoven";
+import KWHelmond from "./pages/lokaal/KeukenWrappingHelmond";
+import KWRoosendaal from "./pages/lokaal/KeukenWrappingRoosendaal";
+import KWTilburg from "./pages/lokaal/KeukenWrappingTilburg";
+import KWUtrecht from "./pages/lokaal/KeukenWrappingUtrecht";
+import KWVeldhoven from "./pages/lokaal/KeukenWrappingVeldhoven";
+import KWWeert from "./pages/lokaal/KeukenWrappingWeert";
+import KWLimburg from "./pages/lokaal/KeukenWrappingLimburg";
+import KWNijmegen from "./pages/lokaal/KeukenWrappingNijmegen";
+import KWOss from "./pages/lokaal/KeukenWrappingOss";
+
 /** Used by entry-server to preload the page for a route before SSR render */
 export function getPreloadForRoute(route: string): (() => Promise<unknown>) | undefined {
   const normalized = route.replace(/\/+$/, "") || "/";
@@ -84,6 +96,17 @@ export function AppContent() {
             <Route path="/catalogus" element={<Catalogus />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
+            {/* Lokale SEO pagina's */}
+            <Route path="/diensten/keuken-wrapping/eindhoven" element={<KWEindhoven />} />
+            <Route path="/diensten/keuken-wrapping/helmond" element={<KWHelmond />} />
+            <Route path="/diensten/keuken-wrapping/roosendaal" element={<KWRoosendaal />} />
+            <Route path="/diensten/keuken-wrapping/tilburg" element={<KWTilburg />} />
+            <Route path="/diensten/keuken-wrapping/utrecht" element={<KWUtrecht />} />
+            <Route path="/diensten/keuken-wrapping/veldhoven" element={<KWVeldhoven />} />
+            <Route path="/diensten/keuken-wrapping/weert" element={<KWWeert />} />
+            <Route path="/diensten/keuken-wrapping/limburg" element={<KWLimburg />} />
+            <Route path="/diensten/keuken-wrapping/nijmegen" element={<KWNijmegen />} />
+            <Route path="/diensten/keuken-wrapping/oss" element={<KWOss />} />
           </Routes>
         </Suspense>
         <Footer />

@@ -1,10 +1,14 @@
-import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "@/hooks/useSEO";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+import FAQ from "../components/FAQ";
 import KeuzehulpSchade from "../components/KeuzehulpSchade";
+import { useSEO, buildBreadcrumbs, buildService, canonicalFor } from "@/hooks/useSEO";
 
 export default function SchadeherstelDetail() {
   useSEO({
-    title: "Schadeherstel — Lokale Reparatie, Onzichtbaar Resultaat | Renovawrap",
-    description: "Beschadigde wrapping of kras in uw blad? Wij herstellen schade lokaal en onzichtbaar. Binnen een dagdeel opgelost.",
+    title: "Schadeherstel & Reparatie — Folieschade Vakkundig Hersteld | Renovawrap",
+    description: "Schadeherstel aan keukens, deuren en interieur. Krassen, deuken en beschadigingen vakkundig hersteld met architecturale folie. Snel, schoon en betaalbaar.",
     canonical: canonicalFor("/diensten/schadeherstel"),
     jsonLd: [
       ...buildBreadcrumbs([
@@ -12,65 +16,94 @@ export default function SchadeherstelDetail() {
         { name: "Diensten", url: canonicalFor("/diensten") },
         { name: "Schadeherstel", url: canonicalFor("/diensten/schadeherstel") },
       ]),
-      ...buildService("Schadeherstel", "Beschadigde wrapping lokaal en onzichtbaar herstellen. Dezelfde kleur, dezelfde structuur."),
+      ...buildService("Schadeherstel & Reparatie", "Vakkundig schadeherstel aan keukens, deuren en interieur met architecturale folie."),
     ],
   });
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const heroImages = [
+    {
+      src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJLQfVa9fZjZPK_NK_bQzLKVSR0S0ZdJfPXanUgVC0GRKBmJcU34Ea1chqPiy9K1LJkMRghQShPyim5Nk5QKl4y4AsKFXK-K-b10GprhTkVPc-j_jOnV2cDMmYmX0R7hAVzyu6CV00XU9ycD1WyGob0yHqXNsD18vqz26epnmDfBUuil4oK8YQ2FZfpUl75081-0Pa51Wb_oQf-JIrIhBqQxGfRGTUeHKcuVFG_ylhhahXPX8eH6pr6aLsHvhm6EmSgMTZHPsSGhI",
+      alt: "Schadeherstel resultaat",
+    },
+  ];
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
       {/* Hero Section */}
       <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
         <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
           <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
-            SCHADEHERSTEL
+            HERSTEL
           </h1>
         </div>
         <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Stuur Een Foto, Wij Lossen Het Op</span>
-                <p className="font-display text-lg italic text-gray-500">Niet alles hoeft opnieuw — vaak is reparatie genoeg.</p>
+                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Specialist in Schadeherstel</span>
+                <p className="font-display text-lg italic text-gray-500">Vakkundig. Snel. Voordelig.</p>
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
-                Schade <br />
-                <span className="italic font-normal text-primary">Herstel</span>
+                Uw interieur weer <br />
+                <span className="italic font-normal text-primary">als nieuw</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Een kras in uw blad, een loslatende hoek of een scheur in de folie? Alles opnieuw laten doen is onnodig duur. Wij herstellen schade lokaal en onzichtbaar — met dezelfde kleur, dezelfde structuur. Binnen een dagdeel opgelost, voor een fractie van de kosten.
+                Heeft u krassen, deuken of waterschade? Wij herstellen uw keuken of meubels onzichtbaar met hoogwaardige folie. U bespaart kosten en vermijdt een dure verbouwing.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
-                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9/5</span>
                   <span className="ml-1">Google Reviews</span>
                 </div>
                 <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">500+</span>
-                <span>Projecten</span>
+                <span className="font-bold text-dark">100%</span>
+                <span>Tevredenheid</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="/contact">
-                  Stuur Foto & Ontvang Offerte
+                <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
+                  Vraag uw offerte aan
                 </a>
                 <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
-                  Bekijk Herstelresultaten
+                  Zie het resultaat
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>
             </div>
             <div className="lg:col-span-6 flex justify-center">
               <div className="relative w-full max-w-xl">
-                <div className="relative z-10">
-                  <img
-                    alt="Repairing wrapped surface"
-                    className="w-full aspect-square object-cover shadow-2xl"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYn791KOT13rsJDS46AqrZVUi_QO4_7Rfdo2VkGC38Tc_yBJu8D0YarWfW77JRNDRV87flBxpsO39iQ20kDhvL6OUHT3jqpMNbTSEXsXZjFczMvtWJ3nb-qLB21l0cW9TAqmCUE2sKeRsHlV50AGwRcVOQ2Z8UKQy5PQbxxbTTna07PT4QBdkQVnITxv7rT6F9b12RVxiStk3QGb-A690KbJPqkggCBmYABejtuzmP5YvP9hI_KFzpIDKQho_nz5ez4oZA5Y4vy9w"
-                  />
+                <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={currentImageIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <img
+                        src={heroImages[currentImageIndex].src}
+                        alt={heroImages[currentImageIndex].alt}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
-                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="font-display text-2xl md:text-4xl text-primary">5</span>
                     <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
                   </div>
                 </div>
@@ -80,69 +113,193 @@ export default function SchadeherstelDetail() {
         </div>
       </header>
 
-      {/* Applications Section */}
-      <section className="py-32 bg-white">
+      {/* De Kunst van Herstel */}
+      <section className="py-24 bg-background-light" id="herstel">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-gray-100 pb-12">
-            <div className="max-w-xl">
-              <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Services</span>
-              <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight">Reparatie <span className="italic text-gray-400">Technieken</span></h2>
-            </div>
+          <div className="text-center mb-16">
+            <h2 className="font-display text-4xl md:text-5xl text-dark">
+              Vakkundig <span className="italic text-[#C4A47C]">Herstel</span>
+            </h2>
+            <p className="text-gray-500 mt-4 max-w-2xl mx-auto font-light">
+              Of het nu gaat om kleine krassen of hitteschade, onze specialisten herstellen uw oppervlakken zodat u het verschil niet ziet.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {[
-              {
-                title: "Spot Repair",
-                desc: "Kleine beschadigingen vullen wij op met speciale wax en reparatiemiddelen, exact op kleur gemengd.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY"
-              },
-              {
-                title: "Paneel Vervanging",
-                desc: "Is de schade te groot? Dan wrappen we enkel het beschadigde paneel opnieuw. Geen kleurverschil dankzij kleurstabiele folies.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw",
-                className: "md:mt-24"
-              },
-              {
-                title: "Ondergrond Herstel",
-                desc: "Waterschade of uitgezette spaanplaat? Wij herstellen eerst de kern voordat we de nieuwe toplaag aanbrengen.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940"
-              }
-            ].map((item, index) => (
-              <div key={index} className={`group cursor-pointer ${item.className || ''}`}>
-                <div className="relative overflow-hidden mb-8 aspect-[3/4]">
-                  <img
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                    src={item.image}
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
-                </div>
-                <div className="flex justify-between items-start border-t border-gray-200 pt-6">
-                  <div>
-                    <span className="text-xs text-primary font-mono mb-2 block">0{index + 1}</span>
-                    <h3 className="font-display text-2xl text-dark mb-2 group-hover:italic transition-all">{item.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                      {item.desc}
-                    </p>
-                  </div>
-                  <span className="material-symbols-outlined text-gray-300 group-hover:text-dark transition-colors">arrow_outward</span>
-                </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <div className="group">
+              <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
+                <img 
+                  src="https://placehold.co/600x600?text=Diepe+Krassen" 
+                  alt="Diepe Krassen" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
-            ))}
+              <h3 className="font-display text-2xl mb-2 text-dark">Diepe Krassen</h3>
+              <p className="text-gray-500 text-sm leading-relaxed font-light">
+                Wij reconstrueren de structuur van het oppervlak nauwkeurig. De kras wordt onzichtbaar en uw interieur oogt weer strak.
+              </p>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group">
+              <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
+                <img 
+                  src="https://placehold.co/600x600?text=Hitte+%26+Vocht" 
+                  alt="Hitte en Vocht" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <h3 className="font-display text-2xl mb-2 text-dark">Hitte & Vocht</h3>
+              <p className="text-gray-500 text-sm leading-relaxed font-light">
+                Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.
+              </p>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group">
+              <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
+                <img 
+                  src="https://placehold.co/600x600?text=Loslatende+Folie" 
+                  alt="Loslatende Folie" 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <h3 className="font-display text-2xl mb-2 text-dark">Loslatende Folie</h3>
+              <p className="text-gray-500 text-sm leading-relaxed font-light">
+                Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Keuzehulp */}
-      <section id="keuzehulp" className="py-24 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 mb-16 text-center">
-            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Foto Insturen = Offerte Ontvangen</span>
-            <h2 className="font-display text-4xl md:text-5xl text-dark mb-6">Gratis <br/> <span className="italic text-gray-400">Schadebeoordeling</span></h2>
-            <p className="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
-              Upload een foto van de schade en ontvang binnen 24 uur een vrijblijvend herstelvoorstel.
-            </p>
+      {/* Precisie in elk detail */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Left Content */}
+            <div className="space-y-12">
+              <div>
+                <span className="text-[#C4A47C] font-sans text-xs font-bold tracking-widest uppercase mb-2 block">Onze Werkwijze</span>
+                <h2 className="font-display text-5xl md:text-6xl text-dark leading-[1.1]">
+                  Zorgvuldig tot in <br/>
+                  <span className="italic text-gray-400">elk detail.</span>
+                </h2>
+              </div>
+
+              <div className="space-y-10">
+                {/* Step 1 */}
+                <div className="flex gap-6 group">
+                  <span className="font-display text-3xl text-[#C4A47C]/40 group-hover:text-[#C4A47C] transition-colors">01</span>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider text-sm mb-2 text-dark">Grondige Inspectie</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed font-light max-w-sm">
+                      We bekijken de schade nauwkeurig om de juiste aanpak te bepalen. Zo garanderen we een duurzaam herstel dat standhoudt.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="flex gap-6 group">
+                  <span className="font-display text-3xl text-[#C4A47C]/40 group-hover:text-[#C4A47C] transition-colors">02</span>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider text-sm mb-2 text-dark">Nauwkeurige Correctie</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed font-light max-w-sm">
+                      Met gespecialiseerde vulmiddelen egaliseren we de ondergrond volledig. Elke oneffenheid werken we zorgvuldig weg.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="flex gap-6 group">
+                  <span className="font-display text-3xl text-[#C4A47C]/40 group-hover:text-[#C4A47C] transition-colors">03</span>
+                  <div>
+                    <h4 className="font-bold uppercase tracking-wider text-sm mb-2 text-dark">Hoogwaardige Afwerking</h4>
+                    <p className="text-gray-500 text-sm leading-relaxed font-light max-w-sm">
+                      We brengen de nieuwe toplaag strak aan, exact passend bij uw interieur. Het resultaat is een oppervlak dat weer als nieuw oogt.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Images */}
+            <div className="relative h-full min-h-[500px] flex items-center justify-center lg:justify-end">
+               <div className="relative w-full max-w-md">
+                  {/* Main Image (Repair Kit) */}
+                  <div className="relative z-10 w-3/4 aspect-square shadow-2xl bg-gray-900">
+                    <img 
+                      src="https://placehold.co/600x600/1a1a1a/FFF?text=Repair+Kit" 
+                      alt="Repair Kit" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Secondary Image (Texture) */}
+                  <div className="absolute -right-12 -top-12 z-0 w-3/4 aspect-square shadow-xl bg-[#C4A47C]">
+                    <img 
+                      src="https://placehold.co/600x600/C4A47C/000?text=Texture" 
+                      alt="Texture Detail" 
+                      className="w-full h-full object-cover opacity-80 mix-blend-multiply"
+                    />
+                  </div>
+               </div>
+            </div>
+
+          </div>
         </div>
-        <KeuzehulpSchade />
+      </section>
+
+      {/* Sustainable Banner */}
+      <section className="py-32 bg-[#1A1A1A] relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+        
+        <div className="max-w-[1400px] mx-auto px-6 relative z-10 text-center">
+            <div className="inline-block border border-[#C4A47C] px-4 py-1 rounded-full text-[#C4A47C] text-[10px] uppercase tracking-widest mb-8">
+              Duurzaamheid
+            </div>
+            
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-white leading-tight max-w-4xl mx-auto mb-16">
+              "Repareren is <span className="italic text-[#C4A47C] font-light">90% beter</span> voor het milieu dan vervangen. Kies voor waardebehoud en voorkom verspilling."
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-3xl mx-auto border-t border-white/10 pt-12">
+               <div>
+                  <span className="block text-4xl font-display text-white mb-2">90%</span>
+                  <span className="text-[10px] uppercase tracking-widest text-gray-400">Minder CO2 Uitstoot</span>
+               </div>
+               <div>
+                  <span className="block text-4xl font-display text-white mb-2">100%</span>
+                  <span className="text-[10px] uppercase tracking-widest text-gray-400">Circulair Denken</span>
+               </div>
+               <div>
+                  <span className="block text-4xl font-display text-white mb-2">5 jr</span>
+                  <span className="text-[10px] uppercase tracking-widest text-gray-400">Garantie op Herstel</span>
+               </div>
+            </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <FAQ />
+
+      {/* Keuzehulp (Wizard) */}
+      <section className="py-16 bg-background-light" id="keuzehulp">
+         <div className="max-w-[1400px] mx-auto px-6 text-center mb-12">
+            <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Gratis & Vrijblijvend</span>
+            <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight mb-4">
+              Meld Uw <span className="italic text-primary">Schade</span>
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
+              Beschrijf de schade aan uw interieur en ontvang een vrijblijvende offerte voor het herstel.
+            </p>
+         </div>
+         <div className="max-w-[1400px] mx-auto px-6">
+            <KeuzehulpSchade />
+         </div>
       </section>
     </main>
   );

@@ -125,7 +125,7 @@ export default function KeuzehulpSchade() {
           </div>
           <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
           <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Wij beoordelen uw situatie en nemen binnen 24 uur contact met u op voor een schadeherstel voorstel.
+            Wij beoordelen uw situatie en nemen zo snel mogelijk contact met u op voor een schadeherstel voorstel.
           </p>
         </div>
       </div>

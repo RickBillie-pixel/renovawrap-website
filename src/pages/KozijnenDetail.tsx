@@ -54,10 +54,7 @@ export default function KozijnenDetail() {
         <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             <div className="lg:col-span-6 space-y-8">
-              <div className="inline-block border-l-2 border-primary pl-4">
-                <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Exterieur & Interieur</span>
-                <p className="font-display text-lg italic text-gray-500">De aluminium look, zonder de prijs.</p>
-              </div>
+                <p className="font-display text-lg italic text-gray-500 mb-6">Upgrade uw woning, verlaag uw kosten.</p>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Zwarte Kozijnen <br />
                 <span className="italic font-normal text-primary">Zonder Schilderen</span>
@@ -69,21 +66,21 @@ export default function KozijnenDetail() {
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
-                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9/5</span>
                   <span className="ml-1">Google Reviews</span>
                 </div>
                 <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">10 Jaar</span>
-                <span>Garantie</span>
+                <span className="font-bold text-dark">10+</span>
+                <span>Kozijnen</span>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
-                  Gratis Offerte
+                  Gratis Offerte Zo Snel Mogelijk
                 </a>
                 <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
-                  Bekijk Resultaten
+                  Bekijk Voor & Na Foto's
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>
@@ -111,7 +108,7 @@ export default function KozijnenDetail() {
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
-                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="font-display text-2xl md:text-4xl text-primary">5</span>
                     <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
                   </div>
                 </div>
@@ -245,7 +242,7 @@ export default function KozijnenDetail() {
                   </div>
                   <h3 className="font-display text-xl mb-3">Eindeloze Opties</h3>
                   <p className="text-white/60 text-sm leading-relaxed">
-                     Van mat zwart tot marmerlook of warme houttinten. Meer dan 200 premium designs beschikbaar.
+                     Van mat zwart tot marmerlook of warme houttinten. Meer dan 300 premium designs beschikbaar.
                   </p>
                </div>
 
@@ -295,82 +292,65 @@ export default function KozijnenDetail() {
                </div>
             </div>
 
-            {/* Part B: De Transformatie (Process - ZigZag) */}
-            <div className="text-center mb-16 relative">
-                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 opacity-10">
-                    <span className="font-display text-9xl text-gray-300">01</span>
-                 </div>
-                 <span className="inline-block px-4 py-1 rounded-full border border-gray-200 text-gray-400 text-[10px] tracking-widest uppercase mb-4 relative z-10 bg-background-light">
-                   Werkwijze
-                </span>
-                <h2 className="font-display text-4xl md:text-5xl text-dark relative z-10">
-                   De <span className="italic text-[#C4A47C] font-serif">Transformatie</span>
-                </h2>
+            {/* Part B: Het Verloop (Timeline Style) */}
+            <div className="text-center mb-24 relative z-10">
+               <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Zorgeloze Renovatie</span>
+               <h2 className="font-display text-4xl md:text-5xl text-dark">
+                  Het Verloop <span className="italic text-gray-400 font-serif">Van Uw Project</span>
+               </h2>
             </div>
+            
+            <div className="space-y-24">
+               {[
+                  { 
+                     step: "01", 
+                     title: "Advies & Opmeting", 
+                     desc: "We komen bij u langs om de kozijnen te bekijken en nauwkeurig op te meten. We bespreken uw wensen en laten u de mogelijkheden zien.",
+                     img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop"
+                  },
+                  { 
+                     step: "02", 
+                     title: "Materiaalkeuze", 
+                     desc: "Kies de perfecte match. Met meer dan 300 opties in kleuren en structuren vinden we altijd iets dat past bij de uitstraling van uw woning.",
+                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop",
+                     reverse: true
+                  },
+                  { 
+                     step: "03", 
+                     title: "Montage Zonder Sloop", 
+                     desc: "Onze specialisten wrappen uw kozijnen vakkundig op locatie. Geen sloopwerk, geen rommel. Vaak zijn we binnen enkele dagen klaar.",
+                     img: "https://images.unsplash.com/photo-1599690963544-2f22b822d14c?q=80&w=2670&auto=format&fit=crop"
+                  },
+                  { 
+                     step: "04", 
+                     title: "Oplevering & Service", 
+                     desc: "Samen lopen we het eindresultaat na. U ontvangt een garantiecertificaat en onderhoudsadvies. Geniet direct van uw 'nieuwe' kozijnen.",
+                     img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2670&auto=format&fit=crop",
+                     reverse: true
+                  }
+               ].map((item, idx) => (
+                  <div key={idx} className={`relative flex flex-col items-center gap-12 md:gap-24 ${item.reverse ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                     
+                     {/* Timeline Dot (Desktop) */}
+                     <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white border border-gray-200 rounded-full items-center justify-center font-display text-primary shadow-sm z-20">
+                        {item.step}
+                     </div>
 
-            {/* Step 1: Image Left, Text Right */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
-               {/* Image */}
-               <div className="space-y-6">
-                  <div className="aspect-video overflow-hidden shadow-lg border border-gray-100 relative group">
-                     <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1500&auto=format&fit=crop" alt="Voorbereiding" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                     <div className="absolute top-4 left-4 font-display text-6xl text-white/20 font-bold">01</div>
+                     <div className="flex-1 w-full">
+                        <div className="aspect-[4/3] bg-gray-100 overflow-hidden relative shadow-lg group">
+                           <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+                           <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-500"></div>
+                        </div>
+                     </div>
+                     <div className="flex-1 text-center md:text-left">
+                        <span className="text-[#C4A47C] font-serif italic text-xl mb-4 block md:hidden">Stap {item.step}</span>
+                        <h3 className="font-display text-3xl md:text-4xl text-dark mb-6">{item.title}</h3>
+                        <p className="text-gray-500 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
+                           {item.desc}
+                        </p>
+                     </div>
                   </div>
-               </div>
-               {/* Text */}
-               <div>
-                  <h3 className="font-display text-2xl text-dark mb-2">Voorbereiding & Reiniging</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                     Alles begint met een perfecte basis. We ontvetten de kozijnen grondig en egaliseren eventuele oneffenheden. Geen stof, geen sloopwerk, enkel precisie.
-                  </p>
-                  <ul className="mt-4 space-y-2">
-                     <li className="text-xs text-gray-400 flex items-center gap-2"><span className="text-[#C4A47C]">✓</span> Dieptereiniging</li>
-                     <li className="text-xs text-gray-400 flex items-center gap-2"><span className="text-[#C4A47C]">✓</span> Reparatie beschadigingen</li>
-                  </ul>
-               </div>
-            </div>
-
-            {/* Step 2: Text Left, Image Right */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
-               {/* Text (Order 2 on mobile, Order 1 on desktop) */}
-               <div className="order-2 md:order-1">
-                  <h3 className="font-display text-2xl text-dark mb-2">Applicatie</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                     Onze gecertificeerde specialisten brengen de folie aan met chirurgische precisie. De folie vormt zich naadloos om hoeken en randen door middel van hitte-techniek.
-                  </p>
-                  <ul className="mt-4 space-y-2">
-                     <li className="text-xs text-gray-400 flex items-center gap-2"><span className="text-[#C4A47C]">✓</span> Naadloze hoeken</li>
-                     <li className="text-xs text-gray-400 flex items-center gap-2"><span className="text-[#C4A47C]">✓</span> Luchtbelvrij resultaat</li>
-                  </ul>
-               </div>
-               {/* Image (Order 1 on mobile, Order 2 on desktop) */}
-               <div className="space-y-6 order-1 md:order-2">
-                  <div className="aspect-video overflow-hidden shadow-lg border border-gray-100 relative group">
-                     <img src="https://images.unsplash.com/photo-1621293954908-eae6d5e53434?q=80&w=1500&auto=format&fit=crop" alt="Applicatie" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                     <div className="absolute top-4 right-4 font-display text-6xl text-white/20 font-bold">02</div>
-                  </div>
-               </div>
-            </div>
-
-            {/* Step 3: Image Left, Text Right */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-               {/* Image */}
-               <div className="space-y-6">
-                   <div className="aspect-video overflow-hidden shadow-lg border border-gray-100 relative group">
-                     <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1500&auto=format&fit=crop" alt="Finishing Touch" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                     <div className="absolute top-4 left-4 font-display text-6xl text-white/20 font-bold">03</div>
-                  </div>
-               </div>
-               {/* Text */}
-               <div>
-                  <h3 className="font-display text-2xl text-dark mb-2">Finishing Touch</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                     Het resultaat is verbluffend. We kitten de randen strak af voor een waterdichte en esthetische perfecte aansluiting. Uw kozijnen zijn niet van nieuw te onderscheiden.
-                  </p>
-                  <div className="mt-4">
-                     <a href="/projecten" className="text-xs text-[#C4A47C] border-b border-[#C4A47C]/30 hover:border-[#C4A47C] transition-colors pb-1">Bekijk voor en na foto's</a>
-                  </div>
-               </div>
+               ))}
             </div>
 
          </div>
@@ -465,40 +445,53 @@ export default function KozijnenDetail() {
 
       {/* Reviews Section */}
         <section className="py-24 bg-white border-t border-gray-100">
-          <div className="max-w-[1400px] mx-auto px-6 text-center mb-16">
-             <span className="material-symbols-outlined text-3xl text-[#C4A47C]/50">format_quote</span>
-             <h2 className="font-display text-4xl md:text-5xl text-dark mt-4">
-               Wat Onze Klanten <span className="italic text-[#C4A47C] font-serif">Zeggen</span>
-             </h2>
-          </div>
-          <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-             <div className="text-center p-8 bg-gray-50 rounded-2xl">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
-                   <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80" alt="Customer" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex justify-center text-[#C4A47C] text-sm mb-4">★★★★★</div>
-                <p className="text-gray-600 italic mb-6">"Strak, modern en snel geregeld. Binnen 2 dagen een compleet nieuwe look voor onze kozijnen."</p>
-                <div className="text-xs font-bold uppercase tracking-widest text-dark">Jeroen</div>
-                <div className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Loft Rotterdam</div>
-             </div>
-             <div className="text-center p-8 bg-gray-50 rounded-2xl md:-mt-8 shadow-xl relative z-10">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-white">
-                   <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=256&q=80" alt="Customer" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex justify-center text-[#C4A47C] text-sm mb-4">★★★★★</div>
-                <p className="text-gray-600 italic mb-6">"We waren bang dat het nep zou lijken, maar de structuur voelt echt aan. Geeft onze woonboot precies die frisse uitstraling."</p>
-                <div className="text-xs font-bold uppercase tracking-widest text-dark">Karin De Jong</div>
-                <div className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Woonboot Groningen</div>
-             </div>
-             <div className="text-center p-8 bg-gray-50 rounded-2xl">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden">
-                   <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80" alt="Customer" className="w-full h-full object-cover" />
-                </div>
-                <div className="flex justify-center text-[#C4A47C] text-sm mb-4">★★★★★</div>
-                <p className="text-gray-600 italic mb-6">"Zeer professioneel bedrijf. Goede communicatie vooraf en de montage verliep vlekkeloos."</p>
-                <div className="text-xs font-bold uppercase tracking-widest text-dark">Dhr. S. Bakker</div>
-                <div className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Penthouse Den Haag</div>
-             </div>
+          <div className="max-w-[1400px] mx-auto px-6">
+            <div className="text-center mb-16">
+              <span className="material-symbols-outlined text-4xl text-primary mb-4">format_quote</span>
+              <h2 className="font-display text-4xl text-dark">Wat Onze Klanten <span className="italic text-gray-400">Zeggen</span></h2>
+            </div>
+            <div className="w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+              <div 
+                className="flex animate-scroll gap-12 w-max items-start py-12 hover:[animation-play-state:paused]"
+                style={{ "--animation-duration": "80s" } as React.CSSProperties}
+              >
+                {[
+                  { quote: "Voor een fractie van de prijs heb ik nu precies de look die ik wilde. De kwaliteit van de folie is echt verbluffend — het voelt als echt hout!", author: "Sophie van der Berg", detail: "Matte Black Finish — Hoekwoning Haarlem", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw" },
+                  { quote: "De monteur was super professioneel. Om 9 uur begonnen, om 16 uur klaar. Geen rommel, geen stank en een compleet andere keuken. Ongelofelijk!", author: "Thomas Dekker", detail: "Betonlook — Appartement Amsterdam", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY", className: "md:-mt-8" },
+                  { quote: "We wilden een warme houtlook voor ons kookeiland. De nerfstructuur voelt heel natuurlijk aan, en na 2 jaar ziet het er nog steeds perfect uit.", author: "Elise & Mark", detail: "Rustiek Eiken — Twee-onder-een-kap Breda", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940" },
+                  { quote: "Onze keuken was nog goed, maar de kleur stond ons niet meer aan. Wrappen was de perfecte oplossing. Het resultaat is niet van echt natuursteen te onderscheiden.", author: "Fam. Visser", detail: "Marmerlook — Vrijstaande Woning Utrecht", rating: 5, image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                  { quote: "Super blij met de nieuwe kleur! De monteur dacht goed mee over de kleine details en de afwerking is echt top. Een aanrader.", author: "Lisa & Tom", detail: "Soft Touch Moss Green — Nieuwbouw Leidsche Rijn", rating: 5, image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80" },
+                  { quote: "Strak, modern en snel geregeld. Binnen 2 dagen een compleet nieuwe look in ons appartement. Scheelt enorm veel geld vergeleken met een nieuwe keuken.", author: "Jeroen", detail: "Industrial Concrete — Loft Rotterdam", rating: 5, image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                  { quote: "We waren bang dat het nep zou lijken, maar de structuur voelt echt aan. Geeft onze woonboot precies die frisse uitstraling die we zochten.", author: "Karin de Jong", detail: "Houtstructuur Licht Eiken — Woonboot Groningen", rating: 5, image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=256&q=80" },
+                  { quote: "Zeer professioneel bedrijf. Goede communicatie vooraf en de montage verliep vlekkeloos. Het resultaat straalt luxe uit.", author: "Dhr. S. Bakker", detail: "Ultra Mat Antraciet — Penthouse Den Haag", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                  // Duplicate for smooth loop
+                  { quote: "Voor een fractie van de prijs heb ik nu precies de look die ik wilde. De kwaliteit van de folie is echt verbluffend — het voelt als echt hout!", author: "Sophie van der Berg", detail: "Matte Black Finish — Hoekwoning Haarlem", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDTjRje0SsZ6X0SAG9XXaHd5PWyK25Vgb6cLKod36DBVSDPIcbnwR9MKVSjvL7-e8ksM_MVxEZ67Hao_GlVVaxvma_vapg2Zu2ZSQHAxBwoxunhpLAQaSdFgJMZ4jate1Z3qME5ZSt90NJE3BI98eyhofu9oDEU3Jk3GFE29fBhaX4pWdTqEZQrzKTE3Rgr98QIZ4xQFxr04utOCsua05sMe1fPipu441itxxVUqbTgtY96olHL6qdq11eYZ0nsh9oK0s543U7ekdw" },
+                  { quote: "De monteur was super professioneel. Om 9 uur begonnen, om 16 uur klaar. Geen rommel, geen stank en een compleet andere keuken. Ongelofelijk!", author: "Thomas Dekker", detail: "Betonlook — Appartement Amsterdam", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY", className: "md:-mt-8" },
+                  { quote: "We wilden een warme houtlook voor ons kookeiland. De nerfstructuur voelt heel natuurlijk aan, en na 2 jaar ziet het er nog steeds perfect uit.", author: "Elise & Mark", detail: "Rustiek Eiken — Twee-onder-een-kap Breda", rating: 5, image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRwo0QG3cGcazJtGiKDKbSOSl5YrYgkC7bd5re6bFLjJ5RpJkUnTqxqjICK7bs7v50fEdVvEMnFOdETrAlScnkiGEwjl6xhZsJujHVw0RcucCL0boKG-95d_auEwgBO-RxhmgPfZ1CHPKk3nAkta6T3aamp6RFXn_q3-x3yOtLwx9xRVLyIOQ3EZqsBJE6Lwk9HnostG-8vZNR6nYrxqTqDXGfUUhWqw3qKOen9-ZzCBXUyKlW6Rv7DiCvDQ23oj0L82cNKdHU940" },
+                  { quote: "Onze keuken was nog goed, maar de kleur stond ons niet meer aan. Wrappen was de perfecte oplossing. Het resultaat is niet van echt natuursteen te onderscheiden.", author: "Fam. Visser", detail: "Marmerlook — Vrijstaande Woning Utrecht", rating: 5, image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                  { quote: "Super blij met de nieuwe kleur! De monteur dacht goed mee over de kleine details en de afwerking is echt top. Een aanrader.", author: "Lisa & Tom", detail: "Soft Touch Moss Green — Nieuwbouw Leidsche Rijn", rating: 5, image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80" },
+                  { quote: "Strak, modern en snel geregeld. Binnen 2 dagen een compleet nieuwe look in ons appartement. Scheelt enorm veel geld vergeleken met een nieuwe keuken.", author: "Jeroen", detail: "Industrial Concrete — Loft Rotterdam", rating: 5, image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                  { quote: "We waren bang dat het nep zou lijken, maar de structuur voelt echt aan. Geeft onze woonboot precies die frisse uitstraling die we zochten.", author: "Karin de Jong", detail: "Houtstructuur Licht Eiken — Woonboot Groningen", rating: 5, image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=256&q=80" },
+                  { quote: "Zeer professioneel bedrijf. Goede communicatie vooraf en de montage verliep vlekkeloos. Het resultaat straalt luxe uit.", author: "Dhr. S. Bakker", detail: "Ultra Mat Antraciet — Penthouse Den Haag", rating: 5, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80", className: "md:-mt-8" },
+                ].map((item, index) => (
+                  <div key={index} className={`text-center group w-[400px] shrink-0 ${item.className || ''}`}>
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                      <img alt="Customer" className="w-full h-full object-cover" src={item.image} />
+                    </div>
+                    <div className="flex justify-center gap-0.5 mb-4">
+                      {Array.from({length: item.rating}).map((_, i) => (
+                        <span key={i} className="material-symbols-outlined text-primary text-sm">star</span>
+                      ))}
+                    </div>
+                    <p className="font-display text-lg italic text-gray-600 mb-6 leading-relaxed">"{item.quote}"</p>
+                    <div className="border-t border-gray-100 pt-4 inline-block w-full">
+                      <h4 className="font-bold text-xs uppercase tracking-widest text-dark">{item.author}</h4>
+                      <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">{item.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 

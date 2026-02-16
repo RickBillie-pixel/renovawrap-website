@@ -151,7 +151,7 @@ function KeuzehulpWizard() {
           </div>
           <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
           <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Wij nemen binnen 24 uur contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat.
+            Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat.
           </p>
         </div>
       </div>
@@ -604,25 +604,25 @@ export default function KeukenWrappingDetail() {
                 <span className="italic font-normal text-primary">Als Nieuw</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Transformeer uw keuken tot 70% goedkoper zonder sloopwerk. Kies uit 300+ premium afwerkingen en geniet binnen één dag van een compleet nieuwe showroom-look.
+                Uitgekeken op uw keuken? Een nieuwe keuken kost al snel €8.000+. Wij wrappen uw bestaande keuken met premium interieurfolie in elke gewenste kleur en structuur. Niet van echt te onderscheiden, klaar binnen twee dagen en een fractie van de kosten.
               </p>
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
-                  <span className="ml-1 font-bold text-dark">4.9</span>
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9/5</span>
                   <span className="ml-1">Google Reviews</span>
                 </div>
                 <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">500+</span>
-                <span>Keukens Gewrapt</span>
+                <span className="font-bold text-dark">10+</span>
+                <span>Keukens</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
-                  Gratis Offerte
+                  Gratis Offerte Zo Snel Mogelijk
                 </a>
                 <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="#portfolio">
-                  Bekijk Portfolio
+                  Bekijk Voor & Na Foto's
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>
@@ -683,7 +683,7 @@ export default function KeukenWrappingDetail() {
               },
               {
                 title: "Werkbladen",
-                desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en hittebestendig tot 180°C. Een luxe look voor een fractie van de prijs.",
+                desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en hittebestendig tot 90 graden. Een luxe look voor een fractie van de prijs.",
                 image: "/project-fotos/after6.webp",
                 className: "md:mt-24",
                 link: "/diensten/aanrechtbladen"
@@ -900,7 +900,7 @@ export default function KeukenWrappingDetail() {
               Ontvang Uw <span className="italic text-primary">Offerte Op Maat</span>
             </h2>
             <p className="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
-              Beantwoord 5 korte vragen en wij sturen u binnen 24 uur een vrijblijvende offerte. U kunt ook foto's van uw keuken toevoegen voor een nauwkeurigere prijsindicatie.
+              Beantwoord 5 korte vragen en wij sturen u zo snel mogelijk een vrijblijvende offerte. U kunt ook foto's van uw keuken toevoegen voor een nauwkeurigere prijsindicatie.
             </p>
           </div>
           <div className="w-full">

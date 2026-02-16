@@ -137,7 +137,7 @@ export default function KeuzehulpAchterwanden() {
           </div>
           <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
           <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Wij nemen binnen 24 uur contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw achterwand.
+            Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw achterwand.
           </p>
         </div>
       </div>
@@ -181,7 +181,7 @@ export default function KeuzehulpAchterwanden() {
           {step === 2 && "Een schatting van de totale breedte in strekkende meters."}
           {step === 3 && "Kies voor een moderne vlakke kleur of een natuurgetrouwe steenlook."}
           {step === 4 && "Foto's helpen ons om stopcontacten en hoeken in te schatten."}
-          {step === 5 && "Ontvang binnen 24 uur een vrijblijvend voorstel."}
+          {step === 5 && "Ontvang zo snel mogelijk een vrijblijvend voorstel."}
         </p>
 
         {/* Progress Timeline (Desktop) */}

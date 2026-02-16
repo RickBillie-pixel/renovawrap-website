@@ -70,21 +70,21 @@ export default function KastenDetail() {
               {/* Trust Badges */}
               <div className="flex items-center gap-6 text-xs text-gray-400">
                 <div className="flex items-center gap-1">
-                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-primary text-sm">star</span>)}
-                  <span className="ml-1 font-bold text-dark">4.9</span>
-                  <span className="ml-1">Uitstekend</span>
+                  {[1,2,3,4,5].map(s => <span key={s} className="material-symbols-outlined text-yellow-500 text-sm">star</span>)}
+                  <span className="ml-1 font-bold text-dark">4.9/5</span>
+                  <span className="ml-1">Google Reviews</span>
                 </div>
                 <span className="text-gray-300">|</span>
-                <span className="font-bold text-dark">500+</span>
-                <span>Kasten Gerenoveerd</span>
+                <span className="font-bold text-dark">10+</span>
+                <span>Kasten</span>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-6 pt-4">
                 <a className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center" href="#keuzehulp">
-                  Vrijblijvende Offerte
+                  Gratis Offerte Zo Snel Mogelijk
                 </a>
                 <a className="flex items-center text-xs font-bold tracking-widest uppercase border-b border-transparent hover:border-dark transition-all pb-1 w-fit" href="/projecten">
-                  Bekijk Resultaten
+                  Bekijk Voor & Na Foto's
                   <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                 </a>
               </div>
@@ -112,7 +112,7 @@ export default function KastenDetail() {
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
-                    <span className="font-display text-2xl md:text-4xl text-primary">10</span>
+                    <span className="font-display text-2xl md:text-4xl text-primary">5</span>
                     <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold mt-1">Jaar Garantie</span>
                   </div>
                 </div>
@@ -123,19 +123,21 @@ export default function KastenDetail() {
       </header>
 
       {/* 2. Intro Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-background-light border-y border-gray-200">
         <div className="max-w-[1400px] mx-auto px-6">
-           <div className="flex flex-col md:flex-row justify-between items-start mb-16">
+           <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-12">
               <div className="max-w-xl">
-                 <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Metamorfose</span>
+                 <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Premium Upgrade</span>
                  <h2 className="font-display text-4xl md:text-6xl text-dark leading-tight">
                     Inbouwkasten Renovatie <br />
                     <span className="italic text-primary font-serif">Zonder Sloopwerk</span>
                  </h2>
               </div>
-              <div className="mt-8 md:mt-0 max-w-md">
-                 <p className="text-gray-500 leading-relaxed text-sm">
-                    Is de indeling van uw kast nog perfect, maar past de kleur niet meer bij uw interieur? Of wilt u van die standaard witte inbouwkast een echte eyecatcher maken? Met wrappen upgraden wij uw meubels naar een premium niveau, zonder de kosten en overlast van een complete vervanging.
+              <div className="w-full h-[1px] bg-gray-300 md:hidden"></div>
+              <div className="max-w-md border-l-4 border-primary pl-6">
+                 <p className="text-gray-600 leading-relaxed text-lg font-light">
+                    Is de indeling van uw kast nog perfect, maar past de kleur niet meer bij uw interieur? 
+                    <strong className="text-dark block mt-2">Wij creëren een compleet nieuwe look zonder de rommel van een verbouwing.</strong>
                  </p>
               </div>
            </div>
@@ -143,7 +145,7 @@ export default function KastenDetail() {
       </section>
 
       {/* 3. Categories Zig-Zag Section (Overlapping Cards Style) */}
-      <section className="bg-background-light py-12 overflow-hidden">
+      <section className="bg-white py-12 overflow-hidden">
          {/* Row 1: Slaapkamer & Walk-in */}
          <div className="max-w-[1400px] mx-auto px-6 mb-32">
             <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
@@ -159,7 +161,7 @@ export default function KastenDetail() {
                       <span className="text-primary text-[10px] uppercase tracking-widest font-bold mb-4 block group-hover:text-dark transition-colors">01 - Rust & Luxe</span>
                       <h3 className="font-display text-4xl text-dark mb-6 font-serif leading-tight group-hover:text-primary transition-colors">Slaapkamer <span className="italic">&</span> Walk-in</h3>
                       <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                         Creëer een oase van rust. Transformeer uw kledingkast met een zachte linnen-structuur of ga voor de exclusieve uitstraling van warm hout.
+                         Geniet van pure rust. Wij toveren uw kledingkast om tot een luxe eyecatcher met een zachte linnen-structuur of warme houtlook.
                       </p>
                       <a href="/projecten" className="text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
                          Bekijk Voorbeelden
@@ -294,7 +296,7 @@ export default function KastenDetail() {
                   { 
                      step: "02", 
                      title: "Materiaalkeuze", 
-                     desc: "Kies de perfecte match. We adviseren u graag over welke kleur en structuur het beste past bij uw vloer, lichtinval en persoonlijke stijl.",
+                     desc: "Kies de juiste match. We adviseren u graag over welke kleur en structuur het beste past bij uw vloer, lichtinval en persoonlijke stijl.",
                      img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop",
                      reverse: true
                   },
@@ -355,8 +357,8 @@ export default function KastenDetail() {
                   Twijfelt u tussen mat zwart, warm eiken of betonlook? Gebruik onze online catalogus om de mogelijkheden te bekijken of vraag een stalenpakket aan.
                </p>
                <div className="flex flex-col sm:flex-row gap-4">
-                  <a href="#keuzehulp" className="bg-[#C4A47C] text-black px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-white transition-colors text-center">
-                     Start Keuzehulp
+                  <a href="/configurator" className="bg-[#C4A47C] text-black px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-white transition-colors text-center">
+                     Start Configurator
                   </a>
                   <a href="/catalogus" className="border border-white/30 text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-colors text-center">
                      Bekijk Catalogus
@@ -364,11 +366,12 @@ export default function KastenDetail() {
                </div>
             </div>
             <div className="flex justify-center md:justify-end">
-                <div className="relative w-full max-w-md aspect-square bg-white/5 p-8 border border-white/10 backdrop-blur-sm group cursor-pointer">
-                   <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsvqwxsUEdDIcqrvI8AA5r9MWQbn24oripIYtHCqFgtwJsqwQKXhfdO40A4vJZ1FCHMKr-d3_o6z_YwiSFcaOYGoXoyLFutTLv16mojhZAkY7K5sdUVTsDKjL6tyjDLIB7k4Ab2vltriKnICg8gbouC5Ml9x4NPjZTJBRhL21YVt-l9wj8oR6roB61uKmUCKd87ZsnVtZAxEsIa6x_jKnbjPeOSHrOFXitrV91wivNE_RmlJbpgBofTlOOtBAMYmjIPrWVaDhprZM" className="w-full h-full object-cover shadow-xl transition-transform duration-500 group-hover:scale-[1.02]" alt="Kleurstaal voorbeeld" />
-                   <div className="absolute top-1/2 -right-6 w-12 h-12 bg-white rounded-full flex items-center justify-center text-dark shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="material-symbols-outlined">chevron_right</span>
-                   </div>
+                <div className="relative w-full max-w-md aspect-square rounded-lg overflow-hidden shadow-2xl border border-white/10 bg-black/50">
+                    <BeforeAfterSlider
+                        beforeImage="/project-fotos/before4.webp"
+                        afterImage="/project-fotos/after4.webp"
+                        className="w-full h-full"
+                    />
                 </div>
             </div>
          </div>
@@ -382,7 +385,7 @@ export default function KastenDetail() {
         <div className="max-w-[1400px] mx-auto px-6 text-center mb-12">
             <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Direct Inzicht</span>
             <h2 className="font-display text-4xl md:text-5xl text-dark leading-tight mb-4">
-              Uw Offerte <span className="italic text-primary">Binnen 24 Uur</span>
+              Zo Snel Mogelijk <span className="italic text-primary">Een Offerte</span>
             </h2>
             <p className="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
               Geen lange wachttijden of ingewikkelde procedures. Beantwoord een paar vragen, upload een foto, en wij sturen u een transparant voorstel.
