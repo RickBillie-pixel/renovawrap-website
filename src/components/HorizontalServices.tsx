@@ -60,7 +60,7 @@ export default function HorizontalServices() {
 
       {/* MOBILE: Vertical Stack with Animation & Asymmetry */}
       <section className="block lg:hidden bg-background-light py-24 px-6 overflow-hidden">
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-12">
             
            {/* Mobile Header */}
            <div className="mb-8">
@@ -78,44 +78,44 @@ export default function HorizontalServices() {
                key={service.id} 
                direction={index % 2 === 0 ? "left" : "right"}
                className="w-full"
+               threshold={0.1}
              >
                 <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}>
                     
                     {/* Image Card */}
                     <div 
-                      className={`relative w-[85%] aspect-[4/5] mb-6 shadow-xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}
+                      className={`relative w-[75%] aspect-[3/4] mb-6 shadow-2xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}
                     >
                          <Link to={service.link} className="block w-full h-full overflow-hidden group">
                            <img
                             alt={service.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                             src={service.image}
                           />
-                          <div className="absolute inset-0 bg-dark/0 group-hover:bg-dark/10 transition-colors duration-500" />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
                         </Link>
                          
-                         {/* Number Badge - Clearly associated with image */}
-                         <div className="absolute top-0 left-0 bg-white p-4 shadow-sm z-10">
-                            <span className="font-display text-xl text-dark">
+                         {/* Number Badge - Overlapping Bottom Corner */}
+                         <div className={`absolute -bottom-5 ${index % 2 === 0 ? '-right-5' : '-left-5'} bg-white p-4 shadow-xl z-20`}>
+                            <span className="font-display text-3xl text-primary font-bold">
                                 {String(service.id).padStart(2, "0")}
                             </span>
                          </div>
                     </div>
 
                     {/* Text Content */}
-                    <div className={`w-full max-w-[90%] ${index % 2 === 0 ? 'text-left pl-2' : 'text-right pr-2'}`}>
-                        <h3 className="font-display text-4xl mb-3 text-dark leading-none">
-                            {service.title}
-                        </h3>
-                         <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3">
-                           {service.description}
-                         </p>
-                         <Link
-                          to={service.link} 
-                          className={`inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-medium border-b border-dark/20 pb-2 hover:border-dark transition-colors ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                        >
-                          Ontdek meer
-                          <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                    <div className={`w-[85%] ${index % 2 === 0 ? 'text-left pl-2' : 'text-right pr-2'} mt-4`}>
+                        <Link to={service.link} className="block group">
+                            <h3 className="font-display text-3xl text-dark mb-3 group-hover:text-primary transition-colors leading-[0.9]">
+                                {service.title}
+                            </h3>
+                             <p className="text-gray-500 text-xs leading-relaxed mb-4">
+                               {service.description}
+                             </p>
+                             <div className={`flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-dark group-hover:gap-5 transition-all ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                               Bekijk
+                               <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                             </div>
                         </Link>
                     </div>
 

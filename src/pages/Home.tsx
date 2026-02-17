@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { testimonials, processSteps } from "../data/mockData";
 import FadeIn from "../components/FadeIn";
@@ -10,6 +11,7 @@ import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
 import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 import { BASE_URL } from "@/config/nav";
+import ProcessStepsMobile from "../components/ProcessStepsMobile";
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>(() => projectService.getCachedProjects() || []);
@@ -119,23 +121,98 @@ export default function Home() {
       {/* Hero Section */}
       <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
         {/* Background watermark */}
-        <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
-          <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
+        <div className="absolute left-0 top-[115px] md:top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
+          <h1 className="text-[18vw] md:text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
             INTERIEUR
           </h1>
         </div>
 
         <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
+          
+          <div className="lg:hidden flex flex-col h-[calc(100vh-140px)] justify-between pb-6 pt-5 relative z-10">
+              <div className="border-b border-dark/10 pb-4 mb-6 relative">
+                <h1 className="font-display text-[2.35rem] leading-[0.9] tracking-tight text-dark relative z-10">
+                  Geef Uw Keuken & Interieur
+                  <span className="italic font-normal text-primary block mt-1">Een Tweede Leven.</span>
+                </h1>
+                
+                <div className="mt-4 relative z-10">
+                  <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+                    Transformeer uw woning in 1 dag met high-end interieurfolie. Geen sloopwerk, direct resultaat en tot 80% goedkoper dan nieuw.
+                  </p>
+                </div>
+              </div>
+
+              {/* Slider (Fills remaining space) */}
+              <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
+                  {featuredProjects.length > 0 ? (
+                    featuredProjects.map((project, i) => {
+                      const hasBeforeAfter = project.before_image_url && project.after_image_url;
+                      const isActive = i === heroIndex % featuredProjects.length;
+                      
+                      return (
+                        <div
+                          key={`hero-mobile-${project.id}`}
+                          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                          style={{ opacity: isActive ? 1 : 0, zIndex: isActive ? 1 : 0 }}
+                        >
+                          {hasBeforeAfter ? (
+                             <div 
+                               className="w-full h-full"
+                               onClick={(e) => e.stopPropagation()} 
+                             >
+                               <BeforeAfterSlider
+                                 beforeImage={project.before_image_url!}
+                                 afterImage={project.after_image_url!}
+                                 className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                               />
+                             </div>
+                          ) : (
+                            <img 
+                             src={project.after_image_url || project.before_image_url || ""} 
+                             alt={project.name} 
+                             className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                            />
+                          )}
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <img 
+                     src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                     alt="Modern Kitchen Renovation" 
+                     className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                    />
+                  )}
+              </div>
+
+               <div className="flex flex-col gap-3">
+                <Link
+                  to="/contact"
+                  className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg"
+                >
+                  Bereken Uw Prijs
+                </Link>
+                <Link
+                  to="/projecten"
+                  className="flex items-center justify-center text-xs font-bold tracking-widest uppercase border border-dark px-6 py-4 hover:bg-dark hover:text-white transition-all w-full"
+                >
+                  Bekijk Voorbeelden
+                </Link>
+              </div>
+          </div>
+
+          {/* Desktop Layout (Hidden on mobile) */}
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
             {/* Left Content: Text & CTA */}
             <div className="lg:col-span-6 space-y-8">
               <FadeIn>
-                <div className="inline-block border-l-2 border-primary pl-4 mb-8">
+                <div className="hidden lg:block border-l-2 border-primary pl-4 mb-8">
                   <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Renovatie & Interieur Specialist</span>
                   <p className="font-display text-lg italic text-gray-500">Zonder sloopwerk. Binnen één dag.</p>
                 </div>
 
-                <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
+                <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                   Geef Uw Keuken <br /> & Interieur
                   <span className="italic font-normal text-primary block mt-2">Een Tweede Leven.</span>
                 </h1>
@@ -144,7 +221,7 @@ export default function Home() {
                   Transformeer uw woning in 1 dag met high-end interieurfolie. Geen sloopwerk, direct resultaat en tot 80% goedkoper dan nieuw.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-6 pt-4">
+                <div className="hidden lg:flex flex-col sm:flex-row gap-6 pt-4">
                   <Link
                     to="/contact"
                     className="bg-dark text-white px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center inline-block"
@@ -166,7 +243,7 @@ export default function Home() {
             <div className="lg:col-span-6 flex justify-center">
               <FadeIn delay={200}>
                 <div className="relative w-full max-w-3xl">
-                    <div className="relative z-10 w-full aspect-square min-h-[600px] shadow-2xl overflow-hidden bg-gray-100">
+                    <div className="relative z-10 w-full aspect-square md:min-h-[600px] shadow-2xl overflow-hidden bg-gray-100">
                        {featuredProjects.length > 0 ? (
                          featuredProjects.map((project, i) => {
                            const hasBeforeAfter = project.before_image_url && project.after_image_url;
@@ -243,8 +320,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Image Collage */}
-          <div className="relative w-full max-w-[1200px] mx-auto h-auto min-h-[800px] md:min-h-[700px] mb-24">
+          {/* Image Collage - Desktop */}
+          <div className="hidden md:block relative w-full max-w-[1200px] mx-auto h-auto min-h-[800px] md:min-h-[700px] mb-24">
             <div className="absolute top-[15%] left-[5%] z-20 max-w-[300px] mix-blend-difference text-white pointer-events-none">
               <h3 className="font-display text-5xl md:text-7xl italic leading-none opacity-90">Snel & Schoon</h3>
             </div>
@@ -289,9 +366,92 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Mobile Specific - Enterprise Layout */}
+          <div className="md:hidden space-y-6 mb-24">
+            {/* Card 1: Snel & Schoon */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100/50"
+            >
+              <div className="flex h-32">
+                <div className="w-[40%] relative overflow-hidden">
+                  <div className="absolute inset-0 bg-dark/10 z-10"></div>
+                  <img
+                    alt="Snel en schoon werken"
+                    className="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ0xp4zXhxN9OCy1GHjHZUMYQS1ywwcVQs5Nz8ZarRP4evqb8UkZflerz4LuvbXbtPiiGcXnEFo88C1_bbwc1-1-hYyrNv0Lzs5jKdJ6gWrpKWgLCeFSVjJSQ3MFwMQ-4E7GA85ZI3OD58RpSOQ06W6bBV8wm1Mmru44ojWNGsrJxptEeVYRhFD47qxkYPBZeoh-9PttZ7b7Du1D2RUIPIxAeTKVXwvJ482jfZnKLlNWbp66-GvN3OJPv1mjsWrim797aB3HDNhs8"
+                  />
+                </div>
+                <div className="w-[60%] p-5 flex flex-col justify-center relative">
+                   <span className="absolute top-4 right-4 text-[9px] uppercase tracking-[0.2em] text-gray-400">
+                    Kwaliteit
+                  </span>
+                  <h3 className="font-display text-2xl leading-none italic mb-1">Snel & <br/> Schoon</h3>
+                  <p className="text-xs text-gray-500 mt-2 line-clamp-2">Geen stof, geen puin, direct resultaat.</p>
+                </div>
+              </div>
+            </motion.div>
+
+             {/* Card 2: Duurzaam */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100/50"
+            >
+              <div className="flex h-32 flex-row-reverse">
+                <div className="w-[40%] relative overflow-hidden">
+                  <div className="absolute inset-0 bg-dark/10 z-10"></div>
+                   <img
+                    alt="Duurzaam en sterk"
+                    className="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx5WR-hMnWMtZbqI_cg2HAjl9r0Cwt3U9UhDBROjPH5wx7Nj-uKMNQTsFkB15cSgFfAaQ2aXzJNtJx8hdTleOIoJeqW62mYtqOxCZCIwjdWnJnQJJ3JbNG7Zekf2tqaajugaIvzUmQmWOJvwwGs3eZ20QSVXHlR47HrijbKSf5EyUI5BRFX9Rx9jFEBUJBtYlBmIYiY7VHoF2dPP_Wkp4ngKHAMPzVJ9uk4BAXh4edaXlbHDcY6by9hdDcSZGfkHBIBFwTVvZyOp0"
+                  />
+                </div>
+                <div className="w-[60%] p-5 flex flex-col justify-center relative text-right">
+                   <h3 className="font-display text-2xl leading-none bg-background-light/50 backdrop-blur-sm self-end px-2 whitespace-nowrap">
+                    Duurzaam
+                  </h3>
+                   <p className="text-xs text-gray-500 mt-2 line-clamp-2">Kras- en stootvast voor dagelijks gebruik.</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Card 3: High-End Design */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100/50"
+            >
+              <div className="flex h-32">
+                <div className="w-[40%] relative overflow-hidden">
+                   <div className="absolute inset-0 bg-dark/5 z-10"></div>
+                   <img
+                    alt="High-end design resultaat"
+                    className="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQ7CZma-nwhJXHzmQ0OFtElMNDapKx-kKUaGd6kErk-h4r9FRMhkoxkxuhIWOynOp0L3JjCFlF1FOOloizTflsrqmXGLFF2Hp34OusR76JqsT6CTXZnXuXfGCkf6usIw0nA8louiyUXbYJyDiIFJgI9D58QqZEMkqA88QRvN-gtr8v3oMNhjeR3mTHSvnIWDEVI7FfKZpICpW-ybem4EZysHMOg5Y-mN5FK7lacvZonQUgns77wQe8Dj58hlO8DegZQbFc-c99Tw"
+                  />
+                </div>
+                <div className="w-[60%] p-5 flex flex-col justify-center relative">
+                   <span className="absolute top-4 right-4 text-[9px] uppercase tracking-[0.2em] text-primary font-bold">
+                    Premium
+                  </span>
+                  <h3 className="font-display text-2xl leading-none italic text-primary mb-1">High-End <br/> Design</h3>
+                  <p className="text-xs text-gray-500 mt-2 line-clamp-2">Niet van echt te onderscheiden.</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-dark/10 pt-16 mt-32">
-            <FadeIn className="group cursor-default">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 border-t border-dark/10 pt-16 mt-32">
+            <FadeIn className="group cursor-default col-span-2 md:col-span-1 flex flex-col items-center md:block">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">
                 Projecten
               </p>
@@ -299,7 +459,7 @@ export default function Home() {
                 <CountUp end={47} />
               </p>
             </FadeIn>
-            <FadeIn delay={100} className="group cursor-default">
+            <FadeIn delay={100} className="group cursor-default col-span-1 flex flex-col items-center md:block">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">
                 Reviews
               </p>
@@ -307,7 +467,7 @@ export default function Home() {
                 <CountUp end={19} />
               </p>
             </FadeIn>
-            <FadeIn delay={200} className="group cursor-default">
+            <FadeIn delay={200} className="group cursor-default col-span-1 flex flex-col items-center md:block">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover:text-primary transition-colors">
                 Materialen
               </p>
@@ -399,7 +559,126 @@ export default function Home() {
         
         <div className="max-w-[1400px] mx-auto px-6">
           {projects.length > 0 && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[600px]">
+            <>
+              {/* Mobile Specifc Layout (Abstract / Enterprise) */}
+              <div className="md:hidden flex flex-col gap-24 relative mb-24">
+                 {/* Decorative Background Elements */}
+                 <div className="absolute top-[10%] left-[-20%] w-[60%] h-[30%] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+                 <div className="absolute bottom-[20%] right-[-20%] w-[60%] h-[30%] bg-dark/5 rounded-full blur-3xl pointer-events-none" />
+
+                 {/* 01. Featured Project */}
+                 {currentFeatured && (
+                   <div 
+                     className="relative group"
+                     onClick={() => setSelectedProject(currentFeatured)}
+                   >
+                     <div className="flex items-baseline justify-between mb-4 border-b border-dark/10 pb-2">
+                        <span className="font-mono text-xs text-primary">[01]</span>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500">{currentFeatured.category}</span>
+                     </div>
+                     
+                     <div className="aspect-[4/5] w-full overflow-hidden relative mb-6">
+                        <motion.div
+                           initial={{ scale: 1.2 }}
+                           whileInView={{ scale: 1 }}
+                           viewport={{ once: true }}
+                           transition={{ duration: 1.5, ease: "easeOut" }}
+                           className="w-full h-full"
+                        >
+                           <img 
+                             src={currentFeatured.after_image_url || currentFeatured.before_image_url || ""} 
+                             alt={currentFeatured.name}
+                             className="w-full h-full object-cover grayscale contrast-110" // Always grayscale for abstract feel
+                           />
+                        </motion.div>
+                         {/* Reveal Overlay */}
+                        <motion.div 
+                            initial={{ scaleY: 1 }}
+                            whileInView={{ scaleY: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, ease: "circOut", delay: 0.2 }}
+                            className="absolute inset-0 bg-background-light origin-bottom"
+                        />
+                     </div>
+
+                     <h3 className="font-display text-5xl italic leading-[0.9] text-dark mix-blend-multiply">
+                       {currentFeatured.name.split(" ").map((word, i) => (
+                         <span key={i} className={i % 2 !== 0 ? "text-transparent stroke-text" : ""}>{word} </span>
+                       ))}
+                     </h3>
+                     <p className="text-xs text-gray-400 mt-2 line-clamp-2 max-w-[80%]">
+                        High-end renovatie op maat.
+                     </p>
+                   </div>
+                 )}
+
+                 {/* 02. Top Secondary Project */}
+                 {currentSmallTop && (
+                   <div 
+                     className="relative group pl-12" // Indented for staggered feel
+                     onClick={() => setSelectedProject(currentSmallTop)}
+                   >
+                     <div className="flex items-baseline justify-between mb-4 border-b border-dark/10 pb-2">
+                        <span className="font-mono text-xs text-primary">[02]</span>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500">{currentSmallTop.category}</span>
+                     </div>
+                     
+                     <div className="aspect-square w-full overflow-hidden relative mb-6">
+                        <motion.img 
+                           initial={{ opacity: 0, x: 20 }}
+                           whileInView={{ opacity: 1, x: 0 }}
+                           viewport={{ once: true }}
+                           transition={{ duration: 0.8 }}
+                           src={currentSmallTop.after_image_url || currentSmallTop.before_image_url || ""} 
+                           alt={currentSmallTop.name}
+                           className="w-full h-full object-cover grayscale brightness-110"
+                         />
+                     </div>
+
+                     <h3 className="font-display text-4xl text-right leading-[0.9] text-dark">
+                       {currentSmallTop.name}
+                     </h3>
+                   </div>
+                 )}
+
+                 {/* 03. Bottom Secondary Project */}
+                 {currentSmallBottom && (
+                   <div 
+                     className="relative group pr-8"
+                     onClick={() => setSelectedProject(currentSmallBottom)}
+                   >
+                     <div className="flex items-baseline justify-between mb-4 border-b border-dark/10 pb-2">
+                        <span className="font-mono text-xs text-primary">[03]</span>
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-gray-500">{currentSmallBottom.category}</span>
+                     </div>
+                     
+                     <div className="aspect-[3/4] w-full overflow-hidden relative mb-6">
+                        <div className="absolute inset-0 bg-dark/20 mix-blend-multiply z-10 pointer-events-none"></div>
+                        <motion.img 
+                           initial={{ scale: 1.1 }}
+                           whileInView={{ scale: 1 }}
+                           viewport={{ once: true }}
+                           transition={{ duration: 1.2 }}
+                           src={currentSmallBottom.after_image_url || currentSmallBottom.before_image_url || ""} 
+                           alt={currentSmallBottom.name}
+                           className="w-full h-full object-cover grayscale contrast-125"
+                         />
+                         <div className="absolute bottom-4 left-4 z-20">
+                            <span className="text-white text-xs tracking-widest uppercase border border-white/30 px-3 py-1 bg-white/10 backdrop-blur-md">
+                              Bekijk Project
+                            </span>
+                         </div>
+                     </div>
+
+                     <h3 className="font-display text-4xl italic text-gray-400">
+                       {currentSmallBottom.name}
+                     </h3>
+                   </div>
+                 )}
+              </div>
+
+              {/* Desktop Layout (Existing) */}
+              <div className="hidden md:grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 min-h-[600px]">
               
               {/* Left Column (Primary Feature — cycles through featured projects) - Span 7 */}
               <div 
@@ -546,6 +825,7 @@ export default function Home() {
 
               </div>
             </div>
+            </>
           )}
         </div>
       </section>
@@ -553,7 +833,7 @@ export default function Home() {
       {/* How It Works Section */}
       <section className="py-32 bg-white border-t border-dark/5">
         <div className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
             <div className="lg:col-span-4 sticky top-32 h-fit">
               <h2 className="font-display text-5xl md:text-6xl mb-8 leading-none">
                 Hoe wij <br /> <span className="italic text-primary">werken</span>
@@ -592,6 +872,33 @@ export default function Home() {
               ))}
             </div>
           </div>
+
+          {/* Mobile View */}
+          <div className="lg:hidden">
+            <div className="mb-12">
+              <h2 className="font-display text-4xl mb-4 leading-none">
+                Hoe wij <br /> <span className="italic text-primary">werken</span>
+              </h2>
+              <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                Uw interieur vernieuwen was nog nooit zo simpel. Transparant in kosten, meesterlijk in uitvoering.
+              </p>
+              <Link
+                to="/contact"
+                className="inline-block border border-dark px-8 py-3 text-xs uppercase tracking-widest hover:bg-dark hover:text-white transition-all shadow-sm w-full text-center"
+              >
+                VRAAG OFFERTE AAN
+              </Link>
+            </div>
+            
+            <ProcessStepsMobile 
+              steps={processSteps.map(step => ({
+                step: step.number,
+                title: step.title,
+                desc: step.description,
+                img: step.image || "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80" // Fallback
+              }))}
+            />
+          </div>
         </div>
       </section>
 
@@ -605,8 +912,8 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="relative max-w-6xl mx-auto">
-            {/* Navigation Buttons - Absolute positioned outside/on edge */}
+          <div className="relative max-w-6xl mx-auto overflow-hidden md:overflow-visible">
+            {/* Navigation Buttons - Visible on Desktop */}
             <button 
               onClick={() => setTestimonialIndex(prev => (prev === 0 ? testimonials.length - 1 : prev - 1))}
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-lg hover:text-primary transition-colors focus:outline-none hidden md:flex"
@@ -623,20 +930,18 @@ export default function Home() {
               <span className="material-symbols-outlined">arrow_forward</span>
             </button>
 
-            <div className="bg-white shadow-xl border border-dark/5 overflow-hidden">
+            {/* Desktop View (Toggle based) */}
+            <div className="hidden md:block bg-white shadow-xl border border-dark/5 overflow-hidden">
                {testimonials.map((testimonial, index) => (
                  <div 
-                   key={testimonial.author}
+                   key={`desktop-${testimonial.author}`}
                    className={`${index === testimonialIndex ? 'block' : 'hidden'} transition-opacity duration-500`}
                  >
                    <div className="grid grid-cols-1 lg:grid-cols-2">
-                     {/* Text Column (Left) */}
                      <div className="p-8 md:p-16 flex flex-col justify-center relative order-2 lg:order-1">
-                       {/* Large Quote Mark */}
                         <div className="absolute top-8 left-8 md:top-12 md:left-12 text-9xl leading-none text-gray-100 font-serif select-none pointer-events-none">
                           "
                         </div>
-                       
                        <div className="relative z-10">
                          <p className="text-xl md:text-2xl text-dark font-display italic mb-10 leading-relaxed">
                            "{testimonial.quote}"
@@ -656,8 +961,6 @@ export default function Home() {
                          </div>
                        </div>
                      </div>
-                     
-                     {/* Image Column (Right) */}
                      <div className="relative h-[300px] lg:h-auto lg:min-h-[500px] order-1 lg:order-2">
                        <img
                          src={testimonial.decorativeImage}
@@ -670,13 +973,69 @@ export default function Home() {
                ))}
             </div>
 
-            {/* Mobile Navigation Dots */}
-            <div className="flex justify-center gap-2 mt-8 md:hidden">
+            {/* Mobile View (Swipeable Slider) */}
+            <div className="md:hidden">
+              <motion.div
+                drag="x"
+                dragElastic={0.1}
+                animate={{ x: `-${testimonialIndex * 100}%` }}
+                onDragEnd={(_, info) => {
+                  const shift = info.offset.x;
+                  const velocity = info.velocity.x;
+                  const threshold = 50;
+                  
+                  if ((shift < -threshold || velocity < -500) && testimonialIndex < testimonials.length - 1) {
+                    setTestimonialIndex(prev => prev + 1);
+                  } else if ((shift > threshold || velocity > 500) && testimonialIndex > 0) {
+                    setTestimonialIndex(prev => prev - 1);
+                  }
+                }}
+                className="flex cursor-grab active:cursor-grabbing"
+              >
+                {testimonials.map((testimonial) => (
+                  <div key={`mobile-${testimonial.author}`} className="min-w-full px-2">
+                    <div className="bg-white shadow-xl border border-dark/5 overflow-hidden rounded-xl">
+                      <div className="relative h-[250px]">
+                        <img
+                          src={testimonial.decorativeImage}
+                          alt="Project Resultaat"
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                         <div className="absolute top-4 left-4 text-6xl leading-none text-white/40 font-serif select-none pointer-events-none">
+                          "
+                        </div>
+                      </div>
+                      <div className="p-8 pb-10">
+                        <p className="text-lg text-dark font-display italic mb-8 leading-relaxed">
+                          "{testimonial.quote}"
+                        </p>
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 shrink-0">
+                            <img
+                              alt={testimonial.author}
+                              className="w-full h-full object-cover"
+                              src={testimonial.image}
+                            />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-[10px] uppercase tracking-widest text-dark">{testimonial.author}</h4>
+                            <p className="text-[10px] text-primary">{testimonial.location}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center gap-2 mt-8">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setTestimonialIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-colors ${i === testimonialIndex ? 'bg-primary' : 'bg-gray-300'}`}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${i === testimonialIndex ? 'bg-primary w-6' : 'bg-gray-300'}`}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
               ))}
