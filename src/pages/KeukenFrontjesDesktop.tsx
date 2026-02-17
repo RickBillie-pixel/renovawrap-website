@@ -5,6 +5,7 @@ import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
 import KitchenBenefits from "../components/KitchenBenefits";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import { cabinetFaqs } from "../data/faqs";
 
 export default function KeukenFrontjesDesktop() {
 
@@ -219,7 +220,7 @@ export default function KeukenFrontjesDesktop() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomkeuken</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
-                Upload een foto van uw huidige keuken en zie binnen seconden hoe onze folies de ruimte transformeren.
+                Upload een foto van uw huidige keuken en zie binnen enkele minuten hoe onze folies de ruimte transformeren.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -227,8 +228,8 @@ export default function KeukenFrontjesDesktop() {
                   <span>Start Configurator</span>
                   <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
                 </a>
-                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
-                  Hoe het werkt
+                <a href="/projecten" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Zie Projecten
                 </a>
               </div>
             </div>
@@ -301,7 +302,7 @@ export default function KeukenFrontjesDesktop() {
       </section>
 
       {/* 6. FAQ */}
-      <FAQ />
+      <FAQ items={cabinetFaqs} />
     </main>
   );
 }

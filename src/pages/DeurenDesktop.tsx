@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
-import FAQ from "../components/FAQ";
+import FAQs from "../components/FAQ";
+import { doorFaqs } from "../data/faqs";
 import KeuzehulpDeuren from "../components/KeuzehulpDeuren";
 
 import { getWrapColors, type WrapColor } from "@/lib/wrapColors";
@@ -360,7 +361,7 @@ export default function DeurenDesktop() {
       </section>
 
       {/* 6. FAQ */}
-      <FAQ />
+      <FAQs items={doorFaqs} />
 
       {/* 7. Keuzehulp (Wizard) */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

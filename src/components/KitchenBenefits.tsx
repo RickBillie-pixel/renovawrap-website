@@ -1,6 +1,33 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function KitchenBenefits() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const slideInLeft = {
+    initial: isMobile ? { x: -50, opacity: 0 } : {},
+    whileInView: isMobile ? { x: 0, opacity: 1 } : {},
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const slideInRight = {
+    initial: isMobile ? { x: 50, opacity: 0 } : {},
+    whileInView: isMobile ? { x: 0, opacity: 1 } : {},
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
   return (
     <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#F5F5F5] dark:bg-[#1A1A1A]">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
@@ -20,7 +47,12 @@ export default function KitchenBenefits() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
-          <div className="md:col-span-7 relative group">
+          {/* Item 01 */}
+          <motion.div 
+            key={isMobile ? 'mobile-1' : 'desktop-1'}
+            className="md:col-span-7 relative group"
+            {...slideInLeft}
+          >
             <div className="h-full bg-white dark:bg-[#242424] rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
               <span className="absolute -right-4 -bottom-12 text-[180px] font-display font-bold text-gray-100 dark:text-white/5 leading-none select-none z-0 pointer-events-none">
                 01
@@ -38,8 +70,15 @@ export default function KitchenBenefits() {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="md:col-span-5 row-span-2 relative group">
+          </motion.div>
+
+          {/* Item 02 */}
+          <motion.div 
+            key={isMobile ? 'mobile-2' : 'desktop-2'}
+            className="md:col-span-5 row-span-2 relative group"
+            {...slideInLeft}
+            transition={{ ...slideInLeft.transition, delay: isMobile ? 0.1 : 0 }}
+          >
             <div className="h-full bg-[#C4A47C] text-white rounded-2xl p-8 md:p-10 shadow-lg border border-[#C4A47C]/20 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between">
               <span className="absolute -right-8 -top-8 text-[200px] font-display font-bold text-white/10 leading-none select-none z-0 pointer-events-none">
                 02
@@ -58,8 +97,14 @@ export default function KitchenBenefits() {
                 <p className="font-display italic text-xl opacity-90">"Vandaag geplaatst, vanavond koken."</p>
               </div>
             </div>
-          </div>
-          <div className="md:col-span-7 relative group">
+          </motion.div>
+
+          {/* Item 03 */}
+          <motion.div 
+            key={isMobile ? 'mobile-3' : 'desktop-3'}
+            className="md:col-span-7 relative group"
+            {...slideInRight}
+          >
             <div className="h-full bg-white dark:bg-[#242424] rounded-2xl p-8 md:p-10 shadow-lg border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
               <span className="absolute right-4 top-4 text-[120px] font-display font-bold text-gray-100 dark:text-white/5 leading-none select-none z-0 pointer-events-none">
                 03
@@ -72,13 +117,20 @@ export default function KitchenBenefits() {
                   <h3 className="text-2xl font-display text-gray-900 dark:text-[#FFF9F0] mb-3">Onderhoudsarm</h3>
                   <p className="text-gray-600 dark:text-[rgba(255,249,240,0.7)] leading-relaxed">
                     Een natte doek is alles wat u nodig heeft. De hoogwaardige folies zijn krasbestendig,
-                    hittebestendig tot 90 graden, geurloos en bijzonder hygiënisch in gebruik.
+                    duurzaam, geurloos en bijzonder hygiënisch in gebruik.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="md:col-span-4 relative group">
+          </motion.div>
+
+          {/* Item 04 */}
+          <motion.div 
+            key={isMobile ? 'mobile-4' : 'desktop-4'}
+            className="md:col-span-4 relative group"
+            {...slideInRight}
+            transition={{ ...slideInRight.transition, delay: isMobile ? 0.1 : 0 }}
+          >
             <div className="h-full bg-gray-50 dark:bg-[#1f1f1f] rounded-2xl p-8 shadow-md border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
               <span className="absolute -left-4 -bottom-8 text-[140px] font-display font-bold text-gray-200 dark:text-white/5 leading-none select-none z-0 pointer-events-none">
                 04
@@ -95,8 +147,14 @@ export default function KitchenBenefits() {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="md:col-span-4 relative group">
+          </motion.div>
+
+          {/* Item 05 */}
+          <motion.div 
+            key={isMobile ? 'mobile-5' : 'desktop-5'}
+            className="md:col-span-4 relative group"
+            {...slideInLeft}
+          >
             <div className="h-full bg-gray-50 dark:bg-[#1f1f1f] rounded-2xl p-8 shadow-md border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
               <span className="absolute right-0 top-0 text-[140px] font-display font-bold text-gray-200 dark:text-white/5 leading-none select-none z-0 pointer-events-none transform rotate-12">
                 05
@@ -114,8 +172,14 @@ export default function KitchenBenefits() {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="md:col-span-4 relative group">
+          </motion.div>
+
+          {/* Item 06 */}
+          <motion.div 
+            key={isMobile ? 'mobile-6' : 'desktop-6'}
+            className="md:col-span-4 relative group"
+            {...slideInLeft}
+          >
             <div className="h-full bg-gray-900 dark:bg-black rounded-2xl p-8 shadow-lg border border-gray-800 dark:border-white/10 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden flex flex-col justify-center">
               <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[160px] font-display font-bold text-white/10 leading-none select-none z-0 pointer-events-none">
                 06
@@ -128,7 +192,7 @@ export default function KitchenBenefits() {
                 <p className="text-gray-400 text-sm">Op het loslaten van de folie (niet door eigen beschadigingen).</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
         <div className="mt-16 text-center">
           <Link

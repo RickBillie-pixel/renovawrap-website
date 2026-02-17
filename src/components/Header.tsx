@@ -61,35 +61,6 @@ export default function Header() {
     return location.pathname.startsWith(path);
   };
 
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      x: "100%",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-        staggerChildren: 0.05,
-        staggerDirection: -1
-      }
-    },
-    open: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-        staggerChildren: 0.07,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    closed: { opacity: 0, x: 50 },
-    open: { opacity: 1, x: 0 }
-  };
 
   return (
     <>

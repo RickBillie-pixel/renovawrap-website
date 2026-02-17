@@ -13,7 +13,7 @@ export default function KeukenWrappingLimburg() {
       heroLine2: "in Limburg",
       heroSubtitle: "Van Maastricht tot Venlo, van Heerlen tot Roermond. Wij bedienen heel Limburg. Met keuken wrapping bespaart u tot 70% op uw keukenrenovatie. Geen sloopwerk, professioneel vakmanschap en opgeleverd binnen één werkdag.",
       introParagraph: "Keuken wrapping voor heel Limburg. Van Maastricht tot Venlo, wij komen bij u langs. Bespaar tot 70%, geen sloopwerk en klaar binnen één dag.",
-      werkwijzeIntro: "In 4 Stappen Uw Droomkeuken in Limburg",
+      werkwijzeIntro: "In 3 Stappen Uw Droomkeuken in Limburg",
       whyTitle: "Bespaar tot 70% op Uw Keukenrenovatie in Limburg",
       materialenIntro: "Voor onze Limburgse klanten hebben wij een uitgebreide selectie van meer dan 300 wrapfolies. Of u nu in een Limburgse hoeve woont of een stadsappartement, wij hebben de perfecte afwerking. Van rustieke houttinten tot ultra-moderne designs.",
       layoutVariant: 'benefits_first',

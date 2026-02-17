@@ -5,6 +5,8 @@ import "@/lib/projectService";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
+import ScrollToTop from "./components/ScrollToTop";
+
 
 // Route → dynamic import (same reference for lazy + SSR preload)
 const routePreloads: Record<string, () => Promise<{ default: React.ComponentType }>> = {
@@ -74,10 +76,12 @@ export function getPreloadForRoute(route: string): (() => Promise<unknown>) | un
 export function AppContent() {
   return (
     <>
+      <ScrollToTop />
       {typeof window !== 'undefined' && <SmoothScroll />}
+
       <div className="bg-background-light text-dark min-h-screen selection:bg-secondary selection:text-white transition-colors duration-300">
         <Header />
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="min-h-screen bg-background-light" />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/diensten" element={<Diensten />} />

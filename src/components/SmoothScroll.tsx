@@ -1,11 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
 import gsap from 'gsap';
 
 export default function SmoothScroll() {
   const lenisRef = useRef<Lenis | null>(null);
-  const { pathname } = useLocation();
 
   // Initialize Lenis once
   useEffect(() => {
@@ -41,16 +39,7 @@ export default function SmoothScroll() {
     };
   }, []);
 
-  // Scroll to top on every route change
-  useEffect(() => {
-    if (lenisRef.current) {
-      // Use Lenis for scrolling to top to maintain state consistency
-      lenisRef.current.scrollTo(0, { immediate: true });
-    } else {
-      // Fallback only if Lenis isn't ready (which shouldn't happen due to initialization order, but safety check)
-      window.scrollTo(0, 0);
-    }
-  }, [pathname]);
+  // Scroll to top is handled by ScrollToTop component in App.tsx
 
   return null;
 }

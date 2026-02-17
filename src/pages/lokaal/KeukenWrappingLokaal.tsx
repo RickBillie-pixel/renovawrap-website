@@ -1,9 +1,12 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import FadeIn from "../../components/FadeIn";
 
 import KitchenBenefits from "../../components/KitchenBenefits";
+import CountUp from "../../components/CountUp";
 import BeforeAfterSlider from "../../components/BeforeAfterSlider";
 import FAQ from "../../components/FAQ";
+import { kitchenFaqs } from "../../data/faqs";
 import { useSEO, canonicalFor } from "@/hooks/useSEO";
 import type { CityData } from "@/lib/localSEO";
 import { buildLocalServiceSchema, buildLocalBreadcrumbs } from "@/lib/localSEO";
@@ -349,7 +352,7 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
     
                 {/* CTA - Scrolls to Form */}
                 <div className="flex flex-col gap-3 mt-auto">
-                    <a href="#contact-form" className="w-full bg-primary text-white py-4 text-center text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors shadow-lg">
+                    <a href="#contact-form-mobile" className="w-full bg-primary text-white py-4 text-center text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors shadow-lg">
                         Gratis Offerte
                     </a>
                 </div>
@@ -357,7 +360,7 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
           </header>
     
           {/* Mobile Contact Form Container - Just below the fold */}
-          <div id="contact-form" className="lg:hidden px-6 py-24 bg-white relative z-20 border-t border-gray-100">
+          <div id="contact-form-mobile" className="lg:hidden px-6 py-24 bg-white relative z-20 border-t border-gray-100">
              {renderContactForm()}
           </div>
     
@@ -403,7 +406,7 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                 </div>
     
                 {/* Right: Large Contact Form */}
-                <div className="lg:col-span-7 flex justify-center lg:justify-end">
+                <div id="contact-form-desktop" className="lg:col-span-7 flex justify-center lg:justify-end">
                    {renderContactForm()}
                 </div>
     
@@ -430,7 +433,9 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                   </p>
                   <div className="grid grid-cols-2 gap-6">
                     <div className="border-l-2 border-primary pl-4">
-                      <span className="font-display text-3xl text-primary">70%</span>
+                      <span className="font-display text-3xl text-primary block">
+                        <CountUp end={70} suffix="%" suffixClassName="" />
+                      </span>
                       <p className="text-sm text-gray-500 mt-1">Goedkoper dan nieuw</p>
                     </div>
                     <div className="border-l-2 border-primary pl-4">
@@ -438,11 +443,15 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                       <p className="text-sm text-gray-500 mt-1">Dagen montage</p>
                     </div>
                     <div className="border-l-2 border-primary pl-4">
-                      <span className="font-display text-3xl text-primary">300+</span>
+                      <span className="font-display text-3xl text-primary block">
+                        <CountUp end={300} suffix="+" suffixClassName="" />
+                      </span>
                       <p className="text-sm text-gray-500 mt-1">Kleuren & afwerkingen</p>
                     </div>
                     <div className="border-l-2 border-primary pl-4">
-                      <span className="font-display text-3xl text-primary">5</span>
+                      <span className="font-display text-3xl text-primary block">
+                        <CountUp end={5} suffix="" />
+                      </span>
                       <p className="text-sm text-gray-500 mt-1">Jaar garantie</p>
                     </div>
                   </div>
@@ -478,7 +487,8 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                   </p>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+              {/* Mobile Layout */}
+              <div className="flex md:hidden flex-col gap-24">
                 {[
                   {
                     title: "Keukenfrontjes & Lades",
@@ -488,7 +498,73 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                   },
                   {
                     title: "Werkbladen",
-                    desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en hittebestendig tot 90 graden. Een luxe look voor een fractie van de prijs.",
+                    desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en duurzaam. Voor hete pannen adviseren wij altijd een onderzetter voor optimaal behoud.",
+                    image: "/project-fotos/after6.webp",
+                    link: "/diensten/aanrechtbladen"
+                  },
+                  {
+                    title: "Achterwanden & Zijpanelen",
+                    desc: "Maak het plaatje compleet. Wij wrappen uw spatwand en zijpanelen strak mee. Onderhoudsvriendelijk en perfect afgewerkt rondom stopcontacten.",
+                    image: "/project-fotos/after5.webp",
+                    link: "/diensten/achterwanden"
+                  }
+                ].map((item, index) => (
+                  <FadeIn 
+                    key={index} 
+                    direction={index % 2 === 0 ? "left" : "right"} 
+                    className="w-full"
+                    threshold={0.2}
+                  >
+                    <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                      {/* Image Container */}
+                      <div className={`relative w-[85%] aspect-[3/4] mb-8 shadow-2xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}>
+                        <Link to={item.link} className="block w-full h-full overflow-hidden group">
+                          <img
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                            src={item.image}
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                        </Link>
+                        
+                        {/* Number Badge - Overlapping Bottom Corner */}
+                        <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} bg-white p-6 shadow-xl z-20`}>
+                          <span className="font-display text-4xl text-primary font-bold">0{index + 1}</span>
+                        </div>
+                      </div>
+
+                      {/* Text Content */}
+                      <div className={`w-[90%] ${index % 2 === 0 ? 'text-left pl-4' : 'text-right pr-4'} mt-8`}>
+                        <Link to={item.link} className="block group">
+                          <h3 className="font-display text-4xl text-dark mb-4 group-hover:text-primary transition-colors leading-[0.9]">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                            {item.desc}
+                          </p>
+                          <div className={`flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-dark group-hover:gap-5 transition-all ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                            Bekijk
+                            <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+
+              {/* Desktop Layout */}
+              <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+                {[
+                  {
+                    title: "Keukenfrontjes & Lades",
+                    desc: `Geef uw keuken in ${city.name} direct een nieuwe look. Wij wrappen elk paneel naadloos over de randen, zodat de folie nooit loslaat. Beschikbaar in 300+ kleuren.`,
+                    image: "/project-fotos/after14.webp",
+                    link: "/diensten/keuken-frontjes"
+                  },
+                  {
+                    title: "Werkbladen",
+                    desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en duurzaam. Voor hete pannen adviseren wij altijd een onderzetter voor optimaal behoud.",
                     image: "/project-fotos/after6.webp",
                     className: "md:mt-24",
                     link: "/diensten/aanrechtbladen"
@@ -558,9 +634,9 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
            {/* Lokale Intro (Variant) */}
            <section className="py-24 bg-white">
             <div className="max-w-[1400px] mx-auto px-6">
-              <div className="flex flex-col lg:flex-row gap-16 items-center">
-                 <div className="relative lg:w-1/2 order-2 lg:order-1">
-                  <div className="aspect-square overflow-hidden shadow-xl">
+              <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
+                 <div className="relative w-full lg:w-1/2">
+                  <div className="aspect-square overflow-hidden shadow-xl rounded-lg">
                      <BeforeAfterSlider
                         beforeImage="/project-fotos/before11.webp"
                         afterImage="/project-fotos/after11.webp"
@@ -568,7 +644,7 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                      />
                   </div>
                  </div>
-                 <div className="lg:w-1/2 order-1 lg:order-2">
+                 <div className="w-full lg:w-1/2">
                     <h2 className="font-display text-4xl md:text-5xl text-dark mb-6 leading-tight">{content.whyTitle}</h2>
                     <p className="text-lg text-gray-600 font-light mb-8">{content.heroSubtitle}</p>
                     <ul className="space-y-4">
@@ -591,27 +667,61 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
            </section>
 
            {/* Werkwijze Variant */}
-           <section className="py-24 bg-background-light">
-             <div className="max-w-[1400px] mx-auto px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                  <div>
-                    <h2 className="font-display text-4xl mb-6">{content.werkwijzeIntro}</h2>
-                    <p className="text-gray-500 mb-8">Onze werkwijze is simpel en transparant. Wij geloven in duidelijke afspraken en vakmanschap.</p>
+           <section className="py-12 md:py-32 bg-background-light relative overflow-hidden">
+             {/* Background Element */}
+             <div className="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-white rounded-full blur-3xl opacity-40 -mr-16 -mt-16 md:-mr-32 md:-mt-32 pointer-events-none"></div>
+
+             <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                  {/* Left Column: Intro & Desktop CTA */}
+                  <div className="lg:col-span-4 lg:sticky lg:top-32">
+                    <span className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase mb-3 block">Werkwijze</span>
+                    <h2 className="font-display text-3xl md:text-5xl text-dark mb-4 md:mb-6 leading-[1.1]">{content.werkwijzeIntro}</h2>
+                    <p className="text-gray-500 mb-6 md:mb-8 text-sm md:text-base leading-relaxed">Onze werkwijze is simpel en transparant. Wij geloven in duidelijke afspraken en vakmanschap zonder verrassingen achteraf.</p>
+                    
+                    {/* Desktop Button (Hidden on Mobile) */}
+                    <div className="hidden lg:block">
+                      <a href="#contact-form-desktop" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-dark border-b-2 border-primary pb-1 hover:text-primary transition-colors">
+                        Start uw aanvraag <span className="material-symbols-outlined text-sm">arrow_downward</span>
+                      </a>
+                    </div>
                   </div>
-                  <div className="space-y-8">
-                     {(content.werkwijzeSteps || [
-                        { step: "01", title: "Advies aan Huis", text: `Wij komen naar ${city.name} voor een persoonlijk advies.`, icon: "" },
-                        { step: "02", title: "Offerte op Maat", text: "U ontvangt direct een scherpe prijsopgave.", icon: "" },
-                        { step: "03", title: "Realisatie", text: "Binnen 1-2 dagen is uw keuken als nieuw.", icon: "" },
-                     ]).map((s, i) => (
-                       <div key={i} className="flex gap-4">
-                          <span className="font-display text-3xl text-primary/50 font-bold">{s.step}</span>
-                          <div>
-                            <h4 className="font-bold text-dark">{s.title}</h4>
-                            <p className="text-sm text-gray-500">{'desc' in s ? s.desc : (s as any).text}</p>
-                          </div>
-                       </div>
-                     ))}
+                  
+                  {/* Right Column: Steps Cards */}
+                  <div className="lg:col-span-8 lg:pl-12">
+                     <div className="space-y-4 md:space-y-6">
+                        {(content.werkwijzeSteps || [
+                           { step: "01", title: "Advies aan Huis", text: `Wij komen kosteloos naar ${city.name} voor een persoonlijk advies en het opmeten van uw keuken.`, icon: "home_pin" },
+                           { step: "02", title: "Offerte op Maat", text: "U ontvangt direct een heldere prijsopgave. Geen kleine lettertjes, gewoon een eerlijke prijs.", icon: "request_quote" },
+                           { step: "03", title: "Realisatie", text: "Na akkoord plannen we de montage. Binnen 1-2 dagen is uw keuken getransformeerd.", icon: "construction" },
+                        ]).map((s, i) => (
+                          <FadeIn key={i} delay={i * 100} direction="up" className="w-full">
+                            <div className="group relative bg-white p-6 md:p-10 rounded-sm border border-gray-100 hover:border-primary/30 transition-all hover:shadow-xl hover:shadow-primary/5">
+                              <div className="flex flex-col md:flex-row gap-4 md:gap-10 items-start">
+                                  <div className="shrink-0 relative mb-2 md:mb-0">
+                                    <span className="font-display text-5xl md:text-6xl text-gray-100 group-hover:text-primary/10 transition-colors font-bold leading-none select-none">
+                                      {s.step}
+                                    </span>
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                      <span className="material-symbols-outlined text-3xl text-primary">{'icon' in s ? s.icon : 'check_circle'}</span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <h4 className="font-display text-lg md:text-2xl text-dark mb-2 md:mb-3 group-hover:text-primary transition-colors">{s.title}</h4>
+                                    <p className="text-gray-500 text-xs md:text-sm leading-relaxed max-w-lg">{'desc' in s ? s.desc : (s as any).text}</p>
+                                  </div>
+                              </div>
+                            </div>
+                          </FadeIn>
+                        ))}
+                     </div>
+
+                     {/* Mobile Button (Visible below cards) */}
+                     <div className="mt-8 lg:hidden flex justify-center">
+                        <a href="#contact-form-mobile" className="w-full bg-white border border-gray-200 text-dark py-4 text-xs font-bold tracking-[0.2em] uppercase hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2 shadow-sm">
+                          Start uw aanvraag <span className="material-symbols-outlined text-base">arrow_downward</span>
+                        </a>
+                     </div>
                   </div>
                 </div>
              </div>
@@ -639,7 +749,7 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Nieuwe Look</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
-                Upload een foto van uw huidige keuken en zie binnen seconden hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
+                Upload een foto van uw huidige keuken en zie binnen enkele minuten hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link to="/configurator" className="group bg-primary text-white px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-all shadow-[0_10px_30px_-10px_rgba(217,119,6,0.3)] hover:shadow-[0_20px_40px_-10px_rgba(217,119,6,0.5)] flex items-center justify-center">
@@ -744,7 +854,7 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
       </section>
 
       {/* FAQ */}
-      <FAQ />
+      <FAQ items={kitchenFaqs} />
 
       {/* Lokale SEO Footer + Internal Links */}
       <section className="py-16 bg-background-light border-t border-gray-100">
@@ -770,9 +880,12 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
           </div>
 
           {/* Service links */}
-          <div className="mb-8 pt-6 border-t border-gray-200">
-            <h4 className="text-xs font-bold tracking-widest uppercase text-gray-400 mb-4">Onze Diensten</h4>
-            <div className="flex flex-wrap gap-3">
+          <div className="mb-12 pt-10 border-t border-gray-100">
+            <h4 className="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6 flex items-center gap-3">
+              <span>Onze Diensten</span>
+              <div className="h-px flex-1 bg-gray-100" />
+            </h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { name: "Keuken Wrapping", to: "/diensten/keuken-wrapping" },
                 { name: "Keuken Frontjes", to: "/diensten/keuken-frontjes" },
@@ -783,17 +896,32 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                 { name: "Kozijnen", to: "/diensten/kozijnen" },
                 { name: "Schadeherstel", to: "/diensten/schadeherstel" },
               ].map(s => (
-                <Link key={s.to} to={s.to} className="text-xs uppercase tracking-[0.15em] font-medium px-4 py-2 border border-gray-200 bg-white text-gray-500 hover:border-primary hover:text-primary transition-colors">
-                  {s.name}
+                <Link 
+                  key={s.to} 
+                  to={s.to} 
+                  className="group relative px-6 py-4 bg-white border border-gray-200 rounded-sm hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 group-hover:text-primary transition-colors mb-1">Dienst</span>
+                    <span className="text-sm font-display text-dark">
+                      {s.name}
+                    </span>
+                  </div>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-gray-200 group-hover:text-primary opacity-0 group-hover:opacity-100 transition-all text-lg group-hover:translate-x-1">
+                    arrow_forward
+                  </span>
                 </Link>
               ))}
             </div>
           </div>
 
           {/* City links */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-             <h4 className="text-xs font-bold tracking-widest uppercase text-gray-400 mb-6">Keuken Wrapping in andere regio's</h4>
-             <div className="flex flex-nowrap overflow-x-auto justify-start items-center gap-4 md:gap-6 pb-4 scrollbar-hide snap-x">
+          <div className="mt-12 pt-10 border-t border-gray-100">
+             <h4 className="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-8 items-center flex gap-3">
+                <span>Keuken Wrapping in andere regio's</span>
+                <div className="h-px flex-1 bg-gray-100" />
+             </h4>
+             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
                {[
                  { name: "Eindhoven", slug: "eindhoven" },
                  { name: "Helmond", slug: "helmond" },
@@ -811,13 +939,21 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                   <Link
                     key={c.slug}
                     to={`/diensten/keuken-wrapping/${c.slug}`}
-                    className={`text-xs uppercase tracking-[0.2em] font-medium transition-colors whitespace-nowrap snap-start flex-shrink-0 px-4 py-3 border-2 ${
+                    className={`relative px-5 py-4 text-center transition-all duration-300 rounded-sm border-2 ${
                        isCurrent
-                       ? "bg-dark text-white border-dark"
-                       : "border-gray-100 bg-white text-gray-500 hover:border-primary hover:text-primary"
+                       ? "bg-primary border-primary text-white shadow-lg shadow-primary/20 scale-[1.02] z-10"
+                       : "border-gray-50 bg-white text-gray-500 hover:border-primary/20 hover:text-primary hover:shadow-md"
                     }`}
                   >
-                    {c.name}
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-bold whitespace-nowrap">
+                      {c.name}
+                    </span>
+                    {isCurrent && (
+                      <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                      </span>
+                    )}
                   </Link>
                  );
                })}

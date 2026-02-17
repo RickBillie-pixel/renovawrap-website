@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import FadeIn from "../components/FadeIn";
 
 import FAQ from "../components/FAQ";
+import { repairFaqs } from "../data/faqs";
 import KeuzehulpSchade from "../components/KeuzehulpSchade";
 
 
@@ -177,51 +179,103 @@ export default function SchadeherstelMobile() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1 */}
-            <div className="group">
-              <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
-                <img 
-                  src="https://placehold.co/600x600?text=Diepe+Krassen" 
-                  alt="Diepe Krassen" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="font-display text-2xl mb-2 text-dark">Diepe Krassen</h3>
-              <p className="text-gray-500 text-sm leading-relaxed font-light">
-                Wij reconstrueren de structuur van het oppervlak nauwkeurig. De kras wordt onzichtbaar en uw interieur oogt weer strak.
-              </p>
-            </div>
+          
+          {/* Mobile View - Animated */}
+          <div className="flex flex-col gap-24 md:hidden">
+            {[
+              {
+                title: "Diepe Krassen",
+                desc: "Wij reconstrueren de structuur van het oppervlak nauwkeurig. De kras wordt onzichtbaar en uw interieur oogt weer strak.",
+                image: "https://placehold.co/600x600?text=Diepe+Krassen"
+              },
+              {
+                title: "Hitte & Vocht",
+                desc: "Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.",
+                image: "https://placehold.co/600x600?text=Hitte+%26+Vocht"
+              },
+              {
+                title: "Loslatende Folie",
+                desc: "Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.",
+                image: "https://placehold.co/600x600?text=Loslatende+Folie"
+              }
+            ].map((item, index) => (
+              <FadeIn 
+                key={index} 
+                direction={index % 2 === 0 ? "left" : "right"} 
+                className="w-full"
+                threshold={0.2}
+              >
+                <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                  {/* Image Container */}
+                  <div className={`relative w-[85%] aspect-[3/4] mb-8 shadow-2xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}>
+                     <div className="w-full h-full overflow-hidden group cursor-pointer block">
+                       <img
+                         alt={item.title}
+                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                         src={item.image}
+                       />
+                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                     </div>
+                     
+                     {/* Number Badge */}
+                     <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} bg-white p-6 shadow-xl z-20`}>
+                       <span className="font-display text-4xl text-primary font-bold">0{index + 1}</span>
+                     </div>
+                  </div>
 
-            {/* Card 2 */}
-            <div className="group">
-              <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
-                <img 
-                  src="https://placehold.co/600x600?text=Hitte+%26+Vocht" 
-                  alt="Hitte en Vocht" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="font-display text-2xl mb-2 text-dark">Hitte & Vocht</h3>
-              <p className="text-gray-500 text-sm leading-relaxed font-light">
-                Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.
-              </p>
-            </div>
+                  {/* Text Content */}
+                  <div className={`w-[90%] ${index % 2 === 0 ? 'text-left pl-4' : 'text-right pr-4'} mt-8`}>
+                    <div className="group cursor-pointer block">
+                      <h3 className="font-display text-4xl text-dark mb-4 group-hover:text-primary transition-colors leading-[0.9]">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                        {item.desc}
+                      </p>
+                      <div className={`flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-dark group-hover:gap-5 transition-all ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                        Meer Info
+                        <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
 
-            {/* Card 3 */}
-            <div className="group">
-              <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
-                <img 
-                  src="https://placehold.co/600x600?text=Loslatende+Folie" 
-                  alt="Loslatende Folie" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+          {/* Desktop View - Grid */}
+          <div className="hidden md:grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Diepe Krassen",
+                desc: "Wij reconstrueren de structuur van het oppervlak nauwkeurig. De kras wordt onzichtbaar en uw interieur oogt weer strak.",
+                image: "https://placehold.co/600x600?text=Diepe+Krassen"
+              },
+              {
+                title: "Hitte & Vocht",
+                desc: "Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.",
+                image: "https://placehold.co/600x600?text=Hitte+%26+Vocht"
+              },
+              {
+                title: "Loslatende Folie",
+                desc: "Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.",
+                image: "https://placehold.co/600x600?text=Loslatende+Folie"
+              }
+            ].map((item, index) => (
+              <div key={index} className="group">
+                <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="font-display text-2xl mb-2 text-dark">{item.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed font-light">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="font-display text-2xl mb-2 text-dark">Loslatende Folie</h3>
-              <p className="text-gray-500 text-sm leading-relaxed font-light">
-                Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -336,7 +390,7 @@ export default function SchadeherstelMobile() {
       </section>
 
       {/* FAQ */}
-      <FAQ />
+      <FAQ items={repairFaqs} />
 
       {/* Keuzehulp (Wizard) */}
       <section className="py-16 bg-background-light" id="keuzehulp">

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
 import KeuzehulpKasten from "../components/KeuzehulpKasten";
+import { cabinetFaqs } from "../data/faqs";
 
 
 export default function KastenDesktop() {
@@ -254,7 +255,7 @@ export default function KastenDesktop() {
                   </div>
                   <h3 className="font-display text-2xl mb-4 group-hover:text-[#C4A47C] transition-colors">Kras- & Stootvast</h3>
                   <p className="text-gray-400 text-sm leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                     Onze speciaal ontwikkelde interieurfolie is bestand tegen dagelijks gebruik. Krasvast, hittebestendig en eenvoudig schoon te houden. Een duurzame investering.
+                     Onze speciaal ontwikkelde interieurfolie is bestand tegen dagelijks gebruik. Krasvast, duurzaam en eenvoudig schoon te houden. Een duurzame investering.
                   </p>
                </div>
             </div>
@@ -365,7 +366,7 @@ export default function KastenDesktop() {
       </section>
 
       {/* 7. FAQ */}
-      <FAQ />
+      <FAQ items={cabinetFaqs} />
 
       {/* 8. Keuzehulp Wizard */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

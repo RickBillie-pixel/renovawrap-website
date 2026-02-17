@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import FAQ from "../components/FAQ";
+import { repairFaqs } from "../data/faqs";
 import KeuzehulpSchade from "../components/KeuzehulpSchade";
 
 
@@ -271,7 +272,7 @@ export default function SchadeherstelDesktop() {
       </section>
 
       {/* FAQ */}
-      <FAQ />
+      <FAQ items={repairFaqs} />
 
       {/* Keuzehulp (Wizard) */}
       <section className="py-16 bg-background-light" id="keuzehulp">

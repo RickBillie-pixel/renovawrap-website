@@ -78,10 +78,10 @@ export default function Contact() {
   };
 
   return (
-    <main className="pt-32 flex-grow bg-background-light text-dark min-h-screen">
-      <section className="max-w-[1400px] mx-auto px-6 pb-24 relative z-10">
+    <main className="pt-24 flex-grow bg-background-light text-dark min-h-screen">
+      <section className="max-w-[1400px] mx-auto px-6 pb-12 relative z-10 min-h-[calc(100vh-6rem)] flex flex-col justify-center">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 pt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 pt-6">
           <div className="lg:col-span-7">
             {submitted ? (
               <div className="bg-white p-12 shadow-2xl rounded-sm border border-gray-100 text-center">
@@ -100,10 +100,10 @@ export default function Contact() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 shadow-2xl rounded-sm border border-gray-100 space-y-8">
+              <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 shadow-2xl rounded-sm border border-gray-100 space-y-5">
                 <div>
-                  <h2 className="font-display text-3xl mb-2">Neem Contact Op</h2>
-                  <p className="text-gray-500 text-sm">Vul het formulier in en wij reageren binnen 24 uur.</p>
+                  <h2 className="font-display text-3xl mb-1">Neem Contact Op</h2>
+                  <p className="text-gray-500 text-xs">Vul het formulier in en wij reageren binnen 24 uur.</p>
                 </div>
 
                 {submitError && (
@@ -113,11 +113,11 @@ export default function Contact() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="group">
-                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Naam *</label>
+                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-1 font-bold group-focus-within:text-primary transition-colors">Naam *</label>
                     <input
-                      className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                      className="w-full bg-gray-50 border-b-2 border-gray-200 p-2.5 text-sm focus:border-primary focus:outline-none transition-colors"
                       id="name"
                       placeholder="Uw naam"
                       type="text"
@@ -128,9 +128,9 @@ export default function Contact() {
                   </div>
 
                   <div className="group">
-                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Email *</label>
+                    <label className="block text-xs uppercase tracking-widest text-gray-500 mb-1 font-bold group-focus-within:text-primary transition-colors">Email *</label>
                     <input
-                      className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                      className="w-full bg-gray-50 border-b-2 border-gray-200 p-2.5 text-sm focus:border-primary focus:outline-none transition-colors"
                       id="email"
                       placeholder="uw@email.nl"
                       type="email"
@@ -142,9 +142,9 @@ export default function Contact() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Telefoonnummer *</label>
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-1 font-bold group-focus-within:text-primary transition-colors">Telefoonnummer *</label>
                   <input
-                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
+                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-2.5 text-sm focus:border-primary focus:outline-none transition-colors"
                     id="phone"
                     placeholder="06 12345678"
                     type="tel"
@@ -155,9 +155,9 @@ export default function Contact() {
                 </div>
 
                 <div className="group">
-                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold group-focus-within:text-primary transition-colors">Bericht (Optioneel)</label>
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-1 font-bold group-focus-within:text-primary transition-colors">Bericht (Optioneel)</label>
                   <textarea
-                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors min-h-[120px] resize-none"
+                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-2.5 text-sm focus:border-primary focus:outline-none transition-colors min-h-[100px] resize-none"
                     id="message"
                     placeholder="Vertel ons kort over uw wensen"
                     value={formData.bericht}
@@ -167,9 +167,9 @@ export default function Contact() {
 
                 {/* Photo Upload Section */}
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-2 font-bold">Foto's toevoegen (Optioneel)</label>
+                  <label className="block text-xs uppercase tracking-widest text-gray-500 mb-1 font-bold">Foto's toevoegen (Optioneel)</label>
                   <div
-                    className={`border-2 border-dashed rounded-sm p-6 text-center cursor-pointer transition-all duration-300 ${
+                    className={`border-2 border-dashed rounded-sm p-4 text-center cursor-pointer transition-all duration-300 ${
                       dragOver 
                         ? "border-primary bg-primary/5" 
                         : "border-gray-200 hover:border-primary/50 hover:bg-white"
@@ -179,10 +179,10 @@ export default function Contact() {
                     onDragLeave={() => setDragOver(false)}
                     onDrop={(e) => { e.preventDefault(); setDragOver(false); handleFiles(e.dataTransfer.files); }}
                   >
-                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/10 transition-colors">
+                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/10 transition-colors">
                       <span className="material-symbols-outlined text-2xl text-gray-400">add_photo_alternate</span>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">
+                    <p className="text-sm text-gray-600 mb-1">
                       Sleep foto's hierheen of <span className="text-primary font-bold hover:underline">klik om te uploaden</span>
                     </p>
                     <p className="text-[10px] text-gray-400 uppercase tracking-wider">
@@ -199,7 +199,7 @@ export default function Contact() {
                   />
 
                   {fotos.length > 0 && (
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
                       {fotos.map((f, i) => (
                         <div key={i} className="relative group aspect-square bg-gray-100 border border-gray-200">
                           <img
@@ -222,7 +222,7 @@ export default function Contact() {
 
                 <div className="pt-2">
                   <button
-                    className="w-full bg-primary text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary text-white py-3 text-xs font-bold tracking-[0.2em] uppercase hover:bg-amber-600 transition-colors flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                     type="submit"
                     disabled={submitting}
                   >
@@ -238,7 +238,7 @@ export default function Contact() {
                        </>
                     )}
                   </button>
-                  <p className="text-[10px] text-gray-400 text-center mt-3">
+                  <p className="text-[10px] text-gray-400 text-center mt-2">
                       Wij respecteren uw privacy. Uw gegevens worden veilig verwerkt conform ons <Link to="/privacy-policy" className="underline">privacybeleid</Link>.
                   </p>
                 </div>
@@ -247,7 +247,7 @@ export default function Contact() {
           </div>
 
           <div className="lg:col-span-5 lg:pl-12 lg:border-l border-dark/10 flex flex-col justify-between">
-            <div className="space-y-16">
+            <div className="space-y-8">
               <div>
                 <h3 className="font-display text-2xl mb-6">Onze Locatie</h3>
                 <p className="text-gray-600 leading-relaxed font-light mb-4">
@@ -303,7 +303,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="mt-16 pt-8 border-t border-dark/10">
+            <div className="mt-8 pt-8 border-t border-dark/10">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400">
                 KVK: 12345678 — BTW: NL123456789B01
               </p>

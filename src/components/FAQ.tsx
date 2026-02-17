@@ -1,34 +1,17 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { generalFaqs } from '../data/faqs';
 
-const faqs = [
-  {
-    question: "Kan ik hete pannen op het gewrapte keukenblad zetten?",
-    answer: "Onze folies zijn hittebestendig tot 90 graden. Dit betekent dat een kop koffie geen probleem is, maar voor hete pannen adviseren wij altijd een onderzetter te gebruiken, net zoals bij de meeste standaard keukenbladen."
-  },
-  {
-    question: "Hoe lang blijft de folie mooi?",
-    answer: "Wij geven 5 jaar garantie op loslaten en verkleuren. Bij normaal gebruik gaat de folie echter gemakkelijk 10 tot 15 jaar mee. De folies zijn van hoogwaardige industriële kwaliteit, speciaal ontwikkeld voor intensief gebruik."
-  },
-  {
-    question: "Is de folie krasbestendig?",
-    answer: "Ja, de folies hebben een beschermende toplaag die uitstekend bestand is tegen dagelijks gebruik en lichte krassen. Mocht er toch een diepe kras ontstaan, dan is het vaak mogelijk om alleen dat specifieke deel opnieuw te wrappen (heat-repair is bij sommige folies ook mogelijk)."
-  },
-  {
-    question: "Kan ik mijn keuken nog schoonmaken zoals gewend?",
-    answer: "Absoluut. De folies zijn water- en vuilafstotend. U kunt ze schoonmaken met de meeste gangbare huishoudelijke schoonmaakmiddelen. Vermijd wel agressieve middelen zoals chloor of schuursponsjes."
-  },
-  {
-    question: "Hoe lang duurt de montage?",
-    answer: "Een gemiddelde keuken renoveren wij binnen 1 à 2 werkdagen. Omdat we geen sloopwerk hebben, ervaart u minimale overlast en kunt u 's avonds vaak alweer koken."
-  },
-  {
-    question: "Kan ik de binnenkant van de kastjes ook laten wrappen?",
-    answer: "Standaard wrappen we de zichtbare buitenzijde en de kopse kanten voor een strak resultaat. Het is mogelijk om ook de binnenzijde te doen, maar dit is arbeidsintensiever en brengt hogere kosten met zich mee. Vaak is de binnenzijde nog in prima staat en is dit niet nodig."
-  }
-];
+interface FAQItem {
+  question: string;
+  answer: string;
+}
 
-export default function FAQ() {
+interface FAQProps {
+  items?: FAQItem[];
+}
+
+export default function FAQ({ items = generalFaqs }: FAQProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
@@ -46,7 +29,7 @@ export default function FAQ() {
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {items.map((faq, index) => (
             <div 
               key={index} 
               className={`border border-gray-100 rounded-2xl bg-white transition-all duration-300 ${activeIndex === index ? 'shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border-primary/20' : 'hover:border-gray-300'}`}
@@ -85,3 +68,4 @@ export default function FAQ() {
     </section>
   );
 }
+

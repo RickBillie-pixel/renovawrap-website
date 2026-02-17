@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Loader2, Download, X, Check, Search, ChefHat, Square, DoorOpen, Wrench, Box, Camera, Upload, CheckCircle2, ChevronRight, ChevronLeft, ArrowRight, Star, Info } from "lucide-react";
+import { Sparkles, Loader2, Download, X, Check, Search, ChefHat, Square, DoorOpen, Wrench, Box, Camera, Upload, CheckCircle2, ChevronRight, ChevronLeft, ArrowRight, Info } from "lucide-react";
 import { getWrapColors } from "@/lib/wrapColors";
 import { supabase } from "@/lib/supabase";
 import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";

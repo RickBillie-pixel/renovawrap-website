@@ -1,13 +1,38 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import FadeIn from "../components/FadeIn";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import { countertopFaqs } from "../data/faqs";
 import { getWrapColors } from "../lib/wrapColors";
 import KeuzehulpAanrechtbladen from "../components/KeuzehulpAanrechtbladen";
-
 import { materials } from "../data/materials";
 
 export default function AanrechtbladenMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const slideInLeft = {
+    initial: isMobile ? { x: -50, opacity: 0 } : {},
+    whileInView: isMobile ? { x: 0, opacity: 1 } : {},
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const slideInRight = {
+    initial: isMobile ? { x: 50, opacity: 0 } : {},
+    whileInView: isMobile ? { x: 0, opacity: 1 } : {},
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -243,8 +268,8 @@ export default function AanrechtbladenMobile() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {[
+          {(() => {
+            const items = [
               {
                 title: "Rechte Bladen",
                 desc: "Eenvoudig en snel. Wij wrappen uw rechte aanrechtblad vaak binnen een halve dag. Geen naden, strakke afwerking en direct weer te gebruiken.",
@@ -261,29 +286,85 @@ export default function AanrechtbladenMobile() {
                 desc: "Maak van uw eiland weer de eyecatcher van de keuken. Wij kunnen grote oppervlakken wrappen en zelfs de zijwangen meenemen voor een luxe blok-effect.",
                 image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY"
               }
-            ].map((item, index) => (
-              <div key={index} className={`group cursor-pointer ${item.className || ''}`}>
-                <div className="relative overflow-hidden mb-8 aspect-[3/4]">
-                  <img
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                    src={item.image}
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+            ];
+
+            return (
+              <>
+                {/* Mobile Layout (Alternating + FadeIn) */}
+                <div className="flex flex-col gap-24 md:hidden">
+                  {items.map((item, index) => (
+                    <FadeIn 
+                      key={index} 
+                      direction={index % 2 === 0 ? "left" : "right"} 
+                      className="w-full"
+                      threshold={0.2}
+                    >
+                      <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                        {/* Image Container */}
+                        <div className={`relative w-[85%] aspect-[3/4] mb-8 shadow-2xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}>
+                           <div className="w-full h-full overflow-hidden group cursor-pointer block">
+                             <img
+                               alt={item.title}
+                               className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                               src={item.image}
+                             />
+                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                           </div>
+                           
+                           {/* Number Badge */}
+                           <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} bg-white p-6 shadow-xl z-20`}>
+                             <span className="font-display text-4xl text-primary font-bold">0{index + 1}</span>
+                           </div>
+                        </div>
+
+                        {/* Text Content */}
+                        <div className={`w-[90%] ${index % 2 === 0 ? 'text-left pl-4' : 'text-right pr-4'} mt-8`}>
+                          <div className="group cursor-pointer block">
+                            <h3 className="font-display text-4xl text-dark mb-4 group-hover:text-primary transition-colors leading-[0.9]">
+                              {item.title}
+                            </h3>
+                            <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                              {item.desc}
+                            </p>
+                            <div className={`flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-dark group-hover:gap-5 transition-all ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                              Bekijk
+                              <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </FadeIn>
+                  ))}
                 </div>
-                <div className="flex justify-between items-start border-t border-gray-200 pt-6">
-                  <div>
-                    <span className="text-xs text-primary font-mono mb-2 block">0{index + 1}</span>
-                    <h3 className="font-display text-2xl text-dark mb-2 group-hover:italic transition-all">{item.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
-                      {item.desc}
-                    </p>
-                  </div>
-                  <span className="material-symbols-outlined text-gray-300 group-hover:text-dark transition-colors">arrow_outward</span>
+
+                {/* Desktop Layout (Grid) */}
+                <div className="hidden md:grid md:grid-cols-3 gap-8 lg:gap-12">
+                  {items.map((item, index) => (
+                    <div key={index} className={`group cursor-pointer ${item.className || ''}`}>
+                      <div className="relative overflow-hidden mb-8 aspect-[3/4]">
+                        <img
+                          alt={item.title}
+                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                          src={item.image}
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                      </div>
+                      <div className="flex justify-between items-start border-t border-gray-200 pt-6">
+                        <div>
+                          <span className="text-xs text-primary font-mono mb-2 block">0{index + 1}</span>
+                          <h3 className="font-display text-2xl text-dark mb-2 group-hover:italic transition-all">{item.title}</h3>
+                          <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
+                            {item.desc}
+                          </p>
+                        </div>
+                        <span className="material-symbols-outlined text-gray-300 group-hover:text-dark transition-colors">arrow_outward</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
-          </div>
+              </>
+            );
+          })()}
         </div>
       </section>
 
@@ -305,7 +386,11 @@ export default function AanrechtbladenMobile() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-min">
             
             {/* Card 1: Hittebestendig */}
-            <div className="md:col-span-7 relative group">
+            <motion.div 
+              key={isMobile ? 'mobile-1' : 'desktop-1'}
+              className="md:col-span-7 relative group"
+              {...slideInLeft}
+            >
               <div className="h-full bg-white dark:bg-[#242424] rounded-2xl p-8 md:p-12 shadow-lg border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
                 <span className="absolute -right-4 -bottom-12 text-[180px] font-display font-bold text-gray-100 dark:text-white/5 leading-none select-none z-0 pointer-events-none">
                   01
@@ -315,17 +400,22 @@ export default function AanrechtbladenMobile() {
                     <span className="material-symbols-outlined text-2xl">local_fire_department</span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-display text-gray-900 dark:text-[#FFF9F0] mb-4">
-                    Hittebestendig
+                    Duurzaam
                   </h3>
                   <p className="text-gray-600 dark:text-[rgba(255,249,240,0.7)] leading-relaxed text-lg max-w-md">
-                    Onze speciale aanrechtblad-folies zijn bestand tegen temperaturen tot 90 graden. Een hete pan of kokend water is geen probleem, maar we raden een onderzetter aan voor extreme hitte.
+                    Onze speciale aanrechtblad-folies zijn uitstekend bestand tegen dagelijks gebruik en warmte. Voor hete pannen direct van het vuur adviseren wij echter altijd een onderzetter te gebruiken.
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 2: Kras- & Stootvast */}
-            <div className="md:col-span-5 row-span-2 relative group">
+            <motion.div 
+              key={isMobile ? 'mobile-2' : 'desktop-2'}
+              className="md:col-span-5 row-span-2 relative group"
+              {...slideInLeft}
+              transition={{ ...slideInLeft.transition, delay: isMobile ? 0.1 : 0 }}
+            >
               <div className="h-full bg-[#C4A47C] text-white rounded-2xl p-8 md:p-10 shadow-lg border border-[#C4A47C]/20 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between">
                 <span className="absolute -right-8 -top-8 text-[200px] font-display font-bold text-white/10 leading-none select-none z-0 pointer-events-none">
                   02
@@ -336,17 +426,21 @@ export default function AanrechtbladenMobile() {
                   </div>
                   <h3 className="text-3xl font-display text-white mb-4">Kras- & Stootvast</h3>
                   <p className="text-white/90 leading-relaxed text-lg">
-                    Ontwikkeld voor intensief dagelijks gebruik. De toplaag is extreem hard en beschermt tegen krassen van messen, pannen en servies.
+                    Ontwikkeld for intensief dagelijks gebruik. De toplaag is extreem hard en beschermt tegen krassen van messen, pannen en servies.
                   </p>
                 </div>
                 <div className="relative z-10 mt-12 pt-8 border-t border-white/20">
                   <p className="font-display italic text-xl opacity-90">"Industriële kwaliteit voor in huis"</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 3: Waterdicht */}
-            <div className="md:col-span-7 relative group">
+            <motion.div 
+              key={isMobile ? 'mobile-3' : 'desktop-3'}
+              className="md:col-span-7 relative group"
+              {...slideInRight}
+            >
               <div className="h-full bg-white dark:bg-[#242424] rounded-2xl p-8 md:p-10 shadow-lg border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
                 <span className="absolute right-4 top-4 text-[120px] font-display font-bold text-gray-100 dark:text-white/5 leading-none select-none z-0 pointer-events-none">
                   03
@@ -363,10 +457,15 @@ export default function AanrechtbladenMobile() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 4: Hygiënisch */}
-            <div className="md:col-span-4 relative group">
+            <motion.div 
+              key={isMobile ? 'mobile-4' : 'desktop-4'}
+              className="md:col-span-4 relative group"
+              {...slideInRight}
+              transition={{ ...slideInRight.transition, delay: isMobile ? 0.1 : 0 }}
+            >
               <div className="h-full bg-gray-50 dark:bg-[#1f1f1f] rounded-2xl p-8 shadow-md border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
                 <span className="absolute -left-4 -bottom-8 text-[140px] font-display font-bold text-gray-200 dark:text-white/5 leading-none select-none z-0 pointer-events-none">
                   04
@@ -383,10 +482,14 @@ export default function AanrechtbladenMobile() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 5: Duurzaam */}
-            <div className="md:col-span-4 relative group">
+            <motion.div 
+              key={isMobile ? 'mobile-5' : 'desktop-5'}
+              className="md:col-span-4 relative group"
+              {...slideInLeft}
+            >
               <div className="h-full bg-gray-50 dark:bg-[#1f1f1f] rounded-2xl p-8 shadow-md border border-gray-100 dark:border-white/5 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden">
                 <span className="absolute right-0 top-0 text-[140px] font-display font-bold text-gray-200 dark:text-white/5 leading-none select-none z-0 pointer-events-none transform rotate-12">
                   05
@@ -403,10 +506,14 @@ export default function AanrechtbladenMobile() {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 6: Garantie */}
-            <div className="md:col-span-4 relative group">
+            <motion.div 
+              key={isMobile ? 'mobile-6' : 'desktop-6'}
+              className="md:col-span-4 relative group"
+              {...slideInLeft}
+            >
               <div className="h-full bg-gray-900 dark:bg-black rounded-2xl p-8 shadow-lg border border-gray-800 dark:border-white/10 transition-transform duration-300 hover:-translate-y-1 relative overflow-hidden flex flex-col justify-center">
                 <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[160px] font-display font-bold text-white/10 leading-none select-none z-0 pointer-events-none">
                   06
@@ -419,7 +526,7 @@ export default function AanrechtbladenMobile() {
                   <p className="text-gray-400 text-sm">Op het loslaten van de folie (niet door eigen beschadigingen).</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -460,11 +567,11 @@ export default function AanrechtbladenMobile() {
             </div>
 
              {/* Card 2: Hittebestendig - Spans 1 col */}
-             <div className="md:col-span-1 bg-[#FFF9F0] rounded-[2rem] p-10 flex flex-col justify-center min-h-[400px]">
-                <h3 className="font-display text-5xl text-[#C4A47C] mb-4 font-serif">90 graden</h3>
+              <div className="md:col-span-1 bg-[#FFF9F0] rounded-[2rem] p-10 flex flex-col justify-center min-h-[400px]">
+                <h3 className="font-display text-5xl text-[#C4A47C] mb-4 font-serif">Kwaliteit</h3>
                 <h4 className="font-bold text-dark mb-3 text-lg">Hittebestendig</h4>
-                <p className="text-gray-500 text-sm leading-relaxed">Bestand tegen hete pannen en kokend water. Geen kringen of vervorming.</p>
-             </div>
+                <p className="text-gray-500 text-sm leading-relaxed">De folie is bestand tegen dagelijks gebruik en warmte. Gebruik voor hete pannen altijd een onderzetter voor optimaal behoud.</p>
+              </div>
 
              {/* Bottom Row */}
              {/* Card 3: Waterdicht - Spans 1 col */}
@@ -585,7 +692,7 @@ export default function AanrechtbladenMobile() {
                         </li>
                      ))}
                   </ul>
-                  <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/over-ons">
+                  <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/catalogus">
                      Meer Over Onze Materialen
                      <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                   </a>
@@ -616,7 +723,7 @@ export default function AanrechtbladenMobile() {
       </section>
 
       {/* 7. FAQ */}
-      <FAQ />
+      <FAQ items={countertopFaqs} />
 
       {/* 8. Keuzehulp Wizard */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

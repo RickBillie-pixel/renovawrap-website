@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
-import FAQ from "../components/FAQ";
+import FAQs from "../components/FAQ";
+import { doorFaqs } from "../data/faqs";
 import KeuzehulpDeuren from "../components/KeuzehulpDeuren";
 
 import { getWrapColors, type WrapColor } from "@/lib/wrapColors";
@@ -91,6 +92,16 @@ const ColorDisplay = ({ color, className, ref }: { color: WrapColor | null, clas
 }
 
 export default function DeurenMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const wrapColors = getWrapColors();
@@ -113,7 +124,21 @@ export default function DeurenMobile() {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
+
+  const slideInLeft = {
+    initial: isMobile ? { x: -50, opacity: 0 } : {},
+    whileInView: isMobile ? { x: 0, opacity: 1 } : {},
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const slideInRight = {
+    initial: isMobile ? { x: 50, opacity: 0 } : {},
+    whileInView: isMobile ? { x: 0, opacity: 1 } : {},
+    viewport: { once: true, margin: "-50px" },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
 
 
   return (
@@ -257,7 +282,7 @@ export default function DeurenMobile() {
       </header>
 
       {/* Anatomie van een Renovatie */}
-      <section className="py-24 bg-background-light" id="anatomie">
+      <section className="py-24 bg-background-light overflow-hidden" id="anatomie">
          <div className="max-w-[1400px] mx-auto px-6">
             <div className="text-center mb-16">
                <span className="text-xs font-bold tracking-widest uppercase text-gray-400 mb-2 block">Technische Opbouw</span>
@@ -327,22 +352,28 @@ export default function DeurenMobile() {
               </a>
             </div>
             
-            <div className="flex gap-6 md:gap-10 mt-8 md:mt-0">
+            <div className="flex gap-6 md:gap-10 mt-8 md:mt-0 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 md:pb-0 px-1 -mx-4 md:mx-0 w-[calc(100%+2rem)] md:w-auto justify-start md:justify-center after:content-[''] after:shrink-0 after:w-4 md:after:w-0">
                {/* Color 1 - Updates every 8s, Start 0s. StartIndex 0 (beginning) */}
-               <ColorCircle initialDelay={0} startIndex={0} />
+               <div className="snap-center shrink-0 first:pl-4 last:pr-4">
+                  <ColorCircle initialDelay={0} startIndex={0} />
+               </div>
 
                {/* Color 2 - Updates every 8s, Start 2.5s. StartIndex ~1/3 (middle) */}
-               <ColorCircle initialDelay={2500} startIndex={Math.floor(totalColors / 3)} />
+               <div className="snap-center shrink-0">
+                  <ColorCircle initialDelay={2500} startIndex={Math.floor(totalColors / 3)} />
+               </div>
 
                 {/* Color 3 - Updates every 8s, Start 5s. StartIndex ~2/3 (end) */}
-               <ColorCircle initialDelay={5000} startIndex={Math.floor(totalColors * 2 / 3)} />
+               <div className="snap-center shrink-0">
+                  <ColorCircle initialDelay={5000} startIndex={Math.floor(totalColors * 2 / 3)} />
+               </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Waarom Deuren Wrappen (Dark Section) */}
-      <section className="py-24 bg-[#1A1A1A] text-white">
+      <section className="py-24 bg-[#1A1A1A] text-white overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 text-center mb-16">
            <div className="inline-block px-4 py-1 rounded-full border border-white/20 text-[10px] tracking-widest uppercase mb-4">
                De Voordelen
@@ -352,7 +383,11 @@ export default function DeurenMobile() {
            </h2>
         </div>
         <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-           <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+           <motion.div 
+             key={isMobile ? 'mobile-1' : 'desktop-1'}
+             className="bg-white/5 p-8 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
+             {...slideInLeft}
+           >
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-6 text-[#C4A47C]">
                  <span className="material-symbols-outlined">savings</span>
               </div>
@@ -360,8 +395,13 @@ export default function DeurenMobile() {
               <p className="text-white/60 text-sm leading-relaxed mb-6">
                  Wrappen is tot 70% voordeliger dan het vervangen van deuren en kozijnen. U behoudt de degelijke basis, maar vernieuwt de uitstraling.
               </p>
-           </div>
-           <div className="bg-[#C4A47C] p-8 rounded-xl text-dark">
+           </motion.div>
+           <motion.div 
+             key={isMobile ? 'mobile-2' : 'desktop-2'}
+             className="bg-[#C4A47C] p-8 rounded-xl text-dark"
+             {...slideInLeft}
+             transition={{ ...slideInLeft.transition, delay: isMobile ? 0.1 : 0 }}
+           >
                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center mb-6 text-[#1A1A1A]">
                  <span className="material-symbols-outlined">timer</span>
               </div>
@@ -370,8 +410,12 @@ export default function DeurenMobile() {
                  Geen wekenlange verbouwing. Wij zijn vaak binnen één dag klaar met een verdieping. Geen stof, geen lawaai, direct genieten.
               </p>
               <p className="text-xs font-bold uppercase tracking-widest border-t border-black/10 pt-4">Vandaag geplaatst, vanavond klaar</p>
-           </div>
-           <div className="bg-white/5 p-8 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+           </motion.div>
+           <motion.div 
+             key={isMobile ? 'mobile-3' : 'desktop-3'}
+             className="bg-white/5 p-8 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
+             {...slideInRight}
+           >
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-6 text-[#C4A47C]">
                  <span className="material-symbols-outlined">cleaning_services</span>
               </div>
@@ -379,7 +423,7 @@ export default function DeurenMobile() {
               <p className="text-white/60 text-sm leading-relaxed mb-6">
                  Nooit meer schilderen. Onze folies zijn kleurvast en eenvoudig schoon te maken met een vochtige doek.
               </p>
-           </div>
+           </motion.div>
         </div>
       </section>
 
@@ -424,7 +468,7 @@ export default function DeurenMobile() {
       </section>
 
       {/* 6. FAQ */}
-      <FAQ />
+      <FAQs items={doorFaqs} />
 
       {/* 7. Keuzehulp (Wizard) */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

@@ -35,7 +35,7 @@ export default function Materialen() {
             <p className="text-gray-600 max-w-2xl text-lg font-light leading-relaxed">
               Onze collectie omvat meer dan 300 hoogwaardige afwerkingen — van realistische houtnerven 
               en natuursteen tot ultra-matte kleuren en metallic accenten. Elke folie is kras- en stootvast, 
-              hittebestendig, antibacterieel en ontworpen voor een levensduur van 15 tot 20 jaar.
+              onderhoudsvriendelijk, antibacterieel en ontworpen voor een levensduur van 15 tot 20 jaar.
             </p>
           </FadeIn>
         </div>

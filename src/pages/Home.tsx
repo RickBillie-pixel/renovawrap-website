@@ -117,7 +117,7 @@ export default function Home() {
   return (
     <main className="bg-background-light text-dark font-sans antialiased transition-colors duration-300">
       {/* Hero Section */}
-      <header className="relative min-h-screen flex items-start pt-24 lg:pt-36 overflow-hidden">
+      <header className="relative min-h-screen flex items-center py-24 overflow-hidden">
         {/* Background watermark */}
         <div className="absolute left-0 top-1/4 opacity-[0.06] pointer-events-none select-none z-0">
           <h1 className="text-[20rem] font-display font-bold leading-none text-dark tracking-tighter whitespace-nowrap">
@@ -165,8 +165,8 @@ export default function Home() {
             {/* Right Content: Visual & Interaction */}
             <div className="lg:col-span-6 flex justify-center">
               <FadeIn delay={200}>
-                <div className="relative w-full max-w-xl">
-                    <div className="relative z-10 w-full aspect-square min-h-[500px] shadow-2xl overflow-hidden bg-gray-100">
+                <div className="relative w-full max-w-3xl">
+                    <div className="relative z-10 w-full aspect-square min-h-[600px] shadow-2xl overflow-hidden bg-gray-100">
                        {featuredProjects.length > 0 ? (
                          featuredProjects.map((project, i) => {
                            const hasBeforeAfter = project.before_image_url && project.after_image_url;
@@ -211,7 +211,7 @@ export default function Home() {
                     {/* Floating Badge (Price) - matching style */}
                     <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 bg-white p-6 md:p-8 shadow-xl border border-dark/5 z-20 hidden md:block">
                       <span className="block text-[10px] uppercase tracking-widest font-bold text-gray-500 mb-2">Vanaf</span>
-                      <span className="block font-display text-4xl text-primary">€1250,-</span>
+                      <span className="block font-display text-4xl text-primary">€750,-</span>
                     </div>
                 </div>
               </FadeIn>
@@ -364,7 +364,7 @@ export default function Home() {
                 <span className="font-mono text-sm text-primary">[03]</span>
               </div>
               <p className="text-gray-600 leading-relaxed text-sm">
-                Gemaakt om in te leven. Onze architecturale folies zijn kras-, stoot- en hittebestendig. Vocht en dagelijks gebruik zijn geen enkel probleem. Een keuken om in te koken, niet alleen om naar te kijken.
+                Gemaakt om in te leven. Onze architecturale folies zijn kras- en stootvast. Voor hitte direct van het vuur adviseren wij een onderzetter, maar verder zijn vocht en dagelijks gebruik geen enkel probleem.
               </p>
             </FadeIn>
 

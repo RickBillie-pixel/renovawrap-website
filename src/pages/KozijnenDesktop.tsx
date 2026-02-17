@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import { windowFaqs } from "../data/faqs";
 import KeuzehulpKozijnen from "../components/KeuzehulpKozijnen";
 
 
@@ -47,7 +48,7 @@ export default function KozijnenDesktop() {
                 <span className="italic font-normal text-primary">Zonder Schilderen</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Witte kunststof kozijnen? Vervangen kost al snel €15.000+. Wij wrappen uw kozijnen, ramen en schuifpuien met UV-bestendige buitenfolie — niet van gepoedercoat aluminium te onderscheiden.
+                Kozijnen schilderen? Dit kost al snel enkele duizenden euro's en geeft veel rommel. Wij wrappen uw kozijnen, ramen en schuifpuien met UV-bestendige buitenfolie (niet van gepoedercoat aluminium te onderscheiden).
               </p>
               
               {/* Trust Badges */}
@@ -218,7 +219,7 @@ export default function KozijnenDesktop() {
                   </div>
                   <h3 className="font-display text-xl mb-3">Onderhoudsarm</h3>
                   <p className="text-white/60 text-sm leading-relaxed">
-                     Een natte doek is alles wat u nodig heeft. De hoogwaardige folies zijn krasbestendig, hittebestendig en vuilafstotend.
+                     Een natte doek is alles wat u nodig heeft. De hoogwaardige folies zijn krasbestendig, duurzaam en vuilafstotend.
                   </p>
                </div>
 
@@ -361,7 +362,7 @@ export default function KozijnenDesktop() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomwoning</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
-                Upload een foto van uw huidige kozijnen en zie binnen seconden hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
+                Upload een foto van uw huidige kozijnen en zie binnen enkele minuten hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -369,8 +370,8 @@ export default function KozijnenDesktop() {
                   <span>Start Configurator</span>
                   <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
                 </a>
-                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
-                  Hoe het werkt
+                <a href="/projecten" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Zie Projecten
                 </a>
               </div>
             </div>
@@ -483,7 +484,7 @@ export default function KozijnenDesktop() {
         </section>
 
       {/* 6. FAQ */}
-      <FAQ />
+      <FAQ items={windowFaqs} />
 
       {/* 7. Keuzehulp (Wizard) */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

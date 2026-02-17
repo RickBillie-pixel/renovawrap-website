@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import FadeIn from "../components/FadeIn";
+import { windowFaqs } from "../data/faqs";
 import KeuzehulpKozijnen from "../components/KeuzehulpKozijnen";
+import ProcessStepsMobile from "../components/ProcessStepsMobile";
 
 
 export default function KozijnenMobile() {
+
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -112,7 +116,7 @@ export default function KozijnenMobile() {
                 <span className="italic font-normal text-primary">Zonder Schilderen</span>
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed max-w-md pt-4">
-                Witte kunststof kozijnen? Vervangen kost al snel €15.000+. Wij wrappen uw kozijnen, ramen en schuifpuien met UV-bestendige buitenfolie — niet van gepoedercoat aluminium te onderscheiden.
+                Kozijnen schilderen? Dit kost al snel enkele duizenden euro's en geeft veel rommel. Wij wrappen uw kozijnen, ramen en schuifpuien met UV-bestendige buitenfolie (niet van gepoedercoat aluminium te onderscheiden).
               </p>
               
               {/* Trust Badges */}
@@ -246,7 +250,10 @@ export default function KozijnenMobile() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {/* Card 1: 70% Goedkoper */}
-               <div className="bg-white/5 p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 md:col-span-2 relative overflow-hidden group">
+               {/* Card 1: 70% Goedkoper */}
+               <FadeIn 
+                 className="bg-white/5 p-10 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 md:col-span-2 relative overflow-hidden group"
+               >
                   <div className="relative z-10">
                      <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-6 text-[#C4A47C]">
                         <span className="material-symbols-outlined">savings</span>
@@ -257,10 +264,14 @@ export default function KozijnenMobile() {
                      </p>
                   </div>
                   <span className="absolute right-0 bottom-0 text-[12rem] font-display text-white/[0.02] leading-none -mr-12 -mb-12 pointer-events-none group-hover:scale-105 transition-transform duration-700">01</span>
-               </div>
+               </FadeIn>
 
                {/* Card 2: Snel Resultaat (Highlighted) */}
-               <div className="bg-[#C4A47C] p-10 rounded-2xl text-[#1A1A1A] flex flex-col justify-between relative overflow-hidden group">
+               {/* Card 2: Snel Resultaat (Highlighted) */}
+               <FadeIn 
+                 className="bg-[#C4A47C] p-10 rounded-2xl text-[#1A1A1A] flex flex-col justify-between relative overflow-hidden group"
+                 delay={100}
+               >
                   <div className="relative z-10">
                      <div className="w-12 h-12 rounded-full bg-black/10 flex items-center justify-center mb-6 text-[#1A1A1A]">
                         <span className="material-symbols-outlined">timer</span>
@@ -274,21 +285,29 @@ export default function KozijnenMobile() {
                      </p>
                   </div>
                   <span className="absolute right-0 top-0 text-[10rem] font-display text-black/[0.05] leading-none -mr-8 -mt-8 pointer-events-none group-hover:rotate-12 transition-transform duration-700">02</span>
-               </div>
+               </FadeIn>
 
                {/* Card 3: Onderhoudsarm */}
-               <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+               {/* Card 3: Onderhoudsarm */}
+               <FadeIn 
+                 className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                 delay={200}
+               >
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-4 text-[#C4A47C]">
                      <span className="material-symbols-outlined text-xl">cleaning_services</span>
                   </div>
                   <h3 className="font-display text-xl mb-3">Onderhoudsarm</h3>
                   <p className="text-white/60 text-sm leading-relaxed">
-                     Een natte doek is alles wat u nodig heeft. De hoogwaardige folies zijn krasbestendig, hittebestendig en vuilafstotend.
+                     Een natte doek is alles wat u nodig heeft. De hoogwaardige folies zijn krasbestendig, duurzaam en vuilafstotend.
                   </p>
-               </div>
+               </FadeIn>
 
                {/* Card 4: Eindeloze Opties */}
-               <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+               {/* Card 4: Eindeloze Opties */}
+               <FadeIn 
+                 className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                 delay={300}
+               >
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-4 text-[#C4A47C]">
                      <span className="material-symbols-outlined text-xl">palette</span>
                   </div>
@@ -296,18 +315,22 @@ export default function KozijnenMobile() {
                   <p className="text-white/60 text-sm leading-relaxed">
                      Van mat zwart tot marmerlook of warme houttinten. Meer dan 300 premium designs beschikbaar.
                   </p>
-               </div>
+               </FadeIn>
 
                {/* Card 5: Duurzaam */}
-               <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+               {/* Card 5: Duurzaam */}
+               <FadeIn 
+                 className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 group"
+                 delay={400}
+               >
                   <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-4 text-[#C4A47C]">
                      <span className="material-symbols-outlined text-xl">recycling</span>
                   </div>
                   <h3 className="font-display text-xl mb-3">Duurzaam</h3>
                   <p className="text-white/60 text-sm leading-relaxed">
-                     Geen afval van oude kozijnen. We hergebruiken de basis, wat beter is voor uw portemonnee én de planeet.
+                     Geen afval van oude kozijnen. We hergebruiken the basis, wat beter is voor uw portemonnee én de planeet.
                   </p>
-               </div>
+               </FadeIn>
             </div>
          </div>
       </section>
@@ -352,8 +375,8 @@ export default function KozijnenMobile() {
                </h2>
             </div>
             
-            <div className="space-y-24">
-               {[
+            <ProcessStepsMobile 
+               steps={[
                   { 
                      step: "01", 
                      title: "Advies & Opmeting", 
@@ -364,8 +387,7 @@ export default function KozijnenMobile() {
                      step: "02", 
                      title: "Materiaalkeuze", 
                      desc: "Kies de perfecte match. Met meer dan 300 opties in kleuren en structuren vinden we altijd iets dat past bij de uitstraling van uw woning.",
-                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop",
-                     reverse: true
+                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"
                   },
                   { 
                      step: "03", 
@@ -377,33 +399,10 @@ export default function KozijnenMobile() {
                      step: "04", 
                      title: "Oplevering & Service", 
                      desc: "Samen lopen we het eindresultaat na. U ontvangt een garantiecertificaat en onderhoudsadvies. Geniet direct van uw 'nieuwe' kozijnen.",
-                     img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2670&auto=format&fit=crop",
-                     reverse: true
+                     img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2670&auto=format&fit=crop"
                   }
-               ].map((item, idx) => (
-                  <div key={idx} className={`relative flex flex-col items-center gap-12 md:gap-24 ${item.reverse ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-                     
-                     {/* Timeline Dot (Desktop) */}
-                     <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-white border border-gray-200 rounded-full items-center justify-center font-display text-primary shadow-sm z-20">
-                        {item.step}
-                     </div>
-
-                     <div className="flex-1 w-full">
-                        <div className="aspect-[4/3] bg-gray-100 overflow-hidden relative shadow-lg group">
-                           <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                           <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-500"></div>
-                        </div>
-                     </div>
-                     <div className="flex-1 text-center md:text-left">
-                        <span className="text-[#C4A47C] font-serif italic text-xl mb-4 block md:hidden">Stap {item.step}</span>
-                        <h3 className="font-display text-3xl md:text-4xl text-dark mb-6">{item.title}</h3>
-                        <p className="text-gray-500 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
-                           {item.desc}
-                        </p>
-                     </div>
-                  </div>
-               ))}
-            </div>
+               ]}
+            />
 
          </div>
       </section>
@@ -426,7 +425,7 @@ export default function KozijnenMobile() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomwoning</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
-                Upload een foto van uw huidige kozijnen en zie binnen seconden hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
+                Upload een foto van uw huidige kozijnen en zie binnen enkele minuten hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -434,8 +433,8 @@ export default function KozijnenMobile() {
                   <span>Start Configurator</span>
                   <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
                 </a>
-                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
-                  Hoe het werkt
+                <a href="/projecten" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Zie Projecten
                 </a>
               </div>
             </div>
@@ -548,7 +547,7 @@ export default function KozijnenMobile() {
         </section>
 
       {/* 6. FAQ */}
-      <FAQ />
+      <FAQ items={windowFaqs} />
 
       {/* 7. Keuzehulp (Wizard) */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

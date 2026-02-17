@@ -15,7 +15,7 @@ export default function KeukenWrappingTilburg() {
       introParagraph: "Keuken wrapping specialist voor Tilburg en Midden-Brabant. Van moderne matte designs tot warme houttinten. Transformeer uw keuken in één dag zonder sloopwerk.",
       werkwijzeIntro: "In 4 Stappen Uw Droomkeuken in Tilburg",
       whyTitle: "Bespaar Duizenden Euro's op Uw Keuken in Tilburg",
-      materialenIntro: "Voor bewoners van Tilburg en omgeving presenteren wij een collectie van meer dan 300 premium wrapfolies. Van industriële betonlook tot Scandinavisch houtdesign, voor iedere interieurstijl de perfecte afwerking. Hittebestendig, krasbestendig en ontworpen voor het dagelijks leven.",
+      materialenIntro: "Voor bewoners van Tilburg en omgeving presenteren wij een collectie van meer dan 300 premium wrapfolies. Van industriële betonlook tot Scandinavisch houtdesign, voor iedere interieurstijl de perfecte afwerking. Kras- en stootvast, onderhoudsvriendelijk en ontworpen voor het dagelijks leven.",
       layoutVariant: 'standard',
       formTitle: "Gratis Offerte Tilburg",
       reviewTitle: "Wat Tilburgers",

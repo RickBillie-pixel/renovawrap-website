@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import FAQ from "../components/FAQ";
+import { backsplashFaqs } from "../data/faqs";
 import KeuzehulpAchterwanden from "../components/KeuzehulpAchterwanden";
 
 
@@ -121,7 +123,7 @@ export default function AchterwandenDesktop() {
                      Een achterwand bepaalt de sfeer in je keuken. Onze collectie heeft exclusieve marmer, natuursteen en betonlooks die niet van echt te onderscheiden zijn. Maar dan zonder de voegen waar vuil zich ophoopt.
                   </p>
                   <blockquote className="border-l-2 border-[#D2B48C]/30 pl-6 py-2 mb-8 italic text-gray-400 font-display text-lg">
-                     "Een blikvanger in je keuken, waterdicht en hittebestendig."
+                     "Een blikvanger in je keuken, waterdicht en bestand tegen kookwarmte."
                   </blockquote>
                   <Link to="/catalogus" className="inline-flex items-center text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
                      Bekijk alle designs <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
@@ -185,15 +187,15 @@ export default function AchterwandenDesktop() {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center mb-32">
                  <div className="relative aspect-square md:aspect-[4/3] bg-white p-8 shadow-sm">
                     {/* Placeholder for Basket Image */}
-                    <img src="/project-fotos/after6.webp" alt="Hittebestendig materiaal" className="w-full h-full object-cover mix-blend-multiply" />
+                    <img src="/project-fotos/after6.webp" alt="Duurzaam materiaal" className="w-full h-full object-cover mix-blend-multiply" />
                     <div className="absolute bottom-4 left-4 bg-white px-4 py-2 text-xs text-gray-400 border border-gray-100 shadow-sm">
-                       Getest tot 90 graden, perfect veilig achter fornuis en kookplaat.
+                       Uitstekend bestand tegen de warmte van uw fornuis of kookplaat.
                     </div>
                  </div>
                  <div className="space-y-6">
-                    <h3 className="font-display text-3xl md:text-4xl text-dark">Hittebestendig & Veilig</h3>
+                    <h3 className="font-display text-3xl md:text-4xl text-dark">Duurzaam & Veilig</h3>
                     <p className="text-gray-500 leading-relaxed">
-                       Koken brengt hitte met zich mee. Onze folies zijn industrieel getest en bestand tegen hoge temperaturen. Of u nu kookt op gas of inductie, uw nieuwe achterwand blijft strak en veilig. Geen verkleuring, geen smelten.
+                       Koken brengt warmte met zich mee. Onze folies zijn industrieel ontwikkeld en uitstekend bestand tegen de warmte van kookplaten. Of u nu kookt op gas of inductie, uw nieuwe achterwand blijft strak en veilig.
                     </p>
                     <ul className="space-y-4 pt-4">
                        {[
@@ -275,6 +277,9 @@ export default function AchterwandenDesktop() {
              </div>
           </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQ items={backsplashFaqs} />
 
       {/* Keuzehulp Section */}
       <section id="keuzehulp" className="py-24 bg-background-light">

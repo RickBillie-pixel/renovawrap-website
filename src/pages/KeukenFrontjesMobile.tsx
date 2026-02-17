@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
+import FadeIn from "../components/FadeIn";
 import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
 import KitchenBenefits from "../components/KitchenBenefits";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import { cabinetFaqs } from "../data/faqs";
 
 export default function KeukenFrontjesMobile() {
 
@@ -193,7 +195,70 @@ export default function KeukenFrontjesMobile() {
                 Wij wrappen niet zomaar overheen; wij transformeren. Van strakke moderne lak-looks tot voelbare houtstructuren.
               </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          <div className="flex flex-col gap-24 md:hidden">
+            {[
+              {
+                title: "Vlakke Fronten",
+                desc: "Ideaal voor een moderne, minimalistische 'Soft Touch' of hoogglans afwerking. Strak en tijdloos.",
+                image: "/project-fotos/after11.webp"
+              },
+              {
+                title: "Kader & Profiel",
+                desc: "Heeft u klassieke frontjes met reliëf? Geen probleem. Onze folies vormen zich perfect naar de contouren.",
+                image: "/project-fotos/after12.webp",
+                className: "md:mt-24"
+              },
+              {
+                title: "Herstel & Correctie",
+                desc: "Loslatende folie van de fabriek? Wij verwijderen de oude laag en brengen een duurzamere nieuwe laag aan.",
+                image: "/project-fotos/after13.webp"
+              }
+            ].map((item, index) => (
+              <FadeIn 
+                key={index} 
+                direction={index % 2 === 0 ? "left" : "right"} 
+                className="w-full"
+                threshold={0.2}
+              >
+                <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                  {/* Image Container */}
+                  <div className={`relative w-[85%] aspect-[3/4] mb-8 shadow-2xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}>
+                     <div className="w-full h-full overflow-hidden group cursor-pointer block">
+                       <img
+                         alt={item.title}
+                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                         src={item.image}
+                       />
+                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                     </div>
+                     
+                     {/* Number Badge */}
+                     <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} bg-white p-6 shadow-xl z-20`}>
+                       <span className="font-display text-4xl text-primary font-bold">0{index + 1}</span>
+                     </div>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className={`w-[90%] ${index % 2 === 0 ? 'text-left pl-4' : 'text-right pr-4'} mt-8`}>
+                    <div className="group cursor-pointer block">
+                      <h3 className="font-display text-4xl text-dark mb-4 group-hover:text-primary transition-colors leading-[0.9]">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                        {item.desc}
+                      </p>
+                      <div className={`flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-dark group-hover:gap-5 transition-all ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                        Bekijk
+                        <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          <div className="hidden md:grid md:grid-cols-3 gap-8 lg:gap-12">
             {[
               {
                 title: "Vlakke Fronten",
@@ -285,7 +350,7 @@ export default function KeukenFrontjesMobile() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomkeuken</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
-                Upload een foto van uw huidige keuken en zie binnen seconden hoe onze folies de ruimte transformeren.
+                Upload een foto van uw huidige keuken en zie binnen enkele minuten hoe onze folies de ruimte transformeren.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -293,8 +358,8 @@ export default function KeukenFrontjesMobile() {
                   <span>Start Configurator</span>
                   <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
                 </a>
-                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
-                  Hoe het werkt
+                <a href="/projecten" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Zie Projecten
                 </a>
               </div>
             </div>
@@ -367,7 +432,7 @@ export default function KeukenFrontjesMobile() {
       </section>
 
       {/* 6. FAQ */}
-      <FAQ />
+      <FAQ items={cabinetFaqs} />
     </main>
   );
 }

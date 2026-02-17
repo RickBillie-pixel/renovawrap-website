@@ -15,7 +15,7 @@ export default function KeukenWrappingWeert() {
       introParagraph: "Keuken wrapping specialist voor Weert, Nederweert en Cranendonck. Betaalbaar, professioneel en snel. Bespaar tot 70% en geniet binnen één dag van een vernieuwde keuken.",
       werkwijzeIntro: "In 4 Stappen Uw Nieuwe Keuken in Weert",
       whyTitle: "Bespaar Duizenden Euro's op Uw Keuken in Weert",
-      materialenIntro: "Wij komen graag naar Weert met ons uitgebreide stalenboek. Meer dan 300 premium afwerkingen, van landelijke houttinten tot moderne betonlook. Alle folies zijn krasbestendig, hittebestendig en ontworpen voor dagelijks keukengebruik.",
+      materialenIntro: "Wij komen graag naar Weert met ons uitgebreide stalenboek. Meer dan 300 premium afwerkingen, van landelijke houttinten tot moderne betonlook. Alle folies zijn krasbestendig, duurzaam en ontworpen voor dagelijks keukengebruik.",
       layoutVariant: 'standard',
       formTitle: "Gratis Offerte Weert",
       reviewTitle: "Wat Klanten uit Weert",

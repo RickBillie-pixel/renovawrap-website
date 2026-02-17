@@ -12,6 +12,7 @@ export default function CountUp({
   end,
   duration = 2000,
   suffix = "+",
+  className,
   suffixClassName = "text-4xl align-top",
 }: CountUpProps) {
   const [count, setCount] = useState(0);
@@ -64,7 +65,7 @@ export default function CountUp({
   }, [hasStarted, end, duration]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className={className}>
       {count}
       {suffix && <span className={suffixClassName}>{suffix}</span>}
     </span>

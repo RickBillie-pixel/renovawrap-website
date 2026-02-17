@@ -4,9 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import KitchenBenefits from "../components/KitchenBenefits";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import { kitchenFaqs } from "../data/faqs";
 import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
+
 import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
+import FadeIn from "../components/FadeIn";
 
 function KeuzehulpWizard() {
   const [step, setStep] = useState(1);
@@ -167,7 +170,7 @@ function KeuzehulpWizard() {
     { 
       id: "werkblad", 
       label: "Werkblad", 
-      sub: "Hittebestendig",
+      sub: "Bestand tegen kookwarmte",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC2WGLFQDDxeZSYLHmb0V41cvTnh383Noev742OXf_dUWR_G4dqth48XUEUq5m5Im7Q-WhO1I0O2MZvm219CuM3woZ-uwkQU2BXuTKKySVlKIiJCuSIHxu939zsumzhe9EAYxxZCTRl-b4QetaCrObhz4pPQL7ikSwDon-sbaDdDJYde01jU7_N6KDbwdFml4r1YmUJauOVXoGQ4-JrT_Wel-fBGstFnwp_Sf9ClyfRw8VEiSCtdmLZwR7JDeKYWKtkAB3ypFY-Wyg" 
     },
     { 
@@ -725,7 +728,7 @@ export default function KeukenWrappingMobile() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          <div className="flex flex-col gap-24">
             {[
               {
                 title: "Keukenfrontjes & Lades",
@@ -735,9 +738,8 @@ export default function KeukenWrappingMobile() {
               },
               {
                 title: "Werkbladen",
-                desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en hittebestendig tot 90 graden. Een luxe look voor een fractie van de prijs.",
+                desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en duurzaam. Voor hete pannen adviseren wij always een onderzetter voor optimaal behoud.",
                 image: "/project-fotos/after6.webp",
-                className: "md:mt-24",
                 link: "/diensten/aanrechtbladen"
               },
               {
@@ -747,24 +749,47 @@ export default function KeukenWrappingMobile() {
                 link: "/diensten/achterwanden"
               }
             ].map((item, index) => (
-              <Link key={index} to={item.link} className={`group cursor-pointer block ${item.className || ''}`}>
-                <div className="relative overflow-hidden mb-8 aspect-[3/4]">
-                  <img
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                    src={item.image}
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
-                </div>
-                <div className="flex justify-between items-start border-t border-gray-200 pt-6">
-                  <div>
-                    <span className="text-xs text-primary font-mono mb-2 block">0{index + 1}</span>
-                    <h3 className="font-display text-2xl text-dark mb-2 group-hover:italic transition-all">{item.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed max-w-xs">{item.desc}</p>
+              <FadeIn 
+                key={index} 
+                direction={index % 2 === 0 ? "left" : "right"} 
+                className="w-full"
+                threshold={0.2}
+              >
+                <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                  {/* Image Container */}
+                  <div className={`relative w-[85%] aspect-[3/4] mb-8 shadow-2xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}>
+                    <Link to={item.link} className="block w-full h-full overflow-hidden group">
+                      <img
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        src={item.image}
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                    </Link>
+                    
+                    {/* Number Badge - Overlapping Bottom Corner */}
+                    <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} bg-white p-6 shadow-xl z-20`}>
+                      <span className="font-display text-4xl text-primary font-bold">0{index + 1}</span>
+                    </div>
                   </div>
-                  <span className="material-symbols-outlined text-gray-300 group-hover:text-dark transition-colors">arrow_outward</span>
+
+                  {/* Text Content */}
+                  <div className={`w-[90%] ${index % 2 === 0 ? 'text-left pl-4' : 'text-right pr-4'} mt-8`}>
+                    <Link to={item.link} className="block group">
+                      <h3 className="font-display text-4xl text-dark mb-4 group-hover:text-primary transition-colors leading-[0.9]">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                        {item.desc}
+                      </p>
+                      <div className={`flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-dark group-hover:gap-5 transition-all ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                        Bekijk
+                        <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
-              </Link>
+              </FadeIn>
             ))}
           </div>
         </div>
@@ -819,7 +844,7 @@ export default function KeukenWrappingMobile() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomkeuken</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
-                Upload een foto van uw huidige keuken en zie binnen seconden hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
+                Upload een foto van uw huidige keuken en zie binnen enkele minuten hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -827,8 +852,8 @@ export default function KeukenWrappingMobile() {
                   <span>Start Configurator</span>
                   <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
                 </a>
-                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
-                  Hoe het werkt
+                <a href="/projecten" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Zie Projecten
                 </a>
               </div>
             </div>
@@ -855,7 +880,7 @@ export default function KeukenWrappingMobile() {
               <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Collectie</span>
               <h2 className="font-display text-4xl text-dark mb-6">Premium <br /><span className="italic font-light">Materialen</span></h2>
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                Onze collectie omvat meer dan 300 hoogwaardige afwerkingen — van realistische houtnerven en natuursteen tot ultra-matte kleuren en metallic accenten. Elke folie is kras- en stootvast, hittebestendig, antibacterieel en ontworpen voor een levensduur van 15 tot 20 jaar.
+                Onze collectie omvat meer dan 300 hoogwaardige afwerkingen — van realistische houtnerven en natuursteen tot ultra-matte kleuren en metallic accenten. Elke folie is kras- en stootvast, onderhoudsvriendelijk, antibacterieel en ontworpen voor een levensduur van 15 tot 20 jaar.
               </p>
               <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/catalogus">
                 Bekijk Catalogus
@@ -941,7 +966,7 @@ export default function KeukenWrappingMobile() {
        </section>
 
        {/* FAQ */}
-       <FAQ />
+       <FAQ items={kitchenFaqs} />
 
        {/* Keuzehulp Wizard */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

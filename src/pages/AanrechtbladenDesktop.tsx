@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import { countertopFaqs } from "../data/faqs";
 import { getWrapColors } from "../lib/wrapColors";
 import KeuzehulpAanrechtbladen from "../components/KeuzehulpAanrechtbladen";
 
@@ -77,7 +78,7 @@ export default function AanrechtbladenDesktop() {
             <div className="lg:col-span-6 space-y-8">
               <div className="inline-block border-l-2 border-primary pl-4">
                 <span className="block text-primary font-sans text-xs font-bold tracking-widest uppercase mb-2">Specialist in Werkbladen</span>
-                <p className="font-display text-lg italic text-gray-500">Hittebestendig, Krasvast & Waterdicht.</p>
+                <p className="font-display text-lg italic text-gray-500">Duurzaam, Krasvast & Waterdicht.</p>
               </div>
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-dark">
                 Aanrechtblad <br />
@@ -225,10 +226,10 @@ export default function AanrechtbladenDesktop() {
                     <span className="material-symbols-outlined text-2xl">local_fire_department</span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-display text-gray-900 dark:text-[#FFF9F0] mb-4">
-                    Hittebestendig
+                    Duurzaam
                   </h3>
                   <p className="text-gray-600 dark:text-[rgba(255,249,240,0.7)] leading-relaxed text-lg max-w-md">
-                    Onze speciale aanrechtblad-folies zijn bestand tegen temperaturen tot 90 graden. Een hete pan of kokend water is geen probleem, maar we raden een onderzetter aan voor extreme hitte.
+                    Onze speciale aanrechtblad-folies zijn uitstekend bestand tegen dagelijks gebruik en warmte. Voor hete pannen direct van het vuur adviseren wij echter altijd een onderzetter te gebruiken.
                   </p>
                 </div>
               </div>
@@ -370,11 +371,11 @@ export default function AanrechtbladenDesktop() {
             </div>
 
              {/* Card 2: Hittebestendig - Spans 1 col */}
-             <div className="md:col-span-1 bg-[#FFF9F0] rounded-[2rem] p-10 flex flex-col justify-center min-h-[400px]">
-                <h3 className="font-display text-5xl text-[#C4A47C] mb-4 font-serif">90 graden</h3>
+              <div className="md:col-span-1 bg-[#FFF9F0] rounded-[2rem] p-10 flex flex-col justify-center min-h-[400px]">
+                <h3 className="font-display text-5xl text-[#C4A47C] mb-4 font-serif">Kwaliteit</h3>
                 <h4 className="font-bold text-dark mb-3 text-lg">Hittebestendig</h4>
-                <p className="text-gray-500 text-sm leading-relaxed">Bestand tegen hete pannen en kokend water. Geen kringen of vervorming.</p>
-             </div>
+                <p className="text-gray-500 text-sm leading-relaxed">De folie is bestand tegen dagelijks gebruik en warmte. Gebruik voor hete pannen altijd een onderzetter voor optimaal behoud.</p>
+              </div>
 
              {/* Bottom Row */}
              {/* Card 3: Waterdicht - Spans 1 col */}
@@ -495,7 +496,7 @@ export default function AanrechtbladenDesktop() {
                         </li>
                      ))}
                   </ul>
-                  <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/over-ons">
+                  <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/catalogus">
                      Meer Over Onze Materialen
                      <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
                   </a>
@@ -526,7 +527,7 @@ export default function AanrechtbladenDesktop() {
       </section>
 
       {/* 7. FAQ */}
-      <FAQ />
+      <FAQ items={countertopFaqs} />
 
       {/* 8. Keuzehulp Wizard */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

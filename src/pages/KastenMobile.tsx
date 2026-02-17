@@ -1,11 +1,24 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import FadeIn from "../components/FadeIn";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
 import KeuzehulpKasten from "../components/KeuzehulpKasten";
+import ProcessStepsMobile from "../components/ProcessStepsMobile";
+import { cabinetFaqs } from "../data/faqs";
 
 
 export default function KastenMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -28,6 +41,7 @@ export default function KastenMobile() {
     }, 10000);
     return () => clearInterval(interval);
   }, []);
+
 
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
@@ -199,76 +213,145 @@ export default function KastenMobile() {
 
       {/* 3. Categories Zig-Zag Section (Overlapping Cards Style) */}
       <section className="bg-white py-12 overflow-hidden">
-         {/* Row 1: Slaapkamer & Walk-in */}
-         <div className="max-w-[1400px] mx-auto px-6 mb-32">
-            <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
-               <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden">
-                  <img 
-                     src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2560&auto=format&fit=crop" 
-                     alt="Slaapkamer kast renovatie" 
-                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-               </div>
-               <div className="md:col-span-4 md:-ml-24 relative z-10 mt-8 md:mt-0">
-                  <div className="bg-white p-12 shadow-2xl border-l-4 border-primary transition-all duration-500 hover:-translate-y-2 hover:shadow-xl group">
-                      <span className="text-primary text-[10px] uppercase tracking-widest font-bold mb-4 block group-hover:text-dark transition-colors">01 - Rust & Luxe</span>
-                      <h3 className="font-display text-4xl text-dark mb-6 font-serif leading-tight group-hover:text-primary transition-colors">Slaapkamer <span className="italic">&</span> Walk-in</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                         Geniet van pure rust. Wij toveren uw kledingkast om tot een luxe eyecatcher met een zachte linnen-structuur of warme houtlook.
-                      </p>
-                      <a href="/projecten" className="text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
-                         Bekijk Voorbeelden
-                      </a>
+         {/* Mobile View */}
+         <div className="md:hidden max-w-[1400px] mx-auto px-6 mb-32 flex flex-col gap-24">
+            {[
+              {
+                title: "Slaapkamer & Walk-in",
+                desc: "Geniet van pure rust. Wij toveren uw kledingkast om tot een luxe eyecatcher met een zachte linnen-structuur of warme houtlook.",
+                image: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2560&auto=format&fit=crop",
+                linkText: "Bekijk Voorbeelden"
+              },
+              {
+                title: "Hal & Garderobe",
+                desc: "Uw hal is het visitekaartje van uw woning. Maak van een rommelige kapstok of standaard kast een strak en georganiseerd statement.",
+                image: "https://images.unsplash.com/photo-1621293954908-eae6d5e53434?q=80&w=2560&auto=format&fit=crop",
+                linkText: "Ontdek Mogelijkheden"
+              },
+              {
+                title: "Boekenkasten & TV-Meubels",
+                desc: "Geef uw woonkamer character. Een open vakkenkast of tv-meubel krijgt direct allure met een chique marmerlook of stoere betonfinish.",
+                image: "https://images.unsplash.com/photo-1594918734289-5107e3a09726?q=80&w=2670&auto=format&fit=crop",
+                linkText: "Bekijk Inspiratie"
+              }
+            ].map((item, index) => (
+               <FadeIn 
+                  key={index} 
+                  direction={index % 2 === 0 ? "left" : "right"} 
+                  className="w-full"
+                  threshold={0.2}
+               >
+                  <div className={`flex flex-col ${index % 2 === 0 ? 'items-start' : 'items-end'}`}>
+                    {/* Image Container */}
+                    <div className={`relative w-[85%] aspect-[3/4] mb-8 shadow-2xl ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}>
+                       <div className="w-full h-full overflow-hidden group cursor-pointer block">
+                         <img
+                           alt={item.title}
+                           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                           src={item.image}
+                         />
+                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
+                       </div>
+                       
+                       {/* Number Badge */}
+                       <div className={`absolute -bottom-6 ${index % 2 === 0 ? '-right-6' : '-left-6'} bg-white p-6 shadow-xl z-20`}>
+                         <span className="font-display text-4xl text-primary font-bold">0{index + 1}</span>
+                       </div>
+                    </div>
+
+                    {/* Text Content */}
+                    <div className={`w-[90%] ${index % 2 === 0 ? 'text-left pl-4' : 'text-right pr-4'} mt-8`}>
+                      <div className="group cursor-pointer block">
+                        <h3 className="font-display text-4xl text-dark mb-4 group-hover:text-primary transition-colors leading-[0.9]">
+                          {item.title}
+                        </h3>
+                        <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                          {item.desc}
+                        </p>
+                        <div className={`flex items-center gap-3 text-xs font-bold uppercase tracking-widest text-dark group-hover:gap-5 transition-all ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                          {item.linkText}
+                          <span className={`material-symbols-outlined text-sm ${index % 2 !== 0 ? 'rotate-180' : ''}`}>arrow_forward</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               </FadeIn>
+            ))}
+         </div>
+
+         {/* Desktop View */}
+         <div className="hidden md:block">
+            {/* Row 1: Slaapkamer & Walk-in */}
+            <div className="max-w-[1400px] mx-auto px-6 mb-32">
+               <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
+                  <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden">
+                     <img 
+                        src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2560&auto=format&fit=crop" 
+                        alt="Slaapkamer kast renovatie" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                     />
+                  </div>
+                  <div className="md:col-span-4 md:-ml-24 relative z-10 mt-8 md:mt-0">
+                     <div className="bg-white p-12 shadow-2xl border-l-4 border-primary transition-all duration-500 hover:-translate-y-2 hover:shadow-xl group">
+                         <span className="text-primary text-[10px] uppercase tracking-widest font-bold mb-4 block group-hover:text-dark transition-colors">01 - Rust & Luxe</span>
+                         <h3 className="font-display text-4xl text-dark mb-6 font-serif leading-tight group-hover:text-primary transition-colors">Slaapkamer <span className="italic">&</span> Walk-in</h3>
+                         <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                            Geniet van pure rust. Wij toveren uw kledingkast om tot een luxe eyecatcher met een zachte linnen-structuur of warme houtlook.
+                         </p>
+                         <a href="/projecten" className="text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
+                            Bekijk Voorbeelden
+                         </a>
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
 
-         {/* Row 2: Hal & Garderobe (Reversed) */}
-         <div className="max-w-[1400px] mx-auto px-6 mb-32">
-            <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
-               <div className="md:col-span-4 md:-mr-24 relative z-10 mb-8 md:mb-0 order-2 md:order-1">
-                  <div className="bg-white p-12 shadow-2xl border-r-4 border-primary text-right md:text-left transition-all duration-500 hover:-translate-y-2 hover:shadow-xl group">
-                      <span className="text-primary text-[10px] uppercase tracking-widest font-bold mb-4 block group-hover:text-dark transition-colors">02 - Eerste Indruk</span>
-                      <h3 className="font-display text-4xl text-dark mb-6 font-serif leading-tight group-hover:text-primary transition-colors">Hal <span className="italic">&</span> Garderobe</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                         Uw hal is het visitekaartje van uw woning. Maak van een rommelige kapstok of standaard kast een strak en georganiseerd statement.
-                      </p>
-                      <a href="/projecten" className="text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
-                         Ontdek Mogelijkheden
-                      </a>
+            {/* Row 2: Hal & Garderobe (Reversed) */}
+            <div className="max-w-[1400px] mx-auto px-6 mb-32">
+               <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
+                  <div className="md:col-span-4 md:-mr-24 relative z-10 mb-8 md:mb-0 order-2 md:order-1">
+                     <div className="bg-white p-12 shadow-2xl border-r-4 border-primary text-right md:text-left transition-all duration-500 hover:-translate-y-2 hover:shadow-xl group">
+                         <span className="text-primary text-[10px] uppercase tracking-widest font-bold mb-4 block group-hover:text-dark transition-colors">02 - Eerste Indruk</span>
+                         <h3 className="font-display text-4xl text-dark mb-6 font-serif leading-tight group-hover:text-primary transition-colors">Hal <span className="italic">&</span> Garderobe</h3>
+                         <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                            Uw hal is het visitekaartje van uw woning. Maak van een rommelige kapstok of standaard kast een strak en georganiseerd statement.
+                         </p>
+                         <a href="/projecten" className="text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
+                            Ontdek Mogelijkheden
+                         </a>
+                     </div>
+                  </div>
+                  <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden order-1 md:order-2">
+                     <img 
+                        src="https://images.unsplash.com/photo-1621293954908-eae6d5e53434?q=80&w=2560&auto=format&fit=crop" 
+                        alt="Hal garderobe renovatie" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                     />
                   </div>
                </div>
-               <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden order-1 md:order-2">
-                  <img 
-                     src="https://images.unsplash.com/photo-1621293954908-eae6d5e53434?q=80&w=2560&auto=format&fit=crop" 
-                     alt="Hal garderobe renovatie" 
-                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-               </div>
             </div>
-         </div>
 
-         {/* Row 3: Boekenkasten (Same as Row 1) */}
-         <div className="max-w-[1400px] mx-auto px-6">
-            <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
-               <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden">
-                  <img 
-                     src="https://images.unsplash.com/photo-1594918734289-5107e3a09726?q=80&w=2670&auto=format&fit=crop" 
-                     alt="Boekenkast renovatie" 
-                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-               </div>
-               <div className="md:col-span-4 md:-ml-24 relative z-10 mt-8 md:mt-0">
-                  <div className="bg-white p-12 shadow-2xl border-l-4 border-primary transition-all duration-500 hover:-translate-y-2 hover:shadow-xl group">
-                      <span className="text-primary text-[10px] uppercase tracking-widest font-bold mb-4 block group-hover:text-dark transition-colors">03 - Woonkamer</span>
-                      <h3 className="font-display text-4xl text-dark mb-6 font-serif leading-tight group-hover:text-primary transition-colors">Boekenkasten <span className="italic">&</span> TV-Meubels</h3>
-                      <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                         Geef uw woonkamer character. Een open vakkenkast of tv-meubel krijgt direct allure met een chique marmerlook of stoere betonfinish.
-                      </p>
-                      <a href="/projecten" className="text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
-                         Bekijk Inspiratie
-                      </a>
+            {/* Row 3: Boekenkasten (Same as Row 1) */}
+            <div className="max-w-[1400px] mx-auto px-6">
+               <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
+                  <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden">
+                     <img 
+                        src="https://images.unsplash.com/photo-1594918734289-5107e3a09726?q=80&w=2670&auto=format&fit=crop" 
+                        alt="Boekenkast renovatie" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                     />
+                  </div>
+                  <div className="md:col-span-4 md:-ml-24 relative z-10 mt-8 md:mt-0">
+                     <div className="bg-white p-12 shadow-2xl border-l-4 border-primary transition-all duration-500 hover:-translate-y-2 hover:shadow-xl group">
+                         <span className="text-primary text-[10px] uppercase tracking-widest font-bold mb-4 block group-hover:text-dark transition-colors">03 - Woonkamer</span>
+                         <h3 className="font-display text-4xl text-dark mb-6 font-serif leading-tight group-hover:text-primary transition-colors">Boekenkasten <span className="italic">&</span> TV-Meubels</h3>
+                         <p className="text-gray-500 text-sm leading-relaxed mb-8">
+                            Geef uw woonkamer character. Een open vakkenkast of tv-meubel krijgt direct allure met een chique marmerlook of stoere betonfinish.
+                         </p>
+                         <a href="/projecten" className="text-xs font-bold tracking-widest uppercase border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors">
+                            Bekijk Inspiratie
+                         </a>
+                     </div>
                   </div>
                </div>
             </div>
@@ -292,7 +375,11 @@ export default function KastenMobile() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                {/* Item 1 */}
-               <div className="bg-white/5 p-10 border border-white/10 group hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C4A47C]/30 flex flex-col items-center">
+               {/* Item 1 */}
+               <FadeIn 
+                 direction="left"
+                 className="bg-white/5 p-10 border border-white/10 group hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C4A47C]/30 flex flex-col items-center"
+               >
                   <div className="w-16 h-16 rounded-full bg-[#C4A47C]/10 flex items-center justify-center mb-6 text-[#C4A47C] group-hover:scale-110 group-hover:bg-[#C4A47C] group-hover:text-black transition-all duration-300">
                      <span className="material-symbols-outlined text-3xl">architecture</span>
                   </div>
@@ -300,10 +387,14 @@ export default function KastenMobile() {
                   <p className="text-gray-400 text-sm leading-relaxed text-center group-hover:text-gray-300 transition-colors">
                      Wij wrappen niet zomaar overheen; wij werken af. Randen, hoeken en grepen worden professioneel behandeld voor een resultaat dat niet van spuitwerk te onderscheiden is.
                   </p>
-               </div>
+               </FadeIn>
                
                {/* Item 2 - Highlighted */}
-               <div className="bg-[#C4A47C] p-10 border border-[#C4A47C] text-[#1A1A1A] flex flex-col items-center shadow-[0_0_40px_rgba(196,164,124,0.3)] relative -my-4 z-10 transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_0_60px_rgba(196,164,124,0.5)] group">
+               <FadeIn 
+                 direction="up"
+                 delay={0.2}
+                 className="bg-[#C4A47C] p-10 border border-[#C4A47C] text-[#1A1A1A] flex flex-col items-center shadow-[0_0_40px_rgba(196,164,124,0.3)] relative -my-4 z-10 transition-transform duration-300 hover:-translate-y-2 hover:shadow-[0_0_60px_rgba(196,164,124,0.5)] group"
+               >
                    <div className="w-16 h-16 rounded-full bg-black/10 flex items-center justify-center mb-6 text-black group-hover:bg-black group-hover:text-[#C4A47C] transition-all duration-300 transform group-hover:rotate-12">
                      <span className="material-symbols-outlined text-3xl">palette</span>
                   </div>
@@ -311,18 +402,22 @@ export default function KastenMobile() {
                   <p className="text-[#1A1A1A]/80 text-sm leading-relaxed text-center font-medium">
                      Ontdek onze collectie van 200+ premium folies. Voelbare houtnerven, realistische steenlooks en ultramatte kleuren die geen vingerafdrukken achterlaten.
                   </p>
-               </div>
+               </FadeIn>
                
                {/* Item 3 */}
-               <div className="bg-white/5 p-10 border border-white/10 group hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C4A47C]/30 flex flex-col items-center">
+               <FadeIn 
+                 direction="right"
+                 delay={0.4}
+                 className="bg-white/5 p-10 border border-white/10 group hover:bg-white/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#C4A47C]/30 flex flex-col items-center"
+               >
                    <div className="w-16 h-16 rounded-full bg-[#C4A47C]/10 flex items-center justify-center mb-6 text-[#C4A47C] group-hover:scale-110 group-hover:bg-[#C4A47C] group-hover:text-black transition-all duration-300">
                      <span className="material-symbols-outlined text-3xl">shield</span>
                   </div>
                   <h3 className="font-display text-2xl mb-4 group-hover:text-[#C4A47C] transition-colors">Kras- & Stootvast</h3>
                   <p className="text-gray-400 text-sm leading-relaxed text-center group-hover:text-gray-300 transition-colors">
-                     Onze speciaal ontwikkelde interieurfolie is bestand tegen dagelijks gebruik. Krasvast, hittebestendig en eenvoudig schoon te houden. Een duurzame investering.
+                     Onze speciaal ontwikkelde interieurfolie is bestand tegen dagelijks gebruik. Krasvast, duurzaam en eenvoudig schoon te houden. Een duurzame investering.
                   </p>
-               </div>
+               </FadeIn>
             </div>
          </div>
       </section>
@@ -331,14 +426,15 @@ export default function KastenMobile() {
       <section className="py-24 bg-white relative">
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-gray-100 -translate-x-1/2"></div>
           <div className="max-w-[1400px] mx-auto px-6 relative z-10">
-            <div className="text-center mb-24">
+            <div className="text-center mb-16 lg:mb-24">
                <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Zorgeloze Renovatie</span>
                <h2 className="font-display text-4xl md:text-5xl text-dark">
                   Het Verloop <span className="italic text-gray-400 font-serif">Van Uw Project</span>
                </h2>
             </div>
             
-            <div className="space-y-24">
+            {/* Desktop View (Keep existing) */}
+            <div className="hidden lg:block space-y-24">
                {[
                   { 
                      step: "01", 
@@ -381,7 +477,6 @@ export default function KastenMobile() {
                         </div>
                      </div>
                      <div className="flex-1 text-center md:text-left">
-                        <span className="text-[#C4A47C] font-serif italic text-xl mb-4 block md:hidden">Stap {item.step}</span>
                         <h3 className="font-display text-3xl md:text-4xl text-dark mb-6">{item.title}</h3>
                         <p className="text-gray-500 text-sm leading-relaxed max-w-md mx-auto md:mx-0">
                            {item.desc}
@@ -389,6 +484,38 @@ export default function KastenMobile() {
                      </div>
                   </div>
                ))}
+            </div>
+
+            {/* Mobile View (New Component) */}
+            <div className="block lg:hidden">
+              <ProcessStepsMobile 
+                steps={[
+                  { 
+                     step: "01", 
+                     title: "Advies & Opmeting", 
+                     desc: "We komen bij u langs om de situatie te bekijken. We nemen stalen mee, bespreken uw wensen en meten alles nauwkeurig op voor een offerte op maat.",
+                     img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop"
+                  },
+                  { 
+                     step: "02", 
+                     title: "Materiaalkeuze", 
+                     desc: "Kies de juiste match. We adviseren u graag over welke kleur en structuur het beste past bij uw vloer, lichtinval en persoonlijke stijl.",
+                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"
+                  },
+                  { 
+                     step: "03", 
+                     title: "Montage Zonder Sloop", 
+                     desc: "Onze vakkundige monteurs gaan aan de slag. We werken schoon, stil en snel. Vaak is uw kast binnen één dag al volledig getransformeerd.",
+                     img: "https://images.unsplash.com/photo-1599690963544-2f22b822d14c?q=80&w=2670&auto=format&fit=crop"
+                  },
+                  { 
+                     step: "04", 
+                     title: "Oplevering & Service", 
+                     desc: "Samen lopen we het eindresultaat na. U ontvangt onderhoudstips en een garantiecertificaat. Geniet direct van uw 'nieuwe' meubel.",
+                     img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2670&auto=format&fit=crop"
+                  }
+                ]}
+              />
             </div>
           </div>
       </section>
@@ -431,7 +558,7 @@ export default function KastenMobile() {
       </section>
 
       {/* 7. FAQ */}
-      <FAQ />
+      <FAQ items={cabinetFaqs} />
 
       {/* 8. Keuzehulp Wizard */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">

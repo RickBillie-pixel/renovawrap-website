@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import KitchenBenefits from "../components/KitchenBenefits";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
+import { kitchenFaqs } from "../data/faqs";
 import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
 import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
@@ -167,7 +168,7 @@ function KeuzehulpWizard() {
     { 
       id: "werkblad", 
       label: "Werkblad", 
-      sub: "Hittebestendig",
+      sub: "Bestand tegen kookwarmte",
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC2WGLFQDDxeZSYLHmb0V41cvTnh383Noev742OXf_dUWR_G4dqth48XUEUq5m5Im7Q-WhO1I0O2MZvm219CuM3woZ-uwkQU2BXuTKKySVlKIiJCuSIHxu939zsumzhe9EAYxxZCTRl-b4QetaCrObhz4pPQL7ikSwDon-sbaDdDJYde01jU7_N6KDbwdFml4r1YmUJauOVXoGQ4-JrT_Wel-fBGstFnwp_Sf9ClyfRw8VEiSCtdmLZwR7JDeKYWKtkAB3ypFY-Wyg" 
     },
     { 
@@ -669,7 +670,7 @@ export default function KeukenWrappingDesktop() {
               },
               {
                 title: "Werkbladen",
-                desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en hittebestendig tot 90 graden. Een luxe look voor een fractie van de prijs.",
+                desc: "Niet van echt steen te onderscheiden. Onze industriële wrapfolie is krasvast, waterdicht en duurzaam. Voor hete pannen adviseren wij altijd een onderzetter voor optimaal behoud.",
                 image: "/project-fotos/after6.webp",
                 className: "md:mt-24",
                 link: "/diensten/aanrechtbladen"
@@ -753,7 +754,7 @@ export default function KeukenWrappingDesktop() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-200 italic">Droomkeuken</span>
               </h2>
               <p className="text-gray-400 text-lg font-light leading-relaxed max-w-md">
-                Upload een foto van uw huidige keuken en zie binnen seconden hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
+                Upload een foto van uw huidige keuken en zie binnen enkele minuten hoe onze folies de ruimte transformeren. Technologie ontmoet ambacht.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -761,8 +762,8 @@ export default function KeukenWrappingDesktop() {
                   <span>Start Configurator</span>
                   <span className="material-symbols-outlined text-lg ml-2 group-hover:rotate-12 transition-transform">auto_fix_high</span>
                 </a>
-                <a href="#werkwijze" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
-                  Hoe het werkt
+                <a href="/projecten" className="px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase text-white border border-white/20 hover:bg-white/5 transition-colors flex items-center justify-center">
+                  Zie Projecten
                 </a>
               </div>
             </div>
@@ -789,7 +790,7 @@ export default function KeukenWrappingDesktop() {
               <span className="text-primary text-xs font-bold tracking-widest uppercase mb-4 block">Collectie</span>
               <h2 className="font-display text-4xl text-dark mb-6">Premium <br /><span className="italic font-light">Materialen</span></h2>
               <p className="text-gray-500 text-sm leading-relaxed mb-8">
-                Onze collectie omvat meer dan 300 hoogwaardige afwerkingen — van realistische houtnerven en natuursteen tot ultra-matte kleuren en metallic accenten. Elke folie is kras- en stootvast, hittebestendig, antibacterieel en ontworpen voor een levensduur van 15 tot 20 jaar.
+                Onze collectie omvat meer dan 300 hoogwaardige afwerkingen — van realistische houtnerven en natuursteen tot ultra-matte kleuren en metallic accenten. Elke folie is kras- en stootvast, onderhoudsvriendelijk, antibacterieel en ontworpen voor een levensduur van 15 tot 20 jaar.
               </p>
               <a className="inline-flex items-center text-xs font-bold tracking-widest uppercase text-dark border-b border-dark pb-1 hover:text-primary hover:border-primary transition-colors" href="/catalogus">
                 Bekijk Catalogus
@@ -875,7 +876,7 @@ export default function KeukenWrappingDesktop() {
        </section>
 
        {/* FAQ */}
-       <FAQ />
+       <FAQ items={kitchenFaqs} />
 
        {/* Keuzehulp Wizard */}
       <section className="py-16 bg-background-light border-t border-gray-200" id="keuzehulp">
