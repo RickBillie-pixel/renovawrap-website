@@ -61,7 +61,7 @@ export default function FadeIn({
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-1000 ease-out transform",
+        "transition-[opacity,transform] duration-1000 ease-out will-change-[opacity,transform]",
         isVisible ? "opacity-100" : "opacity-0",
         getTransform(),
         className

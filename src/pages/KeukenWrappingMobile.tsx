@@ -18,14 +18,11 @@ function KeuzehulpWizard() {
   const scrollToSection = () => {
     setTimeout(() => {
       const lenis = (window as any).__lenis;
-      if (lenis) {
-        // Use Lenis native scrollTo — the ONLY reliable way to scroll when Lenis is active
-        lenis.scrollTo('#keuzehulp', { offset: -72, immediate: true });
-      } else {
-        // Fallback if Lenis isn't available
-        const section = document.getElementById('keuzehulp');
-        if (section) {
-          const top = section.getBoundingClientRect().top + window.scrollY - 72;
+      if (sectionRef.current) {
+        if (lenis) {
+          lenis.scrollTo(sectionRef.current, { offset: -72, immediate: true });
+        } else {
+          const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - 72;
           window.scrollTo({ top, behavior: 'auto' });
         }
       }
@@ -273,7 +270,7 @@ function KeuzehulpWizard() {
           >
             {/* Step 1: Onderdelen */}
             {step === 1 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {onderdelen.map((item) => (
                   <label 
                     key={item.id} 
@@ -285,8 +282,8 @@ function KeuzehulpWizard() {
                       checked={formData.onderdelen.includes(item.id)}
                       onChange={() => toggleOnderdeel(item.id)}
                     />
-                    <div className="bg-white p-2 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 peer-checked:ring-1 peer-checked:ring-primary peer-checked:shadow-none hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] h-full flex flex-col">
-                      <div className="relative h-40 overflow-hidden mb-3">
+                    <div className="bg-white p-3 md:p-2 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 peer-checked:ring-1 peer-checked:ring-primary peer-checked:shadow-none hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] h-full flex flex-col">
+                      <div className="relative h-24 md:h-40 overflow-hidden mb-2 md:mb-3">
                         <img 
                           src={item.image} 
                           alt={item.label} 
@@ -294,12 +291,12 @@ function KeuzehulpWizard() {
                         />
                         <div className="absolute inset-0 bg-primary/0 peer-checked:bg-primary/10 transition-colors"></div>
                       </div>
-                      <div className="px-4 pb-4 flex justify-between items-end">
+                      <div className="px-2 pb-2 md:px-4 md:pb-4 flex justify-between items-end h-full">
                         <div>
-                          <h3 className="font-display text-xl italic text-dark mb-1">{item.label}</h3>
-                          <p className="text-xs text-gray-500 uppercase tracking-wider">{item.sub}</p>
+                          <h3 className="font-display text-sm md:text-xl italic text-dark mb-1 leading-tight">{item.label}</h3>
+                          <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider hidden md:block">{item.sub}</p>
                         </div>
-                        <span className={`material-symbols-outlined text-2xl transition-colors ${formData.onderdelen.includes(item.id) ? 'text-primary' : 'text-gray-300'}`}>
+                        <span className={`material-symbols-outlined text-xl md:text-2xl transition-colors ${formData.onderdelen.includes(item.id) ? 'text-primary' : 'text-gray-300'}`}>
                           check_circle
                         </span>
                       </div>
@@ -311,7 +308,7 @@ function KeuzehulpWizard() {
 
             {/* Step 2: Aantal */}
             {step === 2 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                  {[
                   { id: "klein", label: "Klein", sub: "6–10 stuks", desc: "Geschikt voor compacte rechte keukens." },
                   { id: "middel", label: "Gemiddeld", sub: "11–16 stuks", desc: "Standaard hoekkeuken formaat." },
@@ -321,18 +318,18 @@ function KeuzehulpWizard() {
                   <button
                     key={item.id}
                     onClick={() => setFormData((p) => ({ ...p, aantalDeurtjes: item.id }))}
-                    className={`bg-white p-6 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group ${
+                    className={`bg-white p-4 md:p-6 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group ${
                       formData.aantalDeurtjes === item.id ? "ring-1 ring-primary shadow-none" : ""
                     }`}
                   >
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-display text-2xl italic text-dark">{item.label}</h3>
-                      <div className={`w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center transition-colors ${formData.aantalDeurtjes === item.id ? 'border-primary bg-primary text-white' : 'group-hover:border-primary'}`}>
-                        {formData.aantalDeurtjes === item.id && <span className="material-symbols-outlined text-[14px]">check</span>}
+                    <div className="flex justify-between items-start mb-2 md:mb-4">
+                      <h3 className="font-display text-lg md:text-2xl italic text-dark">{item.label}</h3>
+                      <div className={`w-5 h-5 md:w-6 md:h-6 rounded-full border border-gray-300 flex items-center justify-center transition-colors ${formData.aantalDeurtjes === item.id ? 'border-primary bg-primary text-white' : 'group-hover:border-primary'}`}>
+                        {formData.aantalDeurtjes === item.id && <span className="material-symbols-outlined text-[12px] md:text-[14px]">check</span>}
                       </div>
                     </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{item.sub}</p>
-                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary mb-1 md:mb-2">{item.sub}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed hidden md:block">{item.desc}</p>
                   </button>
                 ))}
               </div>

@@ -35,26 +35,33 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isMounted]);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open (client-only)
   useEffect(() => {
+    if (!isMounted || typeof document === "undefined") return;
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
-  }, [isMobileMenuOpen]);
+  }, [isMounted, isMobileMenuOpen]);
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
@@ -210,9 +217,8 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
-        {/* Mobile Menu Overlay */}
-        {createPortal(
+        {/* Mobile Menu Overlay — only render portal in browser (SSR-safe) */}
+        {isMounted && typeof document !== "undefined" && createPortal(
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
@@ -251,7 +257,7 @@ export default function Header() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          transition={{ duration: 0.3, ease: "easeInOut" as const }}
                           className="overflow-hidden"
                         >
                           <div className="flex flex-col space-y-3 py-2 pl-2">

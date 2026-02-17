@@ -428,7 +428,9 @@ export default function KeukenFrontjesMobile() {
               Gebruik onze slimme configurator om direct een beeld te krijgen van de mogelijkheden en kosten voor uw frontjes.
             </p>
         </div>
-        <KeuzehulpFrontjes />
+        <div className="max-w-[1400px] mx-auto px-6">
+            <KeuzehulpFrontjes />
+        </div>
       </section>
 
       {/* 6. FAQ */}

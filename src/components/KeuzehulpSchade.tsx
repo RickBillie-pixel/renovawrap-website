@@ -10,12 +10,11 @@ export default function KeuzehulpSchade() {
   const scrollToSection = () => {
     setTimeout(() => {
       const lenis = (window as any).__lenis;
-      if (lenis) {
-        lenis.scrollTo('#keuzehulp', { offset: -72, immediate: true });
-      } else {
-        const section = document.getElementById('keuzehulp');
-        if (section) {
-          const top = section.getBoundingClientRect().top + window.scrollY - 72;
+      if (sectionRef.current) {
+        if (lenis) {
+          lenis.scrollTo(sectionRef.current, { offset: -72, immediate: true });
+        } else {
+          const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - 72;
           window.scrollTo({ top, behavior: 'auto' });
         }
       }
@@ -206,7 +205,7 @@ export default function KeuzehulpSchade() {
           >
             {/* Step 1: Schade Type */}
             {step === 1 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
                   { id: "loslatend", label: "Loslatende folie", sub: "Luchtbellen / Scheuren", image: "https://images.unsplash.com/photo-1584622050111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop" },
                   { id: "krassen", label: "Krassen / Slijtage", sub: "Oppervlakkig / Diep", image: "https://images.unsplash.com/photo-1621252179027-94459d27d3ee?q=80&w=1000&auto=format&fit=crop" },
@@ -220,7 +219,7 @@ export default function KeuzehulpSchade() {
                       formData.schade_type === item.id ? "ring-2 ring-primary ring-offset-2" : ""
                     }`}
                   >
-                     <div className="relative h-48 w-full overflow-hidden">
+                     <div className="relative h-24 md:h-48 w-full overflow-hidden">
                         <img 
                            src={item.image} 
                            alt={item.label} 
@@ -235,9 +234,9 @@ export default function KeuzehulpSchade() {
                            </div>
                         )}
                      </div>
-                     <div className="p-6">
-                        <h3 className="font-display text-xl italic text-dark mb-1">{item.label}</h3>
-                        <p className="text-xs text-gray-500 uppercase tracking-widest">{item.sub}</p>
+                     <div className="p-3 md:p-6">
+                        <h3 className="font-display text-sm md:text-xl italic text-dark mb-1 leading-tight">{item.label}</h3>
+                        <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest hidden md:block">{item.sub}</p>
                      </div>
                   </button>
                 ))}
@@ -246,7 +245,7 @@ export default function KeuzehulpSchade() {
 
             {/* Step 2: Object */}
             {step === 2 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                  {[
                   { id: "keuken", label: "Keuken", sub: "Frontjes / Blad", desc: "Totaalherstel of deelvervanging." },
                   { id: "kozijn", label: "Kozijn", sub: "Binnen / Buiten", desc: "Weersinvloeden of inbraakschade." },
@@ -256,18 +255,18 @@ export default function KeuzehulpSchade() {
                   <button
                     key={item.id}
                     onClick={() => setFormData((p) => ({ ...p, oppervlak: item.id }))}
-                    className={`bg-white p-6 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group ${
+                    className={`bg-white p-4 md:p-6 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group ${
                       formData.oppervlak === item.id ? "ring-1 ring-primary shadow-none" : ""
                     }`}
                   >
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-display text-2xl italic text-dark">{item.label}</h3>
-                      <div className={`w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center transition-colors ${formData.oppervlak === item.id ? 'border-primary bg-primary text-white' : 'group-hover:border-primary'}`}>
-                        {formData.oppervlak === item.id && <span className="material-symbols-outlined text-[14px]">check</span>}
+                    <div className="flex justify-between items-start mb-2 md:mb-4">
+                      <h3 className="font-display text-lg md:text-2xl italic text-dark">{item.label}</h3>
+                      <div className={`w-5 h-5 md:w-6 md:h-6 rounded-full border border-gray-300 flex items-center justify-center transition-colors ${formData.oppervlak === item.id ? 'border-primary bg-primary text-white' : 'group-hover:border-primary'}`}>
+                        {formData.oppervlak === item.id && <span className="material-symbols-outlined text-[12px] md:text-[14px]">check</span>}
                       </div>
                     </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{item.sub}</p>
-                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary mb-1 md:mb-2">{item.sub}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed hidden md:block">{item.desc}</p>
                   </button>
                 ))}
               </div>
@@ -275,7 +274,7 @@ export default function KeuzehulpSchade() {
 
             {/* Step 3: Urgentie */}
             {step === 3 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6">
                  {[
                   { id: "spoed", label: "Spoed", sub: "< 1 Week", desc: "Direct actie vereist.", icon: "bolt" },
                   { id: "normaal", label: "Normaal", sub: "2-4 Weken", desc: "Regulier onderhoud.", icon: "calendar_today" },
@@ -284,16 +283,16 @@ export default function KeuzehulpSchade() {
                   <button
                     key={item.id}
                     onClick={() => setFormData((p) => ({ ...p, urgentie: item.id }))}
-                    className={`bg-white p-6 text-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group flex flex-col items-center ${
+                    className={`bg-white p-2 md:p-6 text-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group flex flex-col items-center ${
                       formData.urgentie === item.id ? "ring-1 ring-primary shadow-none" : ""
                     }`}
                   >
-                    <div className={`w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-4 transition-colors ${formData.urgentie === item.id ? 'bg-primary/10 text-primary' : 'group-hover:bg-primary/10 group-hover:text-primary text-gray-400'}`}>
-                      <span className="material-symbols-outlined text-2xl">{item.icon}</span>
+                    <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full bg-gray-50 flex items-center justify-center mb-2 md:mb-4 transition-colors ${formData.urgentie === item.id ? 'bg-primary/10 text-primary' : 'group-hover:bg-primary/10 group-hover:text-primary text-gray-400'}`}>
+                      <span className="material-symbols-outlined text-lg md:text-2xl">{item.icon}</span>
                     </div>
-                    <h3 className="font-display text-xl italic text-dark mb-1">{item.label}</h3>
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{item.sub}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                    <h3 className="font-display text-sm md:text-xl italic text-dark mb-1 leading-tight">{item.label}</h3>
+                    <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary mb-1 md:mb-2">{item.sub}</p>
+                    <p className="text-xs text-gray-500 leading-relaxed hidden md:block">{item.desc}</p>
                   </button>
                 ))}
               </div>

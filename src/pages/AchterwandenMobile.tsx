@@ -355,7 +355,9 @@ export default function AchterwandenMobile() {
               Beantwoord een paar korte vragen en ontvang zo snel mogelijk een vrijblijvende prijsopgave voor jouw situatie.
             </p>
         </div>
-        <KeuzehulpAchterwanden />
+        <div className="max-w-[1400px] mx-auto px-6">
+            <KeuzehulpAchterwanden />
+        </div>
       </section>
     </main>
   );

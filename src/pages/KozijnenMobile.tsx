@@ -381,25 +381,25 @@ export default function KozijnenMobile() {
                      step: "01", 
                      title: "Advies & Opmeting", 
                      desc: "We komen bij u langs om de kozijnen te bekijken en nauwkeurig op te meten. We bespreken uw wensen en laten u de mogelijkheden zien.",
-                     img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop"
+                     img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop"
                   },
                   { 
                      step: "02", 
                      title: "Materiaalkeuze", 
                      desc: "Kies de perfecte match. Met meer dan 300 opties in kleuren en structuren vinden we altijd iets dat past bij de uitstraling van uw woning.",
-                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop"
+                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop"
                   },
                   { 
                      step: "03", 
                      title: "Montage Zonder Sloop", 
                      desc: "Onze specialisten wrappen uw kozijnen vakkundig op locatie. Geen sloopwerk, geen rommel. Vaak zijn we binnen enkele dagen klaar.",
-                     img: "https://images.unsplash.com/photo-1599690963544-2f22b822d14c?q=80&w=2670&auto=format&fit=crop"
+                     img: "https://images.unsplash.com/photo-1599690963544-2f22b822d14c?q=80&w=800&auto=format&fit=crop"
                   },
                   { 
                      step: "04", 
                      title: "Oplevering & Service", 
                      desc: "Samen lopen we het eindresultaat na. U ontvangt een garantiecertificaat en onderhoudsadvies. Geniet direct van uw 'nieuwe' kozijnen.",
-                     img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2670&auto=format&fit=crop"
+                     img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=800&auto=format&fit=crop"
                   }
                ]}
             />

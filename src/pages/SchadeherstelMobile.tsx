@@ -5,6 +5,7 @@ import FadeIn from "../components/FadeIn";
 import FAQ from "../components/FAQ";
 import { repairFaqs } from "../data/faqs";
 import KeuzehulpSchade from "../components/KeuzehulpSchade";
+import CountUp from "../components/CountUp";
 
 
 export default function SchadeherstelMobile() {
@@ -335,7 +336,7 @@ export default function SchadeherstelMobile() {
             <div className="relative h-full min-h-[500px] flex items-center justify-center lg:justify-end">
                <div className="relative w-full max-w-md">
                   {/* Main Image (Repair Kit) */}
-                  <div className="relative z-10 w-3/4 aspect-square shadow-2xl bg-gray-900">
+                  <div className="relative z-10 w-3/4 aspect-square shadow-2xl bg-gray-900 mx-auto">
                     <img 
                       src="https://placehold.co/600x600/1a1a1a/FFF?text=Repair+Kit" 
                       alt="Repair Kit" 
@@ -344,7 +345,7 @@ export default function SchadeherstelMobile() {
                   </div>
                   
                   {/* Secondary Image (Texture) */}
-                  <div className="absolute -right-12 -top-12 z-0 w-3/4 aspect-square shadow-xl bg-[#C4A47C]">
+                  <div className="absolute -right-4 -top-8 z-0 w-3/4 aspect-square shadow-xl bg-[#C4A47C]">
                     <img 
                       src="https://placehold.co/600x600/C4A47C/000?text=Texture" 
                       alt="Texture Detail" 
@@ -372,17 +373,32 @@ export default function SchadeherstelMobile() {
               "Repareren is <span className="italic text-[#C4A47C] font-light">90% beter</span> voor het milieu dan vervangen. Kies voor waardebehoud en voorkom verspilling."
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-3xl mx-auto border-t border-white/10 pt-12">
-               <div>
-                  <span className="block text-4xl font-display text-white mb-2">90%</span>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12 max-w-3xl mx-auto border-t border-white/10 pt-12 items-start justify-items-center">
+               <div className="col-span-2 md:col-span-1 flex flex-col items-center">
+                  <CountUp 
+                    end={90} 
+                    suffix="%" 
+                    className="block text-4xl font-display text-white mb-2" 
+                    suffixClassName="text-4xl"
+                  />
                   <span className="text-[10px] uppercase tracking-widest text-gray-400">Minder CO2 Uitstoot</span>
                </div>
-               <div>
-                  <span className="block text-4xl font-display text-white mb-2">100%</span>
+               <div className="col-span-1 md:col-span-1 flex flex-col items-center">
+                  <CountUp 
+                    end={100} 
+                    suffix="%" 
+                    className="block text-4xl font-display text-white mb-2" 
+                    suffixClassName="text-4xl"
+                  />
                   <span className="text-[10px] uppercase tracking-widest text-gray-400">Circulair Denken</span>
                </div>
-               <div>
-                  <span className="block text-4xl font-display text-white mb-2">5 jr</span>
+               <div className="col-span-1 md:col-span-1 flex flex-col items-center">
+                  <CountUp 
+                    end={5} 
+                    suffix=" jr" 
+                    className="block text-4xl font-display text-white mb-2" 
+                    suffixClassName="text-4xl"
+                  />
                   <span className="text-[10px] uppercase tracking-widest text-gray-400">Garantie op Herstel</span>
                </div>
             </div>

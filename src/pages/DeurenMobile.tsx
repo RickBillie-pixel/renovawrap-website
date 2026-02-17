@@ -352,19 +352,19 @@ export default function DeurenMobile() {
               </a>
             </div>
             
-            <div className="flex gap-6 md:gap-10 mt-8 md:mt-0 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-4 md:pb-0 px-1 -mx-4 md:mx-0 w-[calc(100%+2rem)] md:w-auto justify-start md:justify-center after:content-[''] after:shrink-0 after:w-4 md:after:w-0">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-8 justify-items-center mt-8 md:mt-0 md:flex md:gap-10 md:justify-center w-full md:w-auto">
                {/* Color 1 - Updates every 8s, Start 0s. StartIndex 0 (beginning) */}
-               <div className="snap-center shrink-0 first:pl-4 last:pr-4">
+               <div className="col-span-1">
                   <ColorCircle initialDelay={0} startIndex={0} />
                </div>
 
                {/* Color 2 - Updates every 8s, Start 2.5s. StartIndex ~1/3 (middle) */}
-               <div className="snap-center shrink-0">
+               <div className="col-span-1">
                   <ColorCircle initialDelay={2500} startIndex={Math.floor(totalColors / 3)} />
                </div>
 
                 {/* Color 3 - Updates every 8s, Start 5s. StartIndex ~2/3 (end) */}
-               <div className="snap-center shrink-0">
+               <div className="col-span-2 md:col-auto">
                   <ColorCircle initialDelay={5000} startIndex={Math.floor(totalColors * 2 / 3)} />
                </div>
             </div>

@@ -11,12 +11,11 @@ export default function KeuzehulpAanrechtbladen() {
   const scrollToSection = () => {
     setTimeout(() => {
       const lenis = (window as any).__lenis;
-      if (lenis) {
-        lenis.scrollTo('#keuzehulp', { offset: -72, immediate: true });
-      } else {
-        const section = document.getElementById('keuzehulp');
-        if (section) {
-          const top = section.getBoundingClientRect().top + window.scrollY - 72;
+      if (sectionRef.current) {
+        if (lenis) {
+          lenis.scrollTo(sectionRef.current, { offset: -72, immediate: true });
+        } else {
+          const top = sectionRef.current.getBoundingClientRect().top + window.scrollY - 72;
           window.scrollTo({ top, behavior: 'auto' });
         }
       }
@@ -218,7 +217,7 @@ export default function KeuzehulpAanrechtbladen() {
           >
             {/* Step 1: Vorm */}
             {step === 1 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
                   { id: "recht", label: "Recht", sub: "Enkele zijde", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1000&auto=format&fit=crop" },
                   { id: "l-vorm", label: "L-Vorm", sub: "Hoekkeuken", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1000&auto=format&fit=crop" },
@@ -232,7 +231,7 @@ export default function KeuzehulpAanrechtbladen() {
                       formData.vorm === item.id ? "ring-2 ring-primary ring-offset-2" : ""
                     }`}
                   >
-                     <div className="relative h-48 w-full overflow-hidden">
+                     <div className="relative h-24 md:h-48 w-full overflow-hidden">
                         <img 
                            src={item.image} 
                            alt={item.label} 
@@ -247,9 +246,9 @@ export default function KeuzehulpAanrechtbladen() {
                            </div>
                         )}
                      </div>
-                     <div className="p-6">
-                        <h3 className="font-display text-xl italic text-dark mb-1">{item.label}</h3>
-                        <p className="text-xs text-gray-500 uppercase tracking-widest">{item.sub}</p>
+                     <div className="p-3 md:p-6">
+                        <h3 className="font-display text-sm md:text-xl italic text-dark mb-1 leading-tight">{item.label}</h3>
+                        <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest hidden md:block">{item.sub}</p>
                      </div>
                   </button>
                 ))}
@@ -258,7 +257,7 @@ export default function KeuzehulpAanrechtbladen() {
 
             {/* Step 2: Afmeting */}
             {step === 2 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                  {[
                   { id: "small", label: "Klein", sub: "Tot 3 meter", desc: "Compacte rechte keuken." },
                   { id: "medium", label: "Gemiddeld", sub: "3 - 5 meter", desc: "Standaard hoekkeuken." },
@@ -268,18 +267,18 @@ export default function KeuzehulpAanrechtbladen() {
                   <button
                     key={item.id}
                     onClick={() => setFormData((p) => ({ ...p, afmeting: item.id }))}
-                    className={`bg-white p-6 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group ${
+                    className={`bg-white p-4 md:p-6 text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:border-primary/20 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] group ${
                       formData.afmeting === item.id ? "ring-1 ring-primary shadow-none" : ""
                     }`}
                   >
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-display text-2xl italic text-dark">{item.label}</h3>
-                      <div className={`w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center transition-colors ${formData.afmeting === item.id ? 'border-primary bg-primary text-white' : 'group-hover:border-primary'}`}>
-                        {formData.afmeting === item.id && <span className="material-symbols-outlined text-[14px]">check</span>}
+                    <div className="flex justify-between items-start mb-2 md:mb-4">
+                      <h3 className="font-display text-lg md:text-2xl italic text-dark">{item.label}</h3>
+                      <div className={`w-5 h-5 md:w-6 md:h-6 rounded-full border border-gray-300 flex items-center justify-center transition-colors ${formData.afmeting === item.id ? 'border-primary bg-primary text-white' : 'group-hover:border-primary'}`}>
+                        {formData.afmeting === item.id && <span className="material-symbols-outlined text-[12px] md:text-[14px]">check</span>}
                       </div>
                     </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{item.sub}</p>
-                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                    <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-primary mb-1 md:mb-2">{item.sub}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed hidden md:block">{item.desc}</p>
                   </button>
                 ))}
               </div>
