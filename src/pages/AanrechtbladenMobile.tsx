@@ -24,14 +24,14 @@ export default function AanrechtbladenMobile() {
     initial: isMobile ? { x: -50, opacity: 0 } : {},
     whileInView: isMobile ? { x: 0, opacity: 1 } : {},
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" as const }
   };
 
   const slideInRight = {
     initial: isMobile ? { x: 50, opacity: 0 } : {},
     whileInView: isMobile ? { x: 0, opacity: 1 } : {},
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" as const }
   };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

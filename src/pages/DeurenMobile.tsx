@@ -62,7 +62,7 @@ const ColorDisplay = ({ color, className, ref }: { color: WrapColor | null, clas
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 1.5, ease: "easeInOut" }} // Slower, smoother transition
+                            transition={{ duration: 1.5, ease: "easeInOut" as const }} // Slower, smoother transition
                             className="absolute inset-0 rounded-full overflow-hidden border-2 border-transparent hover:border-[#C4A47C] transition-all bg-gray-100 shadow-lg"
                         >
                             <img src={color.image} alt={color.name} className="w-full h-full object-cover" />
@@ -78,7 +78,7 @@ const ColorDisplay = ({ color, className, ref }: { color: WrapColor | null, clas
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }} // Smooth text transition
+                            transition={{ duration: 0.8, ease: "easeOut" as const }} // Smooth text transition
                             className="flex flex-col items-center absolute w-full"
                         >
                             <h4 className="font-display text-base text-dark truncate w-full px-2">{color.name}</h4>
@@ -130,14 +130,14 @@ export default function DeurenMobile() {
     initial: isMobile ? { x: -50, opacity: 0 } : {},
     whileInView: isMobile ? { x: 0, opacity: 1 } : {},
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" as const }
   };
 
   const slideInRight = {
     initial: isMobile ? { x: 50, opacity: 0 } : {},
     whileInView: isMobile ? { x: 0, opacity: 1 } : {},
     viewport: { once: true, margin: "-50px" },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.6, ease: "easeOut" as const }
   };
 
 
