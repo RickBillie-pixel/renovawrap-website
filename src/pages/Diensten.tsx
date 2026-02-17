@@ -48,23 +48,27 @@ export default function Diensten() {
           {/* Services grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
             {services.map((service, index) => (
-              // Mobile: Animate alternatingly.
-              // Service 1 (index 0): Even -> Right? 
-              // User request: "2 (index 1) from Left, 3 (index 2) from Right".
-              // Start: Index 1 (Odd) = Left. Index 2 (Even) = Right.
-              // Logic: index % 2 !== 0 ? "left" : "right".
-              // Desktop: Reset to no animation.
-              <FadeIn 
-                key={service.id} 
-                direction={index % 2 !== 0 ? "left" : "right"}
-                delay={index * 100}
-                className="md:transform-none md:opacity-100 md:transition-none"
-              >
-                <ServiceCard
-                  {...service}
-                  offset={index % 2 === 1} 
-                />
-              </FadeIn>
+              <div key={service.id} className="contents">
+                {/* Mobile: Animated */}
+                <FadeIn 
+                  direction={index % 2 !== 0 ? "left" : "right"}
+                  delay={index * 100}
+                  className="md:hidden"
+                >
+                  <ServiceCard
+                    {...service}
+                    offset={index % 2 === 1} 
+                  />
+                </FadeIn>
+
+                {/* Desktop: Static */}
+                <div className="hidden md:block">
+                  <ServiceCard
+                    {...service}
+                    offset={index % 2 === 1} 
+                  />
+                </div>
+              </div>
             ))}
           </div>
         </div>

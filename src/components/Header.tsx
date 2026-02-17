@@ -74,7 +74,7 @@ export default function Header() {
       <header
         className={cn(
           "fixed w-full top-0 z-[999] transition-all duration-300 border-b",
-          isScrolled
+          isScrolled || location.pathname === "/configurator"
             ? "bg-background-light/95 backdrop-blur-md border-dark/5 py-4"
             : "bg-transparent border-transparent py-6"
         )}

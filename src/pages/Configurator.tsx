@@ -307,7 +307,7 @@ export default function Configurator() {
     <main className="w-full bg-background-light font-body transition-colors duration-300">
       
 
-      <div className="block md:hidden fixed inset-0 top-[85px] z-30 bg-background-light flex flex-col font-sans">
+      <div className="block md:hidden min-h-screen bg-background-light flex flex-col font-sans pt-[85px] relative">
         {/* Mobile Progress Bar - Minimalist */}
         <div className="relative z-50 bg-background-light/95 backdrop-blur-md border-b border-[#E6DCC3] px-6 py-3 shadow-sm">
              <div className="flex items-center justify-between mb-2">
@@ -338,8 +338,8 @@ export default function Configurator() {
              </div>
         </div>
 
-        {/* Scrollable Content Area */}
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 pb-32 relative scroll-smooth no-scrollbar">
+        {/* Scrollable Content Area - Now just content in flow */}
+        <div className="flex-1 p-6 pb-32 relative">
              <AnimatePresence mode="wait">
              {/* Step 0: Upload */}
              {currentStep === 0 && (
@@ -619,8 +619,8 @@ export default function Configurator() {
 
         {/* Mobile Navigation Bar - Floating Effect */}
         {!generatedImage && (
-            <div className="absolute bottom-0 left-0 right-0 p-6 z-40 bg-gradient-to-t from-background-light via-background-light/95 to-transparent pt-12">
-                <div className="flex gap-3 items-stretch">
+            <div className={`${currentStep === 2 ? 'fixed' : 'absolute'} bottom-0 left-0 right-0 p-6 z-40 bg-gradient-to-t from-background-light via-background-light/95 to-transparent pt-12 pointer-events-none`}>
+                <div className="flex gap-3 items-stretch pointer-events-auto">
                     {currentStep > 0 && (
                         <button 
                             onClick={prevStep}
