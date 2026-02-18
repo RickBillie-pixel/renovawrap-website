@@ -61,10 +61,10 @@ export default function Catalogus() {
       <section className="py-12 px-6">
         <div className="max-w-[1400px] mx-auto">
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-4 mb-12 sticky top-24 z-20 bg-background-light py-4 border-b border-dark/5">
+            <div className="flex flex-nowrap md:flex-wrap gap-4 mb-12 sticky top-24 z-20 bg-background-light py-4 border-b border-dark/5 overflow-x-auto no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
             <button
               onClick={() => setActiveCategory("Alle")}
-              className={`px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300 rounded-full border ${
+              className={`whitespace-nowrap shrink-0 px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300 rounded-full border ${
                 activeCategory === "Alle"
                   ? "bg-dark text-white border-dark"
                   : "bg-transparent text-dark border-dark/20 hover:border-primary hover:text-primary"
@@ -76,7 +76,7 @@ export default function Catalogus() {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300 rounded-full border ${
+                className={`whitespace-nowrap shrink-0 px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300 rounded-full border ${
                   activeCategory === category
                     ? "bg-dark text-white border-dark"
                     : "bg-transparent text-dark border-dark/20 hover:border-primary hover:text-primary"

@@ -74,8 +74,12 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [featuredProjects.length]);
 
-  // Cycling: hero image every 6s
+  // Cycling: hero image every 6s (Desktop only)
   useEffect(() => {
+    // Check if we are on mobile (lg breakpoint is 1024px)
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+    if (isMobile) return;
+
     if (featuredProjects.length <= 1) return;
     const timer = setInterval(() => {
       setHeroIndex(prev => (prev + 1) % featuredProjects.length);
