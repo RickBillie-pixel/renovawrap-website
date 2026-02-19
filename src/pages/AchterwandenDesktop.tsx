@@ -133,7 +133,7 @@ export default function AchterwandenDesktop() {
                <div className="lg:col-span-7 flex gap-8 relative">
                    {/* Large Image */}
                   <div className="flex-1 relative aspect-[3/4] overflow-hidden bg-gray-100 shadow-xl mt-12">
-                     <img src="/project-fotos/after14.webp" alt="Marmer look achterwand" className="w-full h-full object-cover" />
+                     <img src="/waterdicht-2.webp" alt="Marmer look achterwand" className="w-full h-full object-cover" />
                      <div className="absolute bottom-6 left-6 text-white text-shadow">
                         <p className="font-display italic text-lg">Calacatta Gold</p>
                      </div>
@@ -187,7 +187,7 @@ export default function AchterwandenDesktop() {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center mb-32">
                  <div className="relative aspect-square md:aspect-[4/3] bg-white p-8 shadow-sm">
                     {/* Placeholder for Basket Image */}
-                    <img src="/project-fotos/after6.webp" alt="Duurzaam materiaal" className="w-full h-full object-cover mix-blend-multiply" />
+                    <img src="/warmte.webp" alt="Duurzaam materiaal" className="w-full h-full object-cover mix-blend-multiply" />
                     <div className="absolute bottom-4 left-4 bg-white px-4 py-2 text-xs text-gray-400 border border-gray-100 shadow-sm">
                        Uitstekend bestand tegen de warmte van uw fornuis of kookplaat.
                     </div>
@@ -235,7 +235,7 @@ export default function AchterwandenDesktop() {
                  <div className="relative aspect-square md:aspect-[4/3] bg-[#1a4a40] p-8 shadow-sm md:order-2 order-1 overflow-hidden flex items-center justify-center">
                      <span className="absolute top-4 left-4 bg-[#D2B48C] text-white px-4 py-2 text-xs font-bold uppercase tracking-widest">Schoon in 1 keer afvegen</span>
                      {/* Placeholder for Lime/Water image */}
-                     <img src="/project-fotos/after5.webp" alt="Waterdicht" className="w-[80%] h-[80%] object-cover rounded-full shadow-2xl border-4 border-white/10" />
+                     <img src="/waterdicht-2.webp" alt="Waterdicht" className="w-[80%] h-[80%] object-cover rounded-full shadow-2xl border-4 border-white/10" />
                  </div>
              </div>
           </div>

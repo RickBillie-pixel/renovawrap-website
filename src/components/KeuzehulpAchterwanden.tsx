@@ -219,10 +219,10 @@ export default function KeuzehulpAchterwanden() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "tegels", label: "Tegels", sub: "Over oude tegels heen", image: "https://images.unsplash.com/photo-1556912172-45b7abe8d7d3?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "stucwerk", label: "Stucwerk", sub: "Gladde muur", image: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "glas", label: "Glas / RVS", sub: "Bestaande plaat", image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "kaal", label: "Kaal / Casco", sub: "Nieuwbouw", image: "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "tegels", label: "Tegels", sub: "Over oude tegels heen", image: "/diensten/achterwand-tegel.webp" },
+                  { id: "stucwerk", label: "Stucwerk", sub: "Gladde muur", image: "/diensten/achterwand-stu.webp" },
+                  { id: "glas", label: "Glas / RVS", sub: "Bestaande plaat", image: "/diensten/achterwand-rvs.webp" },
+                  { id: "kaal", label: "Kaal / Casco", sub: "Nieuwbouw", image: "/diensten/achterwand-ruw.webp" },
                 ].map((item) => (
                   <button
                     key={item.id}

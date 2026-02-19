@@ -207,10 +207,10 @@ export default function KeuzehulpSchade() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "loslatend", label: "Loslatende folie", sub: "Luchtbellen / Scheuren", image: "https://images.unsplash.com/photo-1584622050111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "krassen", label: "Krassen / Slijtage", sub: "Oppervlakkig / Diep", image: "https://images.unsplash.com/photo-1621252179027-94459d27d3ee?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "deuken", label: "Deuken / Stoten", sub: "Fysieke schade", image: "https://images.unsplash.com/photo-1618588507085-c79565432917?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "verkleuring", label: "Verkleuring / Brand", sub: "Hitte / Zonlicht", image: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "loslatend", label: "Loslatende folie", sub: "Luchtbellen / Scheuren", image: "/diensten/schade-folie.webp" },
+                  { id: "krassen", label: "Krassen / Slijtage", sub: "Oppervlakkig / Diep", image: "/diensten/schade-kras.webp" },
+                  { id: "deuken", label: "Deuken / Stoten", sub: "Fysieke schade", image: "/diensten/schade deuk.webp" },
+                  { id: "verkleuring", label: "Verkleuring / Brand", sub: "Hitte / Zonlicht", image: "/diensten/schade-verkleuring.webp" },
                 ].map((item) => (
                   <button
                     key={item.id}

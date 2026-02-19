@@ -219,10 +219,10 @@ export default function KeuzehulpAanrechtbladen() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "recht", label: "Recht", sub: "Enkele zijde", image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "l-vorm", label: "L-Vorm", sub: "Hoekkeuken", image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "u-vorm", label: "U-Vorm", sub: "Drie zijden", image: "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "eiland", label: "Kookeiland", sub: "Vrijstaand", image: "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "recht", label: "Recht", sub: "Enkele zijde", image: "/diensten/aanrechtblad-recht.webp" },
+                  { id: "l-vorm", label: "L-Vorm", sub: "Hoekkeuken", image: "/diensten/l-hoek.webp" },
+                  { id: "u-vorm", label: "U-Vorm", sub: "Drie zijden", image: "/diensten/aanrechtblad-uhoek.webp" },
+                  { id: "eiland", label: "Kookeiland", sub: "Vrijstaand", image: "/diensten/kookeiland.webp" },
                 ].map((item) => (
                   <button
                     key={item.id}

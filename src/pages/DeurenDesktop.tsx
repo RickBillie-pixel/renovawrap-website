@@ -203,7 +203,7 @@ export default function DeurenDesktop() {
             
             <div className="relative max-w-5xl mx-auto">
                <div className="relative aspect-[4/3] md:aspect-video shadow-2xl bg-white">
-                  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJLQfVa9fZjZPK_NK_bQzLKVSR0S0ZdJfPXanUgVC0GRKBmJcU34Ea1chqPiy9K1LJkMRghQShPyim5Nk5QKl4y4AsKFXK-K-b10GprhTkVPc-j_jOnV2cDMmYmX0R7hAVzyu6CV00XU9ycD1WyGob0yHqXNsD18vqz26epnmDfBUuil4oK8YQ2FZfpUl75081-0Pa51Wb_oQf-JIrIhBqQxGfRGTUeHKcuVFG_ylhhahXPX8eH6pr6aLsHvhm6EmSgMTZHPsSGhI" alt="Door Anatomy" className="w-full h-full object-cover" />
+                  <img src="/diensten/deur.webp" alt="Door Anatomy" className="w-full h-full object-cover" />
                   
                   {/* Hotspots */}
                   {/* Top Right - Omsluiting */}

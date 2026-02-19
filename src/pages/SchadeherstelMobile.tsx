@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+// import { useState, useEffect } from "react";
+// import { AnimatePresence, motion } from "framer-motion";
 import FadeIn from "../components/FadeIn";
 
 import FAQ from "../components/FAQ";
@@ -10,22 +10,7 @@ import CountUp from "../components/CountUp";
 
 export default function SchadeherstelMobile() {
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const heroImages = [
-    {
-      src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJLQfVa9fZjZPK_NK_bQzLKVSR0S0ZdJfPXanUgVC0GRKBmJcU34Ea1chqPiy9K1LJkMRghQShPyim5Nk5QKl4y4AsKFXK-K-b10GprhTkVPc-j_jOnV2cDMmYmX0R7hAVzyu6CV00XU9ycD1WyGob0yHqXNsD18vqz26epnmDfBUuil4oK8YQ2FZfpUl75081-0Pa51Wb_oQf-JIrIhBqQxGfRGTUeHKcuVFG_ylhhahXPX8eH6pr6aLsHvhm6EmSgMTZHPsSGhI",
-      alt: "Schadeherstel resultaat",
-    },
-  ];
-
-  useEffect(() => {
-    if (heroImages.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
@@ -75,22 +60,11 @@ export default function SchadeherstelMobile() {
 
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={currentImageIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      <img
-                        src={heroImages[currentImageIndex].src}
-                        alt={heroImages[currentImageIndex].alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <img
+                    src="/damage.webp"
+                    alt="Schadeherstel resultaat"
+                    className="w-full h-full object-cover"
+                  />
               </div>
 
                <div className="flex flex-col gap-3">
@@ -139,22 +113,11 @@ export default function SchadeherstelMobile() {
             <div className="hidden lg:flex lg:col-span-6 justify-center">
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={currentImageIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      <img
-                        src={heroImages[currentImageIndex].src}
-                        alt={heroImages[currentImageIndex].alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <img
+                    src="/damage.webp"
+                    alt="Schadeherstel resultaat"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
@@ -187,17 +150,17 @@ export default function SchadeherstelMobile() {
               {
                 title: "Diepe Krassen",
                 desc: "Wij reconstrueren de structuur van het oppervlak nauwkeurig. De kras wordt onzichtbaar en uw interieur oogt weer strak.",
-                image: "https://placehold.co/600x600?text=Diepe+Krassen"
+                image: "/diensten/schade-kras.webp"
               },
               {
                 title: "Hitte & Vocht",
                 desc: "Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.",
-                image: "https://placehold.co/600x600?text=Hitte+%26+Vocht"
+                image: "/waterdicht.webp"
               },
               {
                 title: "Loslatende Folie",
                 desc: "Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.",
-                image: "https://placehold.co/600x600?text=Loslatende+Folie"
+                image: "/closeup.webp"
               }
             ].map((item, index) => (
               <FadeIn 
@@ -250,17 +213,17 @@ export default function SchadeherstelMobile() {
               {
                 title: "Diepe Krassen",
                 desc: "Wij reconstrueren de structuur van het oppervlak nauwkeurig. De kras wordt onzichtbaar en uw interieur oogt weer strak.",
-                image: "https://placehold.co/600x600?text=Diepe+Krassen"
+                image: "/diensten/schade-kras.webp"
               },
               {
                 title: "Hitte & Vocht",
                 desc: "Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.",
-                image: "https://placehold.co/600x600?text=Hitte+%26+Vocht"
+                image: "/waterdicht.webp"
               },
               {
                 title: "Loslatende Folie",
                 desc: "Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.",
-                image: "https://placehold.co/600x600?text=Loslatende+Folie"
+                image: "/closeup.webp"
               }
             ].map((item, index) => (
               <div key={index} className="group">
@@ -338,7 +301,7 @@ export default function SchadeherstelMobile() {
                   {/* Main Image (Repair Kit) */}
                   <div className="relative z-10 w-3/4 aspect-square shadow-2xl bg-gray-900 mx-auto">
                     <img 
-                      src="https://placehold.co/600x600/1a1a1a/FFF?text=Repair+Kit" 
+                      src="/repair-kit.webp" 
                       alt="Repair Kit" 
                       className="w-full h-full object-cover"
                     />
@@ -347,7 +310,7 @@ export default function SchadeherstelMobile() {
                   {/* Secondary Image (Texture) */}
                   <div className="absolute -right-4 -top-8 z-0 w-3/4 aspect-square shadow-xl bg-[#C4A47C]">
                     <img 
-                      src="https://placehold.co/600x600/C4A47C/000?text=Texture" 
+                      src="/quality.webp" 
                       alt="Texture Detail" 
                       className="w-full h-full object-cover opacity-80 mix-blend-multiply"
                     />

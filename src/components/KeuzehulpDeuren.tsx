@@ -165,25 +165,25 @@ export default function KeuzehulpDeuren() {
       id: "vlakke-deur", 
       label: "Vlakke Deur", 
       sub: "Strak & Modern",
-      image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=1000&auto=format&fit=crop" 
+      image: "/diensten/deur-vlak.webp" 
     },
     { 
       id: "paneeldeur", 
       label: "Paneeldeur", 
       sub: "Klassiek & Tijdloos",
-      image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop" 
+      image: "/diensten/deur.webp" 
     },
     { 
       id: "deur-glas", 
       label: "Deur met Glas", 
       sub: "Licht & Ruimtelijk",
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop" 
+      image: "/diensten/deurraam.webp" 
     },
     { 
       id: "kozijn", 
       label: "Kozijnen", 
       sub: "Deurlijsten & Architraven",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" 
+      image: "/diensten/deurkozijn.webp" 
     },
   ];
 

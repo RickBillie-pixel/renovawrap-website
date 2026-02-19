@@ -219,10 +219,10 @@ export default function KeuzehulpKasten() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "inbouw", label: "Inbouwkast", sub: "Schuif- of draaideur", image: "https://images.unsplash.com/photo-1556020685-ae41abfc9365?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "kleding", label: "Kledingkast", sub: "Vrijstaand / Pax", image: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "boekenkast", label: "Open Kast/Dressoir", sub: "Boeken / Dressoir", image: "https://images.unsplash.com/photo-1594620302200-9a762244a156?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "keuken", label: "Keukenkast", sub: "Frontjes & Delen", image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "inbouw", label: "Inbouwkast", sub: "Schuif- of draaideur", image: "/diensten/ibouwkast.webp" },
+                  { id: "kleding", label: "Kledingkast", sub: "Vrijstaand / Pax", image: "/diensten/kledingkast.webp" },
+                  { id: "boekenkast", label: "Open Kast/Dressoir", sub: "Boeken / Dressoir", image: "/diensten/openkast.webp" },
+                  { id: "keuken", label: "Keukenkast", sub: "Frontjes & Delen", image: "/diensten/keukenkast.webp" },
                 ].map((item) => (
                   <button
                     key={item.id}

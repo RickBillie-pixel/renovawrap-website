@@ -13,12 +13,8 @@ export default function KozijnenDesktop() {
   // Using window/exterior specific before/afters if available, otherwise utilizing high-quality generic renovation shots
   const heroImages = [
     {
-      before: "https://images.unsplash.com/photo-1503708990387-99049a051e06?q=80&w=2070&auto=format&fit=crop", // Placeholder for window before
-      after: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop", // Placeholder for window after (modern)
-    },
-    {
-       before: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop",
-       after: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop",
+      before: "/diensten/before-kozijn.webp",
+      after: "/diensten/after-kozijn.webp", 
     }
   ];
 
@@ -115,11 +111,11 @@ export default function KozijnenDesktop() {
                <div className="relative h-[600px] w-full">
                   {/* Left Tall Image */}
                   <div className="absolute top-0 left-0 w-[45%] h-full overflow-hidden rounded-2xl shadow-lg z-10">
-                     <img src="https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=1500&auto=format&fit=crop" alt="Nature leaf" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                     <img src="/diensten/raamkozijn.webp" alt="Raamkozijn details" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                   </div>
                   {/* Top Right Image */}
                   <div className="absolute top-0 right-0 w-[48%] h-[45%] overflow-hidden rounded-2xl shadow-lg z-20">
-                     <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=1000&auto=format&fit=crop" alt="Interior lounge" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+                     <img src="/diensten/deurkozijn.webp" alt="Deurkozijn renovatie" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
                   </div>
                   {/* Bottom Right Image */}
                   <div className="absolute bottom-0 right-0 w-[48%] h-[48%] overflow-hidden rounded-2xl shadow-lg z-30">
@@ -256,11 +252,11 @@ export default function KozijnenDesktop() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-32">
                <div className="lg:col-span-7 relative">
                   <div className="relative aspect-[4/5] md:aspect-[16/10] overflow-hidden shadow-2xl">
-                     <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?q=80&w=2070&auto=format&fit=crop" alt="Window detail close-up" className="w-full h-full object-cover" />
+                     <img src="/diensten/quality.webp" alt="Window detail close-up" className="w-full h-full object-cover" />
                   </div>
                   {/* Floating detail insert */}
                   <div className="absolute -bottom-10 right-10 w-48 h-48 border-4 border-white shadow-xl overflow-hidden hidden md:block">
-                     <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=1000&auto=format&fit=crop" alt="Corner detail" className="w-full h-full object-cover" />
+                     <img src="/closeup.webp" alt="Corner detail" className="w-full h-full object-cover" />
                   </div>
                </div>
                <div className="lg:col-span-5 lg:pl-8">
@@ -380,8 +376,8 @@ export default function KozijnenDesktop() {
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black/50">
                   <BeforeAfterSlider
-                    beforeImage="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop"
-                    afterImage="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop"
+                    beforeImage="/diensten/before-kozijn.webp"
+                    afterImage="/diensten/after-kozijn.webp"
                     className="w-full h-full"
                   />
               </div>

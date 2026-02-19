@@ -220,10 +220,10 @@ export default function KeuzehulpKozijnen() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "ramen", label: "Raamkozijnen", sub: "Binnen en/of Buiten", image: "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "schuifpui", label: "Schuifpui", sub: "Complete renovatie", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "deuren", label: "Deuren", sub: "Voor- of achterdeur", image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "alles", label: "Gehele Woning", sub: "Totaalproject", image: "https://images.unsplash.com/photo-1600596542815-2a4d9fdd4070?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "ramen", label: "Raamkozijnen", sub: "Binnen en/of Buiten", image: "/diensten/raamkozijn1.webp" },
+                  { id: "schuifpui", label: "Schuifpui", sub: "Complete renovatie", image: "/diensten/schuifpui.webp" },
+                  { id: "deuren", label: "Deuren", sub: "Voor- of achterdeur", image: "/diensten/deur1.webp" },
+                  { id: "alles", label: "Gehele Woning", sub: "Totaalproject", image: "/diensten/raamkozijn.webp" },
                 ].map((item) => (
                   <button
                     key={item.id}

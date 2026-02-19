@@ -159,25 +159,28 @@ export default function AanrechtbladenDesktop() {
               {
                 title: "Rechte Bladen",
                 desc: "Eenvoudig en snel. Wij wrappen uw rechte aanrechtblad vaak binnen een halve dag. Geen naden, strakke afwerking en direct weer te gebruiken.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCeAl7EgmXSRq_9kwP0fgkb1f9lgoWzOSgPOLKS2TA8LqwdAMieqI_gUV1nNcKf8XU6fxqe9Wihvo69V0Z00vRnv_Q8DP4Db37_TZabKKxZ9WuP2SketmgjvoyPqTjqL40IptSEfGtD0qKnc7Z0rO00-3l1vGAnVLD7LpuhWRXZ2l5V0DqKxUmGwWSHPnaCT2hclf_MF_n8j_ZF92JmxEBewcmvXKAdTDhS8W-eVUsNjTNZ93REZ-fpogn91grqCUQjp_DFW9wP3yc",
+                image: "/diensten/aanrechtblad-recht.webp",
+                imageClassName: "scale-[1.35] group-hover:scale-[1.45]",
               },
               {
                 title: "L-Vorm & U-Vorm",
                 desc: "Complexe vormen zijn geen probleem. Wij zorgen voor een perfecte overgang in de hoeken en rondom uw spoelbak en kookplaat. Volledig waterdicht geseald.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBKhIWAwOIuMsTga_L53C5Mrs5legO69zx6OfvSm7FfspFeloadDJnQfI_f_eJEWz2_bcCPloyk-2pwM42OgHHsnLXOOl90qbPTBVDf7cEUJMRBl3lnuSekfuYKGlU4MXLZg1BO6cnxL64PnBU33cqqgNV0DTvOQQAkSUn6fx3ckR3h6L7CWPIsfR-wBf33HPApzaSXSAyid5JaPm4o3vC2-4532HjTot6W3bb6iyzwjjHP7n_f_QXW0_f4YccWa-nKm4GGVGqpxQc",
+                image: "/diensten/l-hoek.webp",
+                imageClassName: "!object-contain scale-100 group-hover:scale-110",
                 className: "md:mt-24"
               },
               {
                 title: "Kookeilanden",
                 desc: "Maak van uw eiland weer de eyecatcher van de keuken. Wij kunnen grote oppervlakken wrappen en zelfs de zijwangen meenemen voor een luxe blok-effect.",
-                image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDfFKBnrEzsj-7Zr7h4JHKNj9Gjf7RNssonUfw8etiL30PwABkZHpjb37OXlNE_qaSWemFUVN7gONN1uTRYbthdRhU6M_yVvQOE-E6qP8DH08u8W846K2CB6xoQjArYjghHQr8zAo363LG2tnrkOKkwwL_CmNPUhV1-3Djp1-f_1SQ7M_mZKsM8Zk1xBstP4cq_sZR61ds8HAZ1OVgizvWPvFNeAG4FSMxXoIOf6l5xkqcs1dORe7kO6dhJnqv6igtUO4x0T7nhsiY"
+                image: "/diensten/kookeiland.webp",
+                imageClassName: "group-hover:scale-110",
               }
             ].map((item, index) => (
               <div key={index} className={`group cursor-pointer ${item.className || ''}`}>
                 <div className="relative overflow-hidden mb-8 aspect-[3/4]">
                   <img
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    className={`w-full h-full object-cover transition-transform duration-1000 ${item.imageClassName}`}
                     src={item.image}
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500"></div>
@@ -357,11 +360,11 @@ export default function AanrechtbladenDesktop() {
             
              {/* Top Row */}
              {/* Card 1: Ultra Mat (Large Image) - Spans 2 cols */}
-            <div className="md:col-span-2 relative rounded-[2rem] overflow-hidden group min-h-[500px]">
+            <div className="md:col-span-2 relative rounded-[2rem] overflow-hidden group h-[300px]">
               <img 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqUtBVZB4jfDKg40sM8nu8elmT9aC71nACxdbMGxI8RvNDGV_X7djngTbvar8z45btnMmc4Oq4t5yguRYvbTUzxDNKjCK6iNWSmlzDEkwPr66di0YivmeUe9O3oKDjGDE5xuXeDUP7mAiBSGtHl85Xt1sdTpU7jpi94JnrQfu1BTPQ0CindwQ2qdRA2KcLc12RBPBPkd5hcXFgsveOOW_q_rCd0KMn7XnSJEH2i64BsClk-dHIT58vFA40Fm_HxK5ks_ittzJN9Jo" 
+                src="/diensten/highend.webp" 
                 alt="Plant en kopje op aanrechtblad" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover object-top scale-[1.25] transition-transform duration-700 group-hover:scale-[1.3]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               <div className="absolute bottom-10 left-10 text-white">
@@ -371,7 +374,7 @@ export default function AanrechtbladenDesktop() {
             </div>
 
              {/* Card 2: Hittebestendig - Spans 1 col */}
-              <div className="md:col-span-1 bg-[#FFF9F0] rounded-[2rem] p-10 flex flex-col justify-center min-h-[400px]">
+              <div className="md:col-span-1 bg-[#FFF9F0] rounded-[2rem] p-10 flex flex-col justify-center h-[300px]">
                 <h3 className="font-display text-5xl text-[#C4A47C] mb-4 font-serif">Kwaliteit</h3>
                 <h4 className="font-bold text-dark mb-3 text-lg">Hittebestendig</h4>
                 <p className="text-gray-500 text-sm leading-relaxed">De folie is bestand tegen dagelijks gebruik en warmte. Gebruik voor hete pannen altijd een onderzetter voor optimaal behoud.</p>

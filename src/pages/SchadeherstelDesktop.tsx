@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+// import { useState, useEffect } from "react";
+// import { AnimatePresence, motion } from "framer-motion";
 
 import FAQ from "../components/FAQ";
 import { repairFaqs } from "../data/faqs";
@@ -8,22 +8,7 @@ import KeuzehulpSchade from "../components/KeuzehulpSchade";
 
 export default function SchadeherstelDesktop() {
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const heroImages = [
-    {
-      src: "https://lh3.googleusercontent.com/aida-public/AB6AXuBJLQfVa9fZjZPK_NK_bQzLKVSR0S0ZdJfPXanUgVC0GRKBmJcU34Ea1chqPiy9K1LJkMRghQShPyim5Nk5QKl4y4AsKFXK-K-b10GprhTkVPc-j_jOnV2cDMmYmX0R7hAVzyu6CV00XU9ycD1WyGob0yHqXNsD18vqz26epnmDfBUuil4oK8YQ2FZfpUl75081-0Pa51Wb_oQf-JIrIhBqQxGfRGTUeHKcuVFG_ylhhahXPX8eH6pr6aLsHvhm6EmSgMTZHPsSGhI",
-      alt: "Schadeherstel resultaat",
-    },
-  ];
-
-  useEffect(() => {
-    if (heroImages.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
@@ -72,22 +57,11 @@ export default function SchadeherstelDesktop() {
             <div className="lg:col-span-6 flex justify-center">
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={currentImageIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      <img
-                        src={heroImages[currentImageIndex].src}
-                        alt={heroImages[currentImageIndex].alt}
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <img
+                    src="/damage.webp"
+                    alt="Schadeherstel resultaat"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">
@@ -118,7 +92,7 @@ export default function SchadeherstelDesktop() {
             <div className="group">
               <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
                 <img 
-                  src="https://placehold.co/600x600?text=Diepe+Krassen" 
+                  src="/diensten/schade-kras.webp" 
                   alt="Diepe Krassen" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -133,7 +107,7 @@ export default function SchadeherstelDesktop() {
             <div className="group">
               <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
                 <img 
-                  src="https://placehold.co/600x600?text=Hitte+%26+Vocht" 
+                  src="/waterdicht.webp" 
                   alt="Hitte en Vocht" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -148,7 +122,7 @@ export default function SchadeherstelDesktop() {
             <div className="group">
               <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
                 <img 
-                  src="https://placehold.co/600x600?text=Loslatende+Folie" 
+                  src="/closeup.webp" 
                   alt="Loslatende Folie" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -219,7 +193,7 @@ export default function SchadeherstelDesktop() {
                   {/* Main Image (Repair Kit) */}
                   <div className="relative z-10 w-3/4 aspect-square shadow-2xl bg-gray-900">
                     <img 
-                      src="https://placehold.co/600x600/1a1a1a/FFF?text=Repair+Kit" 
+                      src="/repair-kit.webp" 
                       alt="Repair Kit" 
                       className="w-full h-full object-cover"
                     />
@@ -228,7 +202,7 @@ export default function SchadeherstelDesktop() {
                   {/* Secondary Image (Texture) */}
                   <div className="absolute -right-12 -top-12 z-0 w-3/4 aspect-square shadow-xl bg-[#C4A47C]">
                     <img 
-                      src="https://placehold.co/600x600/C4A47C/000?text=Texture" 
+                      src="/quality.webp" 
                       alt="Texture Detail" 
                       className="w-full h-full object-cover opacity-80 mix-blend-multiply"
                     />

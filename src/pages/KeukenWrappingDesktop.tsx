@@ -163,37 +163,37 @@ function KeuzehulpWizard() {
       id: "keukenfrontjes", 
       label: "Keukenfrontjes & Lades", 
       sub: "Oppervlakte Renovatie",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBKhIWAwOIuMsTga_L53C5Mrs5legO69zx6OfvSm7FfspFeloadDJnQfI_f_eJEWz2_bcCPloyk-2pwM42OgHHsnLXOOl90qbPTBVDf7cEUJMRBl3lnuSekfuYKGlU4MXLZg1BO6cnxL64PnBU33cqqgNV0DTvOQQAkSUn6fx3ckR3h6L7CWPIsfR-wBf33HPApzaSXSAyid5JaPm4o3vC2-4532HjTot6W3bb6iyzwjjHP7n_f_QXW0_f4YccWa-nKm4GGVGqpxQc" 
+      image: "/diensten/keukenfront.webp" 
     },
     { 
       id: "werkblad", 
       label: "Werkblad", 
       sub: "Bestand tegen kookwarmte",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC2WGLFQDDxeZSYLHmb0V41cvTnh383Noev742OXf_dUWR_G4dqth48XUEUq5m5Im7Q-WhO1I0O2MZvm219CuM3woZ-uwkQU2BXuTKKySVlKIiJCuSIHxu939zsumzhe9EAYxxZCTRl-b4QetaCrObhz4pPQL7ikSwDon-sbaDdDJYde01jU7_N6KDbwdFml4r1YmUJauOVXoGQ4-JrT_Wel-fBGstFnwp_Sf9ClyfRw8VEiSCtdmLZwR7JDeKYWKtkAB3ypFY-Wyg" 
+      image: "/diensten/werkblad.webp" 
     },
     { 
       id: "achterwand", 
       label: "Achterwand", 
       sub: "Spatwaterdicht",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCjXqOkH-g8FNcJVR6ESmW4SXWV6xTaAXP77-nNX6yISiuQ0_PeHQzlTOPNkUXSXhr7E4Q4lsZVK8vdZqhSqTC3RKuAcgaYxfnBWxdTrlVDMK7Nzr8yQ-G7euqCR3rL1RUXJBPyChM4ib-BfrFGNXkQ5-3IwpFLtaYskYhyd2GDl90WgRIxSBO2enSdaDUru1ZqRGBhWsQg0c1wTDrq83YGiwlOj9MkG_pLyYRrtb2_J8NkBq3RaVtV_XlZo4bDNXeLjlQpcACXmgE" 
+      image: "/diensten/achterwand-stu.webp" 
     },
     { 
       id: "apparatuur", 
       label: "Inbouwapparatuur", 
       sub: "Uniformiteit",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAqhd3pmRyGIsjQdK1UZ7uy9oeCE-CFATl8Wm0RKRw7ftYKmFJO7suCUuNgpjrWQPwr3ebkZSKgnpTy657zFQOJC97yut2cx74NNZ-Rt3Z2dqsUo4eP6xXJSHq7chLNtG3EqHhS2d-oh8jCFwFCLnRFkqS12LJ6bNMJ6Ba94P2CJ8GAxgIXtDOzD7Wd9OP1RXWNKGtClULuUEVRfRJd9DXRTjrRTs8_2tzWnYphSNlaaKodF-xgmIxMeuY0M2j0SzfvzzdNpWJlFBo" 
+      image: "/diensten/apparatuur.webp" 
     },
     { 
       id: "zijpanelen", 
       label: "Zijpanelen & Plinten", 
       sub: "Afwerking",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDRMD3xzmVlR-TnKqCm6JutgZ8VxA_QtuUUlZ3yZbdGg-9sKlMy5RnAM-zERtSPGkDWvOJP6TL5xA3i7ZVHFKCKRRlYJWcelEEO1Fe9HRcV4PJNor_skQKROAGIvPZKNTjyRdhFD2CBFd4OfMT6aOORjiDHUJ6BduyJp4Slxb4u22wvGNaqi7L4bYhmNs1Iy1X1LfUfActLO_1n5SCeNPl_yeTKCx-l_PqYPf3NY-_7F6JMUDqK3xwAwjhZ4YMlS6Huzv0eJ_lbRCc" 
+      image: "/diensten/zijpanelen.webp" 
     },
     { 
       id: "afzuigkap", 
       label: "Afzuigkap", 
       sub: "Detailwerk",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBw2ewNIyQviUwxWSySIUjB0DcoGVG2PBRG1OhTNldqRkX6KPWH8FPOvbB2WDCKY7OR9VktvLajyu1i2CxDrHwWEku4RgKAgQ7DJzmvMfy3NE8j5Z7FXxJ2iSA9zHQeXQuC7NbNjL1loheupiLObYhmJ-J5F_cLw1VFal0i4Qe41kpSz_qEPOKMumDutWVqAuevVmlupFpohz3sevcSFp2w2aIZaeXgiP3a2YOf5D_weCDZ6CPnzlEobz7snM1zM2BG72NPUVS0CRI" 
+      image: "/diensten/afzuigkap.webp" 
     },
   ];
 

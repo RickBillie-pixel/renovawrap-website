@@ -267,7 +267,7 @@ export default function OverOns() {
                      >
                         {/* Action Shot 1: Detail work / Cutting */}
                         <img 
-                          src="https://images.unsplash.com/photo-1581242163695-19d0acdeabe2?q=80&w=800&auto=format&fit=crop" 
+                          src="/closeup.webp" 
                           alt="Precisie werk wrapping" 
                           className="w-full h-full object-cover grayscale opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                         />
@@ -281,7 +281,7 @@ export default function OverOns() {
                      >
                         {/* Detail Shot: Material texture */}
                          <img 
-                          src="https://images.unsplash.com/photo-1620615307442-4143935d9b14?q=80&w=800&auto=format&fit=crop" 
+                          src="/material.webp" 
                           alt="Materiaal detail" 
                           className="w-full h-full object-cover grayscale contrast-125 opacity-60 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
                         />
@@ -297,7 +297,7 @@ export default function OverOns() {
                      >
                         {/* Context Shot: Tools or Finished corner */}
                         <img 
-                          src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=800&auto=format&fit=crop" 
+                          src="/repair-kit.webp" 
                           alt="Werkplaats tools" 
                           className="w-full h-full object-cover grayscale contrast-125 opacity-70 group-hover:opacity-90 group-hover:scale-110 transition-all duration-700"
                         />

@@ -208,19 +208,19 @@ export default function KastenMobile() {
               {
                 title: "Slaapkamer & Walk-in",
                 desc: "Geniet van pure rust. Wij toveren uw kledingkast om tot een luxe eyecatcher met een zachte linnen-structuur of warme houtlook.",
-                image: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2560&auto=format&fit=crop",
+                image: "/diensten/slaapkamer.webp",
                 linkText: "Bekijk Voorbeelden"
               },
               {
                 title: "Hal & Garderobe",
                 desc: "Uw hal is het visitekaartje van uw woning. Maak van een rommelige kapstok of standaard kast een strak en georganiseerd statement.",
-                image: "https://images.unsplash.com/photo-1621293954908-eae6d5e53434?q=80&w=2560&auto=format&fit=crop",
+                image: "/diensten/garderobe.webp",
                 linkText: "Ontdek Mogelijkheden"
               },
               {
                 title: "Boekenkasten & TV-Meubels",
                 desc: "Geef uw woonkamer character. Een open vakkenkast of tv-meubel krijgt direct allure met een chique marmerlook of stoere betonfinish.",
-                image: "https://images.unsplash.com/photo-1594918734289-5107e3a09726?q=80&w=2670&auto=format&fit=crop",
+                image: "/diensten/tv-meubel.webp",
                 linkText: "Bekijk Inspiratie"
               }
             ].map((item, index) => (
@@ -275,7 +275,7 @@ export default function KastenMobile() {
                <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
                   <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden">
                      <img 
-                        src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2560&auto=format&fit=crop" 
+                        src="/diensten/slaapkamer.webp" 
                         alt="Slaapkamer kast renovatie" 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                      />
@@ -312,7 +312,7 @@ export default function KastenMobile() {
                   </div>
                   <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden order-1 md:order-2">
                      <img 
-                        src="https://images.unsplash.com/photo-1621293954908-eae6d5e53434?q=80&w=2560&auto=format&fit=crop" 
+                        src="/diensten/garderobe.webp" 
                         alt="Hal garderobe renovatie" 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                      />
@@ -325,7 +325,7 @@ export default function KastenMobile() {
                <div className="relative grid grid-cols-1 md:grid-cols-12 gap-0 items-center">
                   <div className="md:col-span-8 relative aspect-[4/3] md:aspect-[16/9] shadow-lg overflow-hidden">
                      <img 
-                        src="https://images.unsplash.com/photo-1594918734289-5107e3a09726?q=80&w=2670&auto=format&fit=crop" 
+                        src="/diensten/tv-meubel.webp" 
                         alt="Boekenkast renovatie" 
                         className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                      />

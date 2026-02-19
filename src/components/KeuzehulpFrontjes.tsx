@@ -219,10 +219,10 @@ export default function KeuzehulpFrontjes() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "vlak", label: "Vlak / Modern", sub: "Strakke afwerking", image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "kader", label: "Kader / Klassiek", sub: "Met profiel of rand", image: "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "greeploos", label: "Greeploos", sub: "Met greeplijst", image: "https://images.unsplash.com/photo-1556909190-eccf4c8ba7df?q=80&w=1000&auto=format&fit=crop" },
-                  { id: "mix", label: "Combinatie", sub: "Verschillende types", image: "https://images.unsplash.com/photo-1556912173-3db9963ee790?q=80&w=1000&auto=format&fit=crop" },
+                  { id: "vlak", label: "Vlak / Modern", sub: "Strakke afwerking", image: "/diensten/keukenfront-vlak.webp" },
+                  { id: "kader", label: "Kader / Klassiek", sub: "Met profiel of rand", image: "/diensten/klassiek-front.webp" },
+                  { id: "greeploos", label: "Greeploos", sub: "Met greeplijst", image: "/diensten/keukenfront.webp" },
+                  { id: "mix", label: "Combinatie", sub: "Verschillende types", image: "/diensten/keukenfront-mix.webp" },
                 ].map((item) => (
                   <button
                     key={item.id}
