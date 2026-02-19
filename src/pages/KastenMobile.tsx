@@ -429,20 +429,20 @@ export default function KastenMobile() {
                      step: "01", 
                      title: "Advies & Opmeting", 
                      desc: "We komen bij u langs om de situatie te bekijken. We nemen stalen mee, bespreken uw wensen en meten alles nauwkeurig op voor een offerte op maat.",
-                     img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2653&auto=format&fit=crop"
+                     img: "/stap1-meten.webp"
                   },
                   { 
                      step: "02", 
                      title: "Materiaalkeuze", 
                      desc: "Kies de juiste match. We adviseren u graag over welke kleur en structuur het beste past bij uw vloer, lichtinval en persoonlijke stijl.",
-                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop",
+                     img: "/material.webp",
                      reverse: true
                   },
                   { 
                      step: "03", 
                      title: "Montage Zonder Sloop", 
                      desc: "Onze vakkundige monteurs gaan aan de slag. We werken schoon, stil en snel. Vaak is uw kast binnen één dag al volledig getransformeerd.",
-                     img: "https://images.unsplash.com/photo-1599690963544-2f22b822d14c?q=80&w=2670&auto=format&fit=crop"
+                     img: "/montage.webp"
                   },
                   { 
                      step: "04", 
@@ -483,19 +483,19 @@ export default function KastenMobile() {
                      step: "01", 
                      title: "Advies & Opmeting", 
                      desc: "We komen bij u langs om de situatie te bekijken. We nemen stalen mee, bespreken uw wensen en meten alles nauwkeurig op voor een offerte op maat.",
-                     img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop"
+                     img: "/stap1-meten.webp"
                   },
                   { 
                      step: "02", 
                      title: "Materiaalkeuze", 
                      desc: "Kies de juiste match. We adviseren u graag over welke kleur en structuur het beste past bij uw vloer, lichtinval en persoonlijke stijl.",
-                     img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop"
+                     img: "/material.webp"
                   },
                   { 
                      step: "03", 
                      title: "Montage Zonder Sloop", 
                      desc: "Onze vakkundige monteurs gaan aan de slag. We werken schoon, stil en snel. Vaak is uw kast binnen één dag al volledig getransformeerd.",
-                     img: "https://images.unsplash.com/photo-1599690963544-2f22b822d14c?q=80&w=800&auto=format&fit=crop"
+                     img: "/montage.webp"
                   },
                   { 
                      step: "04", 

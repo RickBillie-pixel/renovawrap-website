@@ -9,9 +9,10 @@ interface Step {
 
 interface ProcessStepsMobileProps {
   steps: Step[];
+  hideImages?: boolean;
 }
 
-export default function ProcessStepsMobile({ steps }: ProcessStepsMobileProps) {
+export default function ProcessStepsMobile({ steps, hideImages = false }: ProcessStepsMobileProps) {
   return (
     <div className="relative py-12">
       {/* Central Line (Static) */}
@@ -37,15 +38,17 @@ export default function ProcessStepsMobile({ steps }: ProcessStepsMobileProps) {
                   </div>
 
                   {/* Image */}
-                  <div className="w-full aspect-[4/3] bg-gray-100 rounded-sm overflow-hidden shadow-md">
-                    <img
-                      src={item.img}
-                      alt={item.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  {!hideImages && (
+                    <div className="w-full aspect-[4/3] bg-gray-100 rounded-sm overflow-hidden shadow-md">
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
 
                   {/* Description */}
                   <p className="text-gray-500 text-sm leading-relaxed">

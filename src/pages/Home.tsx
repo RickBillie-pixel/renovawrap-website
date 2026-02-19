@@ -116,9 +116,19 @@ export default function Home() {
   }, [nonFeaturedProjects.length]);
 
   // Get the current project for each slot
-  const currentFeatured = featuredProjects[featuredIndex % Math.max(featuredProjects.length, 1)] || null;
-  const currentSmallTop = nonFeaturedProjects[smallTopIndex % Math.max(nonFeaturedProjects.length, 1)] || null;
-  const currentSmallBottom = nonFeaturedProjects[smallBottomIndex % Math.max(nonFeaturedProjects.length, 1)] || null;
+  // Get the current project for each slot
+  const effectiveFeaturedIndex = featuredIndex % Math.max(featuredProjects.length, 1);
+  const currentFeatured = featuredProjects[effectiveFeaturedIndex] || null;
+
+  const effectiveTopIndex = smallTopIndex % Math.max(nonFeaturedProjects.length, 1);
+  const currentSmallTop = nonFeaturedProjects[effectiveTopIndex] || null;
+
+  let effectiveBottomIndex = smallBottomIndex % Math.max(nonFeaturedProjects.length, 1);
+  // Ensure bottom is never same as top
+  if (nonFeaturedProjects.length > 1 && effectiveBottomIndex === effectiveTopIndex) {
+      effectiveBottomIndex = (effectiveBottomIndex + 1) % nonFeaturedProjects.length;
+  }
+  const currentSmallBottom = nonFeaturedProjects[effectiveBottomIndex] || null;
 
   return (
     <main className="bg-background-light text-dark font-sans antialiased transition-colors duration-300">
@@ -756,7 +766,7 @@ export default function Home() {
                       <div
                         key={project.id}
                         className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                        style={{ opacity: i === smallTopIndex % nonFeaturedProjects.length ? 1 : 0, zIndex: i === smallTopIndex % nonFeaturedProjects.length ? 1 : 0 }}
+                        style={{ opacity: i === effectiveTopIndex ? 1 : 0, zIndex: i === effectiveTopIndex ? 1 : 0 }}
                       >
                         <img
                           alt={project.name}
@@ -799,7 +809,7 @@ export default function Home() {
                       <div
                         key={project.id}
                         className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                        style={{ opacity: i === smallBottomIndex % nonFeaturedProjects.length ? 1 : 0, zIndex: i === smallBottomIndex % nonFeaturedProjects.length ? 1 : 0 }}
+                        style={{ opacity: i === effectiveBottomIndex ? 1 : 0, zIndex: i === effectiveBottomIndex ? 1 : 0 }}
                       >
                         <img
                           alt={project.name}
@@ -894,7 +904,7 @@ export default function Home() {
               </Link>
             </div>
             
-            <ProcessStepsMobile 
+            <ProcessStepsMobile hideImages={true} 
               steps={processSteps.map(step => ({
                 step: step.number,
                 title: step.title,
