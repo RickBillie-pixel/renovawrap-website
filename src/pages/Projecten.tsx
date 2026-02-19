@@ -363,33 +363,33 @@ export default function Projecten() {
           </div>
 
           <div className="flex flex-col gap-16 lg:grid lg:grid-cols-2 lg:gap-12">
-            {/* Project Amstelveen */}
+            {/* Project Rotterdam */}
             <div className="group w-[90%] mr-auto relative z-0 lg:w-full lg:mr-0">
               <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-xl">
                  <BeforeAfterSlider 
-                    beforeImage="https://lh3.googleusercontent.com/aida-public/AB6AXuCLTPz2wOk-BW9C7-E3c_mneEHkQr-vNeI4rG3aITIkKapzO24UIJOdrzKNreViOcLSZgCL94V5IuEHt54ZpCNraj5r2dPjXok-3mGr-zQMSnIDAAXCJvKtO998I866VBBHj2KRHS9tZeFdKXwKwdofQWy6WTvmpMEaAOKOovEsDNMIc1T_3NihnIaIj2UDtjED4s_OR0Lr7nbPf-QRUzeFN-dMwdzmVGjt0__Wam_-1oDlMxA4Dkh381ln15C37fqmHh2rAMPckTA"
-                    afterImage="https://lh3.googleusercontent.com/aida-public/AB6AXuC_bNep-OjxTMyszSbRUzRxrVDgcb2NZ8M2BbN_gI98vD8jqlfLapPkMJRvcoiBwhO5SNe8UJ6XG1nH_FrEevAp_nV2qBQKKezi4_K3mCLg7dBWwfmUr4f6OAc9iDkJSS6h3kQDOeUk0E_fLuCWj2ylr97lET0PacC_tQtjTZGmbwHOATbO3yPV7WE30u2jEZKPXy5DVwKcbhg6vT_jLkDGs23559bTwKiEyywXq_HUlnezVfDYt_ovGBIwiVTXwXa3r3vgRmItcuc"
+                    beforeImage="/project-fotos/before3.webp"
+                    afterImage="/project-fotos/after3.webp"
                     className="h-full"
                  />
               </div>
               <div className="flex flex-col items-start px-1">
                 <span className="text-[10px] text-primary font-bold uppercase tracking-widest mb-1">Keuken Renovatie</span>
-                <h3 className="font-display text-3xl">Project Amstelveen</h3>
+                <h3 className="font-display text-3xl">Project Rotterdam</h3>
               </div>
             </div>
 
-             {/* Project Den Haag */}
+             {/* Project Utrecht */}
             <div className="group w-[90%] ml-auto relative z-10 lg:w-full lg:ml-0">
                <div className="relative w-full aspect-[4/3] overflow-hidden mb-6 shadow-xl">
                  <BeforeAfterSlider 
-                    beforeImage="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQ7CZma-nwhJXHzmQ0OFtElMNDapKx-kKUaGd6kErk-h4r9FRMhkoxkxuhIWOynOp0L3JjCFlF1FOOloizTflsrqmXGLFF2Hp34OusR76JqsT6CTXZnXuXfGCkf6usIw0nA8louiyUXbYJyDiIFJgI9D58QqZEMkqA88QRvN-gtr8v3oMNhjeR3mTHSvnIWDEVI7FfKZpICpW-ybem4EZysHMOg5Y-mN5FK7lacvZonQUgns77wQe8Dj58hlO8DegZQbFc-c99Tw"
-                    afterImage="https://lh3.googleusercontent.com/aida-public/AB6AXuCYn791KOT13rsJDS46AqrZVUi_QO4_7Rfdo2VkGC38Tc_yBJu8D0YarWfW77JRNDRV87flBxpsO39iQ20kDhvL6OUHT3jqpMNbTSEXsXZjFczMvtWJ3nb-qLB21l0cW9TAqmCUE2sKeRsHlV50AGwRcVOQ2Z8UKQy5PQbxxbTTna07PT4QBdkQVnITxv7rT6F9b12RVxiStk3QGb-A690KbJPqkggCBmYABejtuzmP5YvP9hI_KFzpIDKQho_nz5ez4oZA5Y4vy9w"
+                    beforeImage="/project-fotos/before10.webp"
+                    afterImage="/project-fotos/after10.webp"
                     className="h-full"
                  />
               </div>
               <div className="flex flex-col items-end px-1 text-right">
                 <span className="text-[10px] text-primary font-bold uppercase tracking-widest mb-1">Interieur Wrap</span>
-                <h3 className="font-display text-3xl">Appartement Den Haag</h3>
+                <h3 className="font-display text-3xl">Appartement Utrecht</h3>
               </div>
             </div>
           </div>

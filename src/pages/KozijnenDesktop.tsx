@@ -309,7 +309,7 @@ export default function KozijnenDesktop() {
                      step: "04", 
                      title: "Oplevering & Service", 
                      desc: "Samen lopen we het eindresultaat na. U ontvangt een garantiecertificaat en onderhoudsadvies. Geniet direct van uw 'nieuwe' kozijnen.",
-                     img: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2670&auto=format&fit=crop",
+                     img: "/diensten/schuifpui.webp",
                      reverse: true
                   }
                ].map((item, idx) => (

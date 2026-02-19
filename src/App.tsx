@@ -79,7 +79,7 @@ export function AppContent() {
       <ScrollToTop />
       {typeof window !== 'undefined' && <SmoothScroll />}
 
-      <div className="bg-background-light text-dark min-h-screen selection:bg-secondary selection:text-white transition-colors duration-300">
+      <div className="bg-background-light text-dark min-h-screen selection:bg-secondary selection:text-white transition-colors duration-300 overflow-x-hidden">
         <Header />
         <Suspense fallback={<div className="min-h-screen bg-background-light" />}>
           <Routes>
