@@ -64,6 +64,7 @@ export default function Configurator() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [loadingStep, setLoadingStep] = useState<string>("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   
   // Mobile Wizard Steps
   // 0: Intro/Upload
@@ -258,13 +259,18 @@ export default function Configurator() {
       setSubmissionId(functionData.submission_id);
       setLoadingStep("success");
       
-      // Wait for realtime update (handled by useEffect)
+      // Wait 1 second and then show success message
+      setTimeout(() => {
+        setIsSubmitted(true);
+        setIsGenerating(false);
+        setLoadingStep("");
+      }, 1000);
       
     } catch (error: any) {
       console.error("Submission error:", error);
       setIsGenerating(false);
       setLoadingStep("");
-      alert(`Fout bij genereren: ${error.message}`);
+      alert(`Fout bij verzenden: ${error.message}`);
     }
   };
 
@@ -341,6 +347,34 @@ export default function Configurator() {
         {/* Scrollable Content Area - Now just content in flow */}
         <div className="flex-1 p-6 pb-32 relative">
              <AnimatePresence mode="wait">
+             {/* Success Message Mobile */}
+             {isSubmitted ? (
+                 <motion.div
+                    key="success-mobile"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex flex-col items-center justify-center text-center py-12"
+                 >
+                    <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mb-6 text-green-600">
+                        <CheckCircle2 className="w-10 h-10" />
+                    </div>
+                    <h3 className="font-display text-3xl text-dark mb-4">Aanvraag Ontvangen!</h3>
+                    <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
+                        Uw aanvraag is ontvangen. Zie uw mail voor het resultaat.
+                    </p>
+                    <button 
+                        onClick={() => {
+                            setIsSubmitted(false);
+                            setCurrentStep(0);
+                            setUploadedImage(null);
+                        }}
+                        className="mt-12 text-primary font-bold uppercase tracking-widest text-xs border-b border-primary/20 pb-1"
+                    >
+                        Nieuw Ontwerp Starten
+                    </button>
+                 </motion.div>
+             ) : (
+                 <>
              {/* Step 0: Upload */}
              {currentStep === 0 && (
                  <motion.div 
@@ -613,6 +647,8 @@ export default function Configurator() {
                         </div>
                     )}
                  </motion.div>
+             )}
+                  </>
              )}
              </AnimatePresence>
         </div>
@@ -964,26 +1000,52 @@ export default function Configurator() {
                   Ik ga akkoord met de <a className="underline text-primary hover:text-primary-dark" href="#">algemene voorwaarden</a> en begrijp dat dit een indicatief voorbeeld is. Het eindresultaat kan afwijken van het gegenereerde voorbeeld.
                 </label>
               </div>
-              <button
-                onClick={handleGenerate}
-                disabled={!canGenerate}
-                className={`w-full py-6 rounded-xl font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center text-lg shadow-lg ${canGenerate ? 'bg-secondary hover:bg-[#C2B29D] text-white transform hover:-translate-y-1' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="w-6 h-6 mr-3 animate-spin" />
-                    {loadingStep === "upload" && "Uploaden..."}
-                    {loadingStep === "webhook" && "Aanvraag versturen..."}
-                    {loadingStep === "success" && "Even geduld..."}
-                    {!loadingStep && "Verwerken..."}
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className={`mr-3 w-6 h-6 ${canGenerate ? 'animate-pulse' : ''}`} />
-                    Versturen
-                  </>
-                )}
-              </button>
+               {isSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center py-12"
+                >
+                  <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <h4 className="font-display text-2xl text-dark mb-2">Bedankt voor uw aanvraag!</h4>
+                  <p className="text-gray-500">Uw aanvraag is ontvangen. Zie uw mail voor het resultaat.</p>
+                  <button 
+                    onClick={() => {
+                      setIsSubmitted(false);
+                      setUploadedImage(null);
+                      setGeneratedImage(null);
+                      // Scroll to top
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="mt-8 text-primary font-bold uppercase tracking-widest text-xs hover:text-primary-dark transition-colors"
+                  >
+                    Nieuw Ontwerp Maken
+                  </button>
+                </motion.div>
+              ) : (
+                <button
+                  onClick={handleGenerate}
+                  disabled={!canGenerate}
+                  className={`w-full py-6 rounded-xl font-bold uppercase tracking-[0.2em] transition-all flex items-center justify-center text-lg shadow-lg ${canGenerate ? 'bg-secondary hover:bg-[#C2B29D] text-white transform hover:-translate-y-1' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+                >
+                  {isGenerating ? (
+                    <>
+                      <Loader2 className="w-6 h-6 mr-3 animate-spin" />
+                      {loadingStep === "upload" && "Uploaden..."}
+                      {loadingStep === "webhook" && "Aanvraag versturen..."}
+                      {loadingStep === "success" && "Even geduld..."}
+                      {!loadingStep && "Verwerken..."}
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className={`mr-3 w-6 h-6 ${canGenerate ? 'animate-pulse' : ''}`} />
+                      Versturen
+                    </>
+                  )}
+                </button>
+              )}
             </div>
           </div>
         </section>
