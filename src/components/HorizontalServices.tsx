@@ -1,29 +1,61 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ServiceCard from "./ServiceCard";
 import { services } from "../data/mockData";
 import FadeIn from "./FadeIn";
 import { Link } from "react-router-dom";
 
-export default function HorizontalServices() {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
+// Register ScrollTrigger plugin (works with Lenis via gsap.ticker sync)
+gsap.registerPlugin(ScrollTrigger);
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
+export default function HorizontalServices() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Only run on desktop (lg breakpoint)
+    if (window.innerWidth < 1024) return;
+
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
+
+    // Calculate how far the track needs to move horizontally
+    const scrollDistance = track.scrollWidth - window.innerWidth;
+
+    // GSAP tween: pin the section, scroll the track horizontally
+    const tween = gsap.to(track, {
+      x: -scrollDistance,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        pin: true,            // Pin the section while scrolling
+        scrub: 1,             // Smooth scrub linked to scroll position
+        start: "top top",     // Pin starts when section top hits viewport top
+        end: () => `+=${scrollDistance}`, // Pin lasts exactly as long as the scroll distance
+        invalidateOnRefresh: true,       // Recalculate on resize
+      },
+    });
+
+    // Cleanup on unmount
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+    };
+  }, []);
 
   return (
     <>
       {/* DESKTOP: Horizontal Scroll */}
       <section 
-        ref={targetRef} 
-        className="hidden lg:block relative h-[400vh] bg-background-light" 
+        ref={sectionRef} 
+        className="hidden lg:block relative bg-background-light" 
       >
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-          <motion.div 
-            style={{ x }} 
-            className="flex gap-16 px-6 lg:px-24 items-center"
+        <div className="flex h-screen items-center overflow-hidden">
+          <div 
+            ref={trackRef}
+            className="flex gap-16 px-6 lg:px-24 items-center w-max"
           >
             {/* Intro Text Block */}
             <div className="min-w-[400px] md:min-w-[500px] flex flex-col justify-center gap-6">
@@ -54,7 +86,7 @@ export default function HorizontalServices() {
               </div>
             ))}
             
-          </motion.div>
+          </div>
         </div>
       </section>
 
