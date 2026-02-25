@@ -61,7 +61,7 @@ export default function SchadeherstelMobile() {
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
                   <img
-                    src="/damage.webp"
+                    src="/schade.png"
                     alt="Schadeherstel resultaat"
                     className="w-full h-full object-cover"
                   />
@@ -114,7 +114,7 @@ export default function SchadeherstelMobile() {
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
                   <img
-                    src="/damage.webp"
+                    src="/schade.png"
                     alt="Schadeherstel resultaat"
                     className="w-full h-full object-cover"
                   />
@@ -156,11 +156,6 @@ export default function SchadeherstelMobile() {
                 title: "Hitte & Vocht",
                 desc: "Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.",
                 image: "/waterdicht.webp"
-              },
-              {
-                title: "Loslatende Folie",
-                desc: "Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.",
-                image: "/closeup.webp"
               }
             ].map((item, index) => (
               <FadeIn 
@@ -208,7 +203,7 @@ export default function SchadeherstelMobile() {
           </div>
 
           {/* Desktop View - Grid */}
-          <div className="hidden md:grid md:grid-cols-3 gap-8">
+          <div className="hidden md:grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
               {
                 title: "Diepe Krassen",
@@ -219,11 +214,6 @@ export default function SchadeherstelMobile() {
                 title: "Hitte & Vocht",
                 desc: "Schade door hitte of vocht wordt door ons vakkundig verwijderd. Wij herstellen de ondergrond en brengen een nieuwe toplaag aan.",
                 image: "/waterdicht.webp"
-              },
-              {
-                title: "Loslatende Folie",
-                desc: "Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.",
-                image: "/closeup.webp"
               }
             ].map((item, index) => (
               <div key={index} className="group">

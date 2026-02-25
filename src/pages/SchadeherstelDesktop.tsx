@@ -58,7 +58,7 @@ export default function SchadeherstelDesktop() {
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
                   <img
-                    src="/damage.webp"
+                    src="/schade.png"
                     alt="Schadeherstel resultaat"
                     className="w-full h-full object-cover"
                   />
@@ -87,7 +87,7 @@ export default function SchadeherstelDesktop() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Card 1 */}
             <div className="group">
               <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
@@ -118,20 +118,6 @@ export default function SchadeherstelDesktop() {
               </p>
             </div>
 
-            {/* Card 3 */}
-            <div className="group">
-              <div className="aspect-square overflow-hidden mb-6 bg-gray-100">
-                <img 
-                  src="/closeup.webp" 
-                  alt="Loslatende Folie" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="font-display text-2xl mb-2 text-dark">Loslatende Folie</h3>
-              <p className="text-gray-500 text-sm leading-relaxed font-light">
-                Laat de folie los? Wij herstellen de hechting met krachtige industriële technieken, zodat uw keuken of meubel weer jaren mee kan.
-              </p>
-            </div>
           </div>
         </div>
       </section>

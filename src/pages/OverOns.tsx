@@ -183,7 +183,7 @@ export default function OverOns() {
                 transition={{ duration: 0.5 }}
                 className="text-[10px] uppercase tracking-[0.2em] text-primary mb-6 block"
               >
-                Het Gezicht Achter Renovawrap
+                Over Renovawrap
               </motion.span>
               <motion.h2 
                 initial={{ opacity: 0, y: 20 }}
@@ -192,7 +192,7 @@ export default function OverOns() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="font-display text-5xl md:text-6xl text-white mb-2"
               >
-                Bram <span className="italic text-gray-500">Vos</span>
+                Onze <span className="italic text-gray-500">Missie</span>
               </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -201,7 +201,7 @@ export default function OverOns() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-sm uppercase tracking-widest text-gray-400 mb-12"
               >
-                Eigenaar & Specialist
+                Duurzaam Vakwerk
               </motion.p>
               
               <div className="space-y-4 text-gray-300 leading-relaxed font-light text-lg">
@@ -211,7 +211,7 @@ export default function OverOns() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                  "Ik ben geen snelle verkoper. Ik ben een maker. Iemand die pas tevreden is als een hoekje perfect is afgewerkt."
+                  RenovaWrap is dé specialist in hoogwaardige interieur- en keukenwraps. Wij transformeren verouderde ruimtes tot moderne, stijlvolle plekken zonder de hoge kosten en overlast van een traditionele verbouwing.
                 </motion.p>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
@@ -220,7 +220,7 @@ export default function OverOns() {
                   transition={{ duration: 0.5, delay: 0.4 }}
                   className="text-base text-gray-400"
                 >
-                  Renovawrap is ontstaan vanuit een simpele frustratie: ik zag hoeveel goede materialen er bij het grofvuil belandden, puur omdat de uitstraling gedateerd was. Dat moest anders kunnen.
+                  Onze missie is duidelijk: voorkomen dat goed, solide materiaal onnodig wordt weggegooid. Door gebruik te maken van de allerbeste folies op de markt, geven we uw huidige interieur een duurzaam, stoot- en krasbestendig tweede leven.
                 </motion.p>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
@@ -229,28 +229,8 @@ export default function OverOns() {
                   transition={{ duration: 0.5, delay: 0.5 }}
                   className="text-base text-gray-400"
                 >
-                   Samen met mijn team van 2-3 vaste specialisten werken we vanuit Helmond aan projecten in de hele regio. We zijn klein genoeg om persoonlijk betrokken te blijven bij elke klus, maar groot genoeg om kwaliteit en garantie te leveren waar je op kunt bouwen.
+                   Met een vast team van specialisten werken we dagelijks aan projecten in de wijde regio. Kwaliteit, uiterste precisie en een persoonlijke aanpak staan bij elke klus voorop. Wij leveren vakwerk waarop u kunt bouwen, ondersteund door uitstekende service en garantie.
                 </motion.p>
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="text-base text-gray-400"
-                >
-                  Geen gladde praatjes, maar gewoon eerlijk vakwerk. Dat is waar ik voor sta.
-                </motion.p>
-                
-                {/* Integrated Signature */}
-                <motion.div 
-                  initial={{ opacity: 0, rotate: -5 }}
-                  whileInView={{ opacity: 0.6, rotate: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.8, type: "spring" }}
-                  className="pt-8"
-                >
-                   <p className="font-display text-3xl italic text-white tracking-wide">Bram Vos.</p>
-                </motion.div>
               </div>
             </div>
 

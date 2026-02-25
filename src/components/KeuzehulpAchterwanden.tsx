@@ -219,7 +219,6 @@ export default function KeuzehulpAchterwanden() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "tegels", label: "Tegels", sub: "Over oude tegels heen", image: "/diensten/achterwand-tegel.webp" },
                   { id: "stucwerk", label: "Stucwerk", sub: "Gladde muur", image: "/diensten/achterwand-stu.webp" },
                   { id: "glas", label: "Glas / RVS", sub: "Bestaande plaat", image: "/diensten/achterwand-rvs.webp" },
                   { id: "kaal", label: "Kaal / Casco", sub: "Nieuwbouw", image: "/diensten/achterwand-ruw.webp" },

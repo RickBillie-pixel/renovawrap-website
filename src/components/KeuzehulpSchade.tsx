@@ -207,7 +207,6 @@ export default function KeuzehulpSchade() {
             {step === 1 && (
               <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
                 {[
-                  { id: "loslatend", label: "Loslatende folie", sub: "Luchtbellen / Scheuren", image: "/diensten/schade-folie.webp" },
                   { id: "krassen", label: "Krassen / Slijtage", sub: "Oppervlakkig / Diep", image: "/diensten/schade-kras.webp" },
                   { id: "deuken", label: "Deuken / Stoten", sub: "Fysieke schade", image: "/diensten/schade deuk.webp" },
                   { id: "verkleuring", label: "Verkleuring / Brand", sub: "Hitte / Zonlicht", image: "/diensten/schade-verkleuring.webp" },

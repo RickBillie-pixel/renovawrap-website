@@ -13,14 +13,14 @@ export const generalFaqs = [
     },
     {
         question: "Hoe lang duurt de montage?",
-        answer: "Een gemiddelde renovatie ronden wij binnen 1 à 2 werkdagen af. Omdat we geen sloopwerk hebben, ervaart u minimale overlast en kunt u de ruimte direct weer gebruiken."
+        answer: "Een gemiddelde renovatie ronden wij binnen 1 werkdag af. Omdat we geen sloopwerk hebben, ervaart u minimale overlast en kunt u de ruimte direct weer gebruiken."
     }
 ];
 
 export const kitchenFaqs = [
     {
         question: "Kan ik hete pannen op het gewrapte keukenblad zetten?",
-        answer: "Onze folies zijn uitstekend bestand tegen dagelijks gebruik en warmte. Voor hete pannen direct uit de oven of van het vuur adviseren wij echter altijd een onderzetter te gebruiken, net zoals u bij de meeste reguliere keukenbladen zou doen."
+        answer: "Onze folies zijn uitstekend bestand tegen dagelijks gebruik. De folie is kras- en stootvrij, en bovendien hittebestendig tot 110 graden."
     },
     ...generalFaqs,
     {
@@ -40,7 +40,7 @@ export const cabinetFaqs = [
 export const countertopFaqs = [
     {
         question: "Kan ik hete pannen op het gewrapte keukenblad zetten?",
-        answer: "Onze folies zijn uitstekend bestand tegen dagelijks gebruik en warmte. Voor hete pannen direct uit de oven of van het vuur adviseren wij echter altijd een onderzetter te gebruiken, net zoals u bij de meeste reguliere keukenbladen zou doen."
+        answer: "Onze folies zijn uitstekend bestand tegen dagelijks gebruik. De folie is kras- en stootvrij, en bovendien hittebestendig tot 110 graden."
     },
     ...generalFaqs
 ];
@@ -69,10 +69,6 @@ export const backsplashFaqs = [
     {
         question: "Is de folie bestand tegen de hitte van een kookplaat?",
         answer: "Ja, onze folies zijn hittebestendig en kunnen veilig achter een kookplaat worden gebruikt. Voor gaskookplaten adviseren we wel een veilige afstand te houden om direct contact met vlammen te voorkomen."
-    },
-    {
-        question: "Kan ik de folie over mijn bestaande tegels heen plakken?",
-        answer: "Dat kan, maar voor het mooiste en strakste resultaat moeten de voegen eerst worden uitgevlakt. Wij zorgen voor de juiste voorbereiding zodat u niets meer ziet van de oude tegels."
     },
     ...generalFaqs
 ];

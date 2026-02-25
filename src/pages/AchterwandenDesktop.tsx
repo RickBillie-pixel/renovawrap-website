@@ -53,7 +53,7 @@ export default function AchterwandenDesktop() {
                 <span className="italic font-normal text-primary">Zonder Sloopwerk</span>
               </h1>
               <p className="text-gray-500 font-light leading-relaxed max-w-md pt-4">
-                Waarom veel geld investeren in nieuwe tegels? Wij wrappen je bestaande achterwand naar een hygiënische, naadloze showroom staat. Binnen 1 dag geregeld.
+                Je achterwand is een bepalend onderdeel van je keuken. Wij wrappen je bestaande achterwand naar een hygiënische, naadloze showroom staat. Binnen 1 dag geregeld.
               </p>
               
               {/* Trust Badges */}
@@ -217,7 +217,7 @@ export default function AchterwandenDesktop() {
                  <div className="space-y-6 md:order-1 order-2">
                     <h3 className="font-display text-3xl md:text-4xl text-dark">Waterdicht & Naadloos</h3>
                     <p className="text-gray-500 leading-relaxed">
-                       Traditionele tegels hebben voegen die verkleuren en waar schimmel kan ontstaan. Wrapping creëert een volledig naadloos oppervlak dat 100% waterdicht is. Ideaal rondom de spoelbak en kraan.
+                       In tegenstelling tot traditionele materialen met voegen die verkleuren, creëert wrapping een volledig naadloos oppervlak dat 100% waterdicht is. Ideaal rondom de spoelbak en kraan.
                     </p>
                     <ul className="space-y-4 pt-4">
                        {[

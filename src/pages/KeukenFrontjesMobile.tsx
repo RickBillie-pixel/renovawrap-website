@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react";
-
-import { AnimatePresence, motion } from "framer-motion";
 import FadeIn from "../components/FadeIn";
 import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
 import KitchenBenefits from "../components/KitchenBenefits";
@@ -9,37 +6,6 @@ import FAQ from "../components/FAQ";
 import { cabinetFaqs } from "../data/faqs";
 
 export default function KeukenFrontjesMobile() {
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const heroImages = [
-    {
-      before: "/project-fotos/before14.webp",
-      after: "/project-fotos/after14.webp",
-    },
-    {
-      before: "/project-fotos/before12.webp",
-      after: "/project-fotos/after12.webp",
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Preload images
-  useEffect(() => {
-    heroImages.forEach((image) => {
-      const img1 = new Image();
-      img1.src = image.before;
-      const img2 = new Image();
-      img2.src = image.after;
-    });
-  }, []);
 
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
@@ -88,24 +54,13 @@ export default function KeukenFrontjesMobile() {
                 </div>
                </div>
 
-              {/* Slider (Fills remaining space) */}
+              {/* Hero foto */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={currentImageIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      <BeforeAfterSlider
-                        afterImage={heroImages[currentImageIndex].after}
-                        beforeImage={heroImages[currentImageIndex].before}
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                <img
+                  src="/project-fotos/after7.webp"
+                  alt="Keukenfrontjes wrappen resultaat"
+                  className="w-full h-full object-cover"
+                />
               </div>
 
                <div className="flex flex-col gap-3">
@@ -154,22 +109,11 @@ export default function KeukenFrontjesMobile() {
             <div className="hidden lg:flex lg:col-span-6 justify-center">
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={currentImageIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      <BeforeAfterSlider
-                        afterImage={heroImages[currentImageIndex].after}
-                        beforeImage={heroImages[currentImageIndex].before}
-                        className="w-full h-full"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <img
+                    src="/project-fotos/after7.webp"
+                    alt="Keukenfrontjes wrappen resultaat"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">

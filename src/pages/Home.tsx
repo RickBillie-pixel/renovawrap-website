@@ -370,7 +370,7 @@ export default function Home() {
                 <img
                   alt="Smart space interieur"
                   className="w-full h-full object-cover grayscale brightness-110"
-                  src="/highend.webp"
+                  src="/project-fotos/after15.webp"
                 />
               </div>
             </div>
@@ -449,7 +449,7 @@ export default function Home() {
                    <img
                     alt="High-end design resultaat"
                     className="w-full h-full object-cover"
-                    src="/highend.webp"
+                    src="/project-fotos/after15.webp"
                   />
                 </div>
                 <div className="w-[60%] p-5 flex flex-col justify-center relative">
@@ -527,7 +527,7 @@ export default function Home() {
                 <span className="font-mono text-sm text-primary">[02]</span>
               </div>
               <p className="text-gray-600 leading-relaxed text-sm">
-                Waarom €15.000 investeren als u voor €2.500 hetzelfde resultaat haalt? Wij behouden de basis en upgraden de esthetiek. Geen stof, geen puin, wel de waarde-vermeerdering.
+                Waarom €15.000 investeren als u voor €1.500 hetzelfde resultaat haalt? Wij behouden de basis en upgraden de esthetiek. Geen stof, geen puin, wel de waarde-vermeerdering.
               </p>
             </FadeIn>
 
@@ -961,13 +961,6 @@ export default function Home() {
                            "{testimonial.quote}"
                          </p>
                          <div className="flex items-center gap-4">
-                           <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 shrink-0">
-                             <img
-                               alt={testimonial.author}
-                               className="w-full h-full object-cover"
-                               src={testimonial.image}
-                             />
-                           </div>
                            <div>
                              <h4 className="font-bold text-sm uppercase tracking-widest text-dark">{testimonial.author}</h4>
                              <p className="text-xs text-primary">{testimonial.location}</p>
@@ -1024,13 +1017,6 @@ export default function Home() {
                           "{testimonial.quote}"
                         </p>
                         <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 shrink-0">
-                            <img
-                              alt={testimonial.author}
-                              className="w-full h-full object-cover"
-                              src={testimonial.image}
-                            />
-                          </div>
                           <div>
                             <h4 className="font-bold text-[10px] uppercase tracking-widest text-dark">{testimonial.author}</h4>
                             <p className="text-[10px] text-primary">{testimonial.location}</p>

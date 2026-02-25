@@ -373,9 +373,6 @@ export default function Contact() {
                      "{t.quote}"
                    </p>
                    <div className="flex items-center gap-3">
-                     <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-                       <img src={t.image} alt={t.author} className="w-full h-full object-cover" />
-                     </div>
                      <div>
                        <p className="text-xs font-bold uppercase tracking-widest">{t.author}</p>
                        <p className="text-[10px] text-gray-400">{t.location}</p>
