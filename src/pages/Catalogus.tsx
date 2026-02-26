@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Search } from "lucide-react";
 import FadeIn from "../components/FadeIn";
 import { materials, materialsByCategory, categories } from "../data/materials";
 import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
@@ -7,6 +8,7 @@ import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 export default function Catalogus() {
   const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState<string>("Alle");
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredMaterials, setFilteredMaterials] = useState(materials);
 
   useSEO({
@@ -28,12 +30,21 @@ export default function Catalogus() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (activeCategory === "Alle") {
-      setFilteredMaterials(materials);
-    } else {
-      setFilteredMaterials(materialsByCategory[activeCategory] || []);
+    let currentMaterials = activeCategory === "Alle" 
+      ? materials 
+      : materialsByCategory[activeCategory] || [];
+
+    if (searchQuery.trim() !== "") {
+      const query = searchQuery.toLowerCase();
+      currentMaterials = currentMaterials.filter(
+        (m) =>
+          m.name.toLowerCase().includes(query) ||
+          m.id.toLowerCase().includes(query)
+      );
     }
-  }, [activeCategory]);
+    
+    setFilteredMaterials(currentMaterials);
+  }, [activeCategory, searchQuery]);
 
   return (
     <main className="pt-24 bg-background-light text-dark font-sans antialiased min-h-screen">
@@ -60,8 +71,24 @@ export default function Catalogus() {
       {/* Filter & Gallery Section */}
       <section className="py-12 px-6">
         <div className="max-w-[1400px] mx-auto">
-          {/* Category Filter */}
-            <div className="flex flex-nowrap md:flex-wrap gap-4 mb-12 sticky top-24 z-20 bg-background-light py-4 border-b border-dark/5 overflow-x-auto no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
+          {/* Category Filter & Search */}
+          <div className="flex flex-col gap-6 mb-12 sticky top-24 z-20 bg-background-light py-4 border-b border-dark/5">
+            {/* Search Input */}
+            <div className="relative max-w-md w-full px-6 md:px-0">
+              <div className="absolute inset-y-0 left-0 pl-9 md:pl-3 flex items-center pointer-events-none">
+                <Search size={16} className="text-gray-400" />
+              </div>
+              <input
+                type="text"
+                className="block w-full pl-10 pr-3 py-3 border border-dark/20 rounded bg-transparent text-dark placeholder-gray-400 focus:outline-none focus:border-primary transition-colors text-sm"
+                placeholder="Zoek op naam of code..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            
+            {/* Categories */}
+            <div className="flex flex-nowrap md:flex-wrap gap-4 overflow-x-auto no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
             <button
               onClick={() => setActiveCategory("Alle")}
               className={`whitespace-nowrap shrink-0 px-6 py-2 text-xs uppercase tracking-widest transition-all duration-300 rounded-full border ${
@@ -85,6 +112,7 @@ export default function Catalogus() {
                 {category}
               </button>
             ))}
+            </div>
           </div>
 
           {/* Grid */}

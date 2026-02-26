@@ -72,6 +72,11 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link to="/catalogus" className="hover:text-white transition-colors">
+                  Catalogus
+                </Link>
+              </li>
             </ul>
           </div>
 
