@@ -64,10 +64,20 @@ export default function KeukenFrontjesMobile() {
               </div>
 
                <div className="relative z-20 flex flex-col gap-3">
-                <button type="button" onClick={() => document.getElementById('keuzehulp')?.scrollIntoView({ behavior: 'smooth' })} className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg cursor-pointer">
+                <button type="button"
+                  onTouchEnd={(e) => { e.preventDefault(); const lenis = (window as any).__lenis; if (lenis) { lenis.scrollTo('#keuzehulp', { offset: -20 }); } else { document.getElementById('keuzehulp')?.scrollIntoView({ behavior: 'smooth' }); } }}
+                  onClick={() => { const lenis = (window as any).__lenis; if (lenis) { lenis.scrollTo('#keuzehulp', { offset: -20 }); } else { document.getElementById('keuzehulp')?.scrollIntoView({ behavior: 'smooth' }); } }}
+                  className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg cursor-pointer"
+                  style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                >
                   Gratis Offerte
                 </button>
-                <button type="button" onClick={() => { window.location.href = '/projecten'; }} className="flex items-center justify-center text-xs font-bold tracking-widest uppercase border border-dark px-6 py-4 hover:bg-dark hover:text-white transition-all w-full cursor-pointer bg-transparent">
+                <button type="button"
+                  onTouchEnd={(e) => { e.preventDefault(); window.location.href = '/projecten'; }}
+                  onClick={() => { window.location.href = '/projecten'; }}
+                  className="flex items-center justify-center text-xs font-bold tracking-widest uppercase border border-dark px-6 py-4 hover:bg-dark hover:text-white transition-all w-full cursor-pointer bg-transparent"
+                  style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                >
                   Bekijk Voor & Na Foto's
                 </button>
               </div>
