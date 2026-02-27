@@ -154,9 +154,9 @@ export default function Home() {
                       className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
                     />
                   </div>
-              </div>
+               </div>
 
-               <div className="flex flex-col gap-3">
+               <div className="relative z-20 flex flex-col gap-3">
                 <Link
                   to="/contact"
                   className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg"
