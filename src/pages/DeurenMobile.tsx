@@ -202,7 +202,7 @@ export default function DeurenMobile() {
                   </AnimatePresence>
               </div>
 
-               <div className="flex flex-col gap-3">
+               <div className="relative z-20 flex flex-col gap-3">
                 <a className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg" href="#keuzehulp">
                   Gratis Offerte
                 </a>
