@@ -6,12 +6,6 @@ export default function SmoothScroll() {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Disable Lenis on touch devices (iOS Safari, Android)
-    // Lenis intercepts touchmove events globally, which prevents
-    // tapping on buttons and links on Safari iOS.
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return;
-
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 

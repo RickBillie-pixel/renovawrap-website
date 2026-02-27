@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 
 interface BeforeAfterSliderProps {
   beforeImage: string;
@@ -13,66 +13,51 @@ export default function BeforeAfterSlider({
 }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
 
-  const handleMove = useCallback((clientX: number) => {
-    if (!containerRef.current) return;
+  const getPosition = useCallback((clientX: number) => {
+    if (!containerRef.current) return 50;
     const rect = containerRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPosition(percentage);
+    return Math.max(0, Math.min(100, (x / rect.width) * 100));
   }, []);
 
+  // Mouse: simple drag within container only (desktop)
   const handleMouseDown = useCallback(() => {
-    isDragging.current = true;
-  }, []);
-
-  const handleMouseUp = useCallback(() => {
-    isDragging.current = false;
-  }, []);
-
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging.current) return;
+    const onMove = (e: MouseEvent) => {
       e.preventDefault();
-      handleMove(e.clientX);
-    },
-    [handleMove]
-  );
-
-  const handleTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (!isDragging.current) return;
-      // Only prevent default when actively dragging the slider handle
-      e.preventDefault();
-      if (e.touches && e.touches[0]) {
-        handleMove(e.touches[0].clientX);
-      }
-    },
-    [handleMove]
-  );
-
-  useEffect(() => {
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-    // Use passive: false only needed when dragging; we control this via isDragging
-    document.addEventListener("touchmove", handleTouchMove, { passive: false });
-    document.addEventListener("touchend", handleMouseUp);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("touchmove", handleTouchMove);
-      document.removeEventListener("touchend", handleMouseUp);
+      setSliderPosition(getPosition(e.clientX));
     };
-  }, [handleMouseMove, handleMouseUp, handleTouchMove]);
+    const onUp = () => {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+    };
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+  }, [getPosition]);
+
+  // Touch: handle entirely on the container element, NO document listeners
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches[0]) {
+      setSliderPosition(getPosition(e.touches[0].clientX));
+    }
+  }, [getPosition]);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    // Prevent scrolling only while sliding
+    e.stopPropagation();
+    if (e.touches[0]) {
+      setSliderPosition(getPosition(e.touches[0].clientX));
+    }
+  }, [getPosition]);
 
   return (
     <div
       ref={containerRef}
       className={`relative select-none overflow-hidden ${className}`}
       onMouseDown={handleMouseDown}
-      onClick={(e) => handleMove(e.clientX)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onClick={(e) => setSliderPosition(getPosition(e.clientX))}
     >
       {/* After image (background) */}
       <img
@@ -106,17 +91,13 @@ export default function BeforeAfterSlider({
         </div>
       </div>
 
-      {/* Slider line + handle — only THIS element starts drag on touch */}
+      {/* Slider line + handle */}
       <div
-        className="absolute inset-y-0 z-30 flex items-center"
+        className="absolute inset-y-0 z-30 flex items-center pointer-events-none"
         style={{ left: `${sliderPosition}%` }}
-        onTouchStart={(e) => {
-          e.stopPropagation();
-          handleMouseDown();
-        }}
       >
         <div className="absolute inset-y-0 -left-px w-0.5 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)]"></div>
-        <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-xl flex items-center justify-center border border-gray-100/50 backdrop-blur-sm cursor-ew-resize">
+        <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-xl flex items-center justify-center border border-gray-100/50 backdrop-blur-sm">
           <span className="material-symbols-outlined text-dark text-sm">
             unfold_more
           </span>
