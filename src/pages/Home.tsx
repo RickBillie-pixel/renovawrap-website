@@ -159,45 +159,13 @@ export default function Home() {
 
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
-                  {featuredProjects.length > 0 ? (
-                    featuredProjects.map((project, i) => {
-                      const hasBeforeAfter = project.before_image_url && project.after_image_url;
-                      const isActive = i === heroIndex % featuredProjects.length;
-                      
-                      return (
-                        <div
-                          key={`hero-mobile-${project.id}`}
-                          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                          style={{ opacity: isActive ? 1 : 0, zIndex: isActive ? 1 : 0 }}
-                        >
-                          {hasBeforeAfter ? (
-                             <div 
-                               className="w-full h-full"
-                               onClick={(e) => e.stopPropagation()} 
-                             >
-                               <BeforeAfterSlider
-                                 beforeImage={project.before_image_url!}
-                                 afterImage={project.after_image_url!}
-                                 className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                               />
-                             </div>
-                          ) : (
-                            <img 
-                             src={project.after_image_url || project.before_image_url || ""} 
-                             alt={project.name} 
-                             className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                            />
-                          )}
-                        </div>
-                      );
-                    })
-                  ) : (
-                    <img 
-                     src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                     alt="Modern Kitchen Renovation" 
-                     className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                  <div className="w-full h-full">
+                    <BeforeAfterSlider
+                      beforeImage="/project-fotos/before11.webp"
+                      afterImage="/project-fotos/after11.webp"
+                      className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
                     />
-                  )}
+                  </div>
               </div>
 
                <div className="flex flex-col gap-3">
@@ -258,45 +226,13 @@ export default function Home() {
               <FadeIn delay={200}>
                 <div className="relative w-full max-w-3xl">
                     <div className="relative z-10 w-full aspect-square md:min-h-[600px] shadow-2xl overflow-hidden bg-gray-100">
-                       {featuredProjects.length > 0 ? (
-                         featuredProjects.map((project, i) => {
-                           const hasBeforeAfter = project.before_image_url && project.after_image_url;
-                           const isActive = i === heroIndex % featuredProjects.length;
-                           
-                           return (
-                             <div
-                               key={`hero-${project.id}`}
-                               className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                               style={{ opacity: isActive ? 1 : 0, zIndex: isActive ? 1 : 0 }}
-                             >
-                               {hasBeforeAfter ? (
-                                  <div 
-                                    className="w-full h-full"
-                                    onClick={(e) => e.stopPropagation()} 
-                                  >
-                                    <BeforeAfterSlider
-                                      beforeImage={project.before_image_url!}
-                                      afterImage={project.after_image_url!}
-                                      className="w-full h-full grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                                    />
-                                  </div>
-                               ) : (
-                                 <img 
-                                  src={project.after_image_url || project.before_image_url || ""} 
-                                  alt={project.name} 
-                                  className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                                 />
-                               )}
-                             </div>
-                           );
-                         })
-                       ) : (
-                         <img 
-                          src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-                          alt="Modern Kitchen Renovation" 
-                          className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                         />
-                       )}
+                      <div className="w-full h-full">
+                        <BeforeAfterSlider
+                          beforeImage="/project-fotos/before11.webp"
+                          afterImage="/project-fotos/after11.webp"
+                          className="w-full h-full grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                        />
+                      </div>
                     </div>
 
                     {/* Floating Badge (Price) - matching style */}
