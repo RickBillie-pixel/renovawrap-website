@@ -639,13 +639,6 @@ export default function KeukenWrappingMobile() {
                 <a 
                   className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg block uppercase" 
                   href="#keuzehulp"
-                  onClick={(e) => {
-                    const lenis = (window as any).__lenis;
-                    if (lenis && !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                      e.preventDefault();
-                      lenis.scrollTo('#keuzehulp', { offset: -20 });
-                    }
-                  }}
                 >
                   Gratis Offerte
                 </a>
