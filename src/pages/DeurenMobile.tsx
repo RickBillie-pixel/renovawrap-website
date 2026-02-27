@@ -203,22 +203,25 @@ export default function DeurenMobile() {
               </div>
 
                <div className="relative z-20 flex flex-col gap-3">
-                <button type="button"
-                  onTouchEnd={(e) => { e.preventDefault(); const lenis = (window as any).__lenis; if (lenis) { lenis.scrollTo('#keuzehulp', { offset: -20 }); } else { document.getElementById('keuzehulp')?.scrollIntoView({ behavior: 'smooth' }); } }}
-                  onClick={() => { const lenis = (window as any).__lenis; if (lenis) { lenis.scrollTo('#keuzehulp', { offset: -20 }); } else { document.getElementById('keuzehulp')?.scrollIntoView({ behavior: 'smooth' }); } }}
-                  className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg cursor-pointer"
-                  style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                <a 
+                  className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg block uppercase" 
+                  href="#keuzehulp"
+                  onClick={(e) => {
+                    const lenis = (window as any).__lenis;
+                    if (lenis && !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                      e.preventDefault();
+                      lenis.scrollTo('#keuzehulp', { offset: -20 });
+                    }
+                  }}
                 >
                   Gratis Offerte
-                </button>
-                <button type="button"
-                  onTouchEnd={(e) => { e.preventDefault(); window.location.href = '/projecten'; }}
-                  onClick={() => { window.location.href = '/projecten'; }}
-                  className="flex items-center justify-center text-xs font-bold tracking-widest uppercase border border-dark px-6 py-4 hover:bg-dark hover:text-white transition-all w-full cursor-pointer bg-transparent"
-                  style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                </a>
+                <a 
+                  className="flex items-center justify-center text-xs font-bold tracking-widest uppercase border border-dark px-6 py-4 hover:bg-dark hover:text-white transition-all w-full uppercase" 
+                  href="/projecten"
                 >
                   Bekijk Voor & Na Foto's
-                </button>
+                </a>
               </div>
             </div>
 
