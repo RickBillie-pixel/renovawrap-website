@@ -20,7 +20,6 @@ export default function Home() {
 
   // Carousel cycling indices
   const [featuredIndex, setFeaturedIndex] = useState(0);
-  const [heroIndex, setHeroIndex] = useState(0);
   const [smallTopIndex, setSmallTopIndex] = useState(0);
   const [smallBottomIndex, setSmallBottomIndex] = useState(1);
 
@@ -74,18 +73,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [featuredProjects.length]);
 
-  // Cycling: hero image every 6s (Desktop only)
-  useEffect(() => {
-    // Check if we are on mobile (lg breakpoint is 1024px)
-    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
-    if (isMobile) return;
 
-    if (featuredProjects.length <= 1) return;
-    const timer = setInterval(() => {
-      setHeroIndex(prev => (prev + 1) % featuredProjects.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [featuredProjects.length]);
 
   // Cycling: top-right box (non-featured) every 12s, starts after 3s delay
   useEffect(() => {
