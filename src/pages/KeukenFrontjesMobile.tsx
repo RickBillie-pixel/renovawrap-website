@@ -66,7 +66,7 @@ export default function KeukenFrontjesMobile() {
                <div className="relative z-20 flex flex-col gap-3">
                 <a 
                   className="bg-dark text-white px-6 py-4 text-xs font-bold tracking-widest uppercase hover:bg-primary transition-colors duration-300 text-center w-full shadow-lg block uppercase" 
-                  href="#keuzehulp"
+                  href="/contact"
                 >
                   Gratis Offerte
                 </a>
