@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 // Auto-start project preloading at app boot (import triggers module-level preload)
 import "@/lib/projectService";
 import Header from "./components/Header";
@@ -111,6 +111,7 @@ export function AppContent() {
             <Route path="/diensten/keuken-wrapping/limburg" element={<KWLimburg />} />
             <Route path="/diensten/keuken-wrapping/nijmegen" element={<KWNijmegen />} />
             <Route path="/diensten/keuken-wrapping/oss" element={<KWOss />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
         <Footer />
