@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
 import KitchenBenefits from "../components/KitchenBenefits";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
@@ -5,6 +7,18 @@ import FAQ from "../components/FAQ";
 import { cabinetFaqs } from "../data/faqs";
 
 export default function KeukenFrontjesDesktop() {
+  const [currentSliderIndex, setCurrentSliderIndex] = useState(0);
+  const heroSliders = [
+    { before: "/hero1.jpg", after: "/hero1-after.jpeg" },
+    { before: "/hero2.jpg", after: "/hero2-after.jpeg" }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSliderIndex((prev) => (prev + 1) % heroSliders.length);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [heroSliders.length]);
 
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
@@ -53,11 +67,22 @@ export default function KeukenFrontjesDesktop() {
             <div className="lg:col-span-6 flex justify-center">
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
-                  <img
-                    src="/project-fotos/after7.webp"
-                    alt="Keukenfrontjes wrappen resultaat"
-                    className="w-full h-full object-cover"
-                  />
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSliderIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <BeforeAfterSlider
+                        beforeImage={heroSliders[currentSliderIndex].before}
+                        afterImage={heroSliders[currentSliderIndex].after}
+                        className="w-full h-full"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">

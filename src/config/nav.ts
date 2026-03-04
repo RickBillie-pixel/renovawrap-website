@@ -9,6 +9,7 @@ export const BASE_URL = "https://renovawrap.nl";
 export const MAIN_NAV: ReadonlyArray<{ href: string; label: string; footerLabel?: string }> = [
   { href: "/", label: "Home" },
   { href: "/diensten", label: "Diensten" },
+  { href: "/catalogus", label: "Kleuren" },
   { href: "/over-ons", label: "Over ons", footerLabel: "Over Ons" },
   { href: "/projecten", label: "Projecten" },
   { href: "/configurator", label: "Configurator" },

@@ -2,7 +2,7 @@
 export const navLinks = [
     { label: "Home", href: "/" },
     { label: "Diensten", href: "/diensten" },
-    { label: "Materiaal", href: "/materialen" },
+    { label: "Kleuren", href: "/catalogus" },
     { label: "Projecten", href: "/projecten" },
 ];
 
@@ -54,14 +54,14 @@ export const services = [
         id: 7,
         title: "Achterwanden",
         description: "Een eyecatcher in uw keuken. Onze achterwanden zijn spatwaterdicht, makkelijk te reinigen en beschikbaar in unieke designs.",
-        image: "/diensten/achterwand-tegel.webp",
+        image: "/achterwand-dienst.jpeg",
         link: "/diensten/achterwanden",
     },
     {
         id: 8,
         title: "Schadeherstel",
         description: "Kleine beschadiging aan uw interieurfolie of renovatiewerk nodig? Wij herstellen wraps professioneel en onzichtbaar.",
-        image: "/diensten/schade-folie.webp",
+        image: "/diensten/schade-kras.webp",
         link: "/diensten/schadeherstel",
     },
 ];

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { testimonials, processSteps } from "../data/mockData";
 import FadeIn from "../components/FadeIn";
@@ -19,9 +19,20 @@ export default function Home() {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
 
   // Carousel cycling indices
-  const [featuredIndex, setFeaturedIndex] = useState(0);
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
   const [smallTopIndex, setSmallTopIndex] = useState(0);
   const [smallBottomIndex, setSmallBottomIndex] = useState(1);
+  const heroSliders = [
+    { before: "/project-fotos/before11.webp", after: "/project-fotos/after11.webp" },
+    { before: "/hero2.jpg", after: "/hero2-after.jpeg" }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroImageIndex((prev) => (prev + 1) % heroSliders.length);
+    }, 10000); // Cycle every 10 seconds
+    return () => clearInterval(interval);
+  }, [heroSliders.length]);
 
   useSEO({
     title: "Keuken Wrapping & Interieur Folie | Renovawrap",
@@ -68,7 +79,17 @@ export default function Home() {
   useEffect(() => {
     if (featuredProjects.length <= 1) return;
     const timer = setInterval(() => {
-      setFeaturedIndex(prev => (prev + 1) % featuredProjects.length);
+      // Logic for featuredIndex removed as it's now handled by hero cycling if needed, 
+      // but let's keep a separate index if the geselecteerde werken still need it.
+    }, 10000);
+    return () => clearInterval(timer);
+  }, [featuredProjects.length]);
+
+  const [featuredCycleIndex, setFeaturedCycleIndex] = useState(0);
+  useEffect(() => {
+    if (featuredProjects.length <= 1) return;
+    const timer = setInterval(() => {
+      setFeaturedCycleIndex(prev => (prev + 1) % featuredProjects.length);
     }, 10000);
     return () => clearInterval(timer);
   }, [featuredProjects.length]);
@@ -104,8 +125,7 @@ export default function Home() {
   }, [nonFeaturedProjects.length]);
 
   // Get the current project for each slot
-  // Get the current project for each slot
-  const effectiveFeaturedIndex = featuredIndex % Math.max(featuredProjects.length, 1);
+  const effectiveFeaturedIndex = featuredCycleIndex % Math.max(featuredProjects.length, 1);
   const currentFeatured = featuredProjects[effectiveFeaturedIndex] || null;
 
   const effectiveTopIndex = smallTopIndex % Math.max(nonFeaturedProjects.length, 1);
@@ -147,12 +167,23 @@ export default function Home() {
 
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
-                  <div className="w-full h-full">
-                    <BeforeAfterSlider
-                      beforeImage="/project-fotos/before11.webp"
-                      afterImage="/project-fotos/after11.webp"
-                      className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
-                    />
+                  <div className="w-full h-full relative">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={heroImageIndex}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1 }}
+                        className="absolute inset-0 w-full h-full"
+                      >
+                        <BeforeAfterSlider
+                          beforeImage={heroSliders[heroImageIndex].before}
+                          afterImage={heroSliders[heroImageIndex].after}
+                          className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                </div>
 
@@ -214,12 +245,23 @@ export default function Home() {
               <FadeIn delay={200}>
                 <div className="relative w-full max-w-3xl">
                     <div className="relative z-10 w-full aspect-square md:min-h-[600px] shadow-2xl overflow-hidden bg-gray-100">
-                      <div className="w-full h-full">
-                        <BeforeAfterSlider
-                          beforeImage="/project-fotos/before11.webp"
-                          afterImage="/project-fotos/after11.webp"
-                          className="w-full h-full grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
-                        />
+                      <div className="w-full h-full relative">
+                        <AnimatePresence mode="wait">
+                          <motion.div
+                            key={heroImageIndex}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 1 }}
+                            className="absolute inset-0 w-full h-full"
+                          >
+                            <BeforeAfterSlider
+                              beforeImage={heroSliders[heroImageIndex].before}
+                              afterImage={heroSliders[heroImageIndex].after}
+                              className="w-full h-full grayscale-[20%] hover:grayscale-0 transition-all duration-700 hover:scale-105"
+                            />
+                          </motion.div>
+                        </AnimatePresence>
                       </div>
                     </div>
 
@@ -627,7 +669,7 @@ export default function Home() {
                   {/* Stack all featured images; only the active one is fully visible */}
                   {featuredProjects.map((project, i) => {
                     const hasBeforeAfter = project.before_image_url && project.after_image_url;
-                    const isActive = i === featuredIndex % featuredProjects.length;
+                    const isActive = i === featuredCycleIndex % featuredProjects.length;
 
                     return (
                       <div

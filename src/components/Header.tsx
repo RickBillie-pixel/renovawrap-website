@@ -167,6 +167,22 @@ export default function Header() {
             </Link>
 
             <Link
+              to="/catalogus"
+              className={cn(
+                "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group",
+                isActive("/catalogus") ? "text-primary" : "text-dark"
+              )}
+            >
+              Kleuren
+              <span
+                className={cn(
+                  "absolute -bottom-2 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full",
+                  isActive("/catalogus") && "w-full"
+                )}
+              />
+            </Link>
+
+            <Link
               to="/projecten"
               className={cn(
                 "text-xs uppercase tracking-[0.15em] hover:text-primary transition-colors relative group",
@@ -302,6 +318,16 @@ export default function Header() {
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Over ons
+                    </Link>
+                  </div>
+
+                  <div>
+                    <Link
+                      to="/catalogus"
+                      className="text-3xl font-display text-dark font-medium block border-b border-dark/10 pb-4"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Kleuren
                     </Link>
                   </div>
 

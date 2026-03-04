@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import FadeIn from "../components/FadeIn";
 import KeuzehulpFrontjes from "../components/KeuzehulpFrontjes";
 import KitchenBenefits from "../components/KitchenBenefits";
@@ -6,6 +8,18 @@ import FAQ from "../components/FAQ";
 import { cabinetFaqs } from "../data/faqs";
 
 export default function KeukenFrontjesMobile() {
+  const [currentSliderIndex, setCurrentSliderIndex] = useState(0);
+  const heroSliders = [
+    { before: "/hero1.jpg", after: "/hero1-after.jpeg" },
+    { before: "/hero2.jpg", after: "/hero2-after.jpeg" }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSliderIndex((prev) => (prev + 1) % heroSliders.length);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [heroSliders.length]);
 
   return (
     <main className="bg-background-light text-dark font-sans antialiased selection:bg-primary selection:text-white min-h-screen">
@@ -56,11 +70,22 @@ export default function KeukenFrontjesMobile() {
 
               {/* Hero foto */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
-                <img
-                  src="/project-fotos/after7.webp"
-                  alt="Keukenfrontjes wrappen resultaat"
-                  className="w-full h-full object-cover"
-                />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentSliderIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1 }}
+                    className="absolute inset-0 w-full h-full"
+                  >
+                    <BeforeAfterSlider
+                      beforeImage={heroSliders[currentSliderIndex].before}
+                      afterImage={heroSliders[currentSliderIndex].after}
+                      className="w-full h-full"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
                <div className="relative z-20 flex flex-col gap-3">

@@ -305,7 +305,7 @@ export default function Contact() {
 
             <div className="mt-8 pt-8 border-t border-dark/10">
               <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400">
-                KVK: 12345678 — BTW: NL123456789B01
+                KVK: 90215443 — BTW: NL004797261B06
               </p>
             </div>
           </div>
