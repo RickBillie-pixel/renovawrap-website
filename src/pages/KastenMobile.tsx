@@ -395,7 +395,7 @@ export default function KastenMobile() {
                   </div>
                   <h3 className="font-display text-2xl mb-4">Kleuren & Structuren</h3>
                   <p className="text-[#1A1A1A]/80 text-sm leading-relaxed text-center font-medium">
-                     Ontdek onze collectie van 200+ premium folies. Voelbare houtnerven, realistische steenlooks en ultramatte kleuren die geen vingerafdrukken achterlaten.
+                     Ontdek onze collectie van 300+ premium folies. Voelbare houtnerven, realistische steenlooks en ultramatte kleuren die geen vingerafdrukken achterlaten.
                   </p>
                </FadeIn>
                
