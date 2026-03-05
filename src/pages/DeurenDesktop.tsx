@@ -93,24 +93,8 @@ const ColorDisplay = ({ color, className, ref }: { color: WrapColor | null, clas
 
 export default function DeurenDesktop() {
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const wrapColors = getWrapColors();
   const totalColors = wrapColors.length || 1;
-
-  const heroImages = [
-    {
-      before: "/project-fotos/before16.webp",
-      after: "/image4.jpeg",
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
 
 
   return (
