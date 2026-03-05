@@ -1,7 +1,7 @@
 export const generalFaqs = [
     {
         question: "Hoe lang blijft de folie mooi?",
-        answer: "Wij geven 5 jaar garantie op loslaten en verkleuren. Bij normaal gebruik gaat de folie echter gemakkelijk 10 tot 15 jaar mee. De folies zijn van hoogwaardige industriële kwaliteit, speciaal ontwikkeld voor intensief gebruik."
+        answer: "Wij geven 5 jaar garantie. Bij normaal gebruik gaat de folie echter gemakkelijk 10 tot 15 jaar mee. De folies zijn van hoogwaardige industriële kwaliteit, speciaal ontwikkeld voor intensief gebruik."
     },
     {
         question: "Is de folie krasbestendig?",
@@ -61,7 +61,7 @@ export const windowFaqs = [
     },
     {
         question: "Is de folie bestand tegen alle weersomstandigheden?",
-        answer: "Absoluut. De buitenfolies zijn uitgebreid getest en bestand tegen regen, zon (UV-straling), vorst en hitte. Ze verkleuren niet en laten niet los."
+        answer: "Absoluut. De buitenfolies zijn uitgebreid getest en bestand tegen regen, zon (UV-straling), vorst en hitte. Ze verkleuren niet."
     }
 ];
 

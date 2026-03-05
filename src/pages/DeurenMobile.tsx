@@ -110,7 +110,7 @@ export default function DeurenMobile() {
   const heroImages = [
     {
       before: "/project-fotos/before16.webp",
-      after: "/project-fotos/after16.webp",
+      after: "/image4.jpeg",
     },
   ];
 
@@ -184,22 +184,11 @@ export default function DeurenMobile() {
 
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={currentImageIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      <BeforeAfterSlider
-                        afterImage={heroImages[currentImageIndex].after}
-                        beforeImage={heroImages[currentImageIndex].before}
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <img
+                    src="/image4.jpeg"
+                    alt="Deur Renovatie"
+                    className="w-full h-full object-cover"
+                  />
               </div>
 
                <div className="relative z-20 flex flex-col gap-3">
@@ -254,22 +243,11 @@ export default function DeurenMobile() {
             <div className="hidden lg:flex lg:col-span-6 justify-center">
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
-                  <AnimatePresence mode="popLayout">
-                    <motion.div
-                      key={currentImageIndex}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      <BeforeAfterSlider
-                        afterImage={heroImages[currentImageIndex].after}
-                        beforeImage={heroImages[currentImageIndex].before}
-                        className="w-full h-full"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
+                  <img
+                    src="/image4.jpeg"
+                    alt="Deur Renovatie"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="absolute -bottom-8 -left-8 md:-bottom-12 md:-left-12 w-32 h-32 md:w-48 md:h-48 bg-white p-4 md:p-8 shadow-xl hidden md:block z-20">
                   <div className="h-full w-full border border-primary/20 flex flex-col justify-center items-center text-center">

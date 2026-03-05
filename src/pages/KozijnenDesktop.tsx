@@ -13,15 +13,22 @@ export default function KozijnenDesktop() {
   // Using window/exterior specific before/afters if available, otherwise utilizing high-quality generic renovation shots
   const heroImages = [
     {
-      before: "/diensten/before-kozijn.webp",
-      after: "/diensten/after-kozijn.webp", 
+      before: "/image3.png",
+      after: "/image5.jpeg", 
+    },
+    {
+      before: "/image2.png",
+      after: "/image6.jpeg",
+    },
+    {
+      before: "/image1.png",
+      after: "/image0.png",
     }
   ];
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-    }, 8000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -73,7 +80,7 @@ export default function KozijnenDesktop() {
             <div className="lg:col-span-6 flex justify-center">
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
-                  <AnimatePresence mode="popLayout">
+                  <AnimatePresence mode="wait">
                     <motion.div
                       key={currentImageIndex}
                       initial={{ opacity: 0 }}
@@ -375,11 +382,22 @@ export default function KozijnenDesktop() {
             <div className="relative group perspective-1000">
               <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-700"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-video bg-black/50">
-                  <BeforeAfterSlider
-                    beforeImage="/diensten/before-kozijn.webp"
-                    afterImage="/diensten/after-kozijn.webp"
-                    className="w-full h-full"
-                  />
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentImageIndex}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1 }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <BeforeAfterSlider
+                        beforeImage={heroImages[currentImageIndex].before}
+                        afterImage={heroImages[currentImageIndex].after}
+                        className="w-full h-full"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
               </div>
             </div>
           </div>

@@ -174,7 +174,7 @@ export default function KitchenBenefits() {
                   <h3 className="text-xl font-display text-gray-900 dark:text-[#FFF9F0]">Eindeloze Opties</h3>
                 </div>
                 <p className="text-gray-600 dark:text-[rgba(255,249,240,0.7)] text-sm leading-relaxed font-light">
-                  Van mat zwart tot marmerlook of warme houttinten. Meer dan 200 premium designs.
+                  Van mat zwart tot marmerlook of warme houttinten. Meer dan 300+ premium designs.
                 </p>
               </div>
             </div>
@@ -217,7 +217,6 @@ export default function KitchenBenefits() {
                   <span className="material-symbols-outlined text-xl">verified</span>
                 </div>
                 <h3 className="text-xl font-display text-white mb-2">5 Jaar Garantie</h3>
-                <p className="text-gray-400 text-sm font-light">Op het loslaten van de folie.</p>
               </div>
             </div>
           </motion.div>

@@ -532,7 +532,6 @@ export default function AanrechtbladenMobile() {
                     <span className="material-symbols-outlined text-xl">verified</span>
                   </div>
                   <h3 className="text-xl font-display text-white mb-2">5 Jaar Garantie</h3>
-                  <p className="text-gray-400 text-sm">Op het loslaten van de folie (niet door eigen beschadigingen).</p>
                 </div>
               </div>
             </motion.div>
