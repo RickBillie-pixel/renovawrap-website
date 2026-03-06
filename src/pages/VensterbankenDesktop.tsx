@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FAQ from "../components/FAQ";
 import { vensterbankenFaqs } from "../data/faqs";
 import KeuzehulpVensterbanken from "../components/KeuzehulpVensterbanken";
