@@ -64,6 +64,13 @@ export const services = [
         image: "/diensten/schade-kras.webp",
         link: "/diensten/schadeherstel",
     },
+    {
+        id: 9,
+        title: "Vensterbanken",
+        description: "Blaas uw interieur nieuw leven in. Wij wrappen uw vensterbanken strak en krasbestendig met folie in hout-, beton- of uni-look.",
+        image: "/vensterbank1.webp",
+        link: "/diensten/vensterbanken",
+    },
 ];
 
 // Stats Data

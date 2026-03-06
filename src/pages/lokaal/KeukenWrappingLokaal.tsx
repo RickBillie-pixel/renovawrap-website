@@ -166,7 +166,7 @@ export default function KeukenWrappingLokaal({ content }: { content: LocalPageCo
                     value={formData.telefoon}
                     onChange={(e) => setFormData(p => ({ ...p, telefoon: e.target.value }))}
                     className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-sm focus:border-primary focus:outline-none transition-colors"
-                    placeholder="06 12345678"
+                    placeholder="06 39271303"
                   />
                 </div>
               </div>

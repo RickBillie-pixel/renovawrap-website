@@ -37,7 +37,7 @@ const articles = [
           ["Naam", "RenovaWrap (eenmanszaak)"],
           ["Adres", "Braakweg 22B, Helmond"],
           ["E-mail", "info@renovawrap.nl"],
-          ["Telefoon", "06-12345678"],
+          ["Telefoon", "06 39271303"],
           ["KvK-nummer", "90215443"],
           ["BTW-nummer", "NL004797261B06"],
           ["Openingstijden", "Ma – Vr: 09:00 – 17:30"],

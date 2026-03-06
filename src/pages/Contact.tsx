@@ -146,7 +146,7 @@ export default function Contact() {
                   <input
                     className="w-full bg-gray-50 border-b-2 border-gray-200 p-2.5 text-sm focus:border-primary focus:outline-none transition-colors"
                     id="phone"
-                    placeholder="06 12345678"
+                    placeholder="06 39271303"
                     type="tel"
                     required
                     value={formData.telefoon}
@@ -271,8 +271,8 @@ export default function Contact() {
                   </div>
                   <div className="group">
                     <span className="block text-[10px] uppercase tracking-[0.2em] text-gray-400 mb-1">Bel Ons</span>
-                    <a className="text-xl font-light hover:text-primary transition-colors" href="tel:+31201234567">
-                      +31 (0)20 123 4567
+                    <a className="text-xl font-light hover:text-primary transition-colors" href="tel:+31639271303">
+                      +31 6 39271303
                     </a>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
 import { getWrapColors, getWrapColorById } from "@/lib/wrapColors";
 
-export default function KeuzehulpAchterwanden() {
+export default function KeuzehulpVensterbanken() {
   const [step, setStep] = useState(1);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,6 @@ export default function KeuzehulpAchterwanden() {
   };
 
   const [formData, setFormData] = useState({
-    situatie: "",
     afmeting: "",
     stijl: "",
     fotos: [] as File[],
@@ -62,17 +61,16 @@ export default function KeuzehulpAchterwanden() {
   };
 
   const canNext = () => {
-    if (step === 1) return formData.situatie !== "";
-    if (step === 2) return formData.afmeting !== "";
-    if (step === 3) return formData.stijl !== "";
-    if (step === 4) return true;
-    if (step === 5) return formData.naam && formData.email && formData.telefoon;
+    if (step === 1) return formData.afmeting !== "";
+    if (step === 2) return formData.stijl !== "";
+    if (step === 3) return true;
+    if (step === 4) return formData.naam && formData.email && formData.telefoon;
     return true;
   };
 
   const uploadKeuzehulpFoto = async (file: File): Promise<string | null> => {
     const fileExt = file.name.split(".").pop() || "jpg";
-    const fileName = `keuzehulp-achterwanden-${Date.now()}-${Math.random().toString(36).slice(2, 9)}.${fileExt}`;
+    const fileName = `keuzehulp-vensterbanken-${Date.now()}-${Math.random().toString(36).slice(2, 9)}.${fileExt}`;
     const filePath = `keuzehulp/${fileName}`;
     const { error } = await supabase.storage.from("configurator-uploads").upload(filePath, file, { cacheControl: "3600", upsert: false });
     if (error) return null;
@@ -83,7 +81,7 @@ export default function KeuzehulpAchterwanden() {
   const handleSubmit = async () => {
     setSubmitting(true);
     setSubmitError(null);
-    const serviceSlug: KeuzehulpServiceSlug = "achterwanden";
+    const serviceSlug: KeuzehulpServiceSlug = "vensterbanken";
     try {
       const contact_name = formData.naam.trim() || null;
       const contact_email = formData.email.trim();
@@ -98,7 +96,6 @@ export default function KeuzehulpAchterwanden() {
 
       const selectedColor = getWrapColorById(formData.stijl);
       const wizard_data = {
-        situatie: formData.situatie,
         afmeting: formData.afmeting,
         stijl: formData.stijl,
         stijl_naam: selectedColor?.name ?? null,
@@ -136,7 +133,7 @@ export default function KeuzehulpAchterwanden() {
           </div>
           <h3 className="font-display text-4xl text-dark mb-4 italic">Bedankt voor uw aanvraag!</h3>
           <p className="text-gray-500 max-w-md mx-auto leading-relaxed">
-            Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw achterwand.
+            Wij nemen zo snel mogelijk contact met u op voor een vrijblijvend adviesgesprek en prijsopgave op maat voor uw vensterbank(en).
           </p>
         </div>
       </div>
@@ -144,11 +141,10 @@ export default function KeuzehulpAchterwanden() {
   }
 
   const steps = [
-    { id: 1, title: "Situatie", label: "Huidige Situatie"},
-    { id: 2, title: "Afmeting", label: "Afmeting"},
-    { id: 3, title: "Stijl", label: "Stijl"},
-    { id: 4, title: "Foto's", label: "Detailfoto's"},
-    { id: 5, title: "Contact", label: "Contact"},
+    { id: 1, title: "Afmeting", label: "Afmeting"},
+    { id: 2, title: "Stijl", label: "Stijl"},
+    { id: 3, title: "Foto's", label: "Detailfoto's"},
+    { id: 4, title: "Contact", label: "Contact"},
   ];
 
   return (
@@ -159,28 +155,25 @@ export default function KeuzehulpAchterwanden() {
           <span className="font-display text-4xl text-primary italic">0{step}</span>
           <span className="h-[1px] w-12 bg-gray-300"></span>
           <span className="uppercase tracking-widest text-xs font-semibold text-gray-500">
-            {step === 1 && "Situatie"}
-            {step === 2 && "Afmeting"}
-            {step === 3 && "Stijl & Kleur"}
-            {step === 4 && "Foto's"}
-            {step === 5 && "Contact"}
+            {step === 1 && "Afmeting"}
+            {step === 2 && "Stijl & Kleur"}
+            {step === 3 && "Foto's"}
+            {step === 4 && "Contact"}
           </span>
         </div>
 
         <h1 className="font-display text-3xl lg:text-4xl lg:text-5xl text-dark leading-tight mb-4">
-          {step === 1 && <>Wat is de <br/> <span className="italic text-primary">ondergrond?</span></>}
-          {step === 2 && <>Hoe breed is <br/> <span className="italic text-primary">de achterwand?</span></>}
-          {step === 3 && <>Welke <br/> <span className="italic text-primary">look zoekt u?</span></>}
-          {step === 4 && <>Upload <br/> <span className="italic text-primary">detailfoto's</span></>}
-          {step === 5 && <>Uw <br/> <span className="italic text-primary">gegevens</span></>}
+          {step === 1 && <>Hoeveel strekkende <br/> <span className="italic text-primary">meter in totaal?</span></>}
+          {step === 2 && <>Welke <br/> <span className="italic text-primary">look zoekt u?</span></>}
+          {step === 3 && <>Upload <br/> <span className="italic text-primary">detailfoto's</span></>}
+          {step === 4 && <>Uw <br/> <span className="italic text-primary">gegevens</span></>}
         </h1>
 
         <p className="text-gray-500 leading-relaxed mb-8 max-w-sm">
-          {step === 1 && "De huidige ondergrond bepaalt de voorbereiding voor de montage."}
-          {step === 2 && "Een schatting van de totale breedte in strekkende meters."}
-          {step === 3 && "Kies voor een moderne vlakke kleur of een natuurgetrouwe steenlook."}
-          {step === 4 && "Foto's helpen ons om stopcontacten en hoeken in te schatten."}
-          {step === 5 && "Ontvang zo snel mogelijk een vrijblijvend voorstel."}
+          {step === 1 && "Geef een schatting van de totale lengte van de vensterbanken bij elkaar opgeteld in strekkende meters."}
+          {step === 2 && "Kies voor een moderne effen kleur, een industriële betonlook of warme houtnerf."}
+          {step === 3 && "Foto's helpen ons om de afmetingen, de hoeken en de algemene situatie goed in te schatten."}
+          {step === 4 && "Ontvang zo snel mogelijk een vrijblijvend voorstel."}
         </p>
 
         {/* Progress Timeline (Desktop) */}
@@ -188,7 +181,7 @@ export default function KeuzehulpAchterwanden() {
           <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gray-200"></div>
           <div 
             className="absolute left-0 top-0 w-[1px] bg-primary transition-all duration-1000 ease-in-out" 
-            style={{ height: `${(step / 5) * 100}%` }}
+            style={{ height: `${(step / 4) * 100}%` }}
           ></div>
           <div className="relative flex flex-col space-y-8 py-2">
             {steps.map((s, i) => (
@@ -215,53 +208,14 @@ export default function KeuzehulpAchterwanden() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            {/* Step 1: Situatie */}
+            {/* Step 1: Afmeting */}
             {step === 1 && (
-              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
-                {[
-                  { id: "stucwerk", label: "Stucwerk", sub: "Gladde muur", image: "/diensten/achterwand-stu.webp" },
-                  { id: "glas", label: "Glas / RVS", sub: "Bestaande plaat", image: "/diensten/achterwand-rvs.webp" },
-                  { id: "kaal", label: "Kaal / Casco", sub: "Nieuwbouw", image: "/diensten/achterwand-ruw.webp" },
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => setFormData((p) => ({ ...p, situatie: item.id }))}
-                    className={`group relative overflow-hidden bg-white text-left shadow-[0_20px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 border border-transparent hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)] flex flex-col ${
-                      formData.situatie === item.id ? "ring-2 ring-primary ring-offset-2" : ""
-                    }`}
-                  >
-                     <div className="relative h-24 md:h-48 w-full overflow-hidden">
-                        <img 
-                           src={item.image} 
-                           alt={item.label} 
-                           className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
-                        />
-                        {/* Overlay when selected */}
-                        {formData.situatie === item.id && (
-                           <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                              <div className="bg-white rounded-full p-2 shadow-lg">
-                                 <span className="material-symbols-outlined text-primary">check</span>
-                              </div>
-                           </div>
-                        )}
-                     </div>
-                     <div className="p-3 md:p-6">
-                        <h3 className="font-display text-sm md:text-xl italic text-dark mb-1 leading-tight">{item.label}</h3>
-                        <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest hidden md:block">{item.sub}</p>
-                     </div>
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Step 2: Afmeting */}
-            {step === 2 && (
-              <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 md:gap-6">
                  {[
-                  { id: "tot-300", label: "Tot 3 meter", sub: "Kleine keuken", desc: "Rechte opstelling." },
-                  { id: "300-500", label: "3 - 5 meter", sub: "Gemiddeld", desc: "Hoekkeuken of lang aanrecht." },
-                  { id: "500-plus", label: "5+ meter", sub: "Groot", desc: "U-keuken of kookeiland." },
-                  { id: "weet-niet", label: "Weet ik nog niet", sub: "Advies nodig", desc: "Wij komen graag inmeten." },
+                  { id: "tot-300", label: "Tot 3 meter", sub: "1 of 2 kleine ramen", desc: "Perfect voor specifieke upgrades." },
+                  { id: "300-600", label: "3 - 6 meter", sub: "Gemiddeld", desc: "Vaak de gehele benedenverdieping." },
+                  { id: "600-plus", label: "6+ meter", sub: "Groot", desc: "Grote woonkamers of hele woningen." },
+                  { id: "weet-niet", label: "Weet ik nog niet", sub: "Advies nodig", desc: "Wij baseren de prijs op de toegestuurde foto's." },
                 ].map((item) => (
                   <button
                     key={item.id}
@@ -283,8 +237,8 @@ export default function KeuzehulpAchterwanden() {
               </div>
             )}
 
-            {/* Step 3: Stijl */}
-            {step === 3 && (
+            {/* Step 2: Stijl */}
+            {step === 2 && (
               <div>
                 <div className="relative mb-8">
                   <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
@@ -292,7 +246,7 @@ export default function KeuzehulpAchterwanden() {
                   </span>
                   <input
                     type="text"
-                    placeholder="Zoek op look (bijv. Marmer, Goud, Beton)..."
+                    placeholder="Zoek op look (bijv. Hout, Beton, Zwart)..."
                     value={stijlSearch}
                     onChange={(e) => setStijlSearch(e.target.value)}
                     className="w-full pl-12 pr-4 py-4 border-b border-gray-200 bg-transparent text-lg focus:outline-none focus:border-primary transition-colors placeholder:text-gray-300 font-display italic"
@@ -325,8 +279,8 @@ export default function KeuzehulpAchterwanden() {
               </div>
             )}
 
-            {/* Step 4: Foto's */}
-            {step === 4 && (
+            {/* Step 3: Foto's */}
+            {step === 3 && (
               <div>
                 <div
                   onClick={() => fileInputRef.current?.click()}
@@ -372,8 +326,8 @@ export default function KeuzehulpAchterwanden() {
               </div>
             )}
 
-            {/* Step 5: Contact */}
-            {step === 5 && (
+            {/* Step 4: Contact */}
+            {step === 4 && (
               <div className="space-y-6 max-w-xl">
                  <div className="grid grid-cols-1 gap-6">
                     <div className="space-y-1">
@@ -430,7 +384,7 @@ export default function KeuzehulpAchterwanden() {
 
         {/* Floating Navigation Bar */}
         <div className="mt-8 w-full bg-white p-6 border-t border-gray-100 lg:absolute lg:bg-transparent lg:border-none lg:p-0 lg:bottom-12 lg:right-0 lg:mt-0 flex justify-between items-center z-40 lg:w-auto lg:justify-end gap-8">
-            <span className="text-sm text-gray-400 hidden lg:block font-mono">Stap {step} van 5</span>
+            <span className="text-sm text-gray-400 hidden lg:block font-mono">Stap {step} van 4</span>
             
             <div className="flex gap-4 w-full lg:w-auto">
               {step > 1 && (
@@ -443,7 +397,7 @@ export default function KeuzehulpAchterwanden() {
               </button>
               )}
               
-              {step < 5 ? (
+              {step < 4 ? (
                 <button 
                   onClick={() => { if (canNext()) { setStep((s) => s + 1); scrollToSection(); } }}
                   disabled={!canNext()}

@@ -88,3 +88,19 @@ export const repairFaqs = [
     },
     ...generalFaqs
 ];
+
+export const vensterbankenFaqs = [
+    {
+        question: "Kan de folie over elke ondergrond geplakt worden?",
+        answer: "De ondergrond moet voornamelijk recht en glad zijn. Wij wrappen materialen zoals hout, MDF, kunststof of steen, zolang de basis egaal is."
+    },
+    {
+        question: "Wat als de vensterbank vol in de zon staat?",
+        answer: "Onze premium interieurfolies zijn UV-werend en speciaal ontwikkeld om kleurvast te blijven. Hierdoor verkleuren ze niet, zelfs niet bij jarenlange blootstelling aan direct zonlicht."
+    },
+    {
+        question: "Blijft de folie mooi bij het slepen van planten of decoratie?",
+        answer: "Ja, de folie is voorzien van een robuuste krasbestendige toplaag. Het is uitstekend bestand tegen dagelijks gebruik zoals het verplaatsen van decoratie of sleutels."
+    },
+    ...generalFaqs
+];

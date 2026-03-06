@@ -42,7 +42,7 @@ export function buildLocalServiceSchema(city: CityData): Record<string, unknown>
             "@id": `${BASE_URL}/#organization`,
             name: "Renovawrap",
             url: BASE_URL,
-            telephone: "+31 (0)6 12345678",
+            telephone: "+31 6 39271303",
             image: `${BASE_URL}/og-image.png`,
             priceRange: "€€",
             areaServed: {

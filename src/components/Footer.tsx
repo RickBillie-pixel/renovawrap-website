@@ -91,7 +91,7 @@ export default function Footer() {
               <div>
                 <h4 className="text-white font-bold mb-2">Contactgegevens</h4>
                 <p><a href="mailto:info@renovawrap.nl" className="hover:text-primary transition-colors">info@renovawrap.nl</a></p>
-                <p><a href="tel:+310201234567" className="hover:text-primary transition-colors">+31 (0)20 123 4567</a></p>
+                <p><a href="tel:+31639271303" className="hover:text-primary transition-colors">+31 6 39271303</a></p>
               </div>
 
               <div>

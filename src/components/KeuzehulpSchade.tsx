@@ -376,7 +376,7 @@ export default function KeuzehulpSchade() {
                         value={formData.telefoon}
                         onChange={(e) => setFormData((p) => ({ ...p, telefoon: e.target.value }))}
                         className="w-full border-b border-gray-300 py-3 bg-transparent focus:outline-none focus:border-primary transition-colors placeholder:text-gray-300 font-display text-lg"
-                        placeholder="06 12345678"
+                        placeholder="06 39271303"
                       />
                     </div>
                     <div className="space-y-1 pt-4">

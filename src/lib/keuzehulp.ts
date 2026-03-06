@@ -12,6 +12,7 @@ export const KEUZEHULP_SERVICE_SLUGS = [
   "frontjes", // Changed from "keuken-frontjes" to "frontjes"
   "achterwanden",
   "schadeherstel",
+  "vensterbanken",
 ] as const;
 
 export type KeuzehulpServiceSlug = (typeof KEUZEHULP_SERVICE_SLUGS)[number];

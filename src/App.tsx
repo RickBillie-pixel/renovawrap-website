@@ -15,6 +15,7 @@ const routePreloads: Record<string, () => Promise<{ default: React.ComponentType
   "/diensten/keuken-wrapping": () => import("./pages/KeukenWrappingDetail"),
   "/diensten/keuken-frontjes": () => import("./pages/KeukenFrontjesDetail"),
   "/diensten/achterwanden": () => import("./pages/AchterwandenDetail"),
+  "/diensten/vensterbanken": () => import("./pages/VensterbankenDetail"),
   "/diensten/aanrechtbladen": () => import("./pages/AanrechtbladenDetail"),
   "/diensten/kasten": () => import("./pages/KastenDetail"),
   "/diensten/deuren": () => import("./pages/DeurenDetail"),
@@ -34,6 +35,7 @@ const Diensten = lazy(routePreloads["/diensten"]);
 const KeukenWrappingDetail = lazy(routePreloads["/diensten/keuken-wrapping"]);
 const KeukenFrontjesDetail = lazy(routePreloads["/diensten/keuken-frontjes"]);
 const AchterwandenDetail = lazy(routePreloads["/diensten/achterwanden"]);
+const VensterbankenDetail = lazy(routePreloads["/diensten/vensterbanken"]);
 const AanrechtbladenDetail = lazy(routePreloads["/diensten/aanrechtbladen"]);
 const KastenDetail = lazy(routePreloads["/diensten/kasten"]);
 const DeurenDetail = lazy(routePreloads["/diensten/deuren"]);
@@ -88,6 +90,7 @@ export function AppContent() {
             <Route path="/diensten/keuken-wrapping" element={<KeukenWrappingDetail />} />
             <Route path="/diensten/keuken-frontjes" element={<KeukenFrontjesDetail />} />
             <Route path="/diensten/achterwanden" element={<AchterwandenDetail />} />
+            <Route path="/diensten/vensterbanken" element={<VensterbankenDetail />} />
             <Route path="/diensten/aanrechtbladen" element={<AanrechtbladenDetail />} />
             <Route path="/diensten/kasten" element={<KastenDetail />} />
             <Route path="/diensten/deuren" element={<DeurenDetail />} />
