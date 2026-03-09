@@ -68,7 +68,6 @@ export default function Configurator() {
 
   // Usage limit: max 3 submissions per email
   const MAX_SUBMISSIONS = 3;
-  const [usageCount, setUsageCount] = useState<number | null>(null);
   const [limitReached, setLimitReached] = useState(false);
   const [checkingLimit, setCheckingLimit] = useState(false);
   
@@ -85,6 +84,7 @@ export default function Configurator() {
   // Contactgegevens voor submission (vereist voor verzenden)
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -92,13 +92,12 @@ export default function Configurator() {
   const fileInputRefMobile = useRef<HTMLInputElement>(null);
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-  const hasValidContact = name.trim().length >= 2 && isValidEmail(email);
+  const hasValidContact = name.trim().length >= 2 && isValidEmail(email) && phone.trim().length >= 8;
 
   // Check how many submissions exist for this email address
   const checkEmailUsage = useCallback(async (emailToCheck: string) => {
     const normalizedEmail = emailToCheck.trim().toLowerCase();
     if (!isValidEmail(normalizedEmail)) {
-      setUsageCount(null);
       setLimitReached(false);
       return;
     }
@@ -110,11 +109,9 @@ export default function Configurator() {
         .eq('email', normalizedEmail);
       if (error) {
         console.error('Error checking email usage:', error);
-        setUsageCount(null);
         setLimitReached(false);
       } else {
         const c = count ?? 0;
-        setUsageCount(c);
         setLimitReached(c >= MAX_SUBMISSIONS);
       }
     } catch (err) {
@@ -127,7 +124,6 @@ export default function Configurator() {
   // Debounced email usage check
   useEffect(() => {
     if (!email || !isValidEmail(email)) {
-      setUsageCount(null);
       setLimitReached(false);
       return;
     }
@@ -242,7 +238,6 @@ export default function Configurator() {
         .eq('email', normalizedEmail);
       if ((count ?? 0) >= MAX_SUBMISSIONS) {
         setLimitReached(true);
-        setUsageCount(count ?? 0);
         alert('U heeft het maximaal aantal van 3 aanvragen bereikt voor dit e-mailadres.');
         return;
       }
@@ -310,6 +305,7 @@ export default function Configurator() {
           body: {
             name: name.trim(),
             email: email.trim().toLowerCase(),
+            phone: phone.trim(),
             address: address.trim() || null,
             service_details: serviceDetails,
             color_details: colorDetails,
@@ -694,6 +690,16 @@ export default function Configurator() {
                                     )}
                                 </div>
                                 <div>
+                                    <label className="text-[10px] font-bold text-gray-400 uppercase mb-1.5 block ml-1 tracking-wider">Telefoonnummer *</label>
+                                    <input
+                                      type="tel"
+                                      value={phone}
+                                      onChange={(e) => setPhone(e.target.value)}
+                                      className="w-full p-4 bg-gray-50 border border-transparent rounded-xl text-dark focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium placeholder-gray-300 outline-none"
+                                      placeholder="06 12345678"
+                                    />
+                                </div>
+                                <div>
                                     <label className="text-[10px] font-bold text-gray-400 uppercase mb-1.5 block ml-1 tracking-wider">Adres <span className="text-gray-300 font-normal normal-case">(Optioneel)</span></label>
                                     <input
                                       type="text"
@@ -1061,19 +1067,33 @@ export default function Configurator() {
                     </p>
                   )}
                 </div>
-              </div>
-              <div className="mb-8">
-                <label className="block text-sm font-medium text-dark mb-2" htmlFor="config-address">
-                  Adres <span className="text-gray-400 font-normal">(optioneel)</span>
-                </label>
-                <input
-                  id="config-address"
-                  type="text"
-                  placeholder="Straat, huisnummer, postcode en plaats"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-dark placeholder-gray-400"
-                />
+                <div>
+                  <label className="block text-sm font-medium text-dark mb-2" htmlFor="config-phone">
+                    Telefoonnummer <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="config-phone"
+                    type="tel"
+                    required
+                    placeholder="06 12345678"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-dark placeholder-gray-400"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-dark mb-2" htmlFor="config-address">
+                    Adres <span className="text-gray-400 font-normal">(optioneel)</span>
+                  </label>
+                  <input
+                    id="config-address"
+                    type="text"
+                    placeholder="Straat, huisnummer, postcode en plaats"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-dark placeholder-gray-400"
+                  />
+                </div>
               </div>
               <div className="flex items-start text-left mb-10">
                 <input
