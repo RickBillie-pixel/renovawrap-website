@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Loader2, Download, X, Check, Search, ChefHat, Square, DoorOpen, Wrench, Box, Camera, Upload, CheckCircle2, ChevronRight, ChevronLeft, ArrowRight, Info } from "lucide-react";
 import { getWrapColors } from "@/lib/wrapColors";
@@ -65,6 +65,12 @@ export default function Configurator() {
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [loadingStep, setLoadingStep] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Usage limit: max 3 submissions per email
+  const MAX_SUBMISSIONS = 3;
+  const [usageCount, setUsageCount] = useState<number | null>(null);
+  const [limitReached, setLimitReached] = useState(false);
+  const [checkingLimit, setCheckingLimit] = useState(false);
   
   // Mobile Wizard Steps
   // 0: Intro/Upload
@@ -87,6 +93,49 @@ export default function Configurator() {
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   const hasValidContact = name.trim().length >= 2 && isValidEmail(email);
+
+  // Check how many submissions exist for this email address
+  const checkEmailUsage = useCallback(async (emailToCheck: string) => {
+    const normalizedEmail = emailToCheck.trim().toLowerCase();
+    if (!isValidEmail(normalizedEmail)) {
+      setUsageCount(null);
+      setLimitReached(false);
+      return;
+    }
+    setCheckingLimit(true);
+    try {
+      const { count, error } = await supabase
+        .from('submissions')
+        .select('*', { count: 'exact', head: true })
+        .eq('email', normalizedEmail);
+      if (error) {
+        console.error('Error checking email usage:', error);
+        setUsageCount(null);
+        setLimitReached(false);
+      } else {
+        const c = count ?? 0;
+        setUsageCount(c);
+        setLimitReached(c >= MAX_SUBMISSIONS);
+      }
+    } catch (err) {
+      console.error('Error checking email usage:', err);
+    } finally {
+      setCheckingLimit(false);
+    }
+  }, []);
+
+  // Debounced email usage check
+  useEffect(() => {
+    if (!email || !isValidEmail(email)) {
+      setUsageCount(null);
+      setLimitReached(false);
+      return;
+    }
+    const timer = setTimeout(() => {
+      checkEmailUsage(email);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [email, checkEmailUsage]);
 
   // Subscribe to realtime updates for the submission
   useEffect(() => {
@@ -179,9 +228,26 @@ export default function Configurator() {
   };
 
   const handleGenerate = async () => {
-    if (!canGenerate) {
+    if (!canGenerate || limitReached) {
        // Should be disabled but just in case
        return;
+    }
+
+    // Double-check the limit right before submitting
+    const normalizedEmail = email.trim().toLowerCase();
+    try {
+      const { count } = await supabase
+        .from('submissions')
+        .select('*', { count: 'exact', head: true })
+        .eq('email', normalizedEmail);
+      if ((count ?? 0) >= MAX_SUBMISSIONS) {
+        setLimitReached(true);
+        setUsageCount(count ?? 0);
+        alert('U heeft het maximaal aantal van 3 aanvragen bereikt voor dit e-mailadres.');
+        return;
+      }
+    } catch (err) {
+      console.error('Limit re-check failed:', err);
     }
 
     setIsGenerating(true);
@@ -290,7 +356,8 @@ export default function Configurator() {
     selectedColor &&
     termsAccepted &&
     hasValidContact &&
-    !isGenerating;
+    !isGenerating &&
+    !limitReached;
 
   // Mobile Wizard Navigation
   const nextStep = () => {
@@ -612,9 +679,19 @@ export default function Configurator() {
                                       type="email"
                                       value={email}
                                       onChange={(e) => setEmail(e.target.value)}
-                                      className="w-full p-4 bg-gray-50 border border-transparent rounded-xl text-dark focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium placeholder-gray-300 outline-none"
+                                      className={`w-full p-4 bg-gray-50 border rounded-xl text-dark focus:bg-white focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all font-medium placeholder-gray-300 outline-none ${limitReached ? 'border-red-400 bg-red-50/30' : 'border-transparent'}`}
                                       placeholder="uw@email.nl"
                                     />
+                                    {limitReached && (
+                                      <p className="mt-2 text-xs text-red-500 font-medium bg-red-50 p-3 rounded-xl border border-red-100">
+                                        U heeft het maximaal aantal van {MAX_SUBMISSIONS} aanvragen bereikt voor dit e-mailadres. Neem <a href="/contact" className="underline text-primary font-bold">contact</a> met ons op voor meer aanvragen.
+                                      </p>
+                                    )}
+                                    {checkingLimit && isValidEmail(email) && (
+                                      <p className="mt-1.5 text-[11px] text-gray-400 flex items-center gap-1.5">
+                                        <Loader2 className="w-3 h-3 animate-spin" /> Beschikbaarheid controleren...
+                                      </p>
+                                    )}
                                 </div>
                                 <div>
                                     <label className="text-[10px] font-bold text-gray-400 uppercase mb-1.5 block ml-1 tracking-wider">Adres <span className="text-gray-300 font-normal normal-case">(Optioneel)</span></label>
@@ -968,10 +1045,20 @@ export default function Configurator() {
                     placeholder="bijv@voorbeeld.nl"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-dark placeholder-gray-400 ${email && !isValidEmail(email) ? 'border-red-300' : 'border-gray-200'}`}
+                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary text-dark placeholder-gray-400 ${limitReached ? 'border-red-400 bg-red-50/30' : email && !isValidEmail(email) ? 'border-red-300' : 'border-gray-200'}`}
                   />
                   {email && !isValidEmail(email) && (
                     <p className="mt-1 text-sm text-red-500">Voer een geldig e-mailadres in.</p>
+                  )}
+                  {limitReached && (
+                    <p className="mt-2 text-sm text-red-600 bg-red-50 p-3 rounded-xl border border-red-100">
+                      U heeft het maximaal aantal van {MAX_SUBMISSIONS} aanvragen bereikt voor dit e-mailadres. Neem <a href="/contact" className="underline text-primary font-bold">contact</a> met ons op voor meer aanvragen.
+                    </p>
+                  )}
+                  {checkingLimit && isValidEmail(email) && (
+                    <p className="mt-1 text-sm text-gray-400 flex items-center gap-1.5">
+                      <Loader2 className="w-4 h-4 animate-spin" /> Beschikbaarheid controleren...
+                    </p>
                   )}
                 </div>
               </div>
