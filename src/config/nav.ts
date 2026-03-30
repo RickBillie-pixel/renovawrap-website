@@ -18,7 +18,7 @@ export const MAIN_NAV: ReadonlyArray<{ href: string; label: string; footerLabel?
 
 /** Services sub-nav: same order/labels as footer "Onze Diensten" (single source of truth). */
 export const SERVICES_NAV: ReadonlyArray<{ label: string; href: string }> = [
-  { label: "Keuken Wrapping", href: "/diensten/keuken-wrapping" },
+  { label: "Keuken Wrappen", href: "/diensten/keuken-wrapping" },
   { label: "Aanrechtbladen", href: "/diensten/aanrechtbladen" },
   { label: "Inbouwkasten", href: "/diensten/kasten" },
   { label: "Kozijnen", href: "/diensten/kozijnen" },

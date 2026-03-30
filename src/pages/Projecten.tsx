@@ -10,7 +10,7 @@ import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 
 const CATEGORIES = [
   "Alle",
-  "Keuken Wrapping",
+  "Keuken Wrappen",
   "Keuken Frontjes",
   "Aanrechtbladen",
   "Achterwanden",

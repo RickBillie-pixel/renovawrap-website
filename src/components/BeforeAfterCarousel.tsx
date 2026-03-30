@@ -135,7 +135,7 @@ export default function BeforeAfterCarousel() {
                 <div className="mt-auto grid grid-cols-2 gap-12 border-t border-gray-100 pt-12">
                    <div>
                       <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-3">Service</span>
-                      <span className="text-base text-dark font-medium leading-none">Keuken Wrapping</span>
+                      <span className="text-base text-dark font-medium leading-none">Keuken Wrappen</span>
                    </div>
                    <div>
                       <span className="block text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-3">Besparing</span>
