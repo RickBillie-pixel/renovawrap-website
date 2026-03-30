@@ -6,6 +6,7 @@ import FAQ from "../components/FAQ";
 import { repairFaqs } from "../data/faqs";
 import KeuzehulpSchade from "../components/KeuzehulpSchade";
 import CountUp from "../components/CountUp";
+import BeforeAfterCarousel from "../components/BeforeAfterCarousel";
 
 
 export default function SchadeherstelMobile() {
@@ -239,6 +240,8 @@ export default function SchadeherstelMobile() {
           </div>
         </div>
       </section>
+
+      <BeforeAfterCarousel />
 
       {/* Precisie in elk detail */}
       <section className="py-24 bg-white relative overflow-hidden">

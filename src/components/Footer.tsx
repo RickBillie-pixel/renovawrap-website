@@ -96,12 +96,10 @@ export default function Footer() {
 
               <div>
                 <h4 className="text-white font-bold mb-2">Openingstijden</h4>
-                <div className="grid grid-cols-[60px_1fr]">
-                  <span>Ma - Vr:</span>
-                  <span>09:00 - 17:30</span>
-                </div>
-                <div className="grid grid-cols-[60px_1fr]">
-                  <span>Za - Zo:</span>
+                <div className="grid grid-cols-[80px_1fr] gap-y-1">
+                  <span>Ma - Za:</span>
+                  <span>08:00 - 20:00</span>
+                  <span>Zo:</span>
                   <span>Gesloten</span>
                 </div>
               </div>

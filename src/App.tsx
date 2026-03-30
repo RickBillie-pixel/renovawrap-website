@@ -21,6 +21,7 @@ const routePreloads: Record<string, () => Promise<{ default: React.ComponentType
   "/diensten/deuren": () => import("./pages/DeurenDetail"),
   "/diensten/kozijnen": () => import("./pages/KozijnenDetail"),
   "/diensten/schadeherstel": () => import("./pages/SchadeherstelDetail"),
+  "/diensten/afzuigkappen": () => import("./pages/AfzuigkappenDetail"),
   "/projecten": () => import("./pages/Projecten"),
   "/contact": () => import("./pages/Contact"),
   "/over-ons": () => import("./pages/OverOns"),
@@ -41,6 +42,7 @@ const KastenDetail = lazy(routePreloads["/diensten/kasten"]);
 const DeurenDetail = lazy(routePreloads["/diensten/deuren"]);
 const KozijnenDetail = lazy(routePreloads["/diensten/kozijnen"]);
 const SchadeherstelDetail = lazy(routePreloads["/diensten/schadeherstel"]);
+const AfzuigkappenDetail = lazy(routePreloads["/diensten/afzuigkappen"]);
 const Projecten = lazy(routePreloads["/projecten"]);
 const Contact = lazy(routePreloads["/contact"]);
 const OverOns = lazy(routePreloads["/over-ons"]);
@@ -96,6 +98,7 @@ export function AppContent() {
             <Route path="/diensten/deuren" element={<DeurenDetail />} />
             <Route path="/diensten/kozijnen" element={<KozijnenDetail />} />
             <Route path="/diensten/schadeherstel" element={<SchadeherstelDetail />} />
+            <Route path="/diensten/afzuigkappen" element={<AfzuigkappenDetail />} />
             <Route path="/projecten" element={<Projecten />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/over-ons" element={<OverOns />} />

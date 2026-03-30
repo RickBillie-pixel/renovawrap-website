@@ -4,6 +4,7 @@
 import FAQ from "../components/FAQ";
 import { repairFaqs } from "../data/faqs";
 import KeuzehulpSchade from "../components/KeuzehulpSchade";
+import BeforeAfterCarousel from "../components/BeforeAfterCarousel";
 
 
 export default function SchadeherstelDesktop() {
@@ -121,6 +122,8 @@ export default function SchadeherstelDesktop() {
           </div>
         </div>
       </section>
+
+      <BeforeAfterCarousel />
 
       {/* Precisie in elk detail */}
       <section className="py-24 bg-white relative overflow-hidden">

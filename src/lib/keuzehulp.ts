@@ -13,6 +13,7 @@ export const KEUZEHULP_SERVICE_SLUGS = [
   "achterwanden",
   "schadeherstel",
   "vensterbanken",
+  "afzuigkappen"
 ] as const;
 
 export type KeuzehulpServiceSlug = (typeof KEUZEHULP_SERVICE_SLUGS)[number];

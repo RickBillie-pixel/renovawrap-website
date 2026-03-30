@@ -422,9 +422,14 @@ export default function Configurator() {
                         <CheckCircle2 className="w-10 h-10" />
                     </div>
                     <h3 className="font-display text-3xl text-dark mb-4">Aanvraag Ontvangen!</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
+                    <p className="text-gray-500 text-sm leading-relaxed max-w-xs mb-4">
                         Uw aanvraag is ontvangen. Zie uw mail voor het resultaat.
                     </p>
+                    <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 max-w-xs text-left mb-6 mx-auto">
+                        <p className="text-orange-800 text-sm leading-relaxed">
+                            <strong>Let op:</strong> Het genereren van uw ontwerp kan <strong>enkele minuten</strong> duren. U hoeft de configurator niet nog een keer in te vullen, het resultaat komt vanzelf binnen via uw e-mailadres.
+                        </p>
+                    </div>
                     <button 
                         onClick={() => {
                             setIsSubmitted(false);
@@ -1117,7 +1122,12 @@ export default function Configurator() {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h4 className="font-display text-2xl text-dark mb-2">Bedankt voor uw aanvraag!</h4>
-                  <p className="text-gray-500">Uw aanvraag is ontvangen. Zie uw mail voor het resultaat.</p>
+                  <p className="text-gray-500 mb-6">Uw aanvraag is ontvangen. Zie uw mail voor het resultaat.</p>
+                  <div className="bg-orange-50 border border-orange-100 rounded-xl p-5 max-w-md mx-auto text-left mb-8 shadow-sm">
+                      <p className="text-orange-800 text-sm leading-relaxed">
+                          <strong>Let op:</strong> Het genereren van uw ontwerp kan <strong>enkele minuten</strong> duren. U hoeft deze configurator niet nog een keer in te vullen of deze pagina te herladen. Het resultaat komt vanzelf binnen via uw e-mailadres.
+                      </p>
+                  </div>
                   <button 
                     onClick={() => {
                       setIsSubmitted(false);

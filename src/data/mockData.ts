@@ -71,6 +71,13 @@ export const services = [
         image: "/vensterbank1.webp",
         link: "/diensten/vensterbanken",
     },
+    {
+        id: 10,
+        title: "Afzuigkappen",
+        description: "Een eyecatcher in de keuken. Transformeer die saaie of vlekkerige afzuigkap in een strak design element met warmte- en vetbestendige folie.",
+        image: "/afzuigkap1.png",
+        link: "/diensten/afzuigkappen",
+    },
 ];
 
 // Stats Data

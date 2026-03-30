@@ -104,3 +104,19 @@ export const vensterbankenFaqs = [
     },
     ...generalFaqs
 ];
+
+export const afzuigkappenFaqs = [
+    {
+        question: "Is de folie bestand tegen hitte en kookdampen?",
+        answer: "Ja, onze hoogwaardige interieurfolies zijn speciaal ontwikkeld om warmte, vet en vocht te weerstaan. U kunt uw afzuigkap dus met een gerust hart blijven gebruiken zoals u gewend bent."
+    },
+    {
+        question: "Kan ik mijn afzuigkap nog makkelijk schoonmaken?",
+        answer: "Absoluut! De folie is zelfs makkelijker schoon te houden dan RVS. Een vochtige doek met een mild droog schoonmaakmiddel is vaak al voldoende om vet en vuil te verwijderen."
+    },
+    {
+        question: "Wordt de hele afzuigkap meegenomen?",
+        answer: "Wij wrappen de zichtbare delen van de afzuigkap, meestal de hoofdkap en - indien aanwezig - de schacht(en), zodat alles één mooi, uniform geheel vormt met uw keuken."
+    },
+    ...generalFaqs
+];

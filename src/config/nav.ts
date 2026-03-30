@@ -27,4 +27,5 @@ export const SERVICES_NAV: ReadonlyArray<{ label: string; href: string }> = [
   { label: "Achterwanden", href: "/diensten/achterwanden" },
   { label: "Schadeherstel", href: "/diensten/schadeherstel" },
   { label: "Vensterbanken", href: "/diensten/vensterbanken" },
+  { label: "Afzuigkappen", href: "/diensten/afzuigkappen" },
 ];

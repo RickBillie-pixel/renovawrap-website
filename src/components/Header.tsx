@@ -276,17 +276,52 @@ export default function Header() {
                           transition={{ duration: 0.3, ease: "easeInOut" as const }}
                           className="overflow-hidden"
                         >
-                          <div className="flex flex-col space-y-3 py-2 pl-2">
-                            {services.map((service) => (
-                               <Link
-                                key={service.id}
-                                to={service.link}
-                                className="text-lg text-dark/70 hover:text-primary transition-colors flex items-center gap-2"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                              >
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary/40 block"></span>
-                                {service.title}
-                              </Link>
+                          <div className="flex flex-col space-y-6 py-2 pl-2">
+                            {[
+                              {
+                                category: "Keuken",
+                                items: [
+                                  { id: 1, title: "Keuken Wrappen", link: "/diensten/keuken-wrapping" },
+                                  { id: 6, title: "Keuken Frontjes Wrappen", link: "/diensten/keuken-frontjes" },
+                                  { id: 2, title: "Aanrechtbladen Wrappen", link: "/diensten/aanrechtbladen" },
+                                  { id: 7, title: "Achterwanden Wrappen", link: "/diensten/achterwanden" },
+                                ]
+                              },
+                              {
+                                category: "Interieur",
+                                items: [
+                                  { id: 3, title: "Inbouwkasten Wrappen", link: "/diensten/kasten" },
+                                  { id: 5, title: "Deuren Wrappen", link: "/diensten/deuren" },
+                                  { id: 4, title: "Kozijnen Wrappen", link: "/diensten/kozijnen" },
+                                  { id: 9, title: "Vensterbanken Wrappen", link: "/diensten/vensterbanken" },
+                                ]
+                              },
+                              {
+                                category: "Overig",
+                                items: [
+                                  { id: 8, title: "Schadeherstel Wrappen", link: "/diensten/schadeherstel" },
+                                  { id: 10, title: "Afzuigkap Wrappen", link: "/diensten/keuken-wrapping" }, // Linking to kitchen wrapping as it usually covers this
+                                ]
+                              }
+                            ].map((group) => (
+                              <div key={group.category} className="flex flex-col space-y-3">
+                                <span className="text-2xl font-display font-bold text-dark/90">
+                                  {group.category}
+                                </span>
+                                <div className="flex flex-col space-y-3 pl-2">
+                                  {group.items.map((item) => (
+                                    <Link
+                                      key={item.id}
+                                      to={item.link}
+                                      className="text-lg text-dark/70 hover:text-primary transition-colors flex items-center gap-3"
+                                      onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                      <span className="w-1.5 h-1.5 rounded-full bg-dark/40 block"></span>
+                                      {item.title}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
                             ))}
                             <Link
                                to="/diensten"

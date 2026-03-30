@@ -1,107 +1,105 @@
-import { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 
 interface BeforeAfterSliderProps {
   beforeImage: string;
   afterImage: string;
   className?: string;
+  objectPosition?: string;
 }
 
 export default function BeforeAfterSlider({
   beforeImage,
   afterImage,
   className = "",
+  objectPosition = "center",
 }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
 
-  const getPosition = useCallback((clientX: number) => {
-    if (!containerRef.current) return 50;
+  const handleMove = useCallback((e: MouseEvent | TouchEvent) => {
+    if (!isDragging.current || !containerRef.current) return;
+
     const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    return Math.max(0, Math.min(100, (x / rect.width) * 100));
+    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const position = ((x - rect.left) / rect.width) * 100;
+
+    setSliderPosition(Math.max(0, Math.min(100, position)));
   }, []);
 
-  // Mouse: simple drag within container only (desktop)
-  const handleMouseDown = useCallback(() => {
-    const onMove = (e: MouseEvent) => {
-      e.preventDefault();
-      setSliderPosition(getPosition(e.clientX));
-    };
-    const onUp = () => {
-      document.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseup", onUp);
-    };
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onUp);
-  }, [getPosition]);
+  const handleStart = useCallback(() => {
+    isDragging.current = true;
+  }, []);
 
-  // Touch: handle entirely on the container element, NO document listeners
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    if (e.touches[0]) {
-      setSliderPosition(getPosition(e.touches[0].clientX));
-    }
-  }, [getPosition]);
+  const handleEnd = useCallback(() => {
+    isDragging.current = false;
+  }, []);
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    // Prevent scrolling only while sliding
-    e.stopPropagation();
-    if (e.touches[0]) {
-      setSliderPosition(getPosition(e.touches[0].clientX));
-    }
-  }, [getPosition]);
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseup", handleEnd);
+    window.addEventListener("touchmove", handleMove);
+    window.addEventListener("touchend", handleEnd);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleEnd);
+    };
+  }, [handleMove, handleEnd]);
 
   return (
     <div
       ref={containerRef}
-      className={`relative select-none overflow-hidden ${className}`}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onClick={(e) => setSliderPosition(getPosition(e.clientX))}
+      className={`relative w-full aspect-square overflow-hidden cursor-ew-resize select-none border border-white/10 shadow-2xl ${className}`}
+      onMouseDown={handleStart}
+      onTouchStart={handleStart}
     >
-      {/* After image (background) */}
+      {/* After Image (Background) */}
       <img
         src={afterImage}
-        alt="Na"
-        className="absolute inset-0 w-full h-full object-cover"
-        draggable={false}
+        alt="After"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        style={{ objectPosition }}
       />
-      
-      {/* Na Label (Right) */}
-      <div className="absolute top-4 right-4 z-20 bg-white/80 text-dark text-[10px] uppercase tracking-widest px-2 py-1 backdrop-blur-sm pointer-events-none">
-        Na
-      </div>
 
-      {/* Before image (foreground with clip-path) */}
-      <div 
-        className="absolute inset-0 w-full h-full overflow-hidden"
+      {/* Before Image (Overlay with Clip Path) */}
+      <div
+        className="absolute inset-0 w-full h-full pointer-events-none"
         style={{
           clipPath: `inset(0 ${100 - sliderPosition}% 0 0)`,
         }}
       >
         <img
           src={beforeImage}
-          alt="Voor"
-          className="absolute inset-0 w-full h-full object-cover"
-          draggable={false}
+          alt="Before"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          style={{ objectPosition }}
         />
-        {/* Voor Label (Left) */}
-        <div className="absolute top-4 left-4 z-20 bg-dark/80 text-white text-[10px] uppercase tracking-widest px-2 py-1 backdrop-blur-sm pointer-events-none">
-          Voor
+      </div>
+
+      {/* Divider Line */}
+      <div
+        className="absolute inset-y-0 w-0.5 bg-white shadow-[0_0_10px_rgba(210,180,140,0.5)] z-20 pointer-events-none"
+        style={{ left: `${sliderPosition}%` }}
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg border border-primary/20">
+          <span className="material-symbols-outlined text-primary text-xl">unfold_more_double</span>
         </div>
       </div>
 
-      {/* Slider line + handle */}
-      <div
-        className="absolute inset-y-0 z-30 flex items-center pointer-events-none"
-        style={{ left: `${sliderPosition}%` }}
-      >
-        <div className="absolute inset-y-0 -left-px w-0.5 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)]"></div>
-        <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white shadow-xl flex items-center justify-center border border-gray-100/50 backdrop-blur-sm">
-          <span className="material-symbols-outlined text-dark text-sm">
-            unfold_more
-          </span>
-        </div>
+      {/* Labels */}
+      <div className="absolute top-4 left-4 z-10 pointer-events-none">
+        <span className="bg-dark/60 backdrop-blur-sm text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest border border-white/20">
+          Before
+        </span>
+      </div>
+      <div className="absolute top-4 right-4 z-10 pointer-events-none">
+        <span className="bg-primary/80 backdrop-blur-sm text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest border border-white/20">
+          After
+        </span>
       </div>
     </div>
   );

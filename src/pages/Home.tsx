@@ -7,6 +7,7 @@ import CountUp from "../components/CountUp";
 import ProjectModal from "../components/ProjectModal";
 import HorizontalServices from "../components/HorizontalServices";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import BeforeAfterCarousel from "../components/BeforeAfterCarousel";
 import { projectService } from "@/lib/projectService";
 import type { Project } from "@/lib/projectService";
 import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
@@ -460,6 +461,8 @@ export default function Home() {
       </section>
 
       <HorizontalServices />
+
+      <BeforeAfterCarousel />
 
       {/* Why Renovawrap Section */}
       <section className="py-32 bg-background-light text-dark relative overflow-hidden">
