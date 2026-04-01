@@ -18,14 +18,17 @@ export const MAIN_NAV: ReadonlyArray<{ href: string; label: string; footerLabel?
 
 /** Services sub-nav: same order/labels as footer "Onze Diensten" (single source of truth). */
 export const SERVICES_NAV: ReadonlyArray<{ label: string; href: string }> = [
+  // Keuken
   { label: "Keuken Wrappen", href: "/diensten/keuken-wrapping" },
-  { label: "Aanrechtbladen", href: "/diensten/aanrechtbladen" },
-  { label: "Inbouwkasten", href: "/diensten/kasten" },
-  { label: "Kozijnen", href: "/diensten/kozijnen" },
-  { label: "Deuren", href: "/diensten/deuren" },
   { label: "Keuken Frontjes", href: "/diensten/keuken-frontjes" },
+  { label: "Aanrechtbladen", href: "/diensten/aanrechtbladen" },
   { label: "Achterwanden", href: "/diensten/achterwanden" },
-  { label: "Schadeherstel", href: "/diensten/schadeherstel" },
+  { label: "Afzuigkap", href: "/diensten/afzuigkappen" },
+  
+  // Interieur
+  { label: "Inbouwkasten", href: "/diensten/kasten" },
+  { label: "Deuren", href: "/diensten/deuren" },
+  { label: "Kozijnen", href: "/diensten/kozijnen" },
   { label: "Vensterbanken", href: "/diensten/vensterbanken" },
-  { label: "Afzuigkappen", href: "/diensten/afzuigkappen" },
+  { label: "Schadeherstel", href: "/diensten/schadeherstel" },
 ];
