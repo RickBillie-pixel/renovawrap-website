@@ -20,15 +20,15 @@ export const MAIN_NAV: ReadonlyArray<{ href: string; label: string; footerLabel?
 export const SERVICES_NAV: ReadonlyArray<{ label: string; href: string }> = [
   // Keuken
   { label: "Keuken Wrappen", href: "/diensten/keuken-wrapping" },
-  { label: "Keuken Frontjes", href: "/diensten/keuken-frontjes" },
-  { label: "Aanrechtbladen", href: "/diensten/aanrechtbladen" },
-  { label: "Achterwanden", href: "/diensten/achterwanden" },
-  { label: "Afzuigkap", href: "/diensten/afzuigkappen" },
+  { label: "Keuken Frontjes Wrappen", href: "/diensten/keuken-frontjes" },
+  { label: "Aanrechtbladen Wrappen", href: "/diensten/aanrechtbladen" },
+  { label: "Achterwanden Wrappen", href: "/diensten/achterwanden" },
+  { label: "Afzuigkap Wrappen", href: "/diensten/afzuigkappen" },
+  { label: "Schadeherstel", href: "/diensten/schadeherstel" },
   
   // Interieur
-  { label: "Inbouwkasten", href: "/diensten/kasten" },
-  { label: "Deuren", href: "/diensten/deuren" },
-  { label: "Kozijnen", href: "/diensten/kozijnen" },
-  { label: "Vensterbanken", href: "/diensten/vensterbanken" },
-  { label: "Schadeherstel", href: "/diensten/schadeherstel" },
+  { label: "Inbouwkasten Wrappen", href: "/diensten/kasten" },
+  { label: "Deuren Wrappen", href: "/diensten/deuren" },
+  { label: "Kozijnen Wrappen", href: "/diensten/kozijnen" },
+  { label: "Vensterbanken Wrappen", href: "/diensten/vensterbanken" },
 ];

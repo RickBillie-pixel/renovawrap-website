@@ -11,13 +11,13 @@ import { useSEO, buildBreadcrumbs, canonicalFor } from "@/hooks/useSEO";
 const CATEGORIES = [
   "Alle",
   "Keuken Wrappen",
-  "Keuken Frontjes",
-  "Aanrechtbladen",
-  "Achterwanden",
-  "Kasten",
-  "Deuren",
-  "Kozijnen",
+  "Keuken Frontjes Wrappen",
+  "Aanrechtbladen Wrappen",
+  "Achterwanden Wrappen",
   "Schadeherstel",
+  "Kasten Wrappen",
+  "Deuren Wrappen",
+  "Kozijnen Wrappen",
 ];
 
 export default function Projecten() {

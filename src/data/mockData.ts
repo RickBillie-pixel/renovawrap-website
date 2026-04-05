@@ -38,10 +38,17 @@ export const services = [
     },
     {
         id: 10,
-        title: "Afzuigkap",
+        title: "Afzuigkap Wrappen",
         description: "Een eyecatcher in de keuken. Transformeer die saaie of vlekkerige afzuigkap in een strak design element met warmte- en vetbestendige folie.",
         image: "/afzuigkap1.png",
         link: "/diensten/afzuigkappen",
+    },
+    {
+        id: 8,
+        title: "Schadeherstel",
+        description: "Kleine beschadiging aan uw interieurfolie of renovatiewerk nodig? Wij herstellen wraps professioneel en onzichtbaar.",
+        image: "/diensten/schade-kras.webp",
+        link: "/diensten/schadeherstel",
     },
     {
         id: 3,
@@ -70,13 +77,6 @@ export const services = [
         description: "Blaas uw interieur nieuw leven in. Wij wrappen uw vensterbanken strak en krasbestendig met folie in hout-, beton- of uni-look.",
         image: "/vensterbank1.webp",
         link: "/diensten/vensterbanken",
-    },
-    {
-        id: 8,
-        title: "Schadeherstel",
-        description: "Kleine beschadiging aan uw interieurfolie of renovatiewerk nodig? Wij herstellen wraps professioneel en onzichtbaar.",
-        image: "/diensten/schade-kras.webp",
-        link: "/diensten/schadeherstel",
     },
 ];
 

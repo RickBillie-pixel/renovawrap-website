@@ -173,7 +173,7 @@ export default function AfzuigkappenMobile() {
              {/* Feature 1 */}
              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center mb-32">
                  <div className="relative aspect-square md:aspect-[4/3] bg-white p-8 shadow-sm">
-                    <img src="/montage-afzuig.png" alt="Afzuigkap dichtbij resultaat" className="w-full h-full object-cover" />
+                    <img src="/montage.webp" alt="Afzuigkap dichtbij resultaat" className="w-full h-full object-cover" />
                     <div className="absolute bottom-4 left-4 bg-white px-4 py-2 text-xs text-gray-400 border border-gray-100 shadow-sm">
                        Hittebestendig en Vakkundig Verwerkt
                     </div>

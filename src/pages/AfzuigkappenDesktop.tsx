@@ -116,7 +116,7 @@ export default function AfzuigkappenDesktop() {
                         </div>
                      </div>
                      <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 shadow-xl">
-                         <img src="/montage-afzuig.png" alt="Mooie afwerking afzuigkap" className="w-full h-full object-cover" />
+                         <img src="/montage.webp" alt="Mooie afwerking afzuigkap" className="w-full h-full object-cover" />
                          <div className="absolute bottom-6 left-6 text-white text-shadow">
                            <p className="font-display italic text-lg">Stijlvol</p>
                            <p className="text-xs uppercase tracking-widest opacity-80">Volledig Strak</p>
@@ -147,7 +147,7 @@ export default function AfzuigkappenDesktop() {
              {/* Feature 1 */}
              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 items-center mb-32">
                  <div className="relative aspect-square md:aspect-[4/3] bg-white p-8 shadow-sm">
-                    <img src="/montage-afzuig.png" alt="Afzuigkap dichtbij resultaat" className="w-full h-full object-cover" />
+                    <img src="/montage.webp" alt="Afzuigkap dichtbij resultaat" className="w-full h-full object-cover" />
                     <div className="absolute bottom-4 left-4 bg-white px-4 py-2 text-xs text-gray-400 border border-gray-100 shadow-sm">
                        Hittebestendig en Vakkundig Verwerkt
                     </div>

@@ -285,7 +285,8 @@ export default function Header() {
                                   { id: 6, title: "Keuken Frontjes Wrappen", link: "/diensten/keuken-frontjes" },
                                   { id: 2, title: "Aanrechtbladen Wrappen", link: "/diensten/aanrechtbladen" },
                                   { id: 7, title: "Achterwanden Wrappen", link: "/diensten/achterwanden" },
-                                  { id: 10, title: "Afzuigkap", link: "/diensten/afzuigkappen" },
+                                  { id: 10, title: "Afzuigkap Wrappen", link: "/diensten/afzuigkappen" },
+                                  { id: 8, title: "Schadeherstel", link: "/diensten/schadeherstel" },
                                 ]
                               },
                               {
@@ -295,7 +296,6 @@ export default function Header() {
                                   { id: 5, title: "Deuren Wrappen", link: "/diensten/deuren" },
                                   { id: 4, title: "Kozijnen Wrappen", link: "/diensten/kozijnen" },
                                   { id: 9, title: "Vensterbanken Wrappen", link: "/diensten/vensterbanken" },
-                                  { id: 8, title: "Schadeherstel", link: "/diensten/schadeherstel" },
                                 ]
                               }
                             ].map((group) => (
