@@ -54,8 +54,8 @@ export default function AfzuigkappenMobile() {
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
                   <BeforeAfterSlider 
-                    beforeImage="/afzuigkap-before.png" 
-                    afterImage="/afzuigkap-after.png"
+                    beforeImage="/afzuigkap-before.webp" 
+                    afterImage="/afzuigkap-after.webp"
                     objectPosition="30% center"
                   />
               </div>
@@ -144,7 +144,7 @@ export default function AfzuigkappenMobile() {
                <div className="lg:col-span-7 flex gap-8 relative">
                    {/* Large Image */}
                   <div className="flex-1 relative aspect-[3/4] overflow-hidden bg-gray-100 shadow-xl mt-12 w-full">
-                     <img src="/afzuigkap1.png" alt="Afzuigkap wrappen zwart" className="w-full h-full object-cover" />
+                     <img src="/afzuigkap1.webp" alt="Afzuigkap wrappen zwart" className="w-full h-full object-cover" />
                      <div className="absolute bottom-6 left-6 text-white text-shadow">
                         <p className="font-display italic text-lg">Hitte- en Stootvast</p>
                      </div>
@@ -220,7 +220,7 @@ export default function AfzuigkappenMobile() {
                  </div>
                  <div className="relative aspect-square md:aspect-[4/3] bg-[#1a4a40] p-8 shadow-sm md:order-2 order-1 overflow-hidden flex items-center justify-center">
                      <span className="absolute top-4 left-4 bg-[#D2B48C] text-white px-4 py-2 text-xs font-bold uppercase tracking-widest z-10">Naadloos Getransformeerd</span>
-                     <img src="/afzuigkap3.png" alt="Naadloos design afzuigkap" className="w-full h-full object-cover rounded-md shadow-2xl relative z-0" />
+                     <img src="/afzuigkap3.webp" alt="Naadloos design afzuigkap" className="w-full h-full object-cover rounded-md shadow-2xl relative z-0" />
                  </div>
              </div>
           </div>

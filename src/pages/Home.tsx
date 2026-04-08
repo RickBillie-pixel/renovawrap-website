@@ -25,7 +25,7 @@ export default function Home() {
   const [smallBottomIndex, setSmallBottomIndex] = useState(1);
   const heroSliders = [
     { before: "/project-fotos/before11.webp", after: "/project-fotos/after11.webp" },
-    { before: "/hero2.jpg", after: "/hero2-after.jpeg" }
+    { before: "/hero2.webp", after: "/hero2-after.webp" }
   ];
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 // Dynamically import all wrap color images from the assets folder
 // Relative path avoids wrong absolute path resolution on Windows (Vite glob)
-const wrapColorImages = import.meta.glob<string>('../assets/Kleurenwrap/*.jpg', {
+const wrapColorImages = import.meta.glob<string>('../assets/Kleurenwrap/*.webp', {
     eager: true,
     import: 'default',
 });
@@ -14,12 +14,12 @@ export interface WrapColor {
 
 /**
  * Extract color name from filename
- * Example: "S115-Pure-White.jpg" -> "Pure White"
- * Example: "APZ05-Gold-Crack.jpg" -> "Gold Crack"
+ * Example: "S115-Pure-White.webp" -> "Pure White"
+ * Example: "APZ05-Gold-Crack.webp" -> "Gold Crack"
  */
 function extractColorName(filename: string): string {
     // Remove extension
-    const withoutExt = filename.replace(/\.(jpg|jpeg|png)$/i, '');
+    const withoutExt = filename.replace(/\.(webp|jpg|jpeg|png)$/i, '');
 
     // Remove code prefix (e.g., "S115-", "APZ05-")
     const withoutCode = withoutExt.replace(/^[A-Z0-9]+-/, '');
@@ -35,7 +35,7 @@ function extractColorName(filename: string): string {
 
 /**
  * Extract color code from filename
- * Example: "S115-Pure-White.jpg" -> "S115"
+ * Example: "S115-Pure-White.webp" -> "S115"
  */
 function extractColorCode(filename: string): string | undefined {
     const match = filename.match(/^([A-Z0-9]+)-/);
@@ -58,7 +58,7 @@ export function getWrapColors(): WrapColor[] {
         const code = extractColorCode(filename);
 
         colors.push({
-            id: filename.replace(/\.(jpg|jpeg|png)$/i, ''),
+            id: filename.replace(/\.(webp|jpg|jpeg|png)$/i, ''),
             name,
             image: image as string,
             code,

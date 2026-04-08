@@ -10,8 +10,8 @@ export default function VensterbankenDesktop() {
 
   const heroImages = [
     "/vensterbank1.webp",
-    "/vensterbank2.jpg",
-    "/vensterbank3.avif"
+    "/vensterbank2.webp",
+    "/vensterbank3.webp"
   ];
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export default function VensterbankenDesktop() {
                <div className="lg:col-span-7 flex gap-8 relative">
                    {/* Large Image */}
                   <div className="flex-1 relative aspect-[3/4] overflow-hidden bg-gray-100 shadow-xl mt-12">
-                     <img src="/vensterbank3.avif" alt="Vensterbank wrap hout look" className="w-full h-full object-cover" />
+                     <img src="/vensterbank3.webp" alt="Vensterbank wrap hout look" className="w-full h-full object-cover" />
                      <div className="absolute bottom-6 left-6 text-white text-shadow">
                         <p className="font-display italic text-lg">Kras- en Stootvast</p>
                      </div>
@@ -143,7 +143,7 @@ export default function VensterbankenDesktop() {
                         </div>
                      </div>
                      <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 shadow-xl">
-                         <img src="/vensterbank2.jpg" alt="Mooie afwerking" className="w-full h-full object-cover" />
+                         <img src="/vensterbank2.webp" alt="Mooie afwerking" className="w-full h-full object-cover" />
                          <div className="absolute bottom-6 left-6 text-white text-shadow">
                            <p className="font-display italic text-lg">Stijlvol</p>
                            <p className="text-xs uppercase tracking-widest opacity-80">Volledig Strak</p>
@@ -221,7 +221,7 @@ export default function VensterbankenDesktop() {
                  </div>
                  <div className="relative aspect-square md:aspect-[4/3] bg-[#1a4a40] p-8 shadow-sm md:order-2 order-1 overflow-hidden flex items-center justify-center">
                      <span className="absolute top-4 left-4 bg-[#D2B48C] text-white px-4 py-2 text-xs font-bold uppercase tracking-widest z-10">Zonlicht Proof</span>
-                     <img src="/vensterbank3.avif" alt="Zon bestendig" className="w-full h-full object-cover rounded-md shadow-2xl relative z-0" />
+                     <img src="/vensterbank3.webp" alt="Zon bestendig" className="w-full h-full object-cover rounded-md shadow-2xl relative z-0" />
                  </div>
              </div>
           </div>

@@ -9,15 +9,15 @@ const transformations = [
     id: 1,
     title: "Keuken Renovatie",
     subtitle: "Een complete transformatie van de koelkast en kasten in één dag tijd.",
-    before: "/kast.png",
-    after: "/kast-after.png",
+    before: "/kast.webp",
+    after: "/kast-after.webp",
   },
   {
     id: 2,
     title: "Detail Afwerking",
     subtitle: "Zelfs de moeilijkste hoeken en panelen worden naadloos en strak hersteld.",
-    before: "/kast2-before.png",
-    after: "/kast2-after.png",
+    before: "/kast2-before.webp",
+    after: "/kast2-after.webp",
   },
 ];
 

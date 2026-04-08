@@ -10,8 +10,8 @@ import { cabinetFaqs } from "../data/faqs";
 export default function KeukenFrontjesMobile() {
   const [currentSliderIndex, setCurrentSliderIndex] = useState(0);
   const heroSliders = [
-    { before: "/hero1.jpg", after: "/hero1-after.jpeg" },
-    { before: "/hero2.jpg", after: "/hero2-after.jpeg" }
+    { before: "/hero1.webp", after: "/hero1-after.webp" },
+    { before: "/hero2.webp", after: "/hero2-after.webp" }
   ];
 
   useEffect(() => {

@@ -169,7 +169,7 @@ export default function DeurenMobile() {
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
                   <img
-                    src="/image4.jpeg"
+                    src="/image4.webp"
                     alt="Deur Renovatie"
                     className="w-full h-full object-cover"
                   />
@@ -228,7 +228,7 @@ export default function DeurenMobile() {
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
                   <img
-                    src="/image4.jpeg"
+                    src="/image4.webp"
                     alt="Deur Renovatie"
                     className="w-full h-full object-cover"
                   />

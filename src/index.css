@@ -46,21 +46,6 @@ button {
   cursor: pointer;
 }
 
-/* Custom text outline utilities */
-.text-outline-light {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
-  color: transparent;
-}
-
-.text-outline-dark {
-  -webkit-text-stroke: 1px rgba(26, 26, 26, 0.2);
-  color: transparent;
-}
-
-.dark .text-outline-dark {
-  -webkit-text-stroke: 1px rgba(255, 249, 240, 0.2);
-}
-
 /* Infinite scroll animation for moving cards */
 @keyframes scroll {
   to {

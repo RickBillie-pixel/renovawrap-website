@@ -145,7 +145,7 @@ export default function DeurenDesktop() {
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
                   <img
-                    src="/image4.jpeg"
+                    src="/image4.webp"
                     alt="Deur Renovatie"
                     className="w-full h-full object-cover"
                   />

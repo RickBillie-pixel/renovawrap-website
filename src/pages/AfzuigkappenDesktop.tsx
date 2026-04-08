@@ -56,8 +56,8 @@ export default function AfzuigkappenDesktop() {
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
                   <BeforeAfterSlider 
-                    beforeImage="/afzuigkap-before.png" 
-                    afterImage="/afzuigkap-after.png"
+                    beforeImage="/afzuigkap-before.webp" 
+                    afterImage="/afzuigkap-after.webp"
                     objectPosition="30% center"
                   />
                 </div>
@@ -96,7 +96,7 @@ export default function AfzuigkappenDesktop() {
                <div className="lg:col-span-7 flex gap-8 relative">
                    {/* Large Image */}
                   <div className="flex-1 relative aspect-[3/4] overflow-hidden bg-gray-100 shadow-xl mt-12">
-                     <img src="/afzuigkap1.png" alt="Afzuigkap wrappen zwart" className="w-full h-full object-cover" />
+                     <img src="/afzuigkap1.webp" alt="Afzuigkap wrappen zwart" className="w-full h-full object-cover" />
                      <div className="absolute bottom-6 left-6 text-white text-shadow">
                         <p className="font-display italic text-lg">Hitte- en Stootvast</p>
                      </div>
@@ -194,7 +194,7 @@ export default function AfzuigkappenDesktop() {
                  </div>
                  <div className="relative aspect-square md:aspect-[4/3] bg-[#1a4a40] p-8 shadow-sm md:order-2 order-1 overflow-hidden flex items-center justify-center">
                      <span className="absolute top-4 left-4 bg-[#D2B48C] text-white px-4 py-2 text-xs font-bold uppercase tracking-widest z-10">Naadloos Getransformeerd</span>
-                     <img src="/afzuigkap3.png" alt="Naadloos design afzuigkap" className="w-full h-full object-cover rounded-md shadow-2xl relative z-0" />
+                     <img src="/afzuigkap3.webp" alt="Naadloos design afzuigkap" className="w-full h-full object-cover rounded-md shadow-2xl relative z-0" />
                  </div>
              </div>
           </div>
@@ -226,7 +226,7 @@ export default function AfzuigkappenDesktop() {
                 </div>
                 <div className="relative">
                    <div className="relative rounded-lg overflow-hidden shadow-2xl aspect-video border border-white/10">
-                      <img src="/afzuigkap1.png" alt="Strakke look afzuigkap" className="w-full h-full object-cover" />
+                      <img src="/afzuigkap1.webp" alt="Strakke look afzuigkap" className="w-full h-full object-cover" />
                    </div>
                 </div>
              </div>

@@ -13,16 +13,16 @@ export default function KozijnenDesktop() {
   // Using window/exterior specific before/afters if available, otherwise utilizing high-quality generic renovation shots
   const heroImages = [
     {
-      before: "/image3.png",
-      after: "/image5.jpeg", 
+      before: "/image3.webp",
+      after: "/image5.webp", 
     },
     {
-      before: "/image2.png",
-      after: "/image6.jpeg",
+      before: "/image2.webp",
+      after: "/image6.webp",
     },
     {
-      before: "/image1.png",
-      after: "/image0.png",
+      before: "/image1.webp",
+      after: "/image0.webp",
     }
   ];
   useEffect(() => {

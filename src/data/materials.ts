@@ -7,7 +7,7 @@ export interface Material {
 }
 
 // Import all images from the directory
-const modules = import.meta.glob('../assets/Kleurenwrap/*.jpg', { eager: true, import: 'default' });
+const modules = import.meta.glob('../assets/Kleurenwrap/*.webp', { eager: true, import: 'default' });
 
 /**
  * Categorisation is based on the product‑code prefix that every file starts with.
@@ -84,7 +84,7 @@ function categorise(code: string, name: string): string {
 
 export const materials: Material[] = Object.entries(modules).map(([path, image]) => {
     const filename = path.split('/').pop() || '';
-    const namePart = filename.replace('.jpg', '');
+    const namePart = filename.replace('.webp', '');
     const parts = namePart.split('-');
     const id = parts[0];
     const name = parts.slice(1).join(' ');

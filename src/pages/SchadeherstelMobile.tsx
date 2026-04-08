@@ -62,7 +62,7 @@ export default function SchadeherstelMobile() {
               {/* Slider (Fills remaining space) */}
               <div className="relative w-full flex-1 min-h-[200px] shadow-lg overflow-hidden bg-gray-100 mt-4 mb-4 rounded-lg">
                   <img
-                    src="/schade.png"
+                    src="/schade.webp"
                     alt="Schadeherstel resultaat"
                     className="w-full h-full object-cover"
                   />
@@ -121,7 +121,7 @@ export default function SchadeherstelMobile() {
               <div className="relative w-full max-w-xl">
                 <div className="relative z-10 w-full aspect-square shadow-2xl overflow-hidden bg-gray-100">
                   <img
-                    src="/schade.png"
+                    src="/schade.webp"
                     alt="Schadeherstel resultaat"
                     className="w-full h-full object-cover"
                   />

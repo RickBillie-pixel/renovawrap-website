@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import { sendNotificationEmail } from "@/lib/notifications";
 import type { KeuzehulpServiceSlug } from "@/lib/keuzehulp";
 
 export default function KeuzehulpSchade() {
@@ -106,6 +107,7 @@ export default function KeuzehulpSchade() {
         foto_urls: foto_urls,
       });
       if (error) throw error;
+      sendNotificationEmail("keuzehulp", { name: contact_name, email: contact_email, phone: contact_phone, details: { service_slug: serviceSlug, wizard_data, foto_urls } });
       setSubmitted(true);
     } catch (e: unknown) {
       const message = e instanceof Error ? e.message : "Aanvraag kon niet worden verzonden. Probeer het later opnieuw.";

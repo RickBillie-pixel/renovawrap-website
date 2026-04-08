@@ -33,14 +33,14 @@ export const services = [
         id: 7,
         title: "Achterwanden Wrappen",
         description: "Een eyecatcher in uw keuken. Onze achterwanden zijn spatwaterdicht, makkelijk te reinigen en beschikbaar in unieke designs.",
-        image: "/achterwand-dienst.jpeg",
+        image: "/achterwand-dienst.webp",
         link: "/diensten/achterwanden",
     },
     {
         id: 10,
         title: "Afzuigkap Wrappen",
         description: "Een eyecatcher in de keuken. Transformeer die saaie of vlekkerige afzuigkap in een strak design element met warmte- en vetbestendige folie.",
-        image: "/afzuigkap1.png",
+        image: "/afzuigkap1.webp",
         link: "/diensten/afzuigkappen",
     },
     {
